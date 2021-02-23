@@ -1,0 +1,10 @@
+/.settings
+/Debug
+/Drivers
+/Middlewares
+/.cproject
+/.mxproject
+/.project
+/hardware_Mantarray_Main_Micro\ Debug.launch
+/STM32H743ZITX_FLASH.ld
+/STM32H743ZITX_RAM.ld
