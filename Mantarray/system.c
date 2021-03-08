@@ -50,6 +50,7 @@ void state_machine(System *thisSystem)
 				thisSystem->ID = 0;			//TODO module type will be assigned by master micro and we need to reload that from eeprom/flash memory
 				thisSystem->status = 0;
 				thisSystem->type = 0; 			//TODO module type will be assigned by master micro and we need to reload that from eeprom/flash memory
+				thisSystem->state = MODULE_SYSTEM_STATUS_IDLE;
 			break;
 			//-----------
 			case MODULE_SYSTEM_STATUS_IDLE:
