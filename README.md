@@ -1,1 +1,0 @@
-# mantarray-firmware-channel

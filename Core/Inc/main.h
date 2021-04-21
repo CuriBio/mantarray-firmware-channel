@@ -58,6 +58,52 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
+#define BUS_C0_Pin GPIO_PIN_13
+#define BUS_C0_GPIO_Port GPIOA
+#define BUS_C2_Pin GPIO_PIN_15
+#define BUS_C2_GPIO_Port GPIOA
+#define BUS4_Pin GPIO_PIN_4
+#define BUS4_GPIO_Port GPIOB
+#define BUS7_Pin GPIO_PIN_7
+#define BUS7_GPIO_Port GPIOB
+#define CHN_OUT_RST_Pin GPIO_PIN_14
+#define CHN_OUT_RST_GPIO_Port GPIOC
+#define BUS_C1_Pin GPIO_PIN_14
+#define BUS_C1_GPIO_Port GPIOA
+#define BUS3_Pin GPIO_PIN_3
+#define BUS3_GPIO_Port GPIOB
+#define BUS6_Pin GPIO_PIN_6
+#define BUS6_GPIO_Port GPIOB
+#define mag_int_a_Pin GPIO_PIN_8
+#define mag_int_a_GPIO_Port GPIOB
+#define CHN_OUT_BT0_Pin GPIO_PIN_15
+#define CHN_OUT_BT0_GPIO_Port GPIOC
+#define programmer_TX_line_Pin GPIO_PIN_10
+#define programmer_TX_line_GPIO_Port GPIOA
+#define BUS1_Pin GPIO_PIN_1
+#define BUS1_GPIO_Port GPIOB
+#define BUS5_Pin GPIO_PIN_5
+#define BUS5_GPIO_Port GPIOB
+#define programmer_RX_line_Pin GPIO_PIN_9
+#define programmer_RX_line_GPIO_Port GPIOA
+#define BUS0_Pin GPIO_PIN_0
+#define BUS0_GPIO_Port GPIOB
+#define BUS_CLK_Pin GPIO_PIN_0
+#define BUS_CLK_GPIO_Port GPIOA
+#define SPI_C_CS_Pin GPIO_PIN_8
+#define SPI_C_CS_GPIO_Port GPIOA
+#define SPI_A_CS_Pin GPIO_PIN_6
+#define SPI_A_CS_GPIO_Port GPIOA
+#define mag_int_c_Pin GPIO_PIN_4
+#define mag_int_c_GPIO_Port GPIOA
+#define tx2_tp_Pin GPIO_PIN_2
+#define tx2_tp_GPIO_Port GPIOA
+#define BUS2_Pin GPIO_PIN_2
+#define BUS2_GPIO_Port GPIOB
+#define SPI_B_CS_Pin GPIO_PIN_7
+#define SPI_B_CS_GPIO_Port GPIOA
+#define mag_int_b_Pin GPIO_PIN_3
+#define mag_int_b_GPIO_Port GPIOA
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */
