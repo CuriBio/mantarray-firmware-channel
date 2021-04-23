@@ -11,17 +11,17 @@ void MagnetometerInit(Magnetometer_t *thisMagnetometer)
 {
 	thisMagnetometer->whichMagnetometer = *(uint8_t*) WHICH_MAGNETOMETER;
 	thisMagnetometer->sensorConfig = 0b0000000111111111;
-	thisMagnetometer->XReadings[0] = 'ba';
-	thisMagnetometer->XReadings[1] = 'dc';
-	thisMagnetometer->XReadings[2] = 'fe';
-	thisMagnetometer->YReadings[0] = 'hg';
-	thisMagnetometer->YReadings[1] = 'ji';
-	thisMagnetometer->YReadings[2] = 'lk';
-	thisMagnetometer->ZReadings[0] = 'nm';
-	thisMagnetometer->ZReadings[1] = 'po';
-	thisMagnetometer->ZReadings[2] = 'rq';
-	thisMagnetometer->timeStamp = 'emit';
-	thisMagnetometer->tempReading = '\r\n';
+	thisMagnetometer->XReadings[0] = 0;
+	thisMagnetometer->XReadings[1] = 0;
+	thisMagnetometer->XReadings[2] = 0;
+	thisMagnetometer->YReadings[0] = 0;
+	thisMagnetometer->YReadings[1] = 0;
+	thisMagnetometer->YReadings[2] = 0;
+	thisMagnetometer->ZReadings[0] = 0;
+	thisMagnetometer->ZReadings[1] = 0;
+	thisMagnetometer->ZReadings[2] = 0;
+	thisMagnetometer->timeStamp = 0;
+	thisMagnetometer->tempReading = 0;
 
 	if (thisMagnetometer->whichMagnetometer==1)
 	{
@@ -64,8 +64,8 @@ void MagnetometerInit(Magnetometer_t *thisMagnetometer)
 		//init_MMC5983_struct(&thisMagnetometer->sensorB_MMC5983);
 		//readMMC5983_XYZ(thisMagnetometer, &thisMagnetometer->sensorB_MMC5983);
 		//init_MMC5983_struct(&thisMagnetometer->sensorC_MMC5983);
-		thisMagnetometer->uartBufLen = sprintf(thisMagnetometer->uartBuffer, "SPI Config Complete\r\n");
-		serialSend(&huart2, thisMagnetometer->uartBuffer, thisMagnetometer->uartBufLen);
+		//thisMagnetometer->uartBufLen = sprintf(thisMagnetometer->uartBuffer, "SPI Config Complete\r\n");
+		//serialSend(&huart2, thisMagnetometer->uartBuffer, thisMagnetometer->uartBufLen);
 	}
 }
 
@@ -87,7 +87,7 @@ void readMMC5983_XYZ(Magnetometer_t *thisMagnetometer, MMC5983_t *thisMMC5983)
 	HAL_GPIO_WritePin(thisMMC5983->CS_GPIO_Bus, thisMMC5983->CS_GPIO_Pin, GPIO_PIN_RESET); //! Set CS pin low to begin SPI read on target device
 	HAL_SPI_TransmitReceive(&hspi1, thisMagnetometer->out, thisMagnetometer->in, 8, 10);   //Read all the data at once
 	HAL_GPIO_WritePin(thisMMC5983->CS_GPIO_Bus, thisMMC5983->CS_GPIO_Pin, GPIO_PIN_SET); //! Set CS pin high to signal SPI read as done
-	register_write_MMC5983(thisMMC5983, MMC5983_STATUS, 0b00000001);
+	MMC5983_register_write(thisMMC5983, MMC5983_STATUS, 0b00000001);
 	//Concatenate low and high bits
 	thisMagnetometer->XReadings[thisMMC5983->idNum] = (thisMagnetometer->in[1]<<10) | thisMagnetometer->in[2]<<2 | ((thisMagnetometer->in[7]>>6) & 3);
 	thisMagnetometer->YReadings[thisMMC5983->idNum] = (thisMagnetometer->in[3]<<10) | thisMagnetometer->in[4]<<2 | ((thisMagnetometer->in[7]>>4) & 3);
@@ -98,13 +98,13 @@ void readMMC5983_XYZ(Magnetometer_t *thisMagnetometer, MMC5983_t *thisMMC5983)
 
 	//TEST CODE
 	thisMagnetometer->timeStamp = getGlobalTimer(&my_sys.GlobalTimer);
-	thisMagnetometer->uartBufLen = sprintf(thisMagnetometer->uartBuffer, "%c %u %u %u %u\r\n",
-									  thisMMC5983->idChar,
-									  thisMagnetometer->XReadings[thisMMC5983->idNum],
-									  thisMagnetometer->YReadings[thisMMC5983->idNum],
-									  thisMagnetometer->ZReadings[thisMMC5983->idNum],
-									  thisMagnetometer->timeStamp);
-	serialSend(&huart2, thisMagnetometer->uartBuffer, thisMagnetometer->uartBufLen);
+	//thisMagnetometer->uartBufLen = sprintf(thisMagnetometer->uartBuffer, "%c %u %u %u %u\r\n",
+	//								  thisMMC5983->idChar,
+	//								  thisMagnetometer->XReadings[thisMMC5983->idNum],
+	//								  thisMagnetometer->YReadings[thisMMC5983->idNum],
+	//								  thisMagnetometer->ZReadings[thisMMC5983->idNum],
+	//								  thisMagnetometer->timeStamp);
+	//serialSend(&huart2, thisMagnetometer->uartBuffer, thisMagnetometer->uartBufLen);
 
 	//thisMMC5983->magneticFront++;
 	//if (thisMMC5983->magneticFront == MMC5983_MAXREADINGS)

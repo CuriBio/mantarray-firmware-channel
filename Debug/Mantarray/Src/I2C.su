@@ -1,0 +1,2 @@
+I2C.c:11:6:I2CInit	16	static
+I2C.c:23:6:I2C2_IRQHandler	24	static

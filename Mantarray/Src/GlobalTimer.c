@@ -4,8 +4,6 @@
 #include "main.h"
 #include <string.h>
 #include <stdio.h>
-
-extern UART_HandleTypeDef huart2;
 extern TIM_HandleTypeDef htim6;
 extern TIM_HandleTypeDef htim21;
 extern TIM_HandleTypeDef htim22;

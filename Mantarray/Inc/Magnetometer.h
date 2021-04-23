@@ -6,7 +6,8 @@
 #include "lis3mdl.h"
 #include "mmc5983.h"
 
-typedef struct{
+typedef struct
+{
 	uint8_t whichMagnetometer; //1 = lis3mdl, 2 = mmc5983
 	LIS3MDL_t sensorA_LIS3MDL;
 	LIS3MDL_t sensorB_LIS3MDL;
@@ -26,10 +27,6 @@ typedef struct{
 	uint16_t YReadings[3];
 	uint16_t ZReadings[3];
 	uint16_t tempReading;
-
-	//TEST CODE
-	char uartBuffer[35];
-	uint8_t uartBufLen;
 }Magnetometer_t;
 
 void MagnetometerInit(Magnetometer_t *thisMagnetometer);

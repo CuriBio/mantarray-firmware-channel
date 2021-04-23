@@ -10,10 +10,6 @@ typedef struct
 	uint32_t countReg;
 	uint8_t overflowCountBegin;
 	uint64_t totValue;
-
-	//TEST CODE
-	char uartBuffer[30];
-	uint8_t uartBufLen;
 } GlobalTimer_t;
 
 void GlobalTimerInit(GlobalTimer_t *thisGlobalTimer);
