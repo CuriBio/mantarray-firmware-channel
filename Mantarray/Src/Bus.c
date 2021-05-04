@@ -57,6 +57,7 @@ void BusInit(Bus_t *thisBus)
 
 void MockData(Magnetometer_t * thisMagnetometer)
 {
+	/*
 	thisMagnetometer->XReadings[0] += 1000;
 	thisMagnetometer->XReadings[1] += 100;
 	thisMagnetometer->XReadings[2] += 10;
@@ -67,6 +68,7 @@ void MockData(Magnetometer_t * thisMagnetometer)
 	thisMagnetometer->ZReadings[1] += 300;
 	thisMagnetometer->ZReadings[2] += 30;
 	thisMagnetometer->tempReading += 40;
+	*/
 }
 
 void WriteDataFrame(Magnetometer_t * thisMagnetometer, Bus_t *thisBus)
@@ -83,7 +85,7 @@ void WriteDataFrame(Magnetometer_t * thisMagnetometer, Bus_t *thisBus)
 			SendData(thisBus, (uint8_t*)(thisMagnetometer->XReadings + i), 2);
 		}
 	}
-	SendData(thisBus, (uint8_t*)(&thisMagnetometer->tempReading), 2);
+	//SendData(thisBus, (uint8_t*)(&thisMagnetometer->tempReading), 2);
 	Complete(thisBus);
 }
 

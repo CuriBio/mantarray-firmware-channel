@@ -1,4 +1,4 @@
-#include "lis3mdl.h"
+#include <lis3mdl_driver.h>
 #include "system.h"
 #include "main.h"
 #include <string.h>
@@ -8,9 +8,10 @@ extern SPI_HandleTypeDef hspi1;
 extern UART_HandleTypeDef huart2;
 
 extern System my_sys;
-
-void init_LIS3MDL_struct(LIS3MDL_t *thisLIS3MDL)
+//TODO reimpliment the whole library
+LIS3MDL_t * LIS3MDL_create(SPI_HandleTypeDef *spi_line,GPIO_TypeDef *CS_Bus,uint16_t CS_Pin,GPIO_TypeDef *DRDY_Bus,uint16_t DRDY_Pin)
 {
+	/*
 	HAL_GPIO_WritePin(thisLIS3MDL->CS_GPIO_Bus, thisLIS3MDL->CS_GPIO_Pin, GPIO_PIN_SET);   //Set CS pin on sensor A to high to ensure no SPI communication enabled initially
 
 	//Set all of the configuration registers every time on bootup
@@ -26,16 +27,18 @@ void init_LIS3MDL_struct(LIS3MDL_t *thisLIS3MDL)
 	uint8_t SPITestWHOAMI = register_read(thisLIS3MDL, (uint8_t)LIS3MDL_WHO_AM_I);
 	if (SPITestWHOAMI==LIS3MDL_WHO_ID_RESPONSE)
 	{
-		thisLIS3MDL->uartBufLen = sprintf(thisLIS3MDL->uartBuffer, "Sensor %c Found!\r\n", thisLIS3MDL->id);
-		serialSend(&huart2, thisLIS3MDL->uartBuffer, thisLIS3MDL->uartBufLen);
+		//thisLIS3MDL->uartBufLen = sprintf(thisLIS3MDL->uartBuffer, "Sensor %c Found!\r\n", thisLIS3MDL->id);
+		//serialSend(&huart2, thisLIS3MDL->uartBuffer, thisLIS3MDL->uartBufLen);
 	}
 
 	//Set the DRDY pin low by reading sample to enable EXTI interrupt on GPIO rising edge
 	readLIS3MDL_XYZ(thisLIS3MDL);
+	*/
 }
 
-uint8_t register_read(LIS3MDL_t *thisLIS3MDL, uint8_t thisRegister)
+uint8_t LIS3MDL_register_read(LIS3MDL_t *thisLIS3MDL, uint8_t thisRegister)
 {
+	/*
 	uint8_t result;
 	uint8_t out[2];
 	uint8_t in[2] = {0 , 0};
@@ -46,22 +49,25 @@ uint8_t register_read(LIS3MDL_t *thisLIS3MDL, uint8_t thisRegister)
 	HAL_GPIO_WritePin(thisLIS3MDL->CS_GPIO_Bus, thisLIS3MDL->CS_GPIO_Pin, GPIO_PIN_SET); //! Set CS pin high to signal SPI read as done
 	result = in[1];
 	return result;
+	*/
 }
 
-void register_write(LIS3MDL_t *thisLIS3MDL, uint8_t thisRegister, uint8_t val)
+void LIS3MDL_register_write(LIS3MDL_t *thisLIS3MDL, uint8_t thisRegister, uint8_t val)
 {
+	/*
 	uint8_t out[2];
 	out[0] = LIS3MDL_WRITE_SINGLEBIT | thisRegister;
 	out[1] = val;
 	HAL_GPIO_WritePin(thisLIS3MDL->CS_GPIO_Bus, thisLIS3MDL->CS_GPIO_Pin, GPIO_PIN_RESET); //! Set CS pin low to begin SPI read on target device
 	HAL_SPI_Transmit(&hspi1, out, 2, 1);
 	HAL_GPIO_WritePin(thisLIS3MDL->CS_GPIO_Bus, thisLIS3MDL->CS_GPIO_Pin, GPIO_PIN_SET); //! Set CS pin high to signal SPI read as done
-
+*/
 }
 
-void readLIS3MDL_XYZ(LIS3MDL_t *thisLIS3MDL)
+void LIS3MDL_read_XYZ(LIS3MDL_t *thisLIS3MDL)
 {
-	if (thisLIS3MDL->magneticFront < LIS3MDL_MAXREADINGS)
+
+	/*if (thisLIS3MDL->magneticFront < LIS3MDL_MAXREADINGS)
 	{
 		thisLIS3MDL->out[0] = LIS3MDL_READ_CONT | LIS3MDL_OUT_X_L;   //Doing a continuous read and starting at the first measurement register (X_Low)
 		HAL_GPIO_WritePin(thisLIS3MDL->CS_GPIO_Bus, thisLIS3MDL->CS_GPIO_Pin, GPIO_PIN_RESET); //! Set CS pin low to begin SPI read on target device
@@ -87,5 +93,5 @@ void readLIS3MDL_XYZ(LIS3MDL_t *thisLIS3MDL)
 		{
 			thisLIS3MDL->magneticFront = 0;
 		}
-	}
+	}*/
 }

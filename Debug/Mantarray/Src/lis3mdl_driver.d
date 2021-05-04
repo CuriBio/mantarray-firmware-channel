@@ -1,5 +1,5 @@
-Mantarray/Src/mmc5983.o: ../Mantarray/Src/mmc5983.c \
- ../Mantarray/inc/mmc5983.h ../Core/Inc/main.h \
+Mantarray/Src/lis3mdl_driver.o: ../Mantarray/Src/lis3mdl_driver.c \
+ ../Mantarray/inc/lis3mdl_driver.h ../Core/Inc/main.h \
  ../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal.h \
  ../Core/Inc/stm32l0xx_hal_conf.h \
  ../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal_rcc.h \
@@ -34,11 +34,11 @@ Mantarray/Src/mmc5983.o: ../Mantarray/Src/mmc5983.c \
  ../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal_uart.h \
  ../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal_uart_ex.h \
  ../Mantarray/inc/system.h ../Mantarray/inc/GlobalTimer.h \
- ../Mantarray/inc/lis3mdl.h ../Mantarray/inc/mmc5983.h \
+ ../Mantarray/inc/lis3mdl_driver.h ../Mantarray/inc/mmc5983_driver.h \
  ../Mantarray/inc/UART_Comm.h ../Mantarray/inc/I2C.h \
  ../Mantarray/inc/Magnetometer.h ../Mantarray/inc/Bus.h
 
-../Mantarray/inc/mmc5983.h:
+../Mantarray/inc/lis3mdl_driver.h:
 
 ../Core/Inc/main.h:
 
@@ -112,9 +112,9 @@ Mantarray/Src/mmc5983.o: ../Mantarray/Src/mmc5983.c \
 
 ../Mantarray/inc/GlobalTimer.h:
 
-../Mantarray/inc/lis3mdl.h:
+../Mantarray/inc/lis3mdl_driver.h:
 
-../Mantarray/inc/mmc5983.h:
+../Mantarray/inc/mmc5983_driver.h:
 
 ../Mantarray/inc/UART_Comm.h:
 

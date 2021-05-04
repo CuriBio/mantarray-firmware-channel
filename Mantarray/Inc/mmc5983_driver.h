@@ -1,3 +1,4 @@
+//this is the driver layer to connect with specific chip
 #include <string.h>
 #include <stdio.h>
 #include "main.h"
@@ -27,25 +28,28 @@
 #define MMC5983_READ							0x80
 
 #define MMC5983_MAXREADINGS						10
+
+#define MMC5983_SENSOR_FOUND					0x20
+#define MMC5983_SENSOR_NOT_FOUND				0x30
 //---------------------------------------------------------
+//anything specific for this chip driver layer will be here this class driven from magnetometer
 typedef struct
 {
-	//int32_t magneticX[MMC5983_MAXREADINGS];
-	//int32_t magneticY[MMC5983_MAXREADINGS];
-	//int32_t magneticZ[MMC5983_MAXREADINGS];
-	//uint8_t magneticFront;
-	//int16_t temp;
+	uint8_t sensor_status;
+	SPI_HandleTypeDef *spi_channel;
+
 	GPIO_TypeDef * INT_GPIO_Bus;
 	uint16_t INT_GPIO_Pin;
+
 	GPIO_TypeDef * CS_GPIO_Bus;
 	uint16_t CS_GPIO_Pin;
-	uint8_t idChar;
-	uint8_t idNum;
 } MMC5983_t;
 
-void MMC5983_register_init(MMC5983_t *thisMMC5983);
-uint8_t MMC5983_register_read(MMC5983_t *thisMMC5983, uint8_t thisRegister);
-void MMC5983_register_write(MMC5983_t *thisMMC5983, uint8_t thisRegister, uint8_t val);
 
+MMC5983_t * MMC5983_create(SPI_HandleTypeDef *,GPIO_TypeDef *,uint16_t,GPIO_TypeDef *,uint16_t);
+void MMC5983_destroy(MMC5983_t *);
+uint8_t MMC5983_register_read(MMC5983_t *, uint8_t );
+void MMC5983_register_write(MMC5983_t *, uint8_t, uint8_t);
+void MMC5983_read_XYZ(MMC5983_t *);
 
 #endif /* MMC5983_H_ */

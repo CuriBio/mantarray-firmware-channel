@@ -1,7 +1,7 @@
+#include <lis3mdl_driver.h>
 #include "system.h"
 #include "main.h"
 #include "GlobalTimer.h"
-#include "lis3mdl.h"
 #include "UART_Comm.h"
 #include "EEPROM.h"
 #include "I2C.h"

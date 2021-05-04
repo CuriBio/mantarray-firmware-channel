@@ -2,13 +2,33 @@
 #include <stdio.h>
 #include "system.h"
 #include "EEPROM.h"
+#include <stdio.h>
+#include <stdlib.h>
 
 extern System my_sys;
 extern SPI_HandleTypeDef hspi1;
 extern UART_HandleTypeDef huart2;
 
-void MagnetometerInit(Magnetometer_t *thisMagnetometer)
+Magnetometer_t * magnetometer_create(uint8_t type,SPI_HandleTypeDef *spi_line,GPIO_TypeDef *CS_Bus,uint16_t CS_Pin,GPIO_TypeDef *INT_Bus,uint16_t INT_Pin)
 {
+	Magnetometer_t *  thisMagnetometer = malloc(sizeof(Magnetometer_t));
+	if(thisMagnetometer != NULL)
+	{
+		thisMagnetometer->whichMagnetometer = type;
+		switch (thisMagnetometer->whichMagnetometer)
+		{
+		case MAGNETOMETER_TYPE_LIS3MDL:
+			thisMagnetometer->magnetometer = (LIS3MDL_t*)LIS3MDL_create(spi_line,CS_Bus,CS_Pin,INT_Bus,INT_Pin);
+			break;
+		//------------------------------
+		case MAGNETOMETER_TYPE_MMC5983:
+			thisMagnetometer->magnetometer = (MMC5983_t*)MMC5983_create(spi_line,CS_Bus,CS_Pin,INT_Bus,INT_Pin);
+			break;
+		}
+	}
+
+
+	/*
 	thisMagnetometer->whichMagnetometer = *(uint8_t*) WHICH_MAGNETOMETER;
 	thisMagnetometer->sensorConfig = 0b0000000111111111;
 	thisMagnetometer->XReadings[0] = 0;
@@ -66,7 +86,9 @@ void MagnetometerInit(Magnetometer_t *thisMagnetometer)
 		//init_MMC5983_struct(&thisMagnetometer->sensorC_MMC5983);
 		//thisMagnetometer->uartBufLen = sprintf(thisMagnetometer->uartBuffer, "SPI Config Complete\r\n");
 		//serialSend(&huart2, thisMagnetometer->uartBuffer, thisMagnetometer->uartBufLen);
-	}
+	}*/
+
+	return(thisMagnetometer);
 }
 
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
@@ -83,6 +105,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 
 void readMMC5983_XYZ(Magnetometer_t *thisMagnetometer, MMC5983_t *thisMMC5983)
 {
+	/*
 	thisMagnetometer->out[0] = MMC5983_READ | MMC5983_XOUT0;   //Doing a continuous read and starting at the first measurement register (X_Low)
 	HAL_GPIO_WritePin(thisMMC5983->CS_GPIO_Bus, thisMMC5983->CS_GPIO_Pin, GPIO_PIN_RESET); //! Set CS pin low to begin SPI read on target device
 	HAL_SPI_TransmitReceive(&hspi1, thisMagnetometer->out, thisMagnetometer->in, 8, 10);   //Read all the data at once
@@ -111,4 +134,6 @@ void readMMC5983_XYZ(Magnetometer_t *thisMagnetometer, MMC5983_t *thisMMC5983)
 	//{
 	//	thisMMC5983->magneticFront = 0;
 	//}
+
+	 */
 }

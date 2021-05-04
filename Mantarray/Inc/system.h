@@ -2,8 +2,8 @@
 #define SYSTEM_H_
 
 #include "GlobalTimer.h"
-#include "lis3mdl.h"
-#include "mmc5983.h"
+#include "lis3mdl_driver.h"
+#include "mmc5983_driver.h"
 #include "UART_Comm.h"
 #include "I2C.h"
 #include "Magnetometer.h"
@@ -37,7 +37,6 @@ typedef struct
 	uint8_t BUS_FLAG;
 	Magnetometer_t Magnetometer;
 	GlobalTimer_t GlobalTimer;
-	//UART_Comm SerialTest;
 
 } System;
 

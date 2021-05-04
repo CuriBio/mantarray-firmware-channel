@@ -1,3 +1,3 @@
-Magnetometer.c:10:6:MagnetometerInit	16	static
-Magnetometer.c:72:6:HAL_GPIO_EXTI_Callback	16	static
-Magnetometer.c:84:6:readMMC5983_XYZ	24	static
+Magnetometer.c:12:18:magnetometer_create	48	static
+Magnetometer.c:94:6:HAL_GPIO_EXTI_Callback	16	static
+Magnetometer.c:106:6:readMMC5983_XYZ	16	static

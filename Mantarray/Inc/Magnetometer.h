@@ -1,35 +1,31 @@
 #ifndef MAGNETOMETER_H_
 #define MAGNETOMETER_H_
 
+#include <lis3mdl_driver.h>
 #include <string.h>
 #include <stdio.h>
-#include "lis3mdl.h"
-#include "mmc5983.h"
+#include "mmc5983_driver.h"
+
+#define MAGNETOMETER_TYPE_LIS3MDL	10
+#define MAGNETOMETER_TYPE_MMC5983	20
 
 typedef struct
 {
-	uint8_t whichMagnetometer; //1 = lis3mdl, 2 = mmc5983
-	LIS3MDL_t sensorA_LIS3MDL;
-	LIS3MDL_t sensorB_LIS3MDL;
-	LIS3MDL_t sensorC_LIS3MDL;
-	MMC5983_t sensorA_MMC5983;
-	MMC5983_t sensorB_MMC5983;
-	MMC5983_t sensorC_MMC5983;
+	uint8_t whichMagnetometer; //MAGNETOMETER_TYPE_LIS3MDL   or   MAGNETOMETER_TYPE_MMC5983
 
+	void *magnetometer;
 	uint16_t sampleRate;
 	uint16_t sensorConfig;
 
-	uint8_t out[8];
-	uint8_t in[8];
-	uint8_t common_byte;
 	uint32_t timeStamp;
-	uint16_t XReadings[3];
-	uint16_t YReadings[3];
-	uint16_t ZReadings[3];
-	uint16_t tempReading;
-}Magnetometer_t;
+	uint16_t XReadings;
+	uint16_t YReadings;
+	uint16_t ZReadings;
 
-void MagnetometerInit(Magnetometer_t *thisMagnetometer);
-void readMMC5983_XYZ(Magnetometer_t *thisMagnetometer, MMC5983_t *thisMMC5983);
+}Magnetometer_t;
+//thses two function should be impliment with polymorphism
+Magnetometer_t * magnetometer_create(uint8_t,SPI_HandleTypeDef *,GPIO_TypeDef *,uint16_t,GPIO_TypeDef *,uint16_t);
+void magnetometer_destroy(Magnetometer_t *thisMagnetometer);
+void magnetometer_read(Magnetometer_t *thisMagnetometer);
 
 #endif /* MAGNETOMETER_H_ */
