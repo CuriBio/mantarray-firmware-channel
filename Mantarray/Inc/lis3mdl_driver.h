@@ -52,6 +52,10 @@ LIS3MDL_t * LIS3MDL_create(SPI_HandleTypeDef *,GPIO_TypeDef *,uint16_t,GPIO_Type
 void LIS3MDL_destroy(LIS3MDL_t *);
 uint8_t LIS3MDL_register_read(LIS3MDL_t *, uint8_t );
 void LIS3MDL_register_write(LIS3MDL_t *, uint8_t, uint8_t);
-void LIS3MDL_read_XYZ(LIS3MDL_t *);
+//----------------------- by passing a magnetometer object to this method it will update X Y Z ------------------
+//-----------  we really do not need to the second parameter since by having the address of the magnetometer object ----------
+//------- we can calculate the offset of x y z data place holder there is risk on that approach if someone in future ------------
+//--- add more eleman at the bigining of the structure or change the data type we need to consider those changes ---------
+uint8_t LIS3MDL_read_XYZ(LIS3MDL_t *,uint16_t *);
 
 #endif /* LIS3MDL_H_ */

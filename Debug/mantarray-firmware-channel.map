@@ -3724,7 +3724,7 @@ Discarded input sections
                 0x0000000000000000       0xb0 Mantarray/Src/Bus.o
  .text.Complete
                 0x0000000000000000       0xb6 Mantarray/Src/Bus.o
- .debug_info    0x0000000000000000     0x17a7 Mantarray/Src/Bus.o
+ .debug_info    0x0000000000000000     0x179c Mantarray/Src/Bus.o
  .debug_abbrev  0x0000000000000000      0x24b Mantarray/Src/Bus.o
  .debug_aranges
                 0x0000000000000000       0x48 Mantarray/Src/Bus.o
@@ -3805,11 +3805,11 @@ Discarded input sections
  .debug_macro   0x0000000000000000       0x94 Mantarray/Src/Bus.o
  .debug_macro   0x0000000000000000       0x88 Mantarray/Src/Bus.o
  .debug_macro   0x0000000000000000       0x10 Mantarray/Src/Bus.o
- .debug_macro   0x0000000000000000       0x10 Mantarray/Src/Bus.o
+ .debug_macro   0x0000000000000000       0x28 Mantarray/Src/Bus.o
  .debug_macro   0x0000000000000000       0x3a Mantarray/Src/Bus.o
  .debug_macro   0x0000000000000000       0x46 Mantarray/Src/Bus.o
  .debug_line    0x0000000000000000      0xbf2 Mantarray/Src/Bus.o
- .debug_str     0x0000000000000000    0x80508 Mantarray/Src/Bus.o
+ .debug_str     0x0000000000000000    0x80520 Mantarray/Src/Bus.o
  .comment       0x0000000000000000       0x54 Mantarray/Src/Bus.o
  .debug_frame   0x0000000000000000       0xd0 Mantarray/Src/Bus.o
  .ARM.attributes
@@ -3901,7 +3901,7 @@ Discarded input sections
  .rodata        0x0000000000000000        0xc Mantarray/Src/EEPROM.o
  .text.EEPROMTest
                 0x0000000000000000       0xa4 Mantarray/Src/EEPROM.o
- .debug_info    0x0000000000000000     0x13c7 Mantarray/Src/EEPROM.o
+ .debug_info    0x0000000000000000     0x13bc Mantarray/Src/EEPROM.o
  .debug_abbrev  0x0000000000000000      0x1fb Mantarray/Src/EEPROM.o
  .debug_aranges
                 0x0000000000000000       0x28 Mantarray/Src/EEPROM.o
@@ -3982,12 +3982,12 @@ Discarded input sections
  .debug_macro   0x0000000000000000       0x94 Mantarray/Src/EEPROM.o
  .debug_macro   0x0000000000000000       0x88 Mantarray/Src/EEPROM.o
  .debug_macro   0x0000000000000000       0x10 Mantarray/Src/EEPROM.o
- .debug_macro   0x0000000000000000       0x10 Mantarray/Src/EEPROM.o
+ .debug_macro   0x0000000000000000       0x28 Mantarray/Src/EEPROM.o
  .debug_macro   0x0000000000000000       0x3a Mantarray/Src/EEPROM.o
  .debug_macro   0x0000000000000000       0x46 Mantarray/Src/EEPROM.o
  .debug_macro   0x0000000000000000       0x34 Mantarray/Src/EEPROM.o
  .debug_line    0x0000000000000000      0xa34 Mantarray/Src/EEPROM.o
- .debug_str     0x0000000000000000    0x80350 Mantarray/Src/EEPROM.o
+ .debug_str     0x0000000000000000    0x80368 Mantarray/Src/EEPROM.o
  .comment       0x0000000000000000       0x54 Mantarray/Src/EEPROM.o
  .debug_frame   0x0000000000000000       0x54 Mantarray/Src/EEPROM.o
  .ARM.attributes
@@ -4081,7 +4081,7 @@ Discarded input sections
                 0x0000000000000000       0x4c Mantarray/Src/GlobalTimer.o
  .text.setGlobalTimer
                 0x0000000000000000       0x3c Mantarray/Src/GlobalTimer.o
- .debug_info    0x0000000000000000     0x141d Mantarray/Src/GlobalTimer.o
+ .debug_info    0x0000000000000000     0x1412 Mantarray/Src/GlobalTimer.o
  .debug_abbrev  0x0000000000000000      0x251 Mantarray/Src/GlobalTimer.o
  .debug_aranges
                 0x0000000000000000       0x38 Mantarray/Src/GlobalTimer.o
@@ -4162,11 +4162,11 @@ Discarded input sections
  .debug_macro   0x0000000000000000       0x88 Mantarray/Src/GlobalTimer.o
  .debug_macro   0x0000000000000000       0x94 Mantarray/Src/GlobalTimer.o
  .debug_macro   0x0000000000000000       0x10 Mantarray/Src/GlobalTimer.o
- .debug_macro   0x0000000000000000       0x10 Mantarray/Src/GlobalTimer.o
+ .debug_macro   0x0000000000000000       0x28 Mantarray/Src/GlobalTimer.o
  .debug_macro   0x0000000000000000       0x3a Mantarray/Src/GlobalTimer.o
  .debug_macro   0x0000000000000000       0x46 Mantarray/Src/GlobalTimer.o
  .debug_line    0x0000000000000000      0xa87 Mantarray/Src/GlobalTimer.o
- .debug_str     0x0000000000000000    0x8031a Mantarray/Src/GlobalTimer.o
+ .debug_str     0x0000000000000000    0x80332 Mantarray/Src/GlobalTimer.o
  .comment       0x0000000000000000       0x54 Mantarray/Src/GlobalTimer.o
  .debug_frame   0x0000000000000000       0x94 Mantarray/Src/GlobalTimer.o
  .ARM.attributes
@@ -4329,7 +4329,7 @@ Discarded input sections
  .debug_macro   0x0000000000000000      0x118 Mantarray/Src/I2C.o
  .debug_macro   0x0000000000000000       0x94 Mantarray/Src/I2C.o
  .debug_macro   0x0000000000000000       0x88 Mantarray/Src/I2C.o
- .debug_macro   0x0000000000000000       0x10 Mantarray/Src/I2C.o
+ .debug_macro   0x0000000000000000       0x28 Mantarray/Src/I2C.o
  .debug_macro   0x0000000000000000       0x3a Mantarray/Src/I2C.o
  .debug_macro   0x0000000000000000       0x46 Mantarray/Src/I2C.o
  .debug_macro   0x0000000000000000       0x34 Mantarray/Src/I2C.o
@@ -4419,13 +4419,13 @@ Discarded input sections
  .data          0x0000000000000000        0x0 Mantarray/Src/Magnetometer.o
  .bss           0x0000000000000000        0x0 Mantarray/Src/Magnetometer.o
  .text.magnetometer_create
-                0x0000000000000000       0x6c Mantarray/Src/Magnetometer.o
- .text.HAL_GPIO_EXTI_Callback
-                0x0000000000000000       0x14 Mantarray/Src/Magnetometer.o
- .text.readMMC5983_XYZ
-                0x0000000000000000       0x12 Mantarray/Src/Magnetometer.o
- .debug_info    0x0000000000000000     0x1711 Mantarray/Src/Magnetometer.o
- .debug_abbrev  0x0000000000000000      0x206 Mantarray/Src/Magnetometer.o
+                0x0000000000000000       0xe6 Mantarray/Src/Magnetometer.o
+ .text.magnetometer_destroy
+                0x0000000000000000       0x3e Mantarray/Src/Magnetometer.o
+ .text.magnetometer_read
+                0x0000000000000000       0x5e Mantarray/Src/Magnetometer.o
+ .debug_info    0x0000000000000000     0x1768 Mantarray/Src/Magnetometer.o
+ .debug_abbrev  0x0000000000000000      0x235 Mantarray/Src/Magnetometer.o
  .debug_aranges
                 0x0000000000000000       0x30 Mantarray/Src/Magnetometer.o
  .debug_ranges  0x0000000000000000       0x20 Mantarray/Src/Magnetometer.o
@@ -4505,17 +4505,17 @@ Discarded input sections
  .debug_macro   0x0000000000000000       0x94 Mantarray/Src/Magnetometer.o
  .debug_macro   0x0000000000000000       0x88 Mantarray/Src/Magnetometer.o
  .debug_macro   0x0000000000000000       0x10 Mantarray/Src/Magnetometer.o
- .debug_macro   0x0000000000000000       0x10 Mantarray/Src/Magnetometer.o
+ .debug_macro   0x0000000000000000       0x28 Mantarray/Src/Magnetometer.o
  .debug_macro   0x0000000000000000       0x3a Mantarray/Src/Magnetometer.o
  .debug_macro   0x0000000000000000       0x46 Mantarray/Src/Magnetometer.o
  .debug_macro   0x0000000000000000       0x34 Mantarray/Src/Magnetometer.o
  .debug_macro   0x0000000000000000       0x16 Mantarray/Src/Magnetometer.o
  .debug_macro   0x0000000000000000       0x16 Mantarray/Src/Magnetometer.o
  .debug_macro   0x0000000000000000       0x29 Mantarray/Src/Magnetometer.o
- .debug_line    0x0000000000000000      0xa5a Mantarray/Src/Magnetometer.o
- .debug_str     0x0000000000000000    0x80665 Mantarray/Src/Magnetometer.o
+ .debug_line    0x0000000000000000      0xac6 Mantarray/Src/Magnetometer.o
+ .debug_str     0x0000000000000000    0x8068e Mantarray/Src/Magnetometer.o
  .comment       0x0000000000000000       0x54 Mantarray/Src/Magnetometer.o
- .debug_frame   0x0000000000000000       0x74 Mantarray/Src/Magnetometer.o
+ .debug_frame   0x0000000000000000       0x70 Mantarray/Src/Magnetometer.o
  .ARM.attributes
                 0x0000000000000000       0x2c Mantarray/Src/Magnetometer.o
  .group         0x0000000000000000        0xc Mantarray/Src/UART_Comm.o
@@ -4757,23 +4757,28 @@ Discarded input sections
  .group         0x0000000000000000        0xc Mantarray/Src/lis3mdl_driver.o
  .group         0x0000000000000000        0xc Mantarray/Src/lis3mdl_driver.o
  .group         0x0000000000000000        0xc Mantarray/Src/lis3mdl_driver.o
+ .group         0x0000000000000000        0xc Mantarray/Src/lis3mdl_driver.o
+ .group         0x0000000000000000        0xc Mantarray/Src/lis3mdl_driver.o
+ .group         0x0000000000000000        0xc Mantarray/Src/lis3mdl_driver.o
  .text          0x0000000000000000        0x0 Mantarray/Src/lis3mdl_driver.o
  .data          0x0000000000000000        0x0 Mantarray/Src/lis3mdl_driver.o
  .bss           0x0000000000000000        0x0 Mantarray/Src/lis3mdl_driver.o
  .text.LIS3MDL_create
-                0x0000000000000000       0x1a Mantarray/Src/lis3mdl_driver.o
+                0x0000000000000000       0xb0 Mantarray/Src/lis3mdl_driver.o
  .text.LIS3MDL_register_read
-                0x0000000000000000       0x18 Mantarray/Src/lis3mdl_driver.o
+                0x0000000000000000       0x76 Mantarray/Src/lis3mdl_driver.o
  .text.LIS3MDL_register_write
-                0x0000000000000000       0x20 Mantarray/Src/lis3mdl_driver.o
+                0x0000000000000000       0x60 Mantarray/Src/lis3mdl_driver.o
+ .text.LIS3MDL_destroy
+                0x0000000000000000       0x18 Mantarray/Src/lis3mdl_driver.o
  .text.LIS3MDL_read_XYZ
-                0x0000000000000000       0x10 Mantarray/Src/lis3mdl_driver.o
- .debug_info    0x0000000000000000     0x1729 Mantarray/Src/lis3mdl_driver.o
- .debug_abbrev  0x0000000000000000      0x224 Mantarray/Src/lis3mdl_driver.o
+                0x0000000000000000       0x14 Mantarray/Src/lis3mdl_driver.o
+ .debug_info    0x0000000000000000     0x17e7 Mantarray/Src/lis3mdl_driver.o
+ .debug_abbrev  0x0000000000000000      0x26d Mantarray/Src/lis3mdl_driver.o
  .debug_aranges
-                0x0000000000000000       0x38 Mantarray/Src/lis3mdl_driver.o
- .debug_ranges  0x0000000000000000       0x28 Mantarray/Src/lis3mdl_driver.o
- .debug_macro   0x0000000000000000      0x3e1 Mantarray/Src/lis3mdl_driver.o
+                0x0000000000000000       0x40 Mantarray/Src/lis3mdl_driver.o
+ .debug_ranges  0x0000000000000000       0x30 Mantarray/Src/lis3mdl_driver.o
+ .debug_macro   0x0000000000000000      0x415 Mantarray/Src/lis3mdl_driver.o
  .debug_macro   0x0000000000000000      0xa7e Mantarray/Src/lis3mdl_driver.o
  .debug_macro   0x0000000000000000       0x22 Mantarray/Src/lis3mdl_driver.o
  .debug_macro   0x0000000000000000       0x4c Mantarray/Src/lis3mdl_driver.o
@@ -4849,13 +4854,16 @@ Discarded input sections
  .debug_macro   0x0000000000000000       0x94 Mantarray/Src/lis3mdl_driver.o
  .debug_macro   0x0000000000000000       0x88 Mantarray/Src/lis3mdl_driver.o
  .debug_macro   0x0000000000000000       0x10 Mantarray/Src/lis3mdl_driver.o
- .debug_macro   0x0000000000000000       0x10 Mantarray/Src/lis3mdl_driver.o
+ .debug_macro   0x0000000000000000       0x28 Mantarray/Src/lis3mdl_driver.o
  .debug_macro   0x0000000000000000       0x3a Mantarray/Src/lis3mdl_driver.o
  .debug_macro   0x0000000000000000       0x46 Mantarray/Src/lis3mdl_driver.o
- .debug_line    0x0000000000000000      0xa1b Mantarray/Src/lis3mdl_driver.o
- .debug_str     0x0000000000000000    0x80436 Mantarray/Src/lis3mdl_driver.o
+ .debug_macro   0x0000000000000000       0x16 Mantarray/Src/lis3mdl_driver.o
+ .debug_macro   0x0000000000000000       0x16 Mantarray/Src/lis3mdl_driver.o
+ .debug_macro   0x0000000000000000       0x29 Mantarray/Src/lis3mdl_driver.o
+ .debug_line    0x0000000000000000      0xa91 Mantarray/Src/lis3mdl_driver.o
+ .debug_str     0x0000000000000000    0x80580 Mantarray/Src/lis3mdl_driver.o
  .comment       0x0000000000000000       0x54 Mantarray/Src/lis3mdl_driver.o
- .debug_frame   0x0000000000000000       0x90 Mantarray/Src/lis3mdl_driver.o
+ .debug_frame   0x0000000000000000       0xb8 Mantarray/Src/lis3mdl_driver.o
  .ARM.attributes
                 0x0000000000000000       0x2c Mantarray/Src/lis3mdl_driver.o
  .group         0x0000000000000000        0xc Mantarray/Src/mmc5983_driver.o
@@ -4948,11 +4956,15 @@ Discarded input sections
                 0x0000000000000000       0x76 Mantarray/Src/mmc5983_driver.o
  .text.MMC5983_register_write
                 0x0000000000000000       0x60 Mantarray/Src/mmc5983_driver.o
- .debug_info    0x0000000000000000     0x145c Mantarray/Src/mmc5983_driver.o
- .debug_abbrev  0x0000000000000000      0x24f Mantarray/Src/mmc5983_driver.o
+ .text.MMC5983_destroy
+                0x0000000000000000       0x18 Mantarray/Src/mmc5983_driver.o
+ .text.MMC5983_read_XYZ
+                0x0000000000000000       0x2a Mantarray/Src/mmc5983_driver.o
+ .debug_info    0x0000000000000000     0x14b6 Mantarray/Src/mmc5983_driver.o
+ .debug_abbrev  0x0000000000000000      0x26d Mantarray/Src/mmc5983_driver.o
  .debug_aranges
-                0x0000000000000000       0x30 Mantarray/Src/mmc5983_driver.o
- .debug_ranges  0x0000000000000000       0x20 Mantarray/Src/mmc5983_driver.o
+                0x0000000000000000       0x40 Mantarray/Src/mmc5983_driver.o
+ .debug_ranges  0x0000000000000000       0x30 Mantarray/Src/mmc5983_driver.o
  .debug_macro   0x0000000000000000      0x415 Mantarray/Src/mmc5983_driver.o
  .debug_macro   0x0000000000000000      0xa7e Mantarray/Src/mmc5983_driver.o
  .debug_macro   0x0000000000000000       0x22 Mantarray/Src/mmc5983_driver.o
@@ -5029,16 +5041,16 @@ Discarded input sections
  .debug_macro   0x0000000000000000       0x88 Mantarray/Src/mmc5983_driver.o
  .debug_macro   0x0000000000000000       0x94 Mantarray/Src/mmc5983_driver.o
  .debug_macro   0x0000000000000000       0x10 Mantarray/Src/mmc5983_driver.o
- .debug_macro   0x0000000000000000       0x10 Mantarray/Src/mmc5983_driver.o
+ .debug_macro   0x0000000000000000       0x28 Mantarray/Src/mmc5983_driver.o
  .debug_macro   0x0000000000000000       0x3a Mantarray/Src/mmc5983_driver.o
  .debug_macro   0x0000000000000000       0x46 Mantarray/Src/mmc5983_driver.o
  .debug_macro   0x0000000000000000       0x16 Mantarray/Src/mmc5983_driver.o
  .debug_macro   0x0000000000000000       0x16 Mantarray/Src/mmc5983_driver.o
  .debug_macro   0x0000000000000000       0x29 Mantarray/Src/mmc5983_driver.o
- .debug_line    0x0000000000000000      0xa65 Mantarray/Src/mmc5983_driver.o
- .debug_str     0x0000000000000000    0x8038e Mantarray/Src/mmc5983_driver.o
+ .debug_line    0x0000000000000000      0xaa4 Mantarray/Src/mmc5983_driver.o
+ .debug_str     0x0000000000000000    0x803cc Mantarray/Src/mmc5983_driver.o
  .comment       0x0000000000000000       0x54 Mantarray/Src/mmc5983_driver.o
- .debug_frame   0x0000000000000000       0x78 Mantarray/Src/mmc5983_driver.o
+ .debug_frame   0x0000000000000000       0xb8 Mantarray/Src/mmc5983_driver.o
  .ARM.attributes
                 0x0000000000000000       0x2c Mantarray/Src/mmc5983_driver.o
  .group         0x0000000000000000        0xc Mantarray/Src/system.o
@@ -5128,7 +5140,7 @@ Discarded input sections
  .rodata        0x0000000000000000       0x17 Mantarray/Src/system.o
  .text.state_machine
                 0x0000000000000000      0x538 Mantarray/Src/system.o
- .debug_info    0x0000000000000000     0x1cd3 Mantarray/Src/system.o
+ .debug_info    0x0000000000000000     0x1cc8 Mantarray/Src/system.o
  .debug_abbrev  0x0000000000000000      0x22f Mantarray/Src/system.o
  .debug_aranges
                 0x0000000000000000       0x28 Mantarray/Src/system.o
@@ -5209,12 +5221,12 @@ Discarded input sections
  .debug_macro   0x0000000000000000       0x94 Mantarray/Src/system.o
  .debug_macro   0x0000000000000000       0x88 Mantarray/Src/system.o
  .debug_macro   0x0000000000000000       0x10 Mantarray/Src/system.o
- .debug_macro   0x0000000000000000       0x10 Mantarray/Src/system.o
+ .debug_macro   0x0000000000000000       0x28 Mantarray/Src/system.o
  .debug_macro   0x0000000000000000       0x3a Mantarray/Src/system.o
  .debug_macro   0x0000000000000000       0x46 Mantarray/Src/system.o
  .debug_macro   0x0000000000000000       0x34 Mantarray/Src/system.o
  .debug_line    0x0000000000000000      0xdea Mantarray/Src/system.o
- .debug_str     0x0000000000000000    0x80aa2 Mantarray/Src/system.o
+ .debug_str     0x0000000000000000    0x80aba Mantarray/Src/system.o
  .comment       0x0000000000000000       0x54 Mantarray/Src/system.o
  .debug_frame   0x0000000000000000       0x50 Mantarray/Src/system.o
  .ARM.attributes
@@ -5966,25 +5978,25 @@ LOAD c:/st/stm32cubeide_1.4.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.exte
 LOAD c:/st/stm32cubeide_1.4.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.9-2020-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/9.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp\libm.a
 LOAD c:/st/stm32cubeide_1.4.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.9-2020-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/9.3.1/thumb/v6-m/nofp\libgcc.a
 
-.debug_info     0x0000000000000000    0x11f9a
- .debug_info    0x0000000000000000     0x255d Core/Src/main.o
- .debug_info    0x000000000000255d     0x1702 Core/Src/stm32l0xx_hal_msp.o
- .debug_info    0x0000000000003c5f      0x1d4 Core/Src/stm32l0xx_it.o
- .debug_info    0x0000000000003e33      0x363 Core/Src/system_stm32l0xx.o
- .debug_info    0x0000000000004196       0x22 Core/Startup/startup_stm32l052t8yx.o
- .debug_info    0x00000000000041b8      0x8e0 Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal.o
- .debug_info    0x0000000000004a98      0xe01 Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_adc.o
- .debug_info    0x0000000000005899      0x991 Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_cortex.o
- .debug_info    0x000000000000622a      0x789 Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_gpio.o
- .debug_info    0x00000000000069b3     0x21c3 Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_i2c.o
- .debug_info    0x0000000000008b76      0x9c1 Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_i2c_ex.o
- .debug_info    0x0000000000009537      0xa36 Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_rcc.o
- .debug_info    0x0000000000009f6d      0x8c8 Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_rcc_ex.o
- .debug_info    0x000000000000a835     0x1765 Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_spi.o
- .debug_info    0x000000000000bf9a     0x2906 Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_tim.o
- .debug_info    0x000000000000e8a0      0x7d8 Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_tim_ex.o
- .debug_info    0x000000000000f078     0x1861 Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_uart.o
- .debug_info    0x00000000000108d9     0x16c1 Mantarray/Src/I2C.o
+.debug_info     0x0000000000000000    0x11f84
+ .debug_info    0x0000000000000000     0x2552 Core/Src/main.o
+ .debug_info    0x0000000000002552     0x1702 Core/Src/stm32l0xx_hal_msp.o
+ .debug_info    0x0000000000003c54      0x1d4 Core/Src/stm32l0xx_it.o
+ .debug_info    0x0000000000003e28      0x363 Core/Src/system_stm32l0xx.o
+ .debug_info    0x000000000000418b       0x22 Core/Startup/startup_stm32l052t8yx.o
+ .debug_info    0x00000000000041ad      0x8e0 Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal.o
+ .debug_info    0x0000000000004a8d      0xe01 Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_adc.o
+ .debug_info    0x000000000000588e      0x991 Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_cortex.o
+ .debug_info    0x000000000000621f      0x789 Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_gpio.o
+ .debug_info    0x00000000000069a8     0x21c3 Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_i2c.o
+ .debug_info    0x0000000000008b6b      0x9c1 Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_i2c_ex.o
+ .debug_info    0x000000000000952c      0xa36 Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_rcc.o
+ .debug_info    0x0000000000009f62      0x8c8 Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_rcc_ex.o
+ .debug_info    0x000000000000a82a     0x1765 Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_spi.o
+ .debug_info    0x000000000000bf8f     0x2906 Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_tim.o
+ .debug_info    0x000000000000e895      0x7d8 Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_tim_ex.o
+ .debug_info    0x000000000000f06d     0x1861 Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_uart.o
+ .debug_info    0x00000000000108ce     0x16b6 Mantarray/Src/I2C.o
 
 .debug_abbrev   0x0000000000000000     0x23c8
  .debug_abbrev  0x0000000000000000      0x2e2 Core/Src/main.o
@@ -6064,7 +6076,7 @@ LOAD c:/st/stm32cubeide_1.4.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.exte
  .debug_ranges  0x0000000000000d88      0x248 Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_uart.o
  .debug_ranges  0x0000000000000fd0       0x18 Mantarray/Src/I2C.o
 
-.debug_macro    0x0000000000000000    0x15685
+.debug_macro    0x0000000000000000    0x1569d
  .debug_macro   0x0000000000000000      0x3e3 Core/Src/main.o
  .debug_macro   0x00000000000003e3      0xa7e Core/Src/main.o
  .debug_macro   0x0000000000000e61      0x131 Core/Src/main.o
@@ -6141,25 +6153,25 @@ LOAD c:/st/stm32cubeide_1.4.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.exte
  .debug_macro   0x000000000001329b       0x94 Core/Src/main.o
  .debug_macro   0x000000000001332f       0x88 Core/Src/main.o
  .debug_macro   0x00000000000133b7       0x10 Core/Src/main.o
- .debug_macro   0x00000000000133c7       0x10 Core/Src/main.o
- .debug_macro   0x00000000000133d7       0x3a Core/Src/main.o
- .debug_macro   0x0000000000013411       0x46 Core/Src/main.o
- .debug_macro   0x0000000000013457      0x1f6 Core/Src/stm32l0xx_hal_msp.o
- .debug_macro   0x000000000001364d      0x200 Core/Src/stm32l0xx_it.o
- .debug_macro   0x000000000001384d      0x1e7 Core/Src/system_stm32l0xx.o
- .debug_macro   0x0000000000013a34      0x20b Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal.o
- .debug_macro   0x0000000000013c3f      0x1f6 Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_adc.o
- .debug_macro   0x0000000000013e35      0x1e7 Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_cortex.o
- .debug_macro   0x000000000001401c      0x21f Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_gpio.o
- .debug_macro   0x000000000001423b      0x2ac Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_i2c.o
- .debug_macro   0x00000000000144e7      0x1e7 Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_i2c_ex.o
- .debug_macro   0x00000000000146ce      0x20b Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_rcc.o
- .debug_macro   0x00000000000148d9      0x1e7 Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_rcc_ex.o
- .debug_macro   0x0000000000014ac0      0x1f6 Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_spi.o
- .debug_macro   0x0000000000014cb6      0x1e8 Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_tim.o
- .debug_macro   0x0000000000014e9e      0x1e7 Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_tim_ex.o
- .debug_macro   0x0000000000015085      0x212 Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_uart.o
- .debug_macro   0x0000000000015297      0x3ee Mantarray/Src/I2C.o
+ .debug_macro   0x00000000000133c7       0x28 Core/Src/main.o
+ .debug_macro   0x00000000000133ef       0x3a Core/Src/main.o
+ .debug_macro   0x0000000000013429       0x46 Core/Src/main.o
+ .debug_macro   0x000000000001346f      0x1f6 Core/Src/stm32l0xx_hal_msp.o
+ .debug_macro   0x0000000000013665      0x200 Core/Src/stm32l0xx_it.o
+ .debug_macro   0x0000000000013865      0x1e7 Core/Src/system_stm32l0xx.o
+ .debug_macro   0x0000000000013a4c      0x20b Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal.o
+ .debug_macro   0x0000000000013c57      0x1f6 Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_adc.o
+ .debug_macro   0x0000000000013e4d      0x1e7 Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_cortex.o
+ .debug_macro   0x0000000000014034      0x21f Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_gpio.o
+ .debug_macro   0x0000000000014253      0x2ac Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_i2c.o
+ .debug_macro   0x00000000000144ff      0x1e7 Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_i2c_ex.o
+ .debug_macro   0x00000000000146e6      0x20b Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_rcc.o
+ .debug_macro   0x00000000000148f1      0x1e7 Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_rcc_ex.o
+ .debug_macro   0x0000000000014ad8      0x1f6 Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_spi.o
+ .debug_macro   0x0000000000014cce      0x1e8 Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_tim.o
+ .debug_macro   0x0000000000014eb6      0x1e7 Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_tim_ex.o
+ .debug_macro   0x000000000001509d      0x212 Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_uart.o
+ .debug_macro   0x00000000000152af      0x3ee Mantarray/Src/I2C.o
 
 .debug_line     0x0000000000000000    0x12e23
  .debug_line    0x0000000000000000      0xce3 Core/Src/main.o
@@ -6181,43 +6193,43 @@ LOAD c:/st/stm32cubeide_1.4.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.exte
  .debug_line    0x0000000000010579     0x1e1e Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_uart.o
  .debug_line    0x0000000000012397      0xa8c Mantarray/Src/I2C.o
 
-.debug_str      0x0000000000000000    0x84aa6
- .debug_str     0x0000000000000000    0x80a53 Core/Src/main.o
-                                      0x80f4c (size before relaxing)
- .debug_str     0x0000000000080a53       0xfc Core/Src/stm32l0xx_hal_msp.o
+.debug_str      0x0000000000000000    0x84acb
+ .debug_str     0x0000000000000000    0x80a78 Core/Src/main.o
+                                      0x80f64 (size before relaxing)
+ .debug_str     0x0000000000080a78       0xfc Core/Src/stm32l0xx_hal_msp.o
                                       0x7c1af (size before relaxing)
- .debug_str     0x0000000000080b4f       0x76 Core/Src/stm32l0xx_it.o
+ .debug_str     0x0000000000080b74       0x76 Core/Src/stm32l0xx_it.o
                                       0x7b310 (size before relaxing)
- .debug_str     0x0000000000080bc5       0x61 Core/Src/system_stm32l0xx.o
+ .debug_str     0x0000000000080bea       0x61 Core/Src/system_stm32l0xx.o
                                       0x7af34 (size before relaxing)
- .debug_str     0x0000000000080c26       0x36 Core/Startup/startup_stm32l052t8yx.o
+ .debug_str     0x0000000000080c4b       0x36 Core/Startup/startup_stm32l052t8yx.o
                                          0x78 (size before relaxing)
- .debug_str     0x0000000000080c5c      0x528 Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal.o
+ .debug_str     0x0000000000080c81      0x528 Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal.o
                                       0x7b5a7 (size before relaxing)
- .debug_str     0x0000000000081184      0x33e Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_adc.o
+ .debug_str     0x00000000000811a9      0x33e Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_adc.o
                                       0x7b61f (size before relaxing)
- .debug_str     0x00000000000814c2      0x2c6 Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_cortex.o
+ .debug_str     0x00000000000814e7      0x2c6 Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_cortex.o
                                       0x7b3bc (size before relaxing)
- .debug_str     0x0000000000081788      0x1e9 Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_gpio.o
+ .debug_str     0x00000000000817ad      0x1e9 Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_gpio.o
                                       0x7b1d9 (size before relaxing)
- .debug_str     0x0000000000081971      0xd3e Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_i2c.o
+ .debug_str     0x0000000000081996      0xd3e Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_i2c.o
                                       0x7c19f (size before relaxing)
- .debug_str     0x00000000000826af       0xb8 Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_i2c_ex.o
+ .debug_str     0x00000000000826d4       0xb8 Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_i2c_ex.o
                                       0x7b4e4 (size before relaxing)
- .debug_str     0x0000000000082767      0x26e Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_rcc.o
+ .debug_str     0x000000000008278c      0x26e Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_rcc.o
                                       0x7b3e6 (size before relaxing)
- .debug_str     0x00000000000829d5      0x340 Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_rcc_ex.o
+ .debug_str     0x00000000000829fa      0x340 Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_rcc_ex.o
                                       0x7b3f0 (size before relaxing)
- .debug_str     0x0000000000082d15      0x55f Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_spi.o
+ .debug_str     0x0000000000082d3a      0x55f Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_spi.o
                                       0x7b816 (size before relaxing)
- .debug_str     0x0000000000083274      0xd94 Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_tim.o
+ .debug_str     0x0000000000083299      0xd94 Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_tim.o
                                       0x7c21d (size before relaxing)
- .debug_str     0x0000000000084008       0x7d Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_tim_ex.o
+ .debug_str     0x000000000008402d       0x7d Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_tim_ex.o
                                       0x7b3fb (size before relaxing)
- .debug_str     0x0000000000084085      0x87a Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_uart.o
+ .debug_str     0x00000000000840aa      0x87a Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_uart.o
                                       0x7bc29 (size before relaxing)
- .debug_str     0x00000000000848ff      0x1a7 Mantarray/Src/I2C.o
-                                      0x80619 (size before relaxing)
+ .debug_str     0x0000000000084924      0x1a7 Mantarray/Src/I2C.o
+                                      0x80631 (size before relaxing)
 
 .comment        0x0000000000000000       0x53
  .comment       0x0000000000000000       0x53 Core/Src/main.o

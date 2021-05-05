@@ -9,23 +9,30 @@
 #define MAGNETOMETER_TYPE_LIS3MDL	10
 #define MAGNETOMETER_TYPE_MMC5983	20
 
+#define MAGNETOMETER_DEFAULT_SAMPLE_RATE	100
+#define X_AX	0
+#define Y_AX	1
+#define Z_AX	2
+
 typedef struct
 {
 	uint8_t whichMagnetometer; //MAGNETOMETER_TYPE_LIS3MDL   or   MAGNETOMETER_TYPE_MMC5983
-
 	void *magnetometer;
+	//TODO mmc5983 use different data format 18bits If we decide to use a different  x y z data type for each sensor
+	//or just x for single axies sensor like TI- DRV425 we may consider moving this inside the sensor deiver
+	//and then we may need to change this to32 bit variable since mmc5983  chip can provide 18bits results
+	uint16_t Readings[3];
+
 	uint16_t sampleRate;
 	uint16_t sensorConfig;
-
 	uint32_t timeStamp;
-	uint16_t XReadings;
-	uint16_t YReadings;
-	uint16_t ZReadings;
 
 }Magnetometer_t;
 //thses two function should be impliment with polymorphism
 Magnetometer_t * magnetometer_create(uint8_t,SPI_HandleTypeDef *,GPIO_TypeDef *,uint16_t,GPIO_TypeDef *,uint16_t);
-void magnetometer_destroy(Magnetometer_t *thisMagnetometer);
-void magnetometer_read(Magnetometer_t *thisMagnetometer);
+//------------------destroy a megnetometer turn it off release hardware pin and release memory ----------------------------------
+void magnetometer_destroy(Magnetometer_t *);
+//----------------------- by passing a magnetometer object to this method it will update X Y Z --otherwise will return fail----------------
+uint8_t magnetometer_read(Magnetometer_t *);
 
 #endif /* MAGNETOMETER_H_ */

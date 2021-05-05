@@ -35,7 +35,7 @@ typedef struct
 	I2C_t I2C;
 	Bus_t Bus;
 	uint8_t BUS_FLAG;
-	Magnetometer_t Magnetometer;
+	Magnetometer_t s1;
 	GlobalTimer_t GlobalTimer;
 
 } System;

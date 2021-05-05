@@ -82,7 +82,7 @@ void WriteDataFrame(Magnetometer_t * thisMagnetometer, Bus_t *thisBus)
 	{
 		if (thisMagnetometer->sensorConfig>>i & 0x0001)
 		{
-			SendData(thisBus, (uint8_t*)(thisMagnetometer->XReadings + i), 2);
+			SendData(thisBus, (uint8_t*)(thisMagnetometer->Readings[X_AX] + i), 2);
 		}
 	}
 	//SendData(thisBus, (uint8_t*)(&thisMagnetometer->tempReading), 2);

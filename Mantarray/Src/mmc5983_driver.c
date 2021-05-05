@@ -61,5 +61,22 @@ void MMC5983_register_write(MMC5983_t *thisMMC5983, uint8_t thisRegister, uint8_
 	HAL_SPI_Transmit(thisMMC5983->spi_channel, out, 2, 10);
 	HAL_GPIO_WritePin(thisMMC5983->CS_GPIO_Bus, thisMMC5983->CS_GPIO_Pin, GPIO_PIN_SET); //! Set CS pin high to signal SPI read as done
 }
+//--------------object destroyer---------------------------
+void MMC5983_destroy(MMC5983_t *thisMMC5983)
+{
+	free(thisMMC5983);//we may need to turn off or reset chip before freeing memory each chip must have its own destroyer
+}
 
+//----------------------- by passing a magnetometer object to this method it will update X Y Z ------------------
+//-----------  we really do not need to the second parameter since by having the address of the magnetometer object ----------
+//------- we can calculate the offset of x y z data place holder there is risk on that approach if someone in future ------------
+//--- add more eleman at the bigining of the structure or change the data type we need to consider those changes ---------
+uint8_t MMC5983_read_XYZ(MMC5983_t *thisMMC5983,uint16_t *data)
+{
+	//TODO  need implimentation
+	data[0] = 0;
+	data[1] = 0;
+	data[2] = 0;
+	return 1;
+}
 

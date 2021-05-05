@@ -24,7 +24,7 @@ void module_system_init(System *thisSystem)
 	//HAL_Delay(1000);
 	I2CInit(&thisSystem->I2C);
 
-	MagnetometerInit(&thisSystem->Magnetometer);
+	MagnetometerInit(&thisSystem->s1);
 
 	BusInit(&thisSystem->Bus);
 
