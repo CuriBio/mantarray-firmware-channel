@@ -68,15 +68,19 @@ void MMC5983_destroy(MMC5983_t *thisMMC5983)
 }
 
 //----------------------- by passing a magnetometer object to this method it will update X Y Z ------------------
-//-----------  we really do not need to the second parameter since by having the address of the magnetometer object ----------
+//-----------  we really do not need to send the second parameter since by having the address of the magnetometer object ----------
 //------- we can calculate the offset of x y z data place holder there is risk on that approach if someone in future ------------
 //--- add more eleman at the bigining of the structure or change the data type we need to consider those changes ---------
+//----and after c++ 11 compiler can not guarantee the address of the first member of the struct is equal to the struct address -------------
 uint8_t MMC5983_read_XYZ(MMC5983_t *thisMMC5983,uint16_t *data)
 {
-	//TODO  need implimentation
-	data[0] = 0;
-	data[1] = 0;
-	data[2] = 0;
+	//TODO  need a better implimentation
+	data[0] =MMC5983_register_read(thisMMC5983, MMC5983_XOUT0);
+	data[1] =MMC5983_register_read(thisMMC5983, MMC5983_XOUT1);
+	data[2] =MMC5983_register_read(thisMMC5983, MMC5983_YOUT0);
+	data[3] =MMC5983_register_read(thisMMC5983, MMC5983_YOUT1);
+	data[4] =MMC5983_register_read(thisMMC5983, MMC5983_ZOUT0);
+	data[5] =MMC5983_register_read(thisMMC5983, MMC5983_ZOUT1);
 	return 1;
 }
 
