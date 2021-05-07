@@ -26,7 +26,47 @@
 
 #define MMC5983_WRITE							0x00
 #define MMC5983_READ							0x80
-
+//--------------------------status register bits ------------------------------
+#define MMC5983_STATUS_Meas_M_Done				0x01
+#define MMC5983_STATUS_Meas_T_Done				0x02
+#define MMC5983_STATUS_OTP_Read_Done			0x10
+//----------------Internal Control 0 --------
+#define MMC5983_CTRL0_TM_M						0x01
+#define MMC5983_CTRL0_TM_T						0x02
+#define MMC5983_CTRL0_INT_meas_done_en			0x04
+#define MMC5983_CTRL0_Set						0x08
+#define MMC5983_CTRL0_Reset						0x10
+#define MMC5983_CTRL0_Auto_SR_en				0x20
+#define MMC5983_CTRL0_OTP_Read					0x40
+#define MMC5983_CTRL0_Reservd					0x80
+//----------------Internal Control 1 --------
+#define MMC5983_CTRL1_BW0						0x01
+#define MMC5983_CTRL1_BW1						0x02
+#define MMC5983_CTRL1_X_inhibit					0x04
+#define MMC5983_CTRL1_YZ_inhibit_l				0x08
+#define MMC5983_CTRL1_YZ_inhibit_2				0x10
+#define MMC5983_CTRL1_Reservd					0x20
+#define MMC5983_CTRL1_Reservd					0x40
+#define MMC5983_CTRL1_SW_RST					0x80
+//----------------Internal Control 2 --------
+#define MMC5983_CTRL2_Cm_freq0					0x01
+#define MMC5983_CTRL2_Cm_freq1					0x02
+#define MMC5983_CTRL2_Cm_freq2					0x04
+#define MMC5983_CTRL2_Cmm_en					0x08
+#define MMC5983_CTRL2_Prd_set0					0x10
+#define MMC5983_CTRL2_Prd_set1					0x20
+#define MMC5983_CTRL2_Prd_set2					0x40
+#define MMC5983_CTRL2_En_prd_set				0x80
+//----------------Internal Control 3 --------
+#define MMC5983_CTRL3_Reservd					0x01
+#define MMC5983_CTRL3_St_enp					0x02
+#define MMC5983_CTRL3_ST_enm					0x04
+#define MMC5983_CTRL3_Reservd					0x08
+#define MMC5983_CTRL3_Reservd					0x10
+#define MMC5983_CTRL3_Reservd					0x20
+#define MMC5983_CTRL3_Spi_3w					0x40
+#define MMC5983_CTRL3_Reservd					0x80
+//-----------------------------------------------------------------------------
 #define MMC5983_MAXREADINGS						10
 
 #define MMC5983_SENSOR_FOUND					0x20

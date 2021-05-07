@@ -8,7 +8,7 @@ extern SPI_HandleTypeDef hspi1;
 extern UART_HandleTypeDef huart2;
 
 extern System my_sys;
-//TODO reimpliment the whole library
+//TODO we need to test the whole library
 LIS3MDL_t * LIS3MDL_create(SPI_HandleTypeDef *spi_line,GPIO_TypeDef *CS_Bus,uint16_t CS_Pin,GPIO_TypeDef *DRDY_Bus,uint16_t DRDY_Pin)
 {
 	LIS3MDL_t * thisLIS3MDL = malloc(sizeof(LIS3MDL_t));

@@ -8,13 +8,14 @@
 extern System my_sys;
 extern SPI_HandleTypeDef hspi1;
 extern UART_HandleTypeDef huart2;
-//---------------------------------------------------------------------------------------------------------------------
-//-------------- create a new magenotometer object and add that to the system this methode need to know what is the
-//TODO if in future we decided to use analog sensors or different kind of sensors this function need to change to a variadic function like printf
-//since different sensors may have different type and number of variables
-//1 - sensor type  depend to the sensor type
-//2 - data tranmitter handler in this implimentation we just limited that to SPI in future if we add I2C or analog sensor ADC line can passs as a parameter
-//--------------------------create a new magnotmemeter of any type lower layer support and make a interface and initilize that-----------------------------------
+
+//!---------------------------------------------------------------------------------------------------------------------
+//!-------------- create a new magenotometer object and add that to the system this methode need to know what is the
+//!TODO if in future we decided to use analog sensors or different kind of sensors this function need to change to a variadic function like printf
+//!since different sensors may have different type and number of variables
+//!1 - sensor type  depend to the sensor type
+//!2 - data tranmitter handler in this implimentation we just limited that to SPI in future if we add I2C or analog sensor ADC line can passs as a parameter
+//!--------------------------create a new magnotmemeter of any type lower layer support and make a interface and initilize that-----------------------------------
 Magnetometer_t * magnetometer_create(uint8_t type,SPI_HandleTypeDef *spi_line,GPIO_TypeDef *CS_Bus,uint16_t CS_Pin,GPIO_TypeDef *INT_Bus,uint16_t INT_Pin)
 {
 	Magnetometer_t *  thisMagnetometer = malloc(sizeof(Magnetometer_t));
