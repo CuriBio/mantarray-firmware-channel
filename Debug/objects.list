@@ -32,6 +32,6 @@
 "Mantarray/Src/I2C.o"
 "Mantarray/Src/Magnetometer.o"
 "Mantarray/Src/UART_Comm.o"
-"Mantarray/Src/lis3mdl.o"
-"Mantarray/Src/mmc5983.o"
+"Mantarray/Src/lis3mdl_driver.o"
+"Mantarray/Src/mmc5983_driver.o"
 "Mantarray/Src/system.o"

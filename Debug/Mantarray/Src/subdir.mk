@@ -11,8 +11,8 @@ C_SRCS += \
 ../Mantarray/Src/I2C.c \
 ../Mantarray/Src/Magnetometer.c \
 ../Mantarray/Src/UART_Comm.c \
-../Mantarray/Src/lis3mdl.c \
-../Mantarray/Src/mmc5983.c \
+../Mantarray/Src/lis3mdl_driver.c \
+../Mantarray/Src/mmc5983_driver.c \
 ../Mantarray/Src/system.c 
 
 OBJS += \
@@ -22,8 +22,8 @@ OBJS += \
 ./Mantarray/Src/I2C.o \
 ./Mantarray/Src/Magnetometer.o \
 ./Mantarray/Src/UART_Comm.o \
-./Mantarray/Src/lis3mdl.o \
-./Mantarray/Src/mmc5983.o \
+./Mantarray/Src/lis3mdl_driver.o \
+./Mantarray/Src/mmc5983_driver.o \
 ./Mantarray/Src/system.o 
 
 C_DEPS += \
@@ -33,8 +33,8 @@ C_DEPS += \
 ./Mantarray/Src/I2C.d \
 ./Mantarray/Src/Magnetometer.d \
 ./Mantarray/Src/UART_Comm.d \
-./Mantarray/Src/lis3mdl.d \
-./Mantarray/Src/mmc5983.d \
+./Mantarray/Src/lis3mdl_driver.d \
+./Mantarray/Src/mmc5983_driver.d \
 ./Mantarray/Src/system.d 
 
 
@@ -51,10 +51,10 @@ Mantarray/Src/Magnetometer.o: ../Mantarray/Src/Magnetometer.c Mantarray/Src/subd
 	arm-none-eabi-gcc "$<" -mcpu=cortex-m0plus -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L052xx -c -I../Core/Inc -I../Drivers/STM32L0xx_HAL_Driver/Inc -I../Drivers/STM32L0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L0xx/Include -I../Drivers/CMSIS/Include -I../Mantarray/inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Mantarray/Src/Magnetometer.d" -MT"$@" --specs=nano.specs -mfloat-abi=soft -mthumb -o "$@"
 Mantarray/Src/UART_Comm.o: ../Mantarray/Src/UART_Comm.c Mantarray/Src/subdir.mk
 	arm-none-eabi-gcc "$<" -mcpu=cortex-m0plus -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L052xx -c -I../Core/Inc -I../Drivers/STM32L0xx_HAL_Driver/Inc -I../Drivers/STM32L0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L0xx/Include -I../Drivers/CMSIS/Include -I../Mantarray/inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Mantarray/Src/UART_Comm.d" -MT"$@" --specs=nano.specs -mfloat-abi=soft -mthumb -o "$@"
-Mantarray/Src/lis3mdl.o: ../Mantarray/Src/lis3mdl.c Mantarray/Src/subdir.mk
-	arm-none-eabi-gcc "$<" -mcpu=cortex-m0plus -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L052xx -c -I../Core/Inc -I../Drivers/STM32L0xx_HAL_Driver/Inc -I../Drivers/STM32L0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L0xx/Include -I../Drivers/CMSIS/Include -I../Mantarray/inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Mantarray/Src/lis3mdl.d" -MT"$@" --specs=nano.specs -mfloat-abi=soft -mthumb -o "$@"
-Mantarray/Src/mmc5983.o: ../Mantarray/Src/mmc5983.c Mantarray/Src/subdir.mk
-	arm-none-eabi-gcc "$<" -mcpu=cortex-m0plus -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L052xx -c -I../Core/Inc -I../Drivers/STM32L0xx_HAL_Driver/Inc -I../Drivers/STM32L0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L0xx/Include -I../Drivers/CMSIS/Include -I../Mantarray/inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Mantarray/Src/mmc5983.d" -MT"$@" --specs=nano.specs -mfloat-abi=soft -mthumb -o "$@"
+Mantarray/Src/lis3mdl_driver.o: ../Mantarray/Src/lis3mdl_driver.c Mantarray/Src/subdir.mk
+	arm-none-eabi-gcc "$<" -mcpu=cortex-m0plus -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L052xx -c -I../Core/Inc -I../Drivers/STM32L0xx_HAL_Driver/Inc -I../Drivers/STM32L0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L0xx/Include -I../Drivers/CMSIS/Include -I../Mantarray/inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Mantarray/Src/lis3mdl_driver.d" -MT"$@" --specs=nano.specs -mfloat-abi=soft -mthumb -o "$@"
+Mantarray/Src/mmc5983_driver.o: ../Mantarray/Src/mmc5983_driver.c Mantarray/Src/subdir.mk
+	arm-none-eabi-gcc "$<" -mcpu=cortex-m0plus -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L052xx -c -I../Core/Inc -I../Drivers/STM32L0xx_HAL_Driver/Inc -I../Drivers/STM32L0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L0xx/Include -I../Drivers/CMSIS/Include -I../Mantarray/inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Mantarray/Src/mmc5983_driver.d" -MT"$@" --specs=nano.specs -mfloat-abi=soft -mthumb -o "$@"
 Mantarray/Src/system.o: ../Mantarray/Src/system.c Mantarray/Src/subdir.mk
 	arm-none-eabi-gcc "$<" -mcpu=cortex-m0plus -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L052xx -c -I../Core/Inc -I../Drivers/STM32L0xx_HAL_Driver/Inc -I../Drivers/STM32L0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L0xx/Include -I../Drivers/CMSIS/Include -I../Mantarray/inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Mantarray/Src/system.d" -MT"$@" --specs=nano.specs -mfloat-abi=soft -mthumb -o "$@"
 

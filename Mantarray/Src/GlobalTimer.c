@@ -1,5 +1,5 @@
 #include "GlobalTimer.h"
-#include "mmc5983.h"
+#include "mmc5983_driver.h"
 #include "system.h"
 #include "main.h"
 #include <string.h>
@@ -38,10 +38,10 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 	}
 	if (htim == &htim22)
 	{
-		uint8_t test = register_read_MMC5983(&my_sys.Magnetometer.sensorB_MMC5983, MMC5983_INTERNALCONTROL0);
-		test = register_read_MMC5983(&my_sys.Magnetometer.sensorB_MMC5983, MMC5983_INTERNALCONTROL1);
-		test = register_read_MMC5983(&my_sys.Magnetometer.sensorB_MMC5983, MMC5983_INTERNALCONTROL2);
-		test = 0;
+		//uint8_t test = register_read_MMC5983(&my_sys.Magnetometer.sensorB_MMC5983, MMC5983_INTERNALCONTROL0);
+		//test = register_read_MMC5983(&my_sys.Magnetometer.sensorB_MMC5983, MMC5983_INTERNALCONTROL1);
+		//test = register_read_MMC5983(&my_sys.Magnetometer.sensorB_MMC5983, MMC5983_INTERNALCONTROL2);
+		//test = 0;
 		//readMMC5983_XYZ(&my_sys.sensorB_MMC5983);
 	}
 }

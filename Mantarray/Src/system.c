@@ -1,7 +1,7 @@
+#include <lis3mdl_driver.h>
 #include "system.h"
 #include "main.h"
 #include "GlobalTimer.h"
-#include "lis3mdl.h"
 #include "UART_Comm.h"
 #include "EEPROM.h"
 #include "I2C.h"
@@ -24,7 +24,7 @@ void module_system_init(System *thisSystem)
 	//HAL_Delay(1000);
 	I2CInit(&thisSystem->I2C);
 
-	MagnetometerInit(&thisSystem->Magnetometer);
+	MagnetometerInit(&thisSystem->s1);
 
 	BusInit(&thisSystem->Bus);
 
@@ -115,7 +115,7 @@ void state_machine(System *thisSystem)
 					GPIOA->BRR = GPIO_PIN_0;
 					thisSystem->BUS_FLAG = 0;
 					//MockData(&thisSystem->Magnetometer);
-					//WriteDataFrame(&thisSystem->Magnetometer, &thisSystem->Bus);
+					//WriteDataFrame(&thisSystem->Magnetometer, &thisSystem->Bus) ;
 					//GPIOC->BSRR = GPIO_PIN_0;
 					//GPIOC->BRR = GPIO_PIN_0;
 					//Set all bus pins to low and send complete

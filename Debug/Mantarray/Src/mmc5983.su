@@ -1,3 +1,3 @@
-mmc5983.c:12:6:MMC5983_register_init	24	static
-mmc5983.c:35:9:MMC5983_register_read	40	static
-mmc5983.c:49:6:MMC5983_register_write	32	static
+mmc5983.c:12:13:MMC5983_create	32	static
+mmc5983.c:36:9:MMC5983_register_read	40	static
+mmc5983.c:50:6:MMC5983_register_write	32	static
