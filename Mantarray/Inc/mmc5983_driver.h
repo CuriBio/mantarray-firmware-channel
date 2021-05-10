@@ -38,15 +38,15 @@
 #define MMC5983_CTRL0_Reset						0x10
 #define MMC5983_CTRL0_Auto_SR_en				0x20
 #define MMC5983_CTRL0_OTP_Read					0x40
-#define MMC5983_CTRL0_Reservd					0x80
+#define MMC5983_CTRL0_Reserved					0x80
 //----------------Internal Control 1 --------
 #define MMC5983_CTRL1_BW0						0x01
 #define MMC5983_CTRL1_BW1						0x02
 #define MMC5983_CTRL1_X_inhibit					0x04
 #define MMC5983_CTRL1_YZ_inhibit_l				0x08
 #define MMC5983_CTRL1_YZ_inhibit_2				0x10
-#define MMC5983_CTRL1_Reservd					0x20
-#define MMC5983_CTRL1_Reservd					0x40
+#define MMC5983_CTRL1_Reserved					0x20
+#define MMC5983_CTRL1_Reserved					0x40
 #define MMC5983_CTRL1_SW_RST					0x80
 //----------------Internal Control 2 --------
 #define MMC5983_CTRL2_Cm_freq0					0x01
@@ -61,11 +61,11 @@
 #define MMC5983_CTRL3_Reservd					0x01
 #define MMC5983_CTRL3_St_enp					0x02
 #define MMC5983_CTRL3_ST_enm					0x04
-#define MMC5983_CTRL3_Reservd					0x08
-#define MMC5983_CTRL3_Reservd					0x10
-#define MMC5983_CTRL3_Reservd					0x20
+#define MMC5983_CTRL3_Reserved					0x08
+#define MMC5983_CTRL3_Reserved					0x10
+#define MMC5983_CTRL3_Reserved					0x20
 #define MMC5983_CTRL3_Spi_3w					0x40
-#define MMC5983_CTRL3_Reservd					0x80
+#define MMC5983_CTRL3_Reserved					0x80
 //-----------------------------------------------------------------------------
 #define MMC5983_MAXREADINGS						10
 
