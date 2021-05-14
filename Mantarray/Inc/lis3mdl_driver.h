@@ -1,7 +1,8 @@
 //this is the driver layer to connect with specific chip
-#include <string.h>
+
 #include <stdio.h>
-#include "main.h"
+#include <stdlib.h>
+#include "stm32l0xx_hal.h"
 
 #ifndef LIS3MDL_H_
 #define LIS3MDL_H_

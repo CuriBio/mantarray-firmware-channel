@@ -1,10 +1,4 @@
-#include <lis3mdl_driver.h>
 #include "system.h"
-#include "main.h"
-#include "GlobalTimer.h"
-#include "UART_Comm.h"
-#include "EEPROM.h"
-#include "I2C.h"
 
 extern SPI_HandleTypeDef hspi1;
 extern I2C_HandleTypeDef hi2c2;
@@ -21,13 +15,8 @@ void module_system_init(System *thisSystem)
 	BusInit(&thisSystem->Bus);
 
 	GlobalTimerInit(&thisSystem->GlobalTimer);
-	//HAL_Delay(1000);
-	I2CInit(&thisSystem->I2C);
 
-	MagnetometerInit(&thisSystem->s1);
-
-	BusInit(&thisSystem->Bus);
-
+	my_sys.i2c_line = I2C_interface_create(&hi2c2,100);//TODO 100 hardcoded as i2c addres
 	return;
 }
 
@@ -41,9 +30,47 @@ void state_machine(System *thisSystem)
 	Bus_t* thisBus = &thisSystem->Bus;
 	while(1)
 	{
+		if(my_sys.i2c_line->buffer_index)
+		{
+			switch(my_sys.i2c_line->receiveBuffer[0])
+			{
+			case I2C_PACKET_SET_NEW_ADDRESS:
+				break;
+			//-------------------------------
+			case I2C_PACKET_SEND_DATA_FRAME:
+				break;
+			//-------------------------------
+			case I2C_PACKET_SET_BOOT0_LOW:
+				  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, GPIO_PIN_SET);
+				  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, GPIO_PIN_SET);
+				  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, GPIO_PIN_SET);
+				break;
+			//-------------------------------
+			case I2C_PACKET_SET_BOOT0_HIGH:
+				  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, GPIO_PIN_RESET);
+				  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, GPIO_PIN_SET);
+				  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, GPIO_PIN_SET);
+				break;
+			//-------------------------------
+			case I2C_PACKET_SET_RESET_LOW:
+				  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, GPIO_PIN_SET);
+				  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, GPIO_PIN_SET);
+				  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, GPIO_PIN_SET);
+				break;
+			//-------------------------------
+			case I2C_PACKET_SET_RESET_HIGH:
+				  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, GPIO_PIN_SET);
+				  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, GPIO_PIN_RESET);
+				  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, GPIO_PIN_SET);
+				break;
+			}
+
+		}
+	}
+
 		switch(thisSystem->state)
 		{
-			case MODULE_SYSTEM_STATUS_START:;
+			case MODULE_SYSTEM_STATUS_START:
 				//Check if system has undergone first time setup by looking for a 32-bit random number in EEPROM
 				//IF A NEW FIRST TIME SETUP IS DESIRED TO BE RUN just change the value of EEPROM_FIRST_TIME_COMPLETE in <EEPROM.h>
 				//uint32_t test = *(uint32_t*) FIRST_TIME_INITIATION;
@@ -53,7 +80,7 @@ void state_machine(System *thisSystem)
 			break;
 			//-----------
 			case MODULE_SYSTEM_STATUS_FIRST_TIME:
-				EEPROMInit(thisSystem);
+				//EEPROMInit(thisSystem);
 				thisSystem->state = MODULE_SYSTEM_STATUS_INITIATION;
 
 			break;
@@ -176,5 +203,5 @@ void state_machine(System *thisSystem)
 			case MODULE_SYSTEM_STATUS_FAULTY:
 			break;
 		}
-	}
+
 }
