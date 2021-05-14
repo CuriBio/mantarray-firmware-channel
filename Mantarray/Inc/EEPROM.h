@@ -12,7 +12,7 @@
 
 #define EEPROM_FIRST_TIME_COMPLETE		0x135791
 
-void EEPROMInit(System *thisSystem);
+//void EEPROMInit(System *thisSystem);
 void EEPROMTest(uint32_t addressI2C, uint16_t test1, uint8_t test2);
 
 #endif /* EEPROM_H_ */

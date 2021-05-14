@@ -1,13 +1,18 @@
 #ifndef SYSTEM_H_
 #define SYSTEM_H_
 
-#include "GlobalTimer.h"
-#include "lis3mdl_driver.h"
-#include "mmc5983_driver.h"
-#include "UART_Comm.h"
-#include "I2C.h"
+#include "i2c_network_interface.h"
 #include "Magnetometer.h"
+#include "GlobalTimer.h"
+
+
+#include "UART_Comm.h"
 #include "Bus.h"
+#include "main.h"
+#include "GlobalTimer.h"
+#include "UART_Comm.h"
+#include "EEPROM.h"
+#include "I2C.h"
 //-------------------------------------------------
 
 //-------------------------------------------------
@@ -32,13 +37,14 @@ typedef struct
 	uint8_t ID;    		//what is our module ID   during the first run we got this ID from master we will load that every time we bootup from eeprom or flash
 	uint8_t status;   	// what is our status now active disabled ....
 	uint8_t state;    	// this is the current state of this module which is used and update in state machine
-	I2C_t I2C;
 	Bus_t Bus;
 	uint8_t BUS_FLAG;
-	Magnetometer_t s1;  //
-	Magnetometer_t s2;
-	Magnetometer_t s3;
 	GlobalTimer_t GlobalTimer;
+
+	Magnetometer_t *s1;  //
+	Magnetometer_t *s2;
+	Magnetometer_t *s3;
+	I2C_t *i2c_line;
 
 } System;
 

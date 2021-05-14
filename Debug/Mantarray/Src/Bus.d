@@ -32,11 +32,12 @@ Mantarray/Src/Bus.o: ../Mantarray/Src/Bus.c ../Core/Inc/main.h \
  ../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal_tim_ex.h \
  ../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal_uart.h \
  ../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal_uart_ex.h \
- ../Mantarray/inc/system.h ../Mantarray/inc/GlobalTimer.h \
- ../Mantarray/inc/lis3mdl_driver.h ../Mantarray/inc/mmc5983_driver.h \
- ../Mantarray/inc/UART_Comm.h ../Mantarray/inc/I2C.h \
+ ../Mantarray/inc/system.h ../Mantarray/inc/i2c_network_interface.h \
  ../Mantarray/inc/Magnetometer.h ../Mantarray/inc/lis3mdl_driver.h \
- ../Mantarray/inc/Bus.h ../Mantarray/inc/Magnetometer.h \
+ ../Mantarray/inc/mmc5983_driver.h ../Mantarray/inc/GlobalTimer.h \
+ ../Mantarray/inc/UART_Comm.h ../Mantarray/inc/Bus.h \
+ ../Mantarray/inc/EEPROM.h ../Mantarray/inc/system.h ../Core/Inc/I2C.h \
+ ../Core/Inc/main.h ../Mantarray/inc/Magnetometer.h \
  ../Mantarray/inc/Bus.h
 
 ../Core/Inc/main.h:
@@ -109,21 +110,27 @@ Mantarray/Src/Bus.o: ../Mantarray/Src/Bus.c ../Core/Inc/main.h \
 
 ../Mantarray/inc/system.h:
 
-../Mantarray/inc/GlobalTimer.h:
-
-../Mantarray/inc/lis3mdl_driver.h:
-
-../Mantarray/inc/mmc5983_driver.h:
-
-../Mantarray/inc/UART_Comm.h:
-
-../Mantarray/inc/I2C.h:
+../Mantarray/inc/i2c_network_interface.h:
 
 ../Mantarray/inc/Magnetometer.h:
 
 ../Mantarray/inc/lis3mdl_driver.h:
 
+../Mantarray/inc/mmc5983_driver.h:
+
+../Mantarray/inc/GlobalTimer.h:
+
+../Mantarray/inc/UART_Comm.h:
+
 ../Mantarray/inc/Bus.h:
+
+../Mantarray/inc/EEPROM.h:
+
+../Mantarray/inc/system.h:
+
+../Core/Inc/I2C.h:
+
+../Core/Inc/main.h:
 
 ../Mantarray/inc/Magnetometer.h:
 

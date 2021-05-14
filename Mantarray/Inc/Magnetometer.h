@@ -1,10 +1,11 @@
 #ifndef MAGNETOMETER_H_
 #define MAGNETOMETER_H_
 
-#include <lis3mdl_driver.h>
-#include <string.h>
-#include <stdio.h>
+#include "lis3mdl_driver.h"
 #include "mmc5983_driver.h"
+#include "stm32l0xx_hal.h"
+#include <stdio.h>
+#include <stdlib.h>
 
 #define MAGNETOMETER_TYPE_LIS3MDL	10
 #define MAGNETOMETER_TYPE_MMC5983	20

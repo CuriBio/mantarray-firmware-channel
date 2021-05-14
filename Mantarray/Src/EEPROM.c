@@ -5,7 +5,7 @@
 #include "EEPROM.h"
 
 extern UART_HandleTypeDef huart2;
-
+/*
 void EEPROMInit(System *thisSystem)
 {
 	//Unlock flash memory for first time setup
@@ -28,7 +28,7 @@ void EEPROMInit(System *thisSystem)
 	//Relock FLASH after finishing writing to the EEPROM
 	HAL_FLASHEx_DATAEEPROM_Lock();
 }
-
+*/
 void EEPROMTest(uint32_t addressI2C, uint16_t test1, uint8_t test2)
 {
 	uint8_t buffer[100];

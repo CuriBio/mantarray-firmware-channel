@@ -1,17 +1,17 @@
-#include <lis3mdl_driver.h>
-#include "system.h"
-#include "main.h"
-#include <stdio.h>
-#include <stdlib.h>
+#include "lis3mdl_driver.h"
 
+<<<<<<< Updated upstream
 extern SPI_HandleTypeDef hspi1;
 extern UART_HandleTypeDef huart2;
 
 extern System my_sys;
 //TODO reimpliment the whole library
+=======
+//TODO we need to test the whole library
+>>>>>>> Stashed changes
 LIS3MDL_t * LIS3MDL_create(SPI_HandleTypeDef *spi_line,GPIO_TypeDef *CS_Bus,uint16_t CS_Pin,GPIO_TypeDef *DRDY_Bus,uint16_t DRDY_Pin)
 {
-	LIS3MDL_t * thisLIS3MDL = malloc(sizeof(LIS3MDL_t));
+	LIS3MDL_t * thisLIS3MDL = (LIS3MDL_t *)malloc(sizeof(LIS3MDL_t));
 	HAL_GPIO_WritePin(thisLIS3MDL->CS_GPIO_Bus, thisLIS3MDL->CS_GPIO_Pin, GPIO_PIN_SET);   //Set CS pin on sensor A to high to ensure no SPI communication enabled initially
 	if(thisLIS3MDL != NULL)
 	{
