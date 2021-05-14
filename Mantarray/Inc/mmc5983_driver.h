@@ -27,9 +27,6 @@
 
 #define MMC5983_WRITE							0x00
 #define MMC5983_READ							0x80
-<<<<<<< Updated upstream
-
-=======
 //--------------------------status register bits ------------------------------
 #define MMC5983_STATUS_Meas_M_Done				0x01
 #define MMC5983_STATUS_Meas_T_Done				0x02
@@ -71,7 +68,6 @@
 #define MMC5983_CTRL3_Spi_3w					0x40
 #define MMC5983_CTRL3_Reserved_7				0x80
 //-----------------------------------------------------------------------------
->>>>>>> Stashed changes
 #define MMC5983_MAXREADINGS						10
 
 #define MMC5983_SENSOR_FOUND					0x20
