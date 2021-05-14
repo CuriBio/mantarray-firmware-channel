@@ -111,7 +111,7 @@ int main(void)
   HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, GPIO_PIN_SET);
 
 
-  for(int j=0;j<5;j++)
+  for(int j=0;j<2;j++)
   {
 	  for(int i=0;i<6;i++)
 	  {
@@ -131,7 +131,7 @@ int main(void)
 	  }
 	  HAL_Delay(100);
   }
-  HAL_Delay(1000);
+  HAL_Delay(200);
 
   for(int i=0;i<5;i++)
   {
@@ -140,7 +140,7 @@ int main(void)
 	  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, GPIO_PIN_SET);
 	  HAL_Delay(50);
   }
-  HAL_Delay(1000);
+  HAL_Delay(500);
 
   HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, GPIO_PIN_RESET);
   HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, GPIO_PIN_RESET);

@@ -14,7 +14,7 @@ void module_system_init(System *thisSystem)
 {
 	BusInit(&thisSystem->Bus);
 
-	GlobalTimerInit(&thisSystem->GlobalTimer);
+	//GlobalTimerInit(&thisSystem->GlobalTimer);
 
 	my_sys.i2c_line = I2C_interface_create(&hi2c2,100);//TODO 100 hardcoded as i2c addres
 	return;
@@ -64,6 +64,7 @@ void state_machine(System *thisSystem)
 				  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, GPIO_PIN_SET);
 				break;
 			}
+			my_sys.i2c_line->buffer_index =0;
 
 		}
 	}
