@@ -13,6 +13,13 @@
 #define I2C_PACKET_SET_BOOT0_HIGH		12
 #define I2C_PACKET_SET_RESET_LOW		13
 #define I2C_PACKET_SET_RESET_HIGH		14
+//---------------------------------------
+#define I2C_PACKET_SET_RED_ON			15
+#define I2C_PACKET_SET_RED_OFF			16
+#define I2C_PACKET_SET_GREEN_ON			17
+#define I2C_PACKET_SET_GREEN_OFF		18
+#define I2C_PACKET_SET_BLUE_ON			19
+#define I2C_PACKET_SET_BLUE_OFF			20
 
 typedef struct
 {

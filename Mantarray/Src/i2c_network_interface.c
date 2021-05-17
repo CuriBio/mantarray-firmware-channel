@@ -27,9 +27,6 @@ I2C_t * I2C_interface_create(I2C_HandleTypeDef *I2C_handle,uint8_t channel_addre
 
 void I2C2_IRQHandler(void)
 {
-	//uint32_t ITFlags   = READ_REG(hi2c2.Instance->ISR);
-	//uint32_t ITSources = READ_REG(hi2c2.Instance->CR1);
-
 	if ((I2C_CHECK_FLAG(i2c2_interrupt_interface_pointer->I2C_line->Instance->ISR, I2C_FLAG_STOPF) != RESET) && (I2C_CHECK_IT_SOURCE(i2c2_interrupt_interface_pointer->I2C_line->Instance->CR1, I2C_IT_STOPI) != RESET))
 	{
 		// Clear STOP Flag
@@ -52,20 +49,4 @@ void I2C2_IRQHandler(void)
 	return;
 }
 
-/******************************************************************************/
-/* STM32L0xx Peripheral Interrupt Handlers                                    */
-/* Add here the Interrupt Handlers for the used peripherals.                  */
-/* For the available peripheral interrupt handler names,                      */
-/* please refer to the startup file (startup_stm32l0xx.s).                    */
-/******************************************************************************/
-
-/*
-void I2C2_IRQHandler(void)
-{
-  if (hi2c2.Instance->ISR & (I2C_FLAG_BERR | I2C_FLAG_ARLO | I2C_FLAG_OVR)) {
-    HAL_I2C_ER_IRQHandler(&hi2c2);
-  } else {
-    HAL_I2C_EV_IRQHandler(&hi2c2);
-  }
-}*/
 

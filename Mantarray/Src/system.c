@@ -41,20 +41,48 @@ void state_machine(System *thisSystem)
 				break;
 			//-------------------------------
 			case I2C_PACKET_SET_BOOT0_LOW:
-				  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, GPIO_PIN_SET);
+				  HAL_GPIO_WritePin(CHN_OUT_BT0_GPIO_Port, CHN_OUT_BT0_Pin, GPIO_PIN_RESET);
 				break;
 			//-------------------------------
 			case I2C_PACKET_SET_BOOT0_HIGH:
-				  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, GPIO_PIN_RESET);
+				  HAL_GPIO_WritePin(CHN_OUT_BT0_GPIO_Port, CHN_OUT_BT0_Pin, GPIO_PIN_SET);
 				break;
 			//-------------------------------
 			case I2C_PACKET_SET_RESET_LOW:
-				  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, GPIO_PIN_SET);
+				  HAL_GPIO_WritePin(CHN_OUT_RST_GPIO_Port, CHN_OUT_RST_Pin, GPIO_PIN_RESET);
 				break;
 			//-------------------------------
 			case I2C_PACKET_SET_RESET_HIGH:
+				  HAL_GPIO_WritePin(CHN_OUT_RST_GPIO_Port, CHN_OUT_RST_Pin, GPIO_PIN_SET);
+				break;
+			//---------this is a code for testing LED and making fun demo we can not have them in production release version
+			//---------since it may make serious conflicts and issue with magnetometer reader and scheduler ----------------
+			case I2C_PACKET_SET_RED_ON:
+				  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, GPIO_PIN_RESET);
+				break;
+			//-------------------------------
+			case I2C_PACKET_SET_RED_OFF:
+				  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, GPIO_PIN_SET);
+				break;
+			//-------------------------------
+			case I2C_PACKET_SET_GREEN_ON:
+				  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, GPIO_PIN_RESET);
+				break;
+			//-------------------------------
+			case I2C_PACKET_SET_GREEN_OFF:
+				  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, GPIO_PIN_SET);
+				break;
+			//-------------------------------
+			case I2C_PACKET_SET_BLUE_ON:
 				  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, GPIO_PIN_RESET);
 				break;
+			//-------------------------------
+			case I2C_PACKET_SET_BLUE_OFF:
+				  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, GPIO_PIN_SET);
+				break;
+
+
+
 			}
 			my_sys.i2c_line->buffer_index =0;
 
