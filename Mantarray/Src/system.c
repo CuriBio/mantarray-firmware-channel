@@ -14,10 +14,22 @@ void module_system_init(System *thisSystem)
 
 	//GlobalTimerInit(&thisSystem->GlobalTimer);
 
+	uint8_t temp_data[1];
 	uint8_t i2c_new_address[1];
-	i2c_new_address[0] = my_sys.i2c_line->receiveBuffer[0] && 0xef;
-	EEPROM_load(EEPROM_I2C_ADDR, i2c_new_address, 1);
-	my_sys.i2c_line = I2C_interface_create(&hi2c2,i2c_new_address[0]);
+
+	EEPROM_load(EEPROM_FIRST_TIME_INITIATION, temp_data, 1);  //TODO  this is bungee jumping without rope we assume everything if good no error check
+	if (temp_data[0] == EEPROM_FIRST_TIME_BOOT_MARKE )
+	{
+		i2c_new_address[0] = my_sys.i2c_line->receiveBuffer[0] && 0xef;
+		EEPROM_load(EEPROM_I2C_ADDR, i2c_new_address, 1);
+		my_sys.i2c_line = I2C_interface_create(&hi2c2,i2c_new_address[0]);
+	}
+	else
+	{
+		my_sys.i2c_line = I2C_interface_create(&hi2c2,100 );   //TDOD hard code this to correct default value
+	}
+
+
 	return;
 }
 
@@ -43,12 +55,18 @@ void state_machine(System *thisSystem)
 				case I2C_PACKET_SET_NEW_ADDRESS:
 				{
 					uint8_t i2c_new_address[1];
+					uint8_t temp_data[1];
 					i2c_new_address[0] = my_sys.i2c_line->receiveBuffer[0] && 0xef;
 					if( !EEPROM_save(EEPROM_I2C_ADDR, i2c_new_address, 1) )
 					{
 						//TODO we  failed to load what should we do now?
 						//this is bad we can kill the whole system master micro should now about this
 						//we donot have any valid address for now we go to idle mode we never activate common bus
+					}
+					else
+					{
+						temp_data[0] = EEPROM_FIRST_TIME_BOOT_MARKE;
+						EEPROM_save(EEPROM_FIRST_TIME_INITIATION, temp_data, 1);  //TODO  this is bungee jumping without rope we assume everything if good no error check
 					}
 					break;
 				}
