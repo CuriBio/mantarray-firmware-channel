@@ -36,8 +36,7 @@ Mantarray/Src/system.o: ../Mantarray/Src/system.c \
  ../Mantarray/inc/Magnetometer.h ../Mantarray/inc/lis3mdl_driver.h \
  ../Mantarray/inc/mmc5983_driver.h ../Mantarray/inc/GlobalTimer.h \
  ../Mantarray/inc/UART_Comm.h ../Core/Inc/main.h ../Mantarray/inc/Bus.h \
- ../Mantarray/inc/EEPROM.h ../Mantarray/inc/system.h ../Core/Inc/I2C.h \
- ../Core/Inc/main.h
+ ../Mantarray/inc/EEPROM.h ../Core/Inc/I2C.h ../Core/Inc/main.h
 
 ../Mantarray/inc/system.h:
 
@@ -124,8 +123,6 @@ Mantarray/Src/system.o: ../Mantarray/Src/system.c \
 ../Mantarray/inc/Bus.h:
 
 ../Mantarray/inc/EEPROM.h:
-
-../Mantarray/inc/system.h:
 
 ../Core/Inc/I2C.h:
 

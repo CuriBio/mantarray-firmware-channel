@@ -1,5 +1,6 @@
-#include <string.h>
+#include <stdlib.h>
 #include <stdio.h>
+#include "main.h"
 
 #ifndef BUS_H_
 #define BUS_H_
@@ -13,7 +14,8 @@
 #define BUS_BUSMASK32    0b00000000000000001111111111111111
 #define BUS_CBUSMASK32    0b11111100000000000000000000000000
 
-typedef struct {
+typedef struct
+{
 	GPIO_TypeDef * _C_GPIO_Bus;
 	GPIO_TypeDef * _GPIO_Bus;
 
@@ -37,7 +39,4 @@ void BusInit(Bus_t *thisBus);
 void Complete (Bus_t *thisBus);
 void Acknowledge (Bus_t *thisBus);
 void SendData (Bus_t *thisBus, uint8_t* data, uint8_t len);
-void WriteDataFrame(Magnetometer_t * thisMagnetometer, Bus_t *thisBus);
-void MockData(Magnetometer_t * thisMagnetometer);
-
 #endif /* BUS_H_ */

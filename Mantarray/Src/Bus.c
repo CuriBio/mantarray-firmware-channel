@@ -1,13 +1,5 @@
-#include <string.h>
-#include <stdio.h>
-#include "main.h"
-#include "system.h"
-#include "Magnetometer.h"
 #include "Bus.h"
 
-extern System my_sys;
-extern UART_HandleTypeDef huart1;
-extern I2C_HandleTypeDef hi2c2;
 
 void BusInit(Bus_t *thisBus)
 {
@@ -54,23 +46,7 @@ void BusInit(Bus_t *thisBus)
 	temp &= ~BUS_CBUSMASK32;
 	thisBus->_C_GPIO_Bus->PUPDR = temp;
 }
-
-void MockData(Magnetometer_t * thisMagnetometer)
-{
-	/*
-	thisMagnetometer->XReadings[0] += 1000;
-	thisMagnetometer->XReadings[1] += 100;
-	thisMagnetometer->XReadings[2] += 10;
-	thisMagnetometer->YReadings[0] += 2000;
-	thisMagnetometer->YReadings[1] += 200;
-	thisMagnetometer->YReadings[2] += 20;
-	thisMagnetometer->ZReadings[0] += 3000;
-	thisMagnetometer->ZReadings[1] += 300;
-	thisMagnetometer->ZReadings[2] += 30;
-	thisMagnetometer->tempReading += 40;
-	*/
-}
-
+/*
 void WriteDataFrame(Magnetometer_t * thisMagnetometer, Bus_t *thisBus)
 {
 
@@ -88,7 +64,7 @@ void WriteDataFrame(Magnetometer_t * thisMagnetometer, Bus_t *thisBus)
 	//SendData(thisBus, (uint8_t*)(&thisMagnetometer->tempReading), 2);
 	Complete(thisBus);
 }
-
+*/
 void SendData (Bus_t *thisBus, uint8_t* data, uint8_t len)
 {
 	for (uint8_t i = 0; i < len; i++)
