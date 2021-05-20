@@ -37,14 +37,16 @@ typedef struct
 	uint8_t ID;    		//what is our module ID   during the first run we got this ID from master we will load that every time we bootup from eeprom or flash
 	uint8_t status;   	// what is our status now active disabled ....
 	uint8_t state;    	// this is the current state of this module which is used and update in state machine
-	Bus_t Bus;
 	uint8_t BUS_FLAG;
 	GlobalTimer_t GlobalTimer;
 
 	Magnetometer_t *s1;  //
 	Magnetometer_t *s2;
 	Magnetometer_t *s3;
+
 	I2C_t *i2c_line;
+
+	InternalBus_t *data_bus;
 
 } System;
 

@@ -1,4 +1,4 @@
-Bus.c:4:6:BusInit	24	static
-Bus.c:68:6:SendData	32	static
-Bus.c:98:6:Acknowledge	16	static
-Bus.c:123:6:Complete	16	static
+Bus.c:3:17:internal_bus_create	40	static
+Bus.c:63:13:internal_bus_write_data_frame	56	static
+Bus.c:100:13:internal_bus_utilize	24	static
+Bus.c:121:13:internal_bus_release	24	static

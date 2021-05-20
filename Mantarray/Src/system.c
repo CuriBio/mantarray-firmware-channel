@@ -10,7 +10,9 @@ extern System my_sys;
 
 void module_system_init(System *thisSystem)
 {
-	BusInit(&thisSystem->Bus);
+	my_sys.data_bus = internal_bus_create(GPIOB,0x0f,BUS_CLK_GPIO_Port,BUS_CLK_Pin,BUS_CLK_GPIO_Port,BUS_C0_Pin);
+
+
 
 	//GlobalTimerInit(&thisSystem->GlobalTimer);
 
@@ -37,7 +39,6 @@ void state_machine(System *thisSystem)
 {
 	uint8_t testData[23] = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22};
 	uint32_t temp = 0;
-	Bus_t* thisBus = &thisSystem->Bus;
 	while(1)
 	{
 		if(my_sys.i2c_line->buffer_index)
@@ -47,6 +48,7 @@ void state_machine(System *thisSystem)
 				//-------------------------------
 				case I2C_PACKET_SEND_DATA_FRAME:
 				{
+					internal_bus_write_data_frame(my_sys.data_bus,testData,10);
 					break;
 				}
 				//-------------------------------
@@ -111,25 +113,25 @@ void state_machine(System *thisSystem)
 					break;
 				}
 			}
-		//-------- if we get any data higher than 0x80  it mean it is a new address
-		if ( my_sys.i2c_line->receiveBuffer[0] > I2C_PACKET_SET_NEW_ADDRESS )
-		{
-			HAL_GPIO_WritePin(CHN_OUT_BT0_GPIO_Port, CHN_OUT_BT0_Pin, GPIO_PIN_RESET);
-			uint8_t i2c_new_address[1];
-			uint8_t temp_data[1];
-			i2c_new_address[0] = my_sys.i2c_line->receiveBuffer[0] && 0xef;
-			if( !EEPROM_save(EEPROM_I2C_ADDR, i2c_new_address, 1) )
+			//-------- if we get any data higher than 0x80  it mean it is a new address
+			if ( my_sys.i2c_line->receiveBuffer[0] > I2C_PACKET_SET_NEW_ADDRESS )
 			{
-				//TODO we  failed to load what should we do now?
-				//this is bad we can kill the whole system master micro should now about this
-				//we donot have any valid address for now we go to idle mode we never activate common bus
+				HAL_GPIO_WritePin(CHN_OUT_BT0_GPIO_Port, CHN_OUT_BT0_Pin, GPIO_PIN_RESET);
+				uint8_t i2c_new_address[1];
+				uint8_t temp_data[1];
+				i2c_new_address[0] = my_sys.i2c_line->receiveBuffer[0] && 0xef;
+				if( !EEPROM_save(EEPROM_I2C_ADDR, i2c_new_address, 1) )
+				{
+					//TODO we  failed to load what should we do now?
+					//this is bad we can kill the whole system master micro should now about this
+					//we donot have any valid address for now we go to idle mode we never activate common bus
+				}
+				else
+				{
+					temp_data[0] = EEPROM_FIRST_TIME_BOOT_MARKE;
+					EEPROM_save(EEPROM_FIRST_TIME_INITIATION, temp_data, 1);  //TODO  this is bungee jumping without rope we assume everything if good no error check
+				}
 			}
-			else
-			{
-				temp_data[0] = EEPROM_FIRST_TIME_BOOT_MARKE;
-				EEPROM_save(EEPROM_FIRST_TIME_INITIATION, temp_data, 1);  //TODO  this is bungee jumping without rope we assume everything if good no error check
-			}
-		}
 		my_sys.i2c_line->buffer_index =0;
 		}
 	}
@@ -210,13 +212,13 @@ void state_machine(System *thisSystem)
 					//GPIOC->BSRR = GPIO_PIN_0;
 					//GPIOC->BRR = GPIO_PIN_0;
 					//Set all bus pins to low and send complete
-					thisBus->_GPIO_Bus->BRR = (uint32_t) (0x000000FF);
-					GPIOA->BRR = GPIO_PIN_15;
+					///thisBus->_GPIO_Bus->BRR = (uint32_t) (0x000000FF);
+					//GPIOA->BRR = GPIO_PIN_15;
 					//GPIOA->BRR = (uint32_t) (0x00002000);
 					//Set Bus pins to input
-					temp = GPIOB->MODER;
-					temp &= ~BUS_BUSMASK32;
-					GPIOB->MODER = temp;
+					//temp = GPIOB->MODER;
+					///temp &= ~BUS_BUSMASK32;
+					//GPIOB->MODER = temp;
 					//Set CBus pins to input
 					//temp = GPIOA->MODER;
 					//temp &= ~BUS_CBUSMASK32;
