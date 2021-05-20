@@ -5,26 +5,27 @@
 #ifndef BUS_H_
 #define BUS_H_
 
-//todo we do not know about masks before create remove after removing hardcodes
-#define BUS_ACK_MODER    0b00000000000000000101010101010101
-#define BUS_CACK_MODER    0b01000000000000000000000000000000
-#define BUS_ACK_OSPEEDR    0b00000000000000001111111111111111
-#define BUS_CACK_OSPEEDR    0b11000000000000000000000000000000
-#define BUS_BUSMASK16    0b00000000000000000000000011111111
-#define BUS_CBUSMASK16    0b00000000000000001000000000000000
-#define BUS_BUSMASK32    0b00000000000000001111111111111111
-#define BUS_CBUSMASK32    0b11000000000000000000000000000000
+#define BUS_GPIO_PINS_PER_BUS        0x10
 
 typedef struct
 {
 	GPIO_TypeDef * bus;
 	uint16_t bus_mask;
+	uint32_t BUS_BUSMASK32;
+	uint32_t BUS_BUSMODER;
+	uint32_t BUS_BUSOSPEEDR;
 
 	GPIO_TypeDef * bus_clk;
 	uint16_t bus_clk_mask;
+	uint32_t BUS_CLKMASK32;
+	uint32_t BUS_CLKMODER;
+	uint32_t BUS_CLKOSPEEDR;
 
 	GPIO_TypeDef * bus_ack;
 	uint16_t bus_ack_mask;
+	uint32_t BUS_ACKMASK32;
+	uint32_t BUS_ACKMODER;
+	uint32_t BUS_ACKOSPEEDR;
 
 	GPIO_InitTypeDef GPIO_InitStruct;  //todo what is the usage of this?
 
