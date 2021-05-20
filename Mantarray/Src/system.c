@@ -37,10 +37,13 @@ void module_system_init(System *thisSystem)
 
 void state_machine(System *thisSystem)
 {
-	uint8_t testData[23] = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22};
+	uint8_t testData[23] = {3,2,0,2,0,2,0,2,0,2,0,2,0,2,0,2,0,2,0,2,0,2,1};
+	//TODO Link data output to magnetometer memory instead
 	uint32_t temp = 0;
+
 	while(1)
 	{
+	internal_bus_write_data_frame(my_sys.data_bus,testData,22);HAL_Delay(500);
 		if(my_sys.i2c_line->buffer_index)
 		{
 			switch(my_sys.i2c_line->receiveBuffer[0])
@@ -48,6 +51,8 @@ void state_machine(System *thisSystem)
 				//-------------------------------
 				case I2C_PACKET_SEND_DATA_FRAME:
 				{
+
+					//TODO Link data output to magnetometer memory instead
 					internal_bus_write_data_frame(my_sys.data_bus,testData,10);
 					break;
 				}

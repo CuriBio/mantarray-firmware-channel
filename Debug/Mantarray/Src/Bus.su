@@ -1,4 +1,4 @@
-Bus.c:3:17:internal_bus_create	40	static
-Bus.c:63:13:internal_bus_write_data_frame	56	static
-Bus.c:100:13:internal_bus_utilize	24	static
-Bus.c:121:13:internal_bus_release	24	static
+Bus.c:3:17:internal_bus_create	32	static
+Bus.c:63:13:internal_bus_write_data_frame	32	static
+Bus.c:79:13:internal_bus_utilize	0	static
+Bus.c:100:13:internal_bus_release	0	static

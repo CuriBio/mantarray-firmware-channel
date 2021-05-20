@@ -1,2 +1,2 @@
-EEPROM.c:6:9:EEPROM_save	40	static
-EEPROM.c:34:9:EEPROM_load	32	static
+EEPROM.c:6:9:EEPROM_save	16	static
+EEPROM.c:34:9:EEPROM_load	8	static

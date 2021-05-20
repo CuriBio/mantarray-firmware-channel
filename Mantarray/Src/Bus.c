@@ -11,7 +11,7 @@ InternalBus_t * internal_bus_create(GPIO_TypeDef *bus_line,uint16_t bus_pins,GPI
 		thisInternalBus->bus_mask = bus_pins;
 
 		thisInternalBus->bus_clk = cl_bus;
-		thisInternalBus->bus_ack_mask = cl_pin;
+		thisInternalBus->bus_clk_mask = cl_pin;
 
 		thisInternalBus->bus_ack = ak_bus;
 		thisInternalBus->bus_ack_mask = ak_pin;
@@ -60,39 +60,18 @@ InternalBus_t * internal_bus_create(GPIO_TypeDef *bus_line,uint16_t bus_pins,GPI
 	return thisInternalBus;
 }
 
-inline void internal_bus_write_data_frame(InternalBus_t *thisInternalBus,uint8_t *buffer,uint8_t *buffer_len)
+inline void internal_bus_write_data_frame(InternalBus_t *thisInternalBus,uint8_t *buffer,uint8_t buffer_len)
 {
-	//TODO Link data output to magnetometer memory instead
-	uint8_t testData[23] = {0,0,0,100,1,1,1,2,1,3,1,4,1,5,1,6,1,7,1,8,1,9,100};
 
 	internal_bus_utilize(thisInternalBus);
 
 	//Send dataframe
-
-	GPIOA->BRR = GPIO_PIN_0;GPIOB->BSRR = (uint32_t) ((0x000000FF & testData[0])  | ((0x000000FF & ~testData[0])  << 16));GPIOA->BSRR = GPIO_PIN_0;
-	GPIOA->BRR = GPIO_PIN_0;GPIOB->BSRR = (uint32_t) ((0x000000FF & testData[1])  | ((0x000000FF & ~testData[1])  << 16));GPIOA->BSRR = GPIO_PIN_0;
-	GPIOA->BRR = GPIO_PIN_0;GPIOB->BSRR = (uint32_t) ((0x000000FF & testData[2])  | ((0x000000FF & ~testData[2])  << 16));GPIOA->BSRR = GPIO_PIN_0;
-	GPIOA->BRR = GPIO_PIN_0;GPIOB->BSRR = (uint32_t) ((0x000000FF & testData[3])  | ((0x000000FF & ~testData[3])  << 16));GPIOA->BSRR = GPIO_PIN_0;
-	GPIOA->BRR = GPIO_PIN_0;GPIOB->BSRR = (uint32_t) ((0x000000FF & testData[4])  | ((0x000000FF & ~testData[4])  << 16));GPIOA->BSRR = GPIO_PIN_0;
-	GPIOA->BRR = GPIO_PIN_0;GPIOB->BSRR = (uint32_t) ((0x000000FF & testData[5])  | ((0x000000FF & ~testData[5])  << 16));GPIOA->BSRR = GPIO_PIN_0;
-	GPIOA->BRR = GPIO_PIN_0;GPIOB->BSRR = (uint32_t) ((0x000000FF & testData[6])  | ((0x000000FF & ~testData[6])  << 16));GPIOA->BSRR = GPIO_PIN_0;
-	GPIOA->BRR = GPIO_PIN_0;GPIOB->BSRR = (uint32_t) ((0x000000FF & testData[7])  | ((0x000000FF & ~testData[7])  << 16));GPIOA->BSRR = GPIO_PIN_0;
-	GPIOA->BRR = GPIO_PIN_0;GPIOB->BSRR = (uint32_t) ((0x000000FF & testData[8])  | ((0x000000FF & ~testData[8])  << 16));GPIOA->BSRR = GPIO_PIN_0;
-	GPIOA->BRR = GPIO_PIN_0;GPIOB->BSRR = (uint32_t) ((0x000000FF & testData[9])  | ((0x000000FF & ~testData[9])  << 16));GPIOA->BSRR = GPIO_PIN_0;
-	GPIOA->BRR = GPIO_PIN_0;GPIOB->BSRR = (uint32_t) ((0x000000FF & testData[10]) | ((0x000000FF & ~testData[10]) << 16));GPIOA->BSRR = GPIO_PIN_0;
-	GPIOA->BRR = GPIO_PIN_0;GPIOB->BSRR = (uint32_t) ((0x000000FF & testData[11]) | ((0x000000FF & ~testData[11]) << 16));GPIOA->BSRR = GPIO_PIN_0;
-	GPIOA->BRR = GPIO_PIN_0;GPIOB->BSRR = (uint32_t) ((0x000000FF & testData[12]) | ((0x000000FF & ~testData[12]) << 16));GPIOA->BSRR = GPIO_PIN_0;
-	GPIOA->BRR = GPIO_PIN_0;GPIOB->BSRR = (uint32_t) ((0x000000FF & testData[13]) | ((0x000000FF & ~testData[13]) << 16));GPIOA->BSRR = GPIO_PIN_0;
-	GPIOA->BRR = GPIO_PIN_0;GPIOB->BSRR = (uint32_t) ((0x000000FF & testData[14]) | ((0x000000FF & ~testData[14]) << 16));GPIOA->BSRR = GPIO_PIN_0;
-	GPIOA->BRR = GPIO_PIN_0;GPIOB->BSRR = (uint32_t) ((0x000000FF & testData[15]) | ((0x000000FF & ~testData[15]) << 16));GPIOA->BSRR = GPIO_PIN_0;
-	GPIOA->BRR = GPIO_PIN_0;GPIOB->BSRR = (uint32_t) ((0x000000FF & testData[16]) | ((0x000000FF & ~testData[16]) << 16));GPIOA->BSRR = GPIO_PIN_0;
-	GPIOA->BRR = GPIO_PIN_0;GPIOB->BSRR = (uint32_t) ((0x000000FF & testData[17]) | ((0x000000FF & ~testData[17]) << 16));GPIOA->BSRR = GPIO_PIN_0;
-	GPIOA->BRR = GPIO_PIN_0;GPIOB->BSRR = (uint32_t) ((0x000000FF & testData[18]) | ((0x000000FF & ~testData[18]) << 16));GPIOA->BSRR = GPIO_PIN_0;
-	GPIOA->BRR = GPIO_PIN_0;GPIOB->BSRR = (uint32_t) ((0x000000FF & testData[19]) | ((0x000000FF & ~testData[19]) << 16));GPIOA->BSRR = GPIO_PIN_0;
-	GPIOA->BRR = GPIO_PIN_0;GPIOB->BSRR = (uint32_t) ((0x000000FF & testData[20]) | ((0x000000FF & ~testData[20]) << 16));GPIOA->BSRR = GPIO_PIN_0;
-	GPIOA->BRR = GPIO_PIN_0;GPIOB->BSRR = (uint32_t) ((0x000000FF & testData[21]) | ((0x000000FF & ~testData[21]) << 16));GPIOA->BSRR = GPIO_PIN_0;
-	GPIOA->BRR = GPIO_PIN_0;GPIOB->BSRR = (uint32_t) ((0x000000FF & testData[22]) | ((0x000000FF & ~testData[22]) << 16));GPIOA->BSRR = GPIO_PIN_0;
-	GPIOA->BRR = GPIO_PIN_0;
+	while(buffer_len--)
+	{
+		GPIOA->BRR = GPIO_PIN_0;
+		GPIOB->BSRR = (uint32_t) ((0x000000FF & buffer[buffer_len])  | ((0x000000FF & ~buffer[buffer_len])  << 16));
+		GPIOA->BSRR = GPIO_PIN_0;
+	}
 
 	internal_bus_release(thisInternalBus);
 }
