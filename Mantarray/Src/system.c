@@ -171,10 +171,10 @@ void state_machine(System *thisSystem)
 					//GPIOC->BSRR = GPIO_PIN_0;
 					//GPIOC->BRR = GPIO_PIN_0;
 					//Set Bus pins to output
-					temp = GPIOB->MODER;
-					temp &= ~BUS_BUSMASK32;
-					temp |= BUS_ACK_MODER;
-					GPIOB->MODER = temp;
+					//temp = GPIOB->MODER;
+					//temp &= ~BUS_BUSMASK32;
+					//temp |= BUS_ACK_MODER;
+					//GPIOB->MODER = temp;
 					//Set CBus pins to output
 					//temp = GPIOA->MODER;
 					//temp &= ~BUS_CBUSMASK32;

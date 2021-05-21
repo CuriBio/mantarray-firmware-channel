@@ -104,136 +104,18 @@ InternalBus_t * internal_bus_create(GPIO_TypeDef *bus_line,uint16_t bus_pins,GPI
 inline void internal_bus_write_data_frame(InternalBus_t *thisInternalBus, uint8_t *buffer, uint8_t buffer_len)
 {
 	//TODO Link data output to magnetometer memory instead
-	uint8_t testData[31] = {0,0,0,100,1,1,1,2,1,3,0,0,0,100,1,4,1,5,1,6,0,0,0,100,1,7,1,8,1,9,100};
 
 	internal_bus_utilize(thisInternalBus);
 
 	//Send dataframe
 	//TODO may need a data offset term if the bus pins do not begin at 0
 	//ie. thisInternalBus->bus->BSRR = (uint32_t) ((thisInternalBus->bus_mask & (testData[0] << BUSOFFSET))  | ((thisInternalBus->bus_mask & ~(testData[0] << BUSOFFSET))  << 16));
-	thisInternalBus->bus_clk->BRR = thisInternalBus->bus_clk_mask;
-	thisInternalBus->bus->BSRR = (uint32_t) ((thisInternalBus->bus_mask & testData[0])  | ((thisInternalBus->bus_mask & ~testData[0])  << 16));
-	thisInternalBus->bus_clk->BSRR = (uint32_t) thisInternalBus->bus_clk_mask;
-
-	thisInternalBus->bus_clk->BRR = thisInternalBus->bus_clk_mask;
-	thisInternalBus->bus->BSRR = (uint32_t) ((thisInternalBus->bus_mask & testData[1])  | ((thisInternalBus->bus_mask & ~testData[1])  << 16));
-	thisInternalBus->bus_clk->BSRR = (uint32_t) thisInternalBus->bus_clk_mask;
-
-	thisInternalBus->bus_clk->BRR = thisInternalBus->bus_clk_mask;
-	thisInternalBus->bus->BSRR = (uint32_t) ((thisInternalBus->bus_mask & testData[2])  | ((thisInternalBus->bus_mask & ~testData[2])  << 16));
-	thisInternalBus->bus_clk->BSRR = (uint32_t) thisInternalBus->bus_clk_mask;
-
-	thisInternalBus->bus_clk->BRR = thisInternalBus->bus_clk_mask;
-	thisInternalBus->bus->BSRR = (uint32_t) ((thisInternalBus->bus_mask & testData[3])  | ((thisInternalBus->bus_mask & ~testData[3])  << 16));
-	thisInternalBus->bus_clk->BSRR = (uint32_t) thisInternalBus->bus_clk_mask;
-
-	thisInternalBus->bus_clk->BRR = thisInternalBus->bus_clk_mask;
-	thisInternalBus->bus->BSRR = (uint32_t) ((thisInternalBus->bus_mask & testData[4])  | ((thisInternalBus->bus_mask & ~testData[4])  << 16));
-	thisInternalBus->bus_clk->BSRR = (uint32_t) thisInternalBus->bus_clk_mask;
-
-	thisInternalBus->bus_clk->BRR = thisInternalBus->bus_clk_mask;
-	thisInternalBus->bus->BSRR = (uint32_t) ((thisInternalBus->bus_mask & testData[5])  | ((thisInternalBus->bus_mask & ~testData[5])  << 16));
-	thisInternalBus->bus_clk->BSRR = (uint32_t) thisInternalBus->bus_clk_mask;
-
-	thisInternalBus->bus_clk->BRR = thisInternalBus->bus_clk_mask;
-	thisInternalBus->bus->BSRR = (uint32_t) ((thisInternalBus->bus_mask & testData[6])  | ((thisInternalBus->bus_mask & ~testData[6])  << 16));
-	thisInternalBus->bus_clk->BSRR = (uint32_t) thisInternalBus->bus_clk_mask;
-
-	thisInternalBus->bus_clk->BRR = thisInternalBus->bus_clk_mask;
-	thisInternalBus->bus->BSRR = (uint32_t) ((thisInternalBus->bus_mask & testData[7])  | ((thisInternalBus->bus_mask & ~testData[7])  << 16));
-	thisInternalBus->bus_clk->BSRR = (uint32_t) thisInternalBus->bus_clk_mask;
-
-	thisInternalBus->bus_clk->BRR = thisInternalBus->bus_clk_mask;
-	thisInternalBus->bus->BSRR = (uint32_t) ((thisInternalBus->bus_mask & testData[8])  | ((thisInternalBus->bus_mask & ~testData[8])  << 16));
-	thisInternalBus->bus_clk->BSRR = (uint32_t) thisInternalBus->bus_clk_mask;
-
-	thisInternalBus->bus_clk->BRR = thisInternalBus->bus_clk_mask;
-	thisInternalBus->bus->BSRR = (uint32_t) ((thisInternalBus->bus_mask & testData[9])  | ((thisInternalBus->bus_mask & ~testData[9])  << 16));
-	thisInternalBus->bus_clk->BSRR = (uint32_t) thisInternalBus->bus_clk_mask;
-
-	thisInternalBus->bus_clk->BRR = thisInternalBus->bus_clk_mask;
-	thisInternalBus->bus->BSRR = (uint32_t) ((thisInternalBus->bus_mask & testData[10])  | ((thisInternalBus->bus_mask & ~testData[10])  << 16));
-	thisInternalBus->bus_clk->BSRR = (uint32_t) thisInternalBus->bus_clk_mask;
-
-	thisInternalBus->bus_clk->BRR = thisInternalBus->bus_clk_mask;
-	thisInternalBus->bus->BSRR = (uint32_t) ((thisInternalBus->bus_mask & testData[11])  | ((thisInternalBus->bus_mask & ~testData[11])  << 16));
-	thisInternalBus->bus_clk->BSRR = (uint32_t) thisInternalBus->bus_clk_mask;
-
-	thisInternalBus->bus_clk->BRR = thisInternalBus->bus_clk_mask;
-	thisInternalBus->bus->BSRR = (uint32_t) ((thisInternalBus->bus_mask & testData[12])  | ((thisInternalBus->bus_mask & ~testData[12])  << 16));
-	thisInternalBus->bus_clk->BSRR = (uint32_t) thisInternalBus->bus_clk_mask;
-
-	thisInternalBus->bus_clk->BRR = thisInternalBus->bus_clk_mask;
-	thisInternalBus->bus->BSRR = (uint32_t) ((thisInternalBus->bus_mask & testData[13])  | ((thisInternalBus->bus_mask & ~testData[13])  << 16));
-	thisInternalBus->bus_clk->BSRR = (uint32_t) thisInternalBus->bus_clk_mask;
-
-	thisInternalBus->bus_clk->BRR = thisInternalBus->bus_clk_mask;
-	thisInternalBus->bus->BSRR = (uint32_t) ((thisInternalBus->bus_mask & testData[14])  | ((thisInternalBus->bus_mask & ~testData[14])  << 16));
-	thisInternalBus->bus_clk->BSRR = (uint32_t) thisInternalBus->bus_clk_mask;
-
-	thisInternalBus->bus_clk->BRR = thisInternalBus->bus_clk_mask;
-	thisInternalBus->bus->BSRR = (uint32_t) ((thisInternalBus->bus_mask & testData[15])  | ((thisInternalBus->bus_mask & ~testData[15])  << 16));
-	thisInternalBus->bus_clk->BSRR = (uint32_t) thisInternalBus->bus_clk_mask;
-
-	thisInternalBus->bus_clk->BRR = thisInternalBus->bus_clk_mask;
-	thisInternalBus->bus->BSRR = (uint32_t) ((thisInternalBus->bus_mask & testData[16])  | ((thisInternalBus->bus_mask & ~testData[16])  << 16));
-	thisInternalBus->bus_clk->BSRR = (uint32_t) thisInternalBus->bus_clk_mask;
-
-	thisInternalBus->bus_clk->BRR = thisInternalBus->bus_clk_mask;
-	thisInternalBus->bus->BSRR = (uint32_t) ((thisInternalBus->bus_mask & testData[17])  | ((thisInternalBus->bus_mask & ~testData[17])  << 16));
-	thisInternalBus->bus_clk->BSRR = (uint32_t) thisInternalBus->bus_clk_mask;
-
-	thisInternalBus->bus_clk->BRR = thisInternalBus->bus_clk_mask;
-	thisInternalBus->bus->BSRR = (uint32_t) ((thisInternalBus->bus_mask & testData[18])  | ((thisInternalBus->bus_mask & ~testData[18])  << 16));
-	thisInternalBus->bus_clk->BSRR = (uint32_t) thisInternalBus->bus_clk_mask;
-
-	thisInternalBus->bus_clk->BRR = thisInternalBus->bus_clk_mask;
-	thisInternalBus->bus->BSRR = (uint32_t) ((thisInternalBus->bus_mask & testData[19])  | ((thisInternalBus->bus_mask & ~testData[19])  << 16));
-	thisInternalBus->bus_clk->BSRR = (uint32_t) thisInternalBus->bus_clk_mask;
-
-	thisInternalBus->bus_clk->BRR = thisInternalBus->bus_clk_mask;
-	thisInternalBus->bus->BSRR = (uint32_t) ((thisInternalBus->bus_mask & testData[20])  | ((thisInternalBus->bus_mask & ~testData[20])  << 16));
-	thisInternalBus->bus_clk->BSRR = (uint32_t) thisInternalBus->bus_clk_mask;
-
-	thisInternalBus->bus_clk->BRR = thisInternalBus->bus_clk_mask;
-	thisInternalBus->bus->BSRR = (uint32_t) ((thisInternalBus->bus_mask & testData[21])  | ((thisInternalBus->bus_mask & ~testData[21])  << 16));
-	thisInternalBus->bus_clk->BSRR = (uint32_t) thisInternalBus->bus_clk_mask;
-
-	thisInternalBus->bus_clk->BRR = thisInternalBus->bus_clk_mask;
-	thisInternalBus->bus->BSRR = (uint32_t) ((thisInternalBus->bus_mask & testData[22])  | ((thisInternalBus->bus_mask & ~testData[22])  << 16));
-	thisInternalBus->bus_clk->BSRR = (uint32_t) thisInternalBus->bus_clk_mask;
-
-	thisInternalBus->bus_clk->BRR = thisInternalBus->bus_clk_mask;
-	thisInternalBus->bus->BSRR = (uint32_t) ((thisInternalBus->bus_mask & testData[23])  | ((thisInternalBus->bus_mask & ~testData[23])  << 16));
-	thisInternalBus->bus_clk->BSRR = (uint32_t) thisInternalBus->bus_clk_mask;
-
-	thisInternalBus->bus_clk->BRR = thisInternalBus->bus_clk_mask;
-	thisInternalBus->bus->BSRR = (uint32_t) ((thisInternalBus->bus_mask & testData[24])  | ((thisInternalBus->bus_mask & ~testData[24])  << 16));
-	thisInternalBus->bus_clk->BSRR = (uint32_t) thisInternalBus->bus_clk_mask;
-
-	thisInternalBus->bus_clk->BRR = thisInternalBus->bus_clk_mask;
-	thisInternalBus->bus->BSRR = (uint32_t) ((thisInternalBus->bus_mask & testData[25])  | ((thisInternalBus->bus_mask & ~testData[25])  << 16));
-	thisInternalBus->bus_clk->BSRR = (uint32_t) thisInternalBus->bus_clk_mask;
-
-	thisInternalBus->bus_clk->BRR = thisInternalBus->bus_clk_mask;
-	thisInternalBus->bus->BSRR = (uint32_t) ((thisInternalBus->bus_mask & testData[26])  | ((thisInternalBus->bus_mask & ~testData[26])  << 16));
-	thisInternalBus->bus_clk->BSRR = (uint32_t) thisInternalBus->bus_clk_mask;
-
-	thisInternalBus->bus_clk->BRR = thisInternalBus->bus_clk_mask;
-	thisInternalBus->bus->BSRR = (uint32_t) ((thisInternalBus->bus_mask & testData[27])  | ((thisInternalBus->bus_mask & ~testData[27])  << 16));
-	thisInternalBus->bus_clk->BSRR = (uint32_t) thisInternalBus->bus_clk_mask;
-
-	thisInternalBus->bus_clk->BRR = thisInternalBus->bus_clk_mask;
-	thisInternalBus->bus->BSRR = (uint32_t) ((thisInternalBus->bus_mask & testData[28])  | ((thisInternalBus->bus_mask & ~testData[28])  << 16));
-	thisInternalBus->bus_clk->BSRR = (uint32_t) thisInternalBus->bus_clk_mask;
-
-	thisInternalBus->bus_clk->BRR = thisInternalBus->bus_clk_mask;
-	thisInternalBus->bus->BSRR = (uint32_t) ((thisInternalBus->bus_mask & testData[29])  | ((thisInternalBus->bus_mask & ~testData[29])  << 16));
-	thisInternalBus->bus_clk->BSRR = (uint32_t) thisInternalBus->bus_clk_mask;
-
-	thisInternalBus->bus_clk->BRR = thisInternalBus->bus_clk_mask;
-	thisInternalBus->bus->BSRR = (uint32_t) ((thisInternalBus->bus_mask & testData[30])  | ((thisInternalBus->bus_mask & ~testData[30])  << 16));
-	thisInternalBus->bus_clk->BSRR = (uint32_t) thisInternalBus->bus_clk_mask;
+	while(buffer_len--)
+	{
+		thisInternalBus->bus_clk->BRR = thisInternalBus->bus_clk_mask;
+		thisInternalBus->bus->BSRR = (uint32_t) ((thisInternalBus->bus_mask & buffer[buffer_len])  | ((thisInternalBus->bus_mask & ~buffer[buffer_len])  << 16));
+		thisInternalBus->bus_clk->BSRR = (uint32_t) thisInternalBus->bus_clk_mask;
+	}
 
 	internal_bus_release(thisInternalBus);
 }
