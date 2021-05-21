@@ -10773,12 +10773,12 @@ inline void internal_bus_write_data_frame(InternalBus_t *thisInternalBus, uint8_
 	//Send dataframe
 	//TODO may need a data offset term if the bus pins do not begin at 0
 	//ie. thisInternalBus->bus->BSRR = (uint32_t) ((thisInternalBus->bus_mask & (testData[0] << BUSOFFSET))  | ((thisInternalBus->bus_mask & ~(testData[0] << BUSOFFSET))  << 16));
-	thisInternalBus->bus_clk->BRR = thisInternalBus->bus_clk_mask;
+	thisInternalBus->bus_clk->BSRR = thisInternalBus->bus_clk_mask;
  80054b4:	68fb      	ldr	r3, [r7, #12]
  80054b6:	8b1a      	ldrh	r2, [r3, #24]
  80054b8:	68fb      	ldr	r3, [r7, #12]
  80054ba:	695b      	ldr	r3, [r3, #20]
- 80054bc:	629a      	str	r2, [r3, #40]	; 0x28
+ 80054bc:	619a      	str	r2, [r3, #24]
 	thisInternalBus->bus->BSRR = (uint32_t) ((thisInternalBus->bus_mask & testData[0])  | ((thisInternalBus->bus_mask & ~testData[0])  << 16));
  80054be:	68fb      	ldr	r3, [r7, #12]
  80054c0:	889b      	ldrh	r3, [r3, #4]
@@ -10799,19 +10799,19 @@ inline void internal_bus_write_data_frame(InternalBus_t *thisInternalBus, uint8_
  80054de:	68fb      	ldr	r3, [r7, #12]
  80054e0:	681b      	ldr	r3, [r3, #0]
  80054e2:	619a      	str	r2, [r3, #24]
-	thisInternalBus->bus_clk->BSRR = (uint32_t) thisInternalBus->bus_clk_mask;
+	thisInternalBus->bus_clk->BRR = (uint32_t) thisInternalBus->bus_clk_mask;
  80054e4:	68fb      	ldr	r3, [r7, #12]
  80054e6:	8b1a      	ldrh	r2, [r3, #24]
  80054e8:	68fb      	ldr	r3, [r7, #12]
  80054ea:	695b      	ldr	r3, [r3, #20]
- 80054ec:	619a      	str	r2, [r3, #24]
+ 80054ec:	629a      	str	r2, [r3, #40]	; 0x28
 
-	thisInternalBus->bus_clk->BRR = thisInternalBus->bus_clk_mask;
+	thisInternalBus->bus_clk->BSRR = thisInternalBus->bus_clk_mask;
  80054ee:	68fb      	ldr	r3, [r7, #12]
  80054f0:	8b1a      	ldrh	r2, [r3, #24]
  80054f2:	68fb      	ldr	r3, [r7, #12]
  80054f4:	695b      	ldr	r3, [r3, #20]
- 80054f6:	629a      	str	r2, [r3, #40]	; 0x28
+ 80054f6:	619a      	str	r2, [r3, #24]
 	thisInternalBus->bus->BSRR = (uint32_t) ((thisInternalBus->bus_mask & testData[1])  | ((thisInternalBus->bus_mask & ~testData[1])  << 16));
  80054f8:	68fb      	ldr	r3, [r7, #12]
  80054fa:	889b      	ldrh	r3, [r3, #4]
@@ -10831,19 +10831,19 @@ inline void internal_bus_write_data_frame(InternalBus_t *thisInternalBus, uint8_
  8005516:	68fb      	ldr	r3, [r7, #12]
  8005518:	681b      	ldr	r3, [r3, #0]
  800551a:	619a      	str	r2, [r3, #24]
-	thisInternalBus->bus_clk->BSRR = (uint32_t) thisInternalBus->bus_clk_mask;
+	thisInternalBus->bus_clk->BRR = (uint32_t) thisInternalBus->bus_clk_mask;
  800551c:	68fb      	ldr	r3, [r7, #12]
  800551e:	8b1a      	ldrh	r2, [r3, #24]
  8005520:	68fb      	ldr	r3, [r7, #12]
  8005522:	695b      	ldr	r3, [r3, #20]
- 8005524:	619a      	str	r2, [r3, #24]
+ 8005524:	629a      	str	r2, [r3, #40]	; 0x28
 
-	thisInternalBus->bus_clk->BRR = thisInternalBus->bus_clk_mask;
+	thisInternalBus->bus_clk->BSRR = thisInternalBus->bus_clk_mask;
  8005526:	68fb      	ldr	r3, [r7, #12]
  8005528:	8b1a      	ldrh	r2, [r3, #24]
  800552a:	68fb      	ldr	r3, [r7, #12]
  800552c:	695b      	ldr	r3, [r3, #20]
- 800552e:	629a      	str	r2, [r3, #40]	; 0x28
+ 800552e:	619a      	str	r2, [r3, #24]
 	thisInternalBus->bus->BSRR = (uint32_t) ((thisInternalBus->bus_mask & testData[2])  | ((thisInternalBus->bus_mask & ~testData[2])  << 16));
  8005530:	68fb      	ldr	r3, [r7, #12]
  8005532:	889b      	ldrh	r3, [r3, #4]
@@ -10863,19 +10863,19 @@ inline void internal_bus_write_data_frame(InternalBus_t *thisInternalBus, uint8_
  800554e:	68fb      	ldr	r3, [r7, #12]
  8005550:	681b      	ldr	r3, [r3, #0]
  8005552:	619a      	str	r2, [r3, #24]
-	thisInternalBus->bus_clk->BSRR = (uint32_t) thisInternalBus->bus_clk_mask;
+	thisInternalBus->bus_clk->BRR = (uint32_t) thisInternalBus->bus_clk_mask;
  8005554:	68fb      	ldr	r3, [r7, #12]
  8005556:	8b1a      	ldrh	r2, [r3, #24]
  8005558:	68fb      	ldr	r3, [r7, #12]
  800555a:	695b      	ldr	r3, [r3, #20]
- 800555c:	619a      	str	r2, [r3, #24]
+ 800555c:	629a      	str	r2, [r3, #40]	; 0x28
 
-	thisInternalBus->bus_clk->BRR = thisInternalBus->bus_clk_mask;
+	thisInternalBus->bus_clk->BSRR = thisInternalBus->bus_clk_mask;
  800555e:	68fb      	ldr	r3, [r7, #12]
  8005560:	8b1a      	ldrh	r2, [r3, #24]
  8005562:	68fb      	ldr	r3, [r7, #12]
  8005564:	695b      	ldr	r3, [r3, #20]
- 8005566:	629a      	str	r2, [r3, #40]	; 0x28
+ 8005566:	619a      	str	r2, [r3, #24]
 	thisInternalBus->bus->BSRR = (uint32_t) ((thisInternalBus->bus_mask & testData[3])  | ((thisInternalBus->bus_mask & ~testData[3])  << 16));
  8005568:	68fb      	ldr	r3, [r7, #12]
  800556a:	889b      	ldrh	r3, [r3, #4]
@@ -10895,19 +10895,19 @@ inline void internal_bus_write_data_frame(InternalBus_t *thisInternalBus, uint8_
  8005586:	68fb      	ldr	r3, [r7, #12]
  8005588:	681b      	ldr	r3, [r3, #0]
  800558a:	619a      	str	r2, [r3, #24]
-	thisInternalBus->bus_clk->BSRR = (uint32_t) thisInternalBus->bus_clk_mask;
+	thisInternalBus->bus_clk->BRR = (uint32_t) thisInternalBus->bus_clk_mask;
  800558c:	68fb      	ldr	r3, [r7, #12]
  800558e:	8b1a      	ldrh	r2, [r3, #24]
  8005590:	68fb      	ldr	r3, [r7, #12]
  8005592:	695b      	ldr	r3, [r3, #20]
- 8005594:	619a      	str	r2, [r3, #24]
+ 8005594:	629a      	str	r2, [r3, #40]	; 0x28
 
-	thisInternalBus->bus_clk->BRR = thisInternalBus->bus_clk_mask;
+	thisInternalBus->bus_clk->BSRR = thisInternalBus->bus_clk_mask;
  8005596:	68fb      	ldr	r3, [r7, #12]
  8005598:	8b1a      	ldrh	r2, [r3, #24]
  800559a:	68fb      	ldr	r3, [r7, #12]
  800559c:	695b      	ldr	r3, [r3, #20]
- 800559e:	629a      	str	r2, [r3, #40]	; 0x28
+ 800559e:	619a      	str	r2, [r3, #24]
 	thisInternalBus->bus->BSRR = (uint32_t) ((thisInternalBus->bus_mask & testData[4])  | ((thisInternalBus->bus_mask & ~testData[4])  << 16));
  80055a0:	68fb      	ldr	r3, [r7, #12]
  80055a2:	889b      	ldrh	r3, [r3, #4]
@@ -10927,19 +10927,19 @@ inline void internal_bus_write_data_frame(InternalBus_t *thisInternalBus, uint8_
  80055be:	68fb      	ldr	r3, [r7, #12]
  80055c0:	681b      	ldr	r3, [r3, #0]
  80055c2:	619a      	str	r2, [r3, #24]
-	thisInternalBus->bus_clk->BSRR = (uint32_t) thisInternalBus->bus_clk_mask;
+	thisInternalBus->bus_clk->BRR = (uint32_t) thisInternalBus->bus_clk_mask;
  80055c4:	68fb      	ldr	r3, [r7, #12]
  80055c6:	8b1a      	ldrh	r2, [r3, #24]
  80055c8:	68fb      	ldr	r3, [r7, #12]
  80055ca:	695b      	ldr	r3, [r3, #20]
- 80055cc:	619a      	str	r2, [r3, #24]
+ 80055cc:	629a      	str	r2, [r3, #40]	; 0x28
 
-	thisInternalBus->bus_clk->BRR = thisInternalBus->bus_clk_mask;
+	thisInternalBus->bus_clk->BSRR = thisInternalBus->bus_clk_mask;
  80055ce:	68fb      	ldr	r3, [r7, #12]
  80055d0:	8b1a      	ldrh	r2, [r3, #24]
  80055d2:	68fb      	ldr	r3, [r7, #12]
  80055d4:	695b      	ldr	r3, [r3, #20]
- 80055d6:	629a      	str	r2, [r3, #40]	; 0x28
+ 80055d6:	619a      	str	r2, [r3, #24]
 	thisInternalBus->bus->BSRR = (uint32_t) ((thisInternalBus->bus_mask & testData[5])  | ((thisInternalBus->bus_mask & ~testData[5])  << 16));
  80055d8:	68fb      	ldr	r3, [r7, #12]
  80055da:	889b      	ldrh	r3, [r3, #4]
@@ -10959,19 +10959,19 @@ inline void internal_bus_write_data_frame(InternalBus_t *thisInternalBus, uint8_
  80055f6:	68fb      	ldr	r3, [r7, #12]
  80055f8:	681b      	ldr	r3, [r3, #0]
  80055fa:	619a      	str	r2, [r3, #24]
-	thisInternalBus->bus_clk->BSRR = (uint32_t) thisInternalBus->bus_clk_mask;
+	thisInternalBus->bus_clk->BRR = (uint32_t) thisInternalBus->bus_clk_mask;
  80055fc:	68fb      	ldr	r3, [r7, #12]
  80055fe:	8b1a      	ldrh	r2, [r3, #24]
  8005600:	68fb      	ldr	r3, [r7, #12]
  8005602:	695b      	ldr	r3, [r3, #20]
- 8005604:	619a      	str	r2, [r3, #24]
+ 8005604:	629a      	str	r2, [r3, #40]	; 0x28
 
-	thisInternalBus->bus_clk->BRR = thisInternalBus->bus_clk_mask;
+	thisInternalBus->bus_clk->BSRR = thisInternalBus->bus_clk_mask;
  8005606:	68fb      	ldr	r3, [r7, #12]
  8005608:	8b1a      	ldrh	r2, [r3, #24]
  800560a:	68fb      	ldr	r3, [r7, #12]
  800560c:	695b      	ldr	r3, [r3, #20]
- 800560e:	629a      	str	r2, [r3, #40]	; 0x28
+ 800560e:	619a      	str	r2, [r3, #24]
 	thisInternalBus->bus->BSRR = (uint32_t) ((thisInternalBus->bus_mask & testData[6])  | ((thisInternalBus->bus_mask & ~testData[6])  << 16));
  8005610:	68fb      	ldr	r3, [r7, #12]
  8005612:	889b      	ldrh	r3, [r3, #4]
@@ -10991,19 +10991,19 @@ inline void internal_bus_write_data_frame(InternalBus_t *thisInternalBus, uint8_
  800562e:	68fb      	ldr	r3, [r7, #12]
  8005630:	681b      	ldr	r3, [r3, #0]
  8005632:	619a      	str	r2, [r3, #24]
-	thisInternalBus->bus_clk->BSRR = (uint32_t) thisInternalBus->bus_clk_mask;
+	thisInternalBus->bus_clk->BRR = (uint32_t) thisInternalBus->bus_clk_mask;
  8005634:	68fb      	ldr	r3, [r7, #12]
  8005636:	8b1a      	ldrh	r2, [r3, #24]
  8005638:	68fb      	ldr	r3, [r7, #12]
  800563a:	695b      	ldr	r3, [r3, #20]
- 800563c:	619a      	str	r2, [r3, #24]
+ 800563c:	629a      	str	r2, [r3, #40]	; 0x28
 
-	thisInternalBus->bus_clk->BRR = thisInternalBus->bus_clk_mask;
+	thisInternalBus->bus_clk->BSRR = thisInternalBus->bus_clk_mask;
  800563e:	68fb      	ldr	r3, [r7, #12]
  8005640:	8b1a      	ldrh	r2, [r3, #24]
  8005642:	68fb      	ldr	r3, [r7, #12]
  8005644:	695b      	ldr	r3, [r3, #20]
- 8005646:	629a      	str	r2, [r3, #40]	; 0x28
+ 8005646:	619a      	str	r2, [r3, #24]
 	thisInternalBus->bus->BSRR = (uint32_t) ((thisInternalBus->bus_mask & testData[7])  | ((thisInternalBus->bus_mask & ~testData[7])  << 16));
  8005648:	68fb      	ldr	r3, [r7, #12]
  800564a:	889b      	ldrh	r3, [r3, #4]
@@ -11023,19 +11023,19 @@ inline void internal_bus_write_data_frame(InternalBus_t *thisInternalBus, uint8_
  8005666:	68fb      	ldr	r3, [r7, #12]
  8005668:	681b      	ldr	r3, [r3, #0]
  800566a:	619a      	str	r2, [r3, #24]
-	thisInternalBus->bus_clk->BSRR = (uint32_t) thisInternalBus->bus_clk_mask;
+	thisInternalBus->bus_clk->BRR = (uint32_t) thisInternalBus->bus_clk_mask;
  800566c:	68fb      	ldr	r3, [r7, #12]
  800566e:	8b1a      	ldrh	r2, [r3, #24]
  8005670:	68fb      	ldr	r3, [r7, #12]
  8005672:	695b      	ldr	r3, [r3, #20]
- 8005674:	619a      	str	r2, [r3, #24]
+ 8005674:	629a      	str	r2, [r3, #40]	; 0x28
 
-	thisInternalBus->bus_clk->BRR = thisInternalBus->bus_clk_mask;
+	thisInternalBus->bus_clk->BSRR = thisInternalBus->bus_clk_mask;
  8005676:	68fb      	ldr	r3, [r7, #12]
  8005678:	8b1a      	ldrh	r2, [r3, #24]
  800567a:	68fb      	ldr	r3, [r7, #12]
  800567c:	695b      	ldr	r3, [r3, #20]
- 800567e:	629a      	str	r2, [r3, #40]	; 0x28
+ 800567e:	619a      	str	r2, [r3, #24]
 	thisInternalBus->bus->BSRR = (uint32_t) ((thisInternalBus->bus_mask & testData[8])  | ((thisInternalBus->bus_mask & ~testData[8])  << 16));
  8005680:	68fb      	ldr	r3, [r7, #12]
  8005682:	889b      	ldrh	r3, [r3, #4]
@@ -11055,19 +11055,19 @@ inline void internal_bus_write_data_frame(InternalBus_t *thisInternalBus, uint8_
  800569e:	68fb      	ldr	r3, [r7, #12]
  80056a0:	681b      	ldr	r3, [r3, #0]
  80056a2:	619a      	str	r2, [r3, #24]
-	thisInternalBus->bus_clk->BSRR = (uint32_t) thisInternalBus->bus_clk_mask;
+	thisInternalBus->bus_clk->BRR = (uint32_t) thisInternalBus->bus_clk_mask;
  80056a4:	68fb      	ldr	r3, [r7, #12]
  80056a6:	8b1a      	ldrh	r2, [r3, #24]
  80056a8:	68fb      	ldr	r3, [r7, #12]
  80056aa:	695b      	ldr	r3, [r3, #20]
- 80056ac:	619a      	str	r2, [r3, #24]
+ 80056ac:	629a      	str	r2, [r3, #40]	; 0x28
 
-	thisInternalBus->bus_clk->BRR = thisInternalBus->bus_clk_mask;
+	thisInternalBus->bus_clk->BSRR = thisInternalBus->bus_clk_mask;
  80056ae:	68fb      	ldr	r3, [r7, #12]
  80056b0:	8b1a      	ldrh	r2, [r3, #24]
  80056b2:	68fb      	ldr	r3, [r7, #12]
  80056b4:	695b      	ldr	r3, [r3, #20]
- 80056b6:	629a      	str	r2, [r3, #40]	; 0x28
+ 80056b6:	619a      	str	r2, [r3, #24]
 	thisInternalBus->bus->BSRR = (uint32_t) ((thisInternalBus->bus_mask & testData[9])  | ((thisInternalBus->bus_mask & ~testData[9])  << 16));
  80056b8:	68fb      	ldr	r3, [r7, #12]
  80056ba:	889b      	ldrh	r3, [r3, #4]
@@ -11087,19 +11087,19 @@ inline void internal_bus_write_data_frame(InternalBus_t *thisInternalBus, uint8_
  80056d6:	68fb      	ldr	r3, [r7, #12]
  80056d8:	681b      	ldr	r3, [r3, #0]
  80056da:	619a      	str	r2, [r3, #24]
-	thisInternalBus->bus_clk->BSRR = (uint32_t) thisInternalBus->bus_clk_mask;
+	thisInternalBus->bus_clk->BRR = (uint32_t) thisInternalBus->bus_clk_mask;
  80056dc:	68fb      	ldr	r3, [r7, #12]
  80056de:	8b1a      	ldrh	r2, [r3, #24]
  80056e0:	68fb      	ldr	r3, [r7, #12]
  80056e2:	695b      	ldr	r3, [r3, #20]
- 80056e4:	619a      	str	r2, [r3, #24]
+ 80056e4:	629a      	str	r2, [r3, #40]	; 0x28
 
-	thisInternalBus->bus_clk->BRR = thisInternalBus->bus_clk_mask;
+	thisInternalBus->bus_clk->BSRR = thisInternalBus->bus_clk_mask;
  80056e6:	68fb      	ldr	r3, [r7, #12]
  80056e8:	8b1a      	ldrh	r2, [r3, #24]
  80056ea:	68fb      	ldr	r3, [r7, #12]
  80056ec:	695b      	ldr	r3, [r3, #20]
- 80056ee:	629a      	str	r2, [r3, #40]	; 0x28
+ 80056ee:	619a      	str	r2, [r3, #24]
 	thisInternalBus->bus->BSRR = (uint32_t) ((thisInternalBus->bus_mask & testData[10])  | ((thisInternalBus->bus_mask & ~testData[10])  << 16));
  80056f0:	68fb      	ldr	r3, [r7, #12]
  80056f2:	889b      	ldrh	r3, [r3, #4]
@@ -11119,19 +11119,19 @@ inline void internal_bus_write_data_frame(InternalBus_t *thisInternalBus, uint8_
  800570e:	68fb      	ldr	r3, [r7, #12]
  8005710:	681b      	ldr	r3, [r3, #0]
  8005712:	619a      	str	r2, [r3, #24]
-	thisInternalBus->bus_clk->BSRR = (uint32_t) thisInternalBus->bus_clk_mask;
+	thisInternalBus->bus_clk->BRR = (uint32_t) thisInternalBus->bus_clk_mask;
  8005714:	68fb      	ldr	r3, [r7, #12]
  8005716:	8b1a      	ldrh	r2, [r3, #24]
  8005718:	68fb      	ldr	r3, [r7, #12]
  800571a:	695b      	ldr	r3, [r3, #20]
- 800571c:	619a      	str	r2, [r3, #24]
+ 800571c:	629a      	str	r2, [r3, #40]	; 0x28
 
-	thisInternalBus->bus_clk->BRR = thisInternalBus->bus_clk_mask;
+	thisInternalBus->bus_clk->BSRR = thisInternalBus->bus_clk_mask;
  800571e:	68fb      	ldr	r3, [r7, #12]
  8005720:	8b1a      	ldrh	r2, [r3, #24]
  8005722:	68fb      	ldr	r3, [r7, #12]
  8005724:	695b      	ldr	r3, [r3, #20]
- 8005726:	629a      	str	r2, [r3, #40]	; 0x28
+ 8005726:	619a      	str	r2, [r3, #24]
 	thisInternalBus->bus->BSRR = (uint32_t) ((thisInternalBus->bus_mask & testData[11])  | ((thisInternalBus->bus_mask & ~testData[11])  << 16));
  8005728:	68fb      	ldr	r3, [r7, #12]
  800572a:	889b      	ldrh	r3, [r3, #4]
@@ -11151,19 +11151,19 @@ inline void internal_bus_write_data_frame(InternalBus_t *thisInternalBus, uint8_
  8005746:	68fb      	ldr	r3, [r7, #12]
  8005748:	681b      	ldr	r3, [r3, #0]
  800574a:	619a      	str	r2, [r3, #24]
-	thisInternalBus->bus_clk->BSRR = (uint32_t) thisInternalBus->bus_clk_mask;
+	thisInternalBus->bus_clk->BRR = (uint32_t) thisInternalBus->bus_clk_mask;
  800574c:	68fb      	ldr	r3, [r7, #12]
  800574e:	8b1a      	ldrh	r2, [r3, #24]
  8005750:	68fb      	ldr	r3, [r7, #12]
  8005752:	695b      	ldr	r3, [r3, #20]
- 8005754:	619a      	str	r2, [r3, #24]
+ 8005754:	629a      	str	r2, [r3, #40]	; 0x28
 
-	thisInternalBus->bus_clk->BRR = thisInternalBus->bus_clk_mask;
+	thisInternalBus->bus_clk->BSRR = thisInternalBus->bus_clk_mask;
  8005756:	68fb      	ldr	r3, [r7, #12]
  8005758:	8b1a      	ldrh	r2, [r3, #24]
  800575a:	68fb      	ldr	r3, [r7, #12]
  800575c:	695b      	ldr	r3, [r3, #20]
- 800575e:	629a      	str	r2, [r3, #40]	; 0x28
+ 800575e:	619a      	str	r2, [r3, #24]
 	thisInternalBus->bus->BSRR = (uint32_t) ((thisInternalBus->bus_mask & testData[12])  | ((thisInternalBus->bus_mask & ~testData[12])  << 16));
  8005760:	68fb      	ldr	r3, [r7, #12]
  8005762:	889b      	ldrh	r3, [r3, #4]
@@ -11183,19 +11183,19 @@ inline void internal_bus_write_data_frame(InternalBus_t *thisInternalBus, uint8_
  800577e:	68fb      	ldr	r3, [r7, #12]
  8005780:	681b      	ldr	r3, [r3, #0]
  8005782:	619a      	str	r2, [r3, #24]
-	thisInternalBus->bus_clk->BSRR = (uint32_t) thisInternalBus->bus_clk_mask;
+	thisInternalBus->bus_clk->BRR = (uint32_t) thisInternalBus->bus_clk_mask;
  8005784:	68fb      	ldr	r3, [r7, #12]
  8005786:	8b1a      	ldrh	r2, [r3, #24]
  8005788:	68fb      	ldr	r3, [r7, #12]
  800578a:	695b      	ldr	r3, [r3, #20]
- 800578c:	619a      	str	r2, [r3, #24]
+ 800578c:	629a      	str	r2, [r3, #40]	; 0x28
 
-	thisInternalBus->bus_clk->BRR = thisInternalBus->bus_clk_mask;
+	thisInternalBus->bus_clk->BSRR = thisInternalBus->bus_clk_mask;
  800578e:	68fb      	ldr	r3, [r7, #12]
  8005790:	8b1a      	ldrh	r2, [r3, #24]
  8005792:	68fb      	ldr	r3, [r7, #12]
  8005794:	695b      	ldr	r3, [r3, #20]
- 8005796:	629a      	str	r2, [r3, #40]	; 0x28
+ 8005796:	619a      	str	r2, [r3, #24]
 	thisInternalBus->bus->BSRR = (uint32_t) ((thisInternalBus->bus_mask & testData[13])  | ((thisInternalBus->bus_mask & ~testData[13])  << 16));
  8005798:	68fb      	ldr	r3, [r7, #12]
  800579a:	889b      	ldrh	r3, [r3, #4]
@@ -11215,19 +11215,19 @@ inline void internal_bus_write_data_frame(InternalBus_t *thisInternalBus, uint8_
  80057b6:	68fb      	ldr	r3, [r7, #12]
  80057b8:	681b      	ldr	r3, [r3, #0]
  80057ba:	619a      	str	r2, [r3, #24]
-	thisInternalBus->bus_clk->BSRR = (uint32_t) thisInternalBus->bus_clk_mask;
+	thisInternalBus->bus_clk->BRR = (uint32_t) thisInternalBus->bus_clk_mask;
  80057bc:	68fb      	ldr	r3, [r7, #12]
  80057be:	8b1a      	ldrh	r2, [r3, #24]
  80057c0:	68fb      	ldr	r3, [r7, #12]
  80057c2:	695b      	ldr	r3, [r3, #20]
- 80057c4:	619a      	str	r2, [r3, #24]
+ 80057c4:	629a      	str	r2, [r3, #40]	; 0x28
 
-	thisInternalBus->bus_clk->BRR = thisInternalBus->bus_clk_mask;
+	thisInternalBus->bus_clk->BSRR = thisInternalBus->bus_clk_mask;
  80057c6:	68fb      	ldr	r3, [r7, #12]
  80057c8:	8b1a      	ldrh	r2, [r3, #24]
  80057ca:	68fb      	ldr	r3, [r7, #12]
  80057cc:	695b      	ldr	r3, [r3, #20]
- 80057ce:	629a      	str	r2, [r3, #40]	; 0x28
+ 80057ce:	619a      	str	r2, [r3, #24]
 	thisInternalBus->bus->BSRR = (uint32_t) ((thisInternalBus->bus_mask & testData[14])  | ((thisInternalBus->bus_mask & ~testData[14])  << 16));
  80057d0:	68fb      	ldr	r3, [r7, #12]
  80057d2:	889b      	ldrh	r3, [r3, #4]
@@ -11247,19 +11247,19 @@ inline void internal_bus_write_data_frame(InternalBus_t *thisInternalBus, uint8_
  80057ee:	68fb      	ldr	r3, [r7, #12]
  80057f0:	681b      	ldr	r3, [r3, #0]
  80057f2:	619a      	str	r2, [r3, #24]
-	thisInternalBus->bus_clk->BSRR = (uint32_t) thisInternalBus->bus_clk_mask;
+	thisInternalBus->bus_clk->BRR = (uint32_t) thisInternalBus->bus_clk_mask;
  80057f4:	68fb      	ldr	r3, [r7, #12]
  80057f6:	8b1a      	ldrh	r2, [r3, #24]
  80057f8:	68fb      	ldr	r3, [r7, #12]
  80057fa:	695b      	ldr	r3, [r3, #20]
- 80057fc:	619a      	str	r2, [r3, #24]
+ 80057fc:	629a      	str	r2, [r3, #40]	; 0x28
 
-	thisInternalBus->bus_clk->BRR = thisInternalBus->bus_clk_mask;
+	thisInternalBus->bus_clk->BSRR = thisInternalBus->bus_clk_mask;
  80057fe:	68fb      	ldr	r3, [r7, #12]
  8005800:	8b1a      	ldrh	r2, [r3, #24]
  8005802:	68fb      	ldr	r3, [r7, #12]
  8005804:	695b      	ldr	r3, [r3, #20]
- 8005806:	629a      	str	r2, [r3, #40]	; 0x28
+ 8005806:	619a      	str	r2, [r3, #24]
 	thisInternalBus->bus->BSRR = (uint32_t) ((thisInternalBus->bus_mask & testData[15])  | ((thisInternalBus->bus_mask & ~testData[15])  << 16));
  8005808:	68fb      	ldr	r3, [r7, #12]
  800580a:	889b      	ldrh	r3, [r3, #4]
@@ -11282,19 +11282,19 @@ inline void internal_bus_write_data_frame(InternalBus_t *thisInternalBus, uint8_
  800582e:	68fb      	ldr	r3, [r7, #12]
  8005830:	681b      	ldr	r3, [r3, #0]
  8005832:	619a      	str	r2, [r3, #24]
-	thisInternalBus->bus_clk->BSRR = (uint32_t) thisInternalBus->bus_clk_mask;
+	thisInternalBus->bus_clk->BRR = (uint32_t) thisInternalBus->bus_clk_mask;
  8005834:	68fb      	ldr	r3, [r7, #12]
  8005836:	8b1a      	ldrh	r2, [r3, #24]
  8005838:	68fb      	ldr	r3, [r7, #12]
  800583a:	695b      	ldr	r3, [r3, #20]
- 800583c:	619a      	str	r2, [r3, #24]
+ 800583c:	629a      	str	r2, [r3, #40]	; 0x28
 
-	thisInternalBus->bus_clk->BRR = thisInternalBus->bus_clk_mask;
+	thisInternalBus->bus_clk->BSRR = thisInternalBus->bus_clk_mask;
  800583e:	68fb      	ldr	r3, [r7, #12]
  8005840:	8b1a      	ldrh	r2, [r3, #24]
  8005842:	68fb      	ldr	r3, [r7, #12]
  8005844:	695b      	ldr	r3, [r3, #20]
- 8005846:	629a      	str	r2, [r3, #40]	; 0x28
+ 8005846:	619a      	str	r2, [r3, #24]
 	thisInternalBus->bus->BSRR = (uint32_t) ((thisInternalBus->bus_mask & testData[16])  | ((thisInternalBus->bus_mask & ~testData[16])  << 16));
  8005848:	68fb      	ldr	r3, [r7, #12]
  800584a:	889b      	ldrh	r3, [r3, #4]
@@ -11314,19 +11314,19 @@ inline void internal_bus_write_data_frame(InternalBus_t *thisInternalBus, uint8_
  8005866:	68fb      	ldr	r3, [r7, #12]
  8005868:	681b      	ldr	r3, [r3, #0]
  800586a:	619a      	str	r2, [r3, #24]
-	thisInternalBus->bus_clk->BSRR = (uint32_t) thisInternalBus->bus_clk_mask;
+	thisInternalBus->bus_clk->BRR = (uint32_t) thisInternalBus->bus_clk_mask;
  800586c:	68fb      	ldr	r3, [r7, #12]
  800586e:	8b1a      	ldrh	r2, [r3, #24]
  8005870:	68fb      	ldr	r3, [r7, #12]
  8005872:	695b      	ldr	r3, [r3, #20]
- 8005874:	619a      	str	r2, [r3, #24]
+ 8005874:	629a      	str	r2, [r3, #40]	; 0x28
 
-	thisInternalBus->bus_clk->BRR = thisInternalBus->bus_clk_mask;
+	thisInternalBus->bus_clk->BSRR = thisInternalBus->bus_clk_mask;
  8005876:	68fb      	ldr	r3, [r7, #12]
  8005878:	8b1a      	ldrh	r2, [r3, #24]
  800587a:	68fb      	ldr	r3, [r7, #12]
  800587c:	695b      	ldr	r3, [r3, #20]
- 800587e:	629a      	str	r2, [r3, #40]	; 0x28
+ 800587e:	619a      	str	r2, [r3, #24]
 	thisInternalBus->bus->BSRR = (uint32_t) ((thisInternalBus->bus_mask & testData[17])  | ((thisInternalBus->bus_mask & ~testData[17])  << 16));
  8005880:	68fb      	ldr	r3, [r7, #12]
  8005882:	889b      	ldrh	r3, [r3, #4]
@@ -11346,19 +11346,19 @@ inline void internal_bus_write_data_frame(InternalBus_t *thisInternalBus, uint8_
  800589e:	68fb      	ldr	r3, [r7, #12]
  80058a0:	681b      	ldr	r3, [r3, #0]
  80058a2:	619a      	str	r2, [r3, #24]
-	thisInternalBus->bus_clk->BSRR = (uint32_t) thisInternalBus->bus_clk_mask;
+	thisInternalBus->bus_clk->BRR = (uint32_t) thisInternalBus->bus_clk_mask;
  80058a4:	68fb      	ldr	r3, [r7, #12]
  80058a6:	8b1a      	ldrh	r2, [r3, #24]
  80058a8:	68fb      	ldr	r3, [r7, #12]
  80058aa:	695b      	ldr	r3, [r3, #20]
- 80058ac:	619a      	str	r2, [r3, #24]
+ 80058ac:	629a      	str	r2, [r3, #40]	; 0x28
 
-	thisInternalBus->bus_clk->BRR = thisInternalBus->bus_clk_mask;
+	thisInternalBus->bus_clk->BSRR = thisInternalBus->bus_clk_mask;
  80058ae:	68fb      	ldr	r3, [r7, #12]
  80058b0:	8b1a      	ldrh	r2, [r3, #24]
  80058b2:	68fb      	ldr	r3, [r7, #12]
  80058b4:	695b      	ldr	r3, [r3, #20]
- 80058b6:	629a      	str	r2, [r3, #40]	; 0x28
+ 80058b6:	619a      	str	r2, [r3, #24]
 	thisInternalBus->bus->BSRR = (uint32_t) ((thisInternalBus->bus_mask & testData[18])  | ((thisInternalBus->bus_mask & ~testData[18])  << 16));
  80058b8:	68fb      	ldr	r3, [r7, #12]
  80058ba:	889b      	ldrh	r3, [r3, #4]
@@ -11378,19 +11378,19 @@ inline void internal_bus_write_data_frame(InternalBus_t *thisInternalBus, uint8_
  80058d6:	68fb      	ldr	r3, [r7, #12]
  80058d8:	681b      	ldr	r3, [r3, #0]
  80058da:	619a      	str	r2, [r3, #24]
-	thisInternalBus->bus_clk->BSRR = (uint32_t) thisInternalBus->bus_clk_mask;
+	thisInternalBus->bus_clk->BRR = (uint32_t) thisInternalBus->bus_clk_mask;
  80058dc:	68fb      	ldr	r3, [r7, #12]
  80058de:	8b1a      	ldrh	r2, [r3, #24]
  80058e0:	68fb      	ldr	r3, [r7, #12]
  80058e2:	695b      	ldr	r3, [r3, #20]
- 80058e4:	619a      	str	r2, [r3, #24]
+ 80058e4:	629a      	str	r2, [r3, #40]	; 0x28
 
-	thisInternalBus->bus_clk->BRR = thisInternalBus->bus_clk_mask;
+	thisInternalBus->bus_clk->BSRR = thisInternalBus->bus_clk_mask;
  80058e6:	68fb      	ldr	r3, [r7, #12]
  80058e8:	8b1a      	ldrh	r2, [r3, #24]
  80058ea:	68fb      	ldr	r3, [r7, #12]
  80058ec:	695b      	ldr	r3, [r3, #20]
- 80058ee:	629a      	str	r2, [r3, #40]	; 0x28
+ 80058ee:	619a      	str	r2, [r3, #24]
 	thisInternalBus->bus->BSRR = (uint32_t) ((thisInternalBus->bus_mask & testData[19])  | ((thisInternalBus->bus_mask & ~testData[19])  << 16));
  80058f0:	68fb      	ldr	r3, [r7, #12]
  80058f2:	889b      	ldrh	r3, [r3, #4]
@@ -11410,19 +11410,19 @@ inline void internal_bus_write_data_frame(InternalBus_t *thisInternalBus, uint8_
  800590e:	68fb      	ldr	r3, [r7, #12]
  8005910:	681b      	ldr	r3, [r3, #0]
  8005912:	619a      	str	r2, [r3, #24]
-	thisInternalBus->bus_clk->BSRR = (uint32_t) thisInternalBus->bus_clk_mask;
+	thisInternalBus->bus_clk->BRR = (uint32_t) thisInternalBus->bus_clk_mask;
  8005914:	68fb      	ldr	r3, [r7, #12]
  8005916:	8b1a      	ldrh	r2, [r3, #24]
  8005918:	68fb      	ldr	r3, [r7, #12]
  800591a:	695b      	ldr	r3, [r3, #20]
- 800591c:	619a      	str	r2, [r3, #24]
+ 800591c:	629a      	str	r2, [r3, #40]	; 0x28
 
-	thisInternalBus->bus_clk->BRR = thisInternalBus->bus_clk_mask;
+	thisInternalBus->bus_clk->BSRR = thisInternalBus->bus_clk_mask;
  800591e:	68fb      	ldr	r3, [r7, #12]
  8005920:	8b1a      	ldrh	r2, [r3, #24]
  8005922:	68fb      	ldr	r3, [r7, #12]
  8005924:	695b      	ldr	r3, [r3, #20]
- 8005926:	629a      	str	r2, [r3, #40]	; 0x28
+ 8005926:	619a      	str	r2, [r3, #24]
 	thisInternalBus->bus->BSRR = (uint32_t) ((thisInternalBus->bus_mask & testData[20])  | ((thisInternalBus->bus_mask & ~testData[20])  << 16));
  8005928:	68fb      	ldr	r3, [r7, #12]
  800592a:	889b      	ldrh	r3, [r3, #4]
@@ -11442,19 +11442,19 @@ inline void internal_bus_write_data_frame(InternalBus_t *thisInternalBus, uint8_
  8005946:	68fb      	ldr	r3, [r7, #12]
  8005948:	681b      	ldr	r3, [r3, #0]
  800594a:	619a      	str	r2, [r3, #24]
-	thisInternalBus->bus_clk->BSRR = (uint32_t) thisInternalBus->bus_clk_mask;
+	thisInternalBus->bus_clk->BRR = (uint32_t) thisInternalBus->bus_clk_mask;
  800594c:	68fb      	ldr	r3, [r7, #12]
  800594e:	8b1a      	ldrh	r2, [r3, #24]
  8005950:	68fb      	ldr	r3, [r7, #12]
  8005952:	695b      	ldr	r3, [r3, #20]
- 8005954:	619a      	str	r2, [r3, #24]
+ 8005954:	629a      	str	r2, [r3, #40]	; 0x28
 
-	thisInternalBus->bus_clk->BRR = thisInternalBus->bus_clk_mask;
+	thisInternalBus->bus_clk->BSRR = thisInternalBus->bus_clk_mask;
  8005956:	68fb      	ldr	r3, [r7, #12]
  8005958:	8b1a      	ldrh	r2, [r3, #24]
  800595a:	68fb      	ldr	r3, [r7, #12]
  800595c:	695b      	ldr	r3, [r3, #20]
- 800595e:	629a      	str	r2, [r3, #40]	; 0x28
+ 800595e:	619a      	str	r2, [r3, #24]
 	thisInternalBus->bus->BSRR = (uint32_t) ((thisInternalBus->bus_mask & testData[21])  | ((thisInternalBus->bus_mask & ~testData[21])  << 16));
  8005960:	68fb      	ldr	r3, [r7, #12]
  8005962:	889b      	ldrh	r3, [r3, #4]
@@ -11474,19 +11474,19 @@ inline void internal_bus_write_data_frame(InternalBus_t *thisInternalBus, uint8_
  800597e:	68fb      	ldr	r3, [r7, #12]
  8005980:	681b      	ldr	r3, [r3, #0]
  8005982:	619a      	str	r2, [r3, #24]
-	thisInternalBus->bus_clk->BSRR = (uint32_t) thisInternalBus->bus_clk_mask;
+	thisInternalBus->bus_clk->BRR = (uint32_t) thisInternalBus->bus_clk_mask;
  8005984:	68fb      	ldr	r3, [r7, #12]
  8005986:	8b1a      	ldrh	r2, [r3, #24]
  8005988:	68fb      	ldr	r3, [r7, #12]
  800598a:	695b      	ldr	r3, [r3, #20]
- 800598c:	619a      	str	r2, [r3, #24]
+ 800598c:	629a      	str	r2, [r3, #40]	; 0x28
 
-	thisInternalBus->bus_clk->BRR = thisInternalBus->bus_clk_mask;
+	thisInternalBus->bus_clk->BSRR = thisInternalBus->bus_clk_mask;
  800598e:	68fb      	ldr	r3, [r7, #12]
  8005990:	8b1a      	ldrh	r2, [r3, #24]
  8005992:	68fb      	ldr	r3, [r7, #12]
  8005994:	695b      	ldr	r3, [r3, #20]
- 8005996:	629a      	str	r2, [r3, #40]	; 0x28
+ 8005996:	619a      	str	r2, [r3, #24]
 	thisInternalBus->bus->BSRR = (uint32_t) ((thisInternalBus->bus_mask & testData[22])  | ((thisInternalBus->bus_mask & ~testData[22])  << 16));
  8005998:	68fb      	ldr	r3, [r7, #12]
  800599a:	889b      	ldrh	r3, [r3, #4]
@@ -11506,19 +11506,19 @@ inline void internal_bus_write_data_frame(InternalBus_t *thisInternalBus, uint8_
  80059b6:	68fb      	ldr	r3, [r7, #12]
  80059b8:	681b      	ldr	r3, [r3, #0]
  80059ba:	619a      	str	r2, [r3, #24]
-	thisInternalBus->bus_clk->BSRR = (uint32_t) thisInternalBus->bus_clk_mask;
+	thisInternalBus->bus_clk->BRR = (uint32_t) thisInternalBus->bus_clk_mask;
  80059bc:	68fb      	ldr	r3, [r7, #12]
  80059be:	8b1a      	ldrh	r2, [r3, #24]
  80059c0:	68fb      	ldr	r3, [r7, #12]
  80059c2:	695b      	ldr	r3, [r3, #20]
- 80059c4:	619a      	str	r2, [r3, #24]
+ 80059c4:	629a      	str	r2, [r3, #40]	; 0x28
 
-	thisInternalBus->bus_clk->BRR = thisInternalBus->bus_clk_mask;
+	thisInternalBus->bus_clk->BSRR = thisInternalBus->bus_clk_mask;
  80059c6:	68fb      	ldr	r3, [r7, #12]
  80059c8:	8b1a      	ldrh	r2, [r3, #24]
  80059ca:	68fb      	ldr	r3, [r7, #12]
  80059cc:	695b      	ldr	r3, [r3, #20]
- 80059ce:	629a      	str	r2, [r3, #40]	; 0x28
+ 80059ce:	619a      	str	r2, [r3, #24]
 	thisInternalBus->bus->BSRR = (uint32_t) ((thisInternalBus->bus_mask & testData[23])  | ((thisInternalBus->bus_mask & ~testData[23])  << 16));
  80059d0:	68fb      	ldr	r3, [r7, #12]
  80059d2:	889b      	ldrh	r3, [r3, #4]
@@ -11538,19 +11538,19 @@ inline void internal_bus_write_data_frame(InternalBus_t *thisInternalBus, uint8_
  80059ee:	68fb      	ldr	r3, [r7, #12]
  80059f0:	681b      	ldr	r3, [r3, #0]
  80059f2:	619a      	str	r2, [r3, #24]
-	thisInternalBus->bus_clk->BSRR = (uint32_t) thisInternalBus->bus_clk_mask;
+	thisInternalBus->bus_clk->BRR = (uint32_t) thisInternalBus->bus_clk_mask;
  80059f4:	68fb      	ldr	r3, [r7, #12]
  80059f6:	8b1a      	ldrh	r2, [r3, #24]
  80059f8:	68fb      	ldr	r3, [r7, #12]
  80059fa:	695b      	ldr	r3, [r3, #20]
- 80059fc:	619a      	str	r2, [r3, #24]
+ 80059fc:	629a      	str	r2, [r3, #40]	; 0x28
 
-	thisInternalBus->bus_clk->BRR = thisInternalBus->bus_clk_mask;
+	thisInternalBus->bus_clk->BSRR = thisInternalBus->bus_clk_mask;
  80059fe:	68fb      	ldr	r3, [r7, #12]
  8005a00:	8b1a      	ldrh	r2, [r3, #24]
  8005a02:	68fb      	ldr	r3, [r7, #12]
  8005a04:	695b      	ldr	r3, [r3, #20]
- 8005a06:	629a      	str	r2, [r3, #40]	; 0x28
+ 8005a06:	619a      	str	r2, [r3, #24]
 	thisInternalBus->bus->BSRR = (uint32_t) ((thisInternalBus->bus_mask & testData[24])  | ((thisInternalBus->bus_mask & ~testData[24])  << 16));
  8005a08:	68fb      	ldr	r3, [r7, #12]
  8005a0a:	889b      	ldrh	r3, [r3, #4]
@@ -11570,19 +11570,19 @@ inline void internal_bus_write_data_frame(InternalBus_t *thisInternalBus, uint8_
  8005a26:	68fb      	ldr	r3, [r7, #12]
  8005a28:	681b      	ldr	r3, [r3, #0]
  8005a2a:	619a      	str	r2, [r3, #24]
-	thisInternalBus->bus_clk->BSRR = (uint32_t) thisInternalBus->bus_clk_mask;
+	thisInternalBus->bus_clk->BRR = (uint32_t) thisInternalBus->bus_clk_mask;
  8005a2c:	68fb      	ldr	r3, [r7, #12]
  8005a2e:	8b1a      	ldrh	r2, [r3, #24]
  8005a30:	68fb      	ldr	r3, [r7, #12]
  8005a32:	695b      	ldr	r3, [r3, #20]
- 8005a34:	619a      	str	r2, [r3, #24]
+ 8005a34:	629a      	str	r2, [r3, #40]	; 0x28
 
-	thisInternalBus->bus_clk->BRR = thisInternalBus->bus_clk_mask;
+	thisInternalBus->bus_clk->BSRR = thisInternalBus->bus_clk_mask;
  8005a36:	68fb      	ldr	r3, [r7, #12]
  8005a38:	8b1a      	ldrh	r2, [r3, #24]
  8005a3a:	68fb      	ldr	r3, [r7, #12]
  8005a3c:	695b      	ldr	r3, [r3, #20]
- 8005a3e:	629a      	str	r2, [r3, #40]	; 0x28
+ 8005a3e:	619a      	str	r2, [r3, #24]
 	thisInternalBus->bus->BSRR = (uint32_t) ((thisInternalBus->bus_mask & testData[25])  | ((thisInternalBus->bus_mask & ~testData[25])  << 16));
  8005a40:	68fb      	ldr	r3, [r7, #12]
  8005a42:	889b      	ldrh	r3, [r3, #4]
@@ -11602,19 +11602,19 @@ inline void internal_bus_write_data_frame(InternalBus_t *thisInternalBus, uint8_
  8005a5e:	68fb      	ldr	r3, [r7, #12]
  8005a60:	681b      	ldr	r3, [r3, #0]
  8005a62:	619a      	str	r2, [r3, #24]
-	thisInternalBus->bus_clk->BSRR = (uint32_t) thisInternalBus->bus_clk_mask;
+	thisInternalBus->bus_clk->BRR = (uint32_t) thisInternalBus->bus_clk_mask;
  8005a64:	68fb      	ldr	r3, [r7, #12]
  8005a66:	8b1a      	ldrh	r2, [r3, #24]
  8005a68:	68fb      	ldr	r3, [r7, #12]
  8005a6a:	695b      	ldr	r3, [r3, #20]
- 8005a6c:	619a      	str	r2, [r3, #24]
+ 8005a6c:	629a      	str	r2, [r3, #40]	; 0x28
 
-	thisInternalBus->bus_clk->BRR = thisInternalBus->bus_clk_mask;
+	thisInternalBus->bus_clk->BSRR = thisInternalBus->bus_clk_mask;
  8005a6e:	68fb      	ldr	r3, [r7, #12]
  8005a70:	8b1a      	ldrh	r2, [r3, #24]
  8005a72:	68fb      	ldr	r3, [r7, #12]
  8005a74:	695b      	ldr	r3, [r3, #20]
- 8005a76:	629a      	str	r2, [r3, #40]	; 0x28
+ 8005a76:	619a      	str	r2, [r3, #24]
 	thisInternalBus->bus->BSRR = (uint32_t) ((thisInternalBus->bus_mask & testData[26])  | ((thisInternalBus->bus_mask & ~testData[26])  << 16));
  8005a78:	68fb      	ldr	r3, [r7, #12]
  8005a7a:	889b      	ldrh	r3, [r3, #4]
@@ -11634,19 +11634,19 @@ inline void internal_bus_write_data_frame(InternalBus_t *thisInternalBus, uint8_
  8005a96:	68fb      	ldr	r3, [r7, #12]
  8005a98:	681b      	ldr	r3, [r3, #0]
  8005a9a:	619a      	str	r2, [r3, #24]
-	thisInternalBus->bus_clk->BSRR = (uint32_t) thisInternalBus->bus_clk_mask;
+	thisInternalBus->bus_clk->BRR = (uint32_t) thisInternalBus->bus_clk_mask;
  8005a9c:	68fb      	ldr	r3, [r7, #12]
  8005a9e:	8b1a      	ldrh	r2, [r3, #24]
  8005aa0:	68fb      	ldr	r3, [r7, #12]
  8005aa2:	695b      	ldr	r3, [r3, #20]
- 8005aa4:	619a      	str	r2, [r3, #24]
+ 8005aa4:	629a      	str	r2, [r3, #40]	; 0x28
 
-	thisInternalBus->bus_clk->BRR = thisInternalBus->bus_clk_mask;
+	thisInternalBus->bus_clk->BSRR = thisInternalBus->bus_clk_mask;
  8005aa6:	68fb      	ldr	r3, [r7, #12]
  8005aa8:	8b1a      	ldrh	r2, [r3, #24]
  8005aaa:	68fb      	ldr	r3, [r7, #12]
  8005aac:	695b      	ldr	r3, [r3, #20]
- 8005aae:	629a      	str	r2, [r3, #40]	; 0x28
+ 8005aae:	619a      	str	r2, [r3, #24]
 	thisInternalBus->bus->BSRR = (uint32_t) ((thisInternalBus->bus_mask & testData[27])  | ((thisInternalBus->bus_mask & ~testData[27])  << 16));
  8005ab0:	68fb      	ldr	r3, [r7, #12]
  8005ab2:	889b      	ldrh	r3, [r3, #4]
@@ -11666,19 +11666,19 @@ inline void internal_bus_write_data_frame(InternalBus_t *thisInternalBus, uint8_
  8005ace:	68fb      	ldr	r3, [r7, #12]
  8005ad0:	681b      	ldr	r3, [r3, #0]
  8005ad2:	619a      	str	r2, [r3, #24]
-	thisInternalBus->bus_clk->BSRR = (uint32_t) thisInternalBus->bus_clk_mask;
+	thisInternalBus->bus_clk->BRR = (uint32_t) thisInternalBus->bus_clk_mask;
  8005ad4:	68fb      	ldr	r3, [r7, #12]
  8005ad6:	8b1a      	ldrh	r2, [r3, #24]
  8005ad8:	68fb      	ldr	r3, [r7, #12]
  8005ada:	695b      	ldr	r3, [r3, #20]
- 8005adc:	619a      	str	r2, [r3, #24]
+ 8005adc:	629a      	str	r2, [r3, #40]	; 0x28
 
-	thisInternalBus->bus_clk->BRR = thisInternalBus->bus_clk_mask;
+	thisInternalBus->bus_clk->BSRR = thisInternalBus->bus_clk_mask;
  8005ade:	68fb      	ldr	r3, [r7, #12]
  8005ae0:	8b1a      	ldrh	r2, [r3, #24]
  8005ae2:	68fb      	ldr	r3, [r7, #12]
  8005ae4:	695b      	ldr	r3, [r3, #20]
- 8005ae6:	629a      	str	r2, [r3, #40]	; 0x28
+ 8005ae6:	619a      	str	r2, [r3, #24]
 	thisInternalBus->bus->BSRR = (uint32_t) ((thisInternalBus->bus_mask & testData[28])  | ((thisInternalBus->bus_mask & ~testData[28])  << 16));
  8005ae8:	68fb      	ldr	r3, [r7, #12]
  8005aea:	889b      	ldrh	r3, [r3, #4]
@@ -11698,19 +11698,19 @@ inline void internal_bus_write_data_frame(InternalBus_t *thisInternalBus, uint8_
  8005b06:	68fb      	ldr	r3, [r7, #12]
  8005b08:	681b      	ldr	r3, [r3, #0]
  8005b0a:	619a      	str	r2, [r3, #24]
-	thisInternalBus->bus_clk->BSRR = (uint32_t) thisInternalBus->bus_clk_mask;
+	thisInternalBus->bus_clk->BRR = (uint32_t) thisInternalBus->bus_clk_mask;
  8005b0c:	68fb      	ldr	r3, [r7, #12]
  8005b0e:	8b1a      	ldrh	r2, [r3, #24]
  8005b10:	68fb      	ldr	r3, [r7, #12]
  8005b12:	695b      	ldr	r3, [r3, #20]
- 8005b14:	619a      	str	r2, [r3, #24]
+ 8005b14:	629a      	str	r2, [r3, #40]	; 0x28
 
-	thisInternalBus->bus_clk->BRR = thisInternalBus->bus_clk_mask;
+	thisInternalBus->bus_clk->BSRR = thisInternalBus->bus_clk_mask;
  8005b16:	68fb      	ldr	r3, [r7, #12]
  8005b18:	8b1a      	ldrh	r2, [r3, #24]
  8005b1a:	68fb      	ldr	r3, [r7, #12]
  8005b1c:	695b      	ldr	r3, [r3, #20]
- 8005b1e:	629a      	str	r2, [r3, #40]	; 0x28
+ 8005b1e:	619a      	str	r2, [r3, #24]
 	thisInternalBus->bus->BSRR = (uint32_t) ((thisInternalBus->bus_mask & testData[29])  | ((thisInternalBus->bus_mask & ~testData[29])  << 16));
  8005b20:	68fb      	ldr	r3, [r7, #12]
  8005b22:	889b      	ldrh	r3, [r3, #4]
@@ -11730,19 +11730,19 @@ inline void internal_bus_write_data_frame(InternalBus_t *thisInternalBus, uint8_
  8005b3e:	68fb      	ldr	r3, [r7, #12]
  8005b40:	681b      	ldr	r3, [r3, #0]
  8005b42:	619a      	str	r2, [r3, #24]
-	thisInternalBus->bus_clk->BSRR = (uint32_t) thisInternalBus->bus_clk_mask;
+	thisInternalBus->bus_clk->BRR = (uint32_t) thisInternalBus->bus_clk_mask;
  8005b44:	68fb      	ldr	r3, [r7, #12]
  8005b46:	8b1a      	ldrh	r2, [r3, #24]
  8005b48:	68fb      	ldr	r3, [r7, #12]
  8005b4a:	695b      	ldr	r3, [r3, #20]
- 8005b4c:	619a      	str	r2, [r3, #24]
+ 8005b4c:	629a      	str	r2, [r3, #40]	; 0x28
 
-	thisInternalBus->bus_clk->BRR = thisInternalBus->bus_clk_mask;
+	thisInternalBus->bus_clk->BSRR = thisInternalBus->bus_clk_mask;
  8005b4e:	68fb      	ldr	r3, [r7, #12]
  8005b50:	8b1a      	ldrh	r2, [r3, #24]
  8005b52:	68fb      	ldr	r3, [r7, #12]
  8005b54:	695b      	ldr	r3, [r3, #20]
- 8005b56:	629a      	str	r2, [r3, #40]	; 0x28
+ 8005b56:	619a      	str	r2, [r3, #24]
 	thisInternalBus->bus->BSRR = (uint32_t) ((thisInternalBus->bus_mask & testData[30])  | ((thisInternalBus->bus_mask & ~testData[30])  << 16));
  8005b58:	68fb      	ldr	r3, [r7, #12]
  8005b5a:	889b      	ldrh	r3, [r3, #4]
@@ -11762,12 +11762,12 @@ inline void internal_bus_write_data_frame(InternalBus_t *thisInternalBus, uint8_
  8005b76:	68fb      	ldr	r3, [r7, #12]
  8005b78:	681b      	ldr	r3, [r3, #0]
  8005b7a:	619a      	str	r2, [r3, #24]
-	thisInternalBus->bus_clk->BSRR = (uint32_t) thisInternalBus->bus_clk_mask;
+	thisInternalBus->bus_clk->BRR = (uint32_t) thisInternalBus->bus_clk_mask;
  8005b7c:	68fb      	ldr	r3, [r7, #12]
  8005b7e:	8b1a      	ldrh	r2, [r3, #24]
  8005b80:	68fb      	ldr	r3, [r7, #12]
  8005b82:	695b      	ldr	r3, [r3, #20]
- 8005b84:	619a      	str	r2, [r3, #24]
+ 8005b84:	629a      	str	r2, [r3, #40]	; 0x28
 
 	internal_bus_release(thisInternalBus);
  8005b86:	68fb      	ldr	r3, [r7, #12]
