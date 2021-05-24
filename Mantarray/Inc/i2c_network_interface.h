@@ -23,8 +23,8 @@
 
 typedef struct
 {
-	uint8_t buffer_index;
-	uint8_t receiveBuffer[I2C_RECEIVE_LENGTH];
+	volatile uint8_t buffer_index;
+	volatile uint8_t receiveBuffer[I2C_RECEIVE_LENGTH];
 	I2C_HandleTypeDef *I2C_line;
 } I2C_t;
 
