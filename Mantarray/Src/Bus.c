@@ -30,7 +30,7 @@ InternalBus_t * internal_bus_create(GPIO_TypeDef *bus_line,uint16_t bus_pins,GPI
 		{
 			if (bus_pins & (1 << pinShifter))
 			{
-				thisInternalBus->BUS_BUSMASK32 |= (0b11 << (pinShifter * 2));
+				thisInternalBus->BUS_BUSMASK32 =0; //|= (0b11 << (pinShifter * 2));//todo need recalculation
 				thisInternalBus->BUS_BUSMODER |= (0b01 << (pinShifter * 2));
 				thisInternalBus->BUS_BUSOSPEEDR |= (0b11 << (pinShifter * 2));
 			}

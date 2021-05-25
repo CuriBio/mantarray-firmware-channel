@@ -10,10 +10,7 @@ extern System my_sys;
 
 void module_system_init(System *thisSystem)
 {
-	//my_sys.data_bus = internal_bus_create(GPIOB, 0xFF, BUS_CLK_GPIO_Port, BUS_CLK_Pin, BUS_C1_GPIO_Port, BUS_C1_Pin);
-
-
-		  HAL_GPIO_WritePin(CHN_OUT_RST_GPIO_Port, CHN_OUT_RST_Pin, GPIO_PIN_RESET);//todo test
+	my_sys.data_bus = internal_bus_create(GPIOB, 0xFF, BUS_CLK_GPIO_Port, BUS_CLK_Pin, BUS_C1_GPIO_Port, BUS_C1_Pin);
 
 	//GlobalTimerInit(&thisSystem->GlobalTimer);
 
@@ -55,7 +52,7 @@ void state_machine(System *thisSystem)
 				{
 
 					//TODO Link data output to magnetometer memory instead
-					//internal_bus_write_data_frame(my_sys.data_bus,testData,22);
+					internal_bus_write_data_frame(my_sys.data_bus,testData,22);
 					break;
 				}
 				//-------------------------------
