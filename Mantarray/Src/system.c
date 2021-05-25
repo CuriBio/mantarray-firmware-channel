@@ -10,27 +10,29 @@ extern System my_sys;
 
 void module_system_init(System *thisSystem)
 {
-	my_sys.data_bus = internal_bus_create(GPIOB, 0xFF,
-											  BUS_CLK_GPIO_Port, BUS_CLK_Pin,
-											  BUS_C1_GPIO_Port, BUS_C1_Pin);
+	//my_sys.data_bus = internal_bus_create(GPIOB, 0xFF, BUS_CLK_GPIO_Port, BUS_CLK_Pin, BUS_C1_GPIO_Port, BUS_C1_Pin);
 
 
+		  HAL_GPIO_WritePin(CHN_OUT_RST_GPIO_Port, CHN_OUT_RST_Pin, GPIO_PIN_RESET);//todo test
 
 	//GlobalTimerInit(&thisSystem->GlobalTimer);
 
-	uint8_t temp_data[1];
-	uint8_t i2c_new_address[1];
+	uint8_t temp_data[4]={0,0,0,0};
+	uint8_t i2c_new_address[4]={0,0,0,0};
 
 	EEPROM_load(EEPROM_FIRST_TIME_INITIATION, temp_data, 1);  //TODO  this is bungee jumping without rope we assume everything if good no error check
 	if (temp_data[0] == EEPROM_FIRST_TIME_BOOT_MARKE )
 	{
-		i2c_new_address[0] = my_sys.i2c_line->receiveBuffer[0] && 0xef;
 		EEPROM_load(EEPROM_I2C_ADDR, i2c_new_address, 1);
+
+		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, GPIO_PIN_RESET);//green we set from eeprom  //todo test
 		my_sys.i2c_line = I2C_interface_create(&hi2c2,i2c_new_address[0]);
+
 	}
 	else
 	{
 		my_sys.i2c_line = I2C_interface_create(&hi2c2,100 );   //TDOD hard code this to correct default value
+		  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, GPIO_PIN_RESET);//red on we hard coded  address//todo test
 	}
 	return;
 }
@@ -40,7 +42,6 @@ void module_system_init(System *thisSystem)
 void state_machine(System *thisSystem)
 {
 	uint8_t testData[23] = {3,2,0,2,0,2,0,2,0,2,0,2,0,2,0,2,0,2,0,2,0,2,1};  //TODO remove after Link data output to magnetometer memory instead
-
 
 	while(1)
 	{
@@ -54,7 +55,7 @@ void state_machine(System *thisSystem)
 				{
 
 					//TODO Link data output to magnetometer memory instead
-					internal_bus_write_data_frame(my_sys.data_bus,testData,22);
+					//internal_bus_write_data_frame(my_sys.data_bus,testData,22);
 					break;
 				}
 				//-------------------------------
@@ -78,7 +79,7 @@ void state_machine(System *thisSystem)
 				//-------------------------------
 				case I2C_PACKET_SET_RESET_HIGH:
 				{
-					  HAL_GPIO_WritePin(CHN_OUT_RST_GPIO_Port, CHN_OUT_RST_Pin, GPIO_PIN_SET);
+					 HAL_GPIO_WritePin(CHN_OUT_RST_GPIO_Port, CHN_OUT_RST_Pin, GPIO_PIN_SET);
 					break;
 				}
 				//---------this is a code for testing LED and making fun demo we can not have them in production release version
@@ -122,20 +123,25 @@ void state_machine(System *thisSystem)
 			//-------- if we get any data higher than 0x80  it mean it is a new address
 			if ( my_sys.i2c_line->receiveBuffer[0] > I2C_PACKET_SET_NEW_ADDRESS )
 			{
-				HAL_GPIO_WritePin(CHN_OUT_BT0_GPIO_Port, CHN_OUT_BT0_Pin, GPIO_PIN_RESET);
-				uint8_t i2c_new_address[1];
-				uint8_t temp_data[1];
-				i2c_new_address[0] = my_sys.i2c_line->receiveBuffer[0] && 0xef;
+				uint8_t i2c_new_address[4]={3,3,3,3};
+				uint8_t temp_data[4]={0,0,0,0};
+				i2c_new_address[0] =  (uint8_t)my_sys.i2c_line->receiveBuffer[0] & 0x7f;
 				if( !EEPROM_save(EEPROM_I2C_ADDR, i2c_new_address, 1) )
 				{
-					//TODO we  failed to load what should we do now?
+					//TODO we  failed to save what should we do now?
 					//this is bad we can kill the whole system master micro should now about this
 					//we donot have any valid address for now we go to idle mode we never activate common bus
+
 				}
 				else
 				{
 					temp_data[0] = EEPROM_FIRST_TIME_BOOT_MARKE;
-					EEPROM_save(EEPROM_FIRST_TIME_INITIATION, temp_data, 1);  //TODO  this is bungee jumping without rope we assume everything if good no error check
+					if( !EEPROM_save(EEPROM_FIRST_TIME_INITIATION, temp_data,1) )  //TODO  this is bungee jumping without rope we assume everything if good no error check
+					{
+						//TODO we failed to saved
+						//this is bad we can kill the whole system master micro should now about this
+						//we donot have any valid address for now we go to idle mode we never activate common bus
+					}
 				}
 			}
 		my_sys.i2c_line->buffer_index =0;

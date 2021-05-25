@@ -12,14 +12,17 @@ uint8_t EEPROM_save(uint32_t file_name, uint8_t *buffer, uint8_t buffer_size)
 		//Call unlock before programming operations to ensure that you have control of the EEPROM memory
 		if ( HAL_OK == HAL_FLASHEx_DATAEEPROM_Unlock() )
 		{
-			if( HAL_OK == HAL_FLASHEx_DATAEEPROM_Program(FLASH_TYPEPROGRAMDATA_BYTE, (uint32_t) file_name, (uint8_t) buffer[0]) )
+			//if( HAL_OK == HAL_FLASHEx_DATAEEPROM_Erase(FLASH_TYPEPROGRAMDATA_BYTE) )
 			{
-				result =1;
-			}
-			//we already unlocked the EEPROM memory no matter if we succes to write or not we need to relock
-			if( HAL_OK != HAL_FLASHEx_DATAEEPROM_Lock())
-			{
-				result =0;  //if we can not relock again it is a problem no matter if we succes to write
+				if( HAL_OK == HAL_FLASHEx_DATAEEPROM_Program(FLASH_TYPEPROGRAMDATA_BYTE, (uint32_t) file_name, (uint32_t) buffer[0]) )
+				{
+					result =1;
+				}
+				//we already unlocked the EEPROM memory no matter if we succes to write or not we need to relock
+				if( HAL_OK != HAL_FLASHEx_DATAEEPROM_Lock())
+				{
+					result =0;  //if we can not relock again it is a problem no matter if we succes to write
+				}
 			}
 		}
 	}
@@ -38,7 +41,7 @@ uint8_t EEPROM_load(uint32_t file_name, uint8_t *buffer, uint8_t buffer_size)
 	//before anything else first check if the address you are trying to write to is in fact within the EEPROM memory map
 	if (IS_FLASH_DATA_ADDRESS(file_name))
 	{
-		buffer[0] = *(uint32_t*) file_name;
+		buffer[0] = *(uint8_t*) file_name;
 		result = 1;
 	}
 	//Lock the EEPROM afterwards to protect it from accidental memory writes
