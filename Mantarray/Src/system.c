@@ -10,7 +10,9 @@ extern System my_sys;
 
 void module_system_init(System *thisSystem)
 {
-	my_sys.data_bus = internal_bus_create(GPIOB, 0xFF, BUS_CLK_GPIO_Port, BUS_CLK_Pin, BUS_C1_GPIO_Port, BUS_C1_Pin);
+	my_sys.data_bus = internal_bus_create(GPIOB,  BUS0_Pin | BUS1_Pin | BUS2_Pin | BUS3_Pin | BUS4_Pin | BUS5_Pin | BUS6_Pin | BUS7_Pin,
+											BUS_CLK_GPIO_Port, BUS_CLK_Pin,
+											BUS_C1_GPIO_Port, BUS_C1_Pin);
 
 	//GlobalTimerInit(&thisSystem->GlobalTimer);
 

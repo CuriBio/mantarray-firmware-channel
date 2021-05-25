@@ -25,25 +25,25 @@ InternalBus_t * internal_bus_create(GPIO_TypeDef *bus_line,uint16_t bus_pins,GPI
 		thisInternalBus->BUS_ACKMODER = 0;
 		thisInternalBus->BUS_ACKOSPEEDR = 0;
 
-		uint8_t pinShifter = 0;
+		uint32_t pinShifter = 0;
 		for (pinShifter = 0; pinShifter < BUS_GPIO_PINS_PER_BUS; pinShifter++)
 		{
 			if (bus_pins & (1 << pinShifter))
 			{
-				thisInternalBus->BUS_BUSMASK32 =0; //|= (0b11 << (pinShifter * 2));//todo need recalculation
-				thisInternalBus->BUS_BUSMODER |= (0b01 << (pinShifter * 2));
+				thisInternalBus->BUS_BUSMASK32  = 0x0000ffff;//|= (0b11 << (pinShifter * 2));
+				thisInternalBus->BUS_BUSMODER   |= (0b01 << (pinShifter * 2));
 				thisInternalBus->BUS_BUSOSPEEDR |= (0b11 << (pinShifter * 2));
 			}
 			if (cl_pin & (1 << pinShifter))
 			{
-				thisInternalBus->BUS_CLKMASK32 |= (0b11 << (pinShifter * 2));
-				thisInternalBus->BUS_CLKMODER |= (0b01 << (pinShifter * 2));
+				thisInternalBus->BUS_CLKMASK32  |= (0b11 << (pinShifter * 2));
+				thisInternalBus->BUS_CLKMODER   |= (0b01 << (pinShifter * 2));
 				thisInternalBus->BUS_CLKOSPEEDR |= (0b11 << (pinShifter * 2));
 			}
 			if (ak_pin & (1 << pinShifter))
 			{
-				thisInternalBus->BUS_ACKMASK32 |= (0b11 << (pinShifter * 2));
-				thisInternalBus->BUS_ACKMODER |= (0b01 << (pinShifter * 2));
+				thisInternalBus->BUS_ACKMASK32  |= (0b11 << (pinShifter * 2));
+				thisInternalBus->BUS_ACKMODER   |= (0b01 << (pinShifter * 2));
 				thisInternalBus->BUS_ACKOSPEEDR |= (0b11 << (pinShifter * 2));
 			}
 		}
@@ -56,7 +56,7 @@ InternalBus_t * internal_bus_create(GPIO_TypeDef *bus_line,uint16_t bus_pins,GPI
 		thisInternalBus->bus->OSPEEDR = temp;
 		//Set main bus output type to output push-pull
 		temp = thisInternalBus->bus->OTYPER;
-		temp &= ~thisInternalBus->BUS_BUSMASK32;
+		temp &= ~thisInternalBus->bus_mask;
 		thisInternalBus->bus->OTYPER = temp;
 		//Set main bus pullup/down resistors to none
 		temp = thisInternalBus->bus->PUPDR;
@@ -70,7 +70,7 @@ InternalBus_t * internal_bus_create(GPIO_TypeDef *bus_line,uint16_t bus_pins,GPI
 		thisInternalBus->bus_clk->OSPEEDR = temp;
 		//Set C bus output type to output push-pull
 		temp = thisInternalBus->bus_clk->OTYPER;
-		temp &= ~thisInternalBus->BUS_CLKMASK32;
+		temp &= ~thisInternalBus->bus_clk_mask;
 		thisInternalBus->bus_clk->OTYPER = temp;
 		//Set C bus pullup/down resistors to none
 		temp = thisInternalBus->bus_clk->PUPDR;
@@ -84,7 +84,7 @@ InternalBus_t * internal_bus_create(GPIO_TypeDef *bus_line,uint16_t bus_pins,GPI
 		thisInternalBus->bus_ack->OSPEEDR = temp;
 		//Set C bus output type to output push-pull
 		temp = thisInternalBus->bus_ack->OTYPER;
-		temp &= ~thisInternalBus->BUS_ACKMASK32;
+		temp &= ~thisInternalBus->bus_ack_mask;
 		thisInternalBus->bus_ack->OTYPER = temp;
 		//Set C bus pullup/down resistors to none
 		temp = thisInternalBus->bus_ack->PUPDR;
