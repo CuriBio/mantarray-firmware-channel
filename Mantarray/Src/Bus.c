@@ -30,7 +30,7 @@ InternalBus_t * internal_bus_create(GPIO_TypeDef *bus_line,uint16_t bus_pins,GPI
 		{
 			if (bus_pins & (1 << pinShifter))
 			{
-				thisInternalBus->BUS_BUSMASK32  = 0x0000ffff;//|= (0b11 << (pinShifter * 2));
+				thisInternalBus->BUS_BUSMASK32  |= (0b11 << (pinShifter * 2));
 				thisInternalBus->BUS_BUSMODER   |= (0b01 << (pinShifter * 2));
 				thisInternalBus->BUS_BUSOSPEEDR |= (0b11 << (pinShifter * 2));
 			}
@@ -112,9 +112,9 @@ inline void internal_bus_write_data_frame(InternalBus_t *thisInternalBus, uint8_
 	//ie. thisInternalBus->bus->BSRR = (uint32_t) ((thisInternalBus->bus_mask & (testData[0] << BUSOFFSET))  | ((thisInternalBus->bus_mask & ~(testData[0] << BUSOFFSET))  << 16));
 	while(buffer_len--)
 	{
-		thisInternalBus->bus_clk->BRR = thisInternalBus->bus_clk_mask;
-		thisInternalBus->bus->BSRR = (uint32_t) ((thisInternalBus->bus_mask & buffer[buffer_len])  | ((thisInternalBus->bus_mask & ~buffer[buffer_len])  << 16));
 		thisInternalBus->bus_clk->BSRR = (uint32_t) thisInternalBus->bus_clk_mask;
+		thisInternalBus->bus->BSRR = (uint32_t) ((thisInternalBus->bus_mask & buffer[buffer_len])  | ((thisInternalBus->bus_mask & ~buffer[buffer_len])  << 16));
+		thisInternalBus->bus_clk->BRR = thisInternalBus->bus_clk_mask;
 	}
 
 	internal_bus_release(thisInternalBus);

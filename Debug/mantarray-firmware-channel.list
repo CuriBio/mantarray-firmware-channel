@@ -5,25 +5,25 @@ Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
   0 .isr_vector   000000c0  08000000  08000000  00010000  2**0
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
-  1 .text         00003934  080000c0  080000c0  000100c0  2**2
+  1 .text         00003928  080000c0  080000c0  000100c0  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  2 .rodata       000000c4  080039f4  080039f4  000139f4  2**2
+  2 .rodata       000000cc  080039e8  080039e8  000139e8  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
-  3 .ARM.extab    00000000  08003ab8  08003ab8  00020070  2**0
+  3 .ARM.extab    00000000  08003ab4  08003ab4  00020070  2**0
                   CONTENTS
-  4 .ARM          00000008  08003ab8  08003ab8  00013ab8  2**2
+  4 .ARM          00000008  08003ab4  08003ab4  00013ab4  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
-  5 .preinit_array 00000000  08003ac0  08003ac0  00020070  2**0
+  5 .preinit_array 00000000  08003abc  08003abc  00020070  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  6 .init_array   00000004  08003ac0  08003ac0  00013ac0  2**2
+  6 .init_array   00000004  08003abc  08003abc  00013abc  2**2
                   CONTENTS, ALLOC, LOAD, DATA
-  7 .fini_array   00000004  08003ac4  08003ac4  00013ac4  2**2
+  7 .fini_array   00000004  08003ac0  08003ac0  00013ac0  2**2
                   CONTENTS, ALLOC, LOAD, DATA
-  8 .data         00000070  20000000  08003ac8  00020000  2**2
+  8 .data         00000070  20000000  08003ac4  00020000  2**2
                   CONTENTS, ALLOC, LOAD, DATA
-  9 .bss          0000031c  20000070  08003b38  00020070  2**3
+  9 .bss          0000031c  20000070  08003b34  00020070  2**3
                   ALLOC
- 10 ._user_heap_stack 00000604  2000038c  08003b38  0002038c  2**0
+ 10 ._user_heap_stack 00000604  2000038c  08003b34  0002038c  2**0
                   ALLOC
  11 .ARM.attributes 00000028  00000000  00000000  00020070  2**0
                   CONTENTS, READONLY
@@ -37,15 +37,15 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING, OCTETS
  16 .debug_macro  00017aeb  00000000  00000000  0004b9c8  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .debug_line   00026303  00000000  00000000  000634b3  2**0
+ 17 .debug_line   000262e0  00000000  00000000  000634b3  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_str    00085fcc  00000000  00000000  000897b6  2**0
+ 18 .debug_str    00086019  00000000  00000000  00089793  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .comment      00000053  00000000  00000000  0010f782  2**0
+ 19 .comment      00000053  00000000  00000000  0010f7ac  2**0
                   CONTENTS, READONLY
- 20 .debug_frame  00003348  00000000  00000000  0010f7d8  2**2
+ 20 .debug_frame  00003348  00000000  00000000  0010f800  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 21 .debug_loc    00018d71  00000000  00000000  00112b20  2**0
+ 21 .debug_loc    00018d66  00000000  00000000  00112b48  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -67,7 +67,7 @@ Disassembly of section .text:
  80000da:	bd10      	pop	{r4, pc}
  80000dc:	20000070 	.word	0x20000070
  80000e0:	00000000 	.word	0x00000000
- 80000e4:	080039dc 	.word	0x080039dc
+ 80000e4:	080039d0 	.word	0x080039d0
 
 080000e8 <frame_dummy>:
  80000e8:	4b04      	ldr	r3, [pc, #16]	; (80000fc <frame_dummy+0x14>)
@@ -82,7 +82,7 @@ Disassembly of section .text:
  80000fa:	46c0      	nop			; (mov r8, r8)
  80000fc:	00000000 	.word	0x00000000
  8000100:	20000074 	.word	0x20000074
- 8000104:	080039dc 	.word	0x080039dc
+ 8000104:	080039d0 	.word	0x080039d0
 
 08000108 <__udivsi3>:
  8000108:	2200      	movs	r2, #0
@@ -564,7 +564,7 @@ void MX_ADC_Init(void)
  80004a0:	2208      	movs	r2, #8
  80004a2:	2100      	movs	r1, #0
  80004a4:	4668      	mov	r0, sp
- 80004a6:	f003 fa0f 	bl	80038c8 <memset>
+ 80004a6:	f003 fa09 	bl	80038bc <memset>
   hadc.Init.ScanConvMode = ADC_SCAN_DIRECTION_FORWARD;
   hadc.Init.DataAlign = ADC_DATAALIGN_RIGHT;
   hadc.Init.ContinuousConvMode = DISABLE;
@@ -732,7 +732,7 @@ void MX_GPIO_Init(void)
  800055c:	2214      	movs	r2, #20
  800055e:	2100      	movs	r1, #0
  8000560:	a804      	add	r0, sp, #16
- 8000562:	f003 f9b1 	bl	80038c8 <memset>
+ 8000562:	f003 f9ab 	bl	80038bc <memset>
 
   /* GPIO Ports Clock Enable */
   __HAL_RCC_GPIOA_CLK_ENABLE();
@@ -1015,7 +1015,7 @@ void HAL_I2C_MspInit(I2C_HandleTypeDef* i2cHandle)
  80006b2:	2214      	movs	r2, #20
  80006b4:	2100      	movs	r1, #0
  80006b6:	a802      	add	r0, sp, #8
- 80006b8:	f003 f906 	bl	80038c8 <memset>
+ 80006b8:	f003 f900 	bl	80038bc <memset>
   if(i2cHandle->Instance==I2C2)
  80006bc:	4b15      	ldr	r3, [pc, #84]	; (8000714 <HAL_I2C_MspInit+0x68>)
  80006be:	6822      	ldr	r2, [r4, #0]
@@ -1097,17 +1097,17 @@ void SystemClock_Config(void)
  8000724:	2224      	movs	r2, #36	; 0x24
  8000726:	2100      	movs	r1, #0
  8000728:	a80f      	add	r0, sp, #60	; 0x3c
- 800072a:	f003 f8cd 	bl	80038c8 <memset>
+ 800072a:	f003 f8c7 	bl	80038bc <memset>
   RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
  800072e:	2214      	movs	r2, #20
  8000730:	2100      	movs	r1, #0
  8000732:	4668      	mov	r0, sp
- 8000734:	f003 f8c8 	bl	80038c8 <memset>
+ 8000734:	f003 f8c2 	bl	80038bc <memset>
   RCC_PeriphCLKInitTypeDef PeriphClkInit = {0};
  8000738:	2220      	movs	r2, #32
  800073a:	2100      	movs	r1, #0
  800073c:	a806      	add	r0, sp, #24
- 800073e:	f003 f8c3 	bl	80038c8 <memset>
+ 800073e:	f003 f8bd 	bl	80038bc <memset>
 
   /** Configure the main internal regulator output voltage
   */
@@ -1382,10 +1382,10 @@ void Error_Handler(void)
   module_system_init(&my_sys);
  8000906:	4c04      	ldr	r4, [pc, #16]	; (8000918 <main+0x154>)
  8000908:	0020      	movs	r0, r4
- 800090a:	f002 fee3 	bl	80036d4 <module_system_init>
+ 800090a:	f002 fedb 	bl	80036c4 <module_system_init>
 	  state_machine(&my_sys);
  800090e:	0020      	movs	r0, r4
- 8000910:	f002 ff24 	bl	800375c <state_machine>
+ 8000910:	f002 ff1c 	bl	800374c <state_machine>
   while (1)
  8000914:	e7fb      	b.n	800090e <main+0x14a>
  8000916:	46c0      	nop			; (mov r8, r8)
@@ -1483,7 +1483,7 @@ void HAL_SPI_MspInit(SPI_HandleTypeDef* spiHandle)
  8000972:	2214      	movs	r2, #20
  8000974:	2100      	movs	r1, #0
  8000976:	a802      	add	r0, sp, #8
- 8000978:	f002 ffa6 	bl	80038c8 <memset>
+ 8000978:	f002 ffa0 	bl	80038bc <memset>
   if(spiHandle->Instance==SPI1)
  800097c:	4b12      	ldr	r3, [pc, #72]	; (80009c8 <HAL_SPI_MspInit+0x5c>)
  800097e:	6822      	ldr	r2, [r4, #0]
@@ -1681,7 +1681,7 @@ void *_sbrk(ptrdiff_t incr)
  8000a26:	4293      	cmp	r3, r2
  8000a28:	d9f8      	bls.n	8000a1c <_sbrk+0x18>
     errno = ENOMEM;
- 8000a2a:	f002 ff19 	bl	8003860 <__errno>
+ 8000a2a:	f002 ff13 	bl	8003854 <__errno>
  8000a2e:	230c      	movs	r3, #12
  8000a30:	6003      	str	r3, [r0, #0]
     return (void *)-1;
@@ -1721,7 +1721,7 @@ void MX_TIM6_Init(void)
  8000a50:	2208      	movs	r2, #8
  8000a52:	2100      	movs	r1, #0
  8000a54:	4668      	mov	r0, sp
- 8000a56:	f002 ff37 	bl	80038c8 <memset>
+ 8000a56:	f002 ff31 	bl	80038bc <memset>
 
   /* USER CODE BEGIN TIM6_Init 1 */
 
@@ -1805,12 +1805,12 @@ void MX_TIM21_Init(void)
  8000ab0:	2210      	movs	r2, #16
  8000ab2:	2100      	movs	r1, #0
  8000ab4:	a802      	add	r0, sp, #8
- 8000ab6:	f002 ff07 	bl	80038c8 <memset>
+ 8000ab6:	f002 ff01 	bl	80038bc <memset>
   TIM_MasterConfigTypeDef sMasterConfig = {0};
  8000aba:	2208      	movs	r2, #8
  8000abc:	2100      	movs	r1, #0
  8000abe:	4668      	mov	r0, sp
- 8000ac0:	f002 ff02 	bl	80038c8 <memset>
+ 8000ac0:	f002 fefc 	bl	80038bc <memset>
 
   /* USER CODE BEGIN TIM21_Init 1 */
 
@@ -1924,12 +1924,12 @@ void MX_TIM22_Init(void)
  8000b3c:	2210      	movs	r2, #16
  8000b3e:	2100      	movs	r1, #0
  8000b40:	a802      	add	r0, sp, #8
- 8000b42:	f002 fec1 	bl	80038c8 <memset>
+ 8000b42:	f002 febb 	bl	80038bc <memset>
   TIM_MasterConfigTypeDef sMasterConfig = {0};
  8000b46:	2208      	movs	r2, #8
  8000b48:	2100      	movs	r1, #0
  8000b4a:	4668      	mov	r0, sp
- 8000b4c:	f002 febc 	bl	80038c8 <memset>
+ 8000b4c:	f002 feb6 	bl	80038bc <memset>
 
   /* USER CODE BEGIN TIM22_Init 1 */
 
@@ -2036,7 +2036,7 @@ void HAL_TIM_Base_MspInit(TIM_HandleTypeDef* tim_baseHandle)
  8000bc6:	2214      	movs	r2, #20
  8000bc8:	2100      	movs	r1, #0
  8000bca:	a802      	add	r0, sp, #8
- 8000bcc:	f002 fe7c 	bl	80038c8 <memset>
+ 8000bcc:	f002 fe76 	bl	80038bc <memset>
   if(tim_baseHandle->Instance==TIM6)
  8000bd0:	6823      	ldr	r3, [r4, #0]
  8000bd2:	4a1a      	ldr	r2, [pc, #104]	; (8000c3c <HAL_TIM_Base_MspInit+0x7c>)
@@ -2203,7 +2203,7 @@ void HAL_UART_MspInit(UART_HandleTypeDef* uartHandle)
  8000c96:	2214      	movs	r2, #20
  8000c98:	2100      	movs	r1, #0
  8000c9a:	a802      	add	r0, sp, #8
- 8000c9c:	f002 fe14 	bl	80038c8 <memset>
+ 8000c9c:	f002 fe0e 	bl	80038bc <memset>
   if(uartHandle->Instance==USART2)
  8000ca0:	4b11      	ldr	r3, [pc, #68]	; (8000ce8 <HAL_UART_MspInit+0x58>)
  8000ca2:	6822      	ldr	r2, [r4, #0]
@@ -2262,109 +2262,49 @@ void HAL_UART_MspInit(UART_HandleTypeDef* uartHandle)
  8000cec:	40021000 	.word	0x40021000
 
 08000cf0 <Reset_Handler>:
-
-    .section  .text.Reset_Handler
-  .weak  Reset_Handler
-  .type  Reset_Handler, %function
-Reset_Handler:  
-   ldr   r0, =_estack
  8000cf0:	480d      	ldr	r0, [pc, #52]	; (8000d28 <LoopForever+0x2>)
-   mov   sp, r0          /* set stack pointer */
  8000cf2:	4685      	mov	sp, r0
-
-/* Copy the data segment initializers from flash to SRAM */
-  ldr r0, =_sdata
  8000cf4:	480d      	ldr	r0, [pc, #52]	; (8000d2c <LoopForever+0x6>)
-  ldr r1, =_edata
  8000cf6:	490e      	ldr	r1, [pc, #56]	; (8000d30 <LoopForever+0xa>)
-  ldr r2, =_sidata
  8000cf8:	4a0e      	ldr	r2, [pc, #56]	; (8000d34 <LoopForever+0xe>)
-  movs r3, #0
  8000cfa:	2300      	movs	r3, #0
-  b LoopCopyDataInit
  8000cfc:	e002      	b.n	8000d04 <LoopCopyDataInit>
 
 08000cfe <CopyDataInit>:
-
-CopyDataInit:
-  ldr r4, [r2, r3]
  8000cfe:	58d4      	ldr	r4, [r2, r3]
-  str r4, [r0, r3]
  8000d00:	50c4      	str	r4, [r0, r3]
-  adds r3, r3, #4
  8000d02:	3304      	adds	r3, #4
 
 08000d04 <LoopCopyDataInit>:
-
-LoopCopyDataInit:
-  adds r4, r0, r3
  8000d04:	18c4      	adds	r4, r0, r3
-  cmp r4, r1
  8000d06:	428c      	cmp	r4, r1
-  bcc CopyDataInit
  8000d08:	d3f9      	bcc.n	8000cfe <CopyDataInit>
-  
-/* Zero fill the bss segment. */
-  ldr r2, =_sbss
  8000d0a:	4a0b      	ldr	r2, [pc, #44]	; (8000d38 <LoopForever+0x12>)
-  ldr r4, =_ebss
  8000d0c:	4c0b      	ldr	r4, [pc, #44]	; (8000d3c <LoopForever+0x16>)
-  movs r3, #0
  8000d0e:	2300      	movs	r3, #0
-  b LoopFillZerobss
  8000d10:	e001      	b.n	8000d16 <LoopFillZerobss>
 
 08000d12 <FillZerobss>:
-
-FillZerobss:
-  str  r3, [r2]
  8000d12:	6013      	str	r3, [r2, #0]
-  adds r2, r2, #4
  8000d14:	3204      	adds	r2, #4
 
 08000d16 <LoopFillZerobss>:
-
-LoopFillZerobss:
-  cmp r2, r4
  8000d16:	42a2      	cmp	r2, r4
-  bcc FillZerobss
  8000d18:	d3fb      	bcc.n	8000d12 <FillZerobss>
-
-/* Call the clock system intitialization function.*/
-  bl  SystemInit
  8000d1a:	f7ff fe95 	bl	8000a48 <SystemInit>
-/* Call static constructors */
-    bl __libc_init_array
- 8000d1e:	f002 fda5 	bl	800386c <__libc_init_array>
-/* Call the application's entry point.*/
-  bl  main
+ 8000d1e:	f002 fd9f 	bl	8003860 <__libc_init_array>
  8000d22:	f7ff fd4f 	bl	80007c4 <main>
 
 08000d26 <LoopForever>:
-
-LoopForever:
-    b LoopForever
  8000d26:	e7fe      	b.n	8000d26 <LoopForever>
-   ldr   r0, =_estack
  8000d28:	20002000 	.word	0x20002000
-  ldr r0, =_sdata
  8000d2c:	20000000 	.word	0x20000000
-  ldr r1, =_edata
  8000d30:	20000070 	.word	0x20000070
-  ldr r2, =_sidata
- 8000d34:	08003ac8 	.word	0x08003ac8
-  ldr r2, =_sbss
+ 8000d34:	08003ac4 	.word	0x08003ac4
  8000d38:	20000070 	.word	0x20000070
-  ldr r4, =_ebss
  8000d3c:	2000038c 	.word	0x2000038c
 
 08000d40 <ADC1_COMP_IRQHandler>:
- * @retval : None
-*/
-    .section  .text.Default_Handler,"ax",%progbits
-Default_Handler:
-Infinite_Loop:
-  b  Infinite_Loop
  8000d40:	e7fe      	b.n	8000d40 <ADC1_COMP_IRQHandler>
 	...
 
@@ -6194,7 +6134,7 @@ HAL_StatusTypeDef HAL_I2CEx_ConfigDigitalFilter(I2C_HandleTypeDef *hi2c, uint32_
  80021d8:	007a1200 	.word	0x007a1200
  80021dc:	ff48e500 	.word	0xff48e500
  80021e0:	00f42400 	.word	0x00f42400
- 80021e4:	08003a24 	.word	0x08003a24
+ 80021e4:	08003a20 	.word	0x08003a20
  80021e8:	003d0900 	.word	0x003d0900
 
 080021ec <HAL_RCC_OscConfig>:
@@ -6725,7 +6665,7 @@ HAL_StatusTypeDef HAL_I2CEx_ConfigDigitalFilter(I2C_HandleTypeDef *hi2c, uint32_
  8002544:	00001388 	.word	0x00001388
  8002548:	40010000 	.word	0x40010000
  800254c:	feffffff 	.word	0xfeffffff
- 8002550:	08003a0c 	.word	0x08003a0c
+ 8002550:	08003a08 	.word	0x08003a08
  8002554:	20000000 	.word	0x20000000
  8002558:	20000008 	.word	0x20000008
        || ((sysclk_source == RCC_SYSCLKSOURCE_STATUS_PLLCLK) && (pll_config == RCC_PLLSOURCE_HSI)))
@@ -7099,7 +7039,7 @@ HAL_StatusTypeDef HAL_I2CEx_ConfigDigitalFilter(I2C_HandleTypeDef *hi2c, uint32_
  80027a6:	46c0      	nop			; (mov r8, r8)
  80027a8:	40021000 	.word	0x40021000
  80027ac:	ffffe0ff 	.word	0xffffe0ff
- 80027b0:	08003a0c 	.word	0x08003a0c
+ 80027b0:	08003a08 	.word	0x08003a08
  80027b4:	20000000 	.word	0x20000000
  80027b8:	20000008 	.word	0x20000008
  80027bc:	fffffeff 	.word	0xfffffeff
@@ -7395,7 +7335,7 @@ HAL_StatusTypeDef HAL_I2CEx_ConfigDigitalFilter(I2C_HandleTypeDef *hi2c, uint32_
  80029a0:	40021000 	.word	0x40021000
  80029a4:	00001388 	.word	0x00001388
  80029a8:	fffff8ff 	.word	0xfffff8ff
- 80029ac:	08003a0c 	.word	0x08003a0c
+ 80029ac:	08003a08 	.word	0x08003a08
  80029b0:	20000000 	.word	0x20000000
  80029b4:	20000008 	.word	0x20000008
  80029b8:	ffffc7ff 	.word	0xffffc7ff
@@ -7419,7 +7359,7 @@ uint32_t HAL_RCC_GetPCLK1Freq(void)
 }
  80029ce:	4770      	bx	lr
  80029d0:	40021000 	.word	0x40021000
- 80029d4:	08003a1c 	.word	0x08003a1c
+ 80029d4:	08003a18 	.word	0x08003a18
  80029d8:	20000000 	.word	0x20000000
 
 080029dc <HAL_RCC_GetPCLK2Freq>:
@@ -7441,7 +7381,7 @@ uint32_t HAL_RCC_GetPCLK2Freq(void)
 }
  80029ee:	4770      	bx	lr
  80029f0:	40021000 	.word	0x40021000
- 80029f4:	08003a1c 	.word	0x08003a1c
+ 80029f4:	08003a18 	.word	0x08003a18
  80029f8:	20000000 	.word	0x20000000
 
 080029fc <HAL_RCCEx_PeriphCLKConfig>:
@@ -9391,17 +9331,17 @@ HAL_StatusTypeDef UART_WaitOnFlagUntilTimeout(UART_HandleTypeDef *huart, uint32_
  8003350:	40013800 	.word	0x40013800
  8003354:	40004400 	.word	0x40004400
  8003358:	40021000 	.word	0x40021000
- 800335c:	08003a78 	.word	0x08003a78
- 8003360:	08003a30 	.word	0x08003a30
+ 800335c:	08003a74 	.word	0x08003a74
+ 8003360:	08003a2c 	.word	0x08003a2c
  8003364:	fffffd00 	.word	0xfffffd00
  8003368:	000ffcff 	.word	0x000ffcff
  800336c:	0000ffef 	.word	0x0000ffef
  8003370:	ffffb7ff 	.word	0xffffb7ff
  8003374:	00b71b00 	.word	0x00b71b00
  8003378:	003d0900 	.word	0x003d0900
- 800337c:	08003a54 	.word	0x08003a54
+ 800337c:	08003a50 	.word	0x08003a50
  8003380:	0000fff0 	.word	0x0000fff0
- 8003384:	08003a7c 	.word	0x08003a7c
+ 8003384:	08003a78 	.word	0x08003a78
  8003388:	016e3600 	.word	0x016e3600
  800338c:	007a1200 	.word	0x007a1200
 
@@ -9433,1188 +9373,1188 @@ InternalBus_t * internal_bus_create(GPIO_TypeDef *bus_line,uint16_t bus_pins,GPI
  80033b4:	9205      	str	r2, [sp, #20]
  80033b6:	9402      	str	r4, [sp, #8]
 	InternalBus_t * thisInternalBus = (InternalBus_t *) malloc(sizeof(InternalBus_t));
- 80033b8:	f000 fa7c 	bl	80038b4 <malloc>
+ 80033b8:	f000 fa76 	bl	80038a8 <malloc>
 	if(thisInternalBus != NULL)
  80033bc:	2800      	cmp	r0, #0
  80033be:	d100      	bne.n	80033c2 <internal_bus_create+0x32>
- 80033c0:	e0a4      	b.n	800350c <internal_bus_create+0x17c>
+ 80033c0:	e09e      	b.n	8003500 <internal_bus_create+0x170>
 	{
 		//assign desired value for clock pin and other bus  so this bus will now which pins assigned for clock ack and bus line it self
 		//everything else in this lib should use this data for other settings
 		thisInternalBus->bus = bus_line;
  80033c2:	4645      	mov	r5, r8
 		thisInternalBus->bus_mask = bus_pins;
+ 80033c4:	4649      	mov	r1, r9
 		thisInternalBus->BUS_BUSMASK32 = 0;
- 80033c4:	2200      	movs	r2, #0
- 80033c6:	2300      	movs	r3, #0
+ 80033c6:	2200      	movs	r2, #0
+ 80033c8:	2300      	movs	r3, #0
 		thisInternalBus->bus = bus_line;
- 80033c8:	6005      	str	r5, [r0, #0]
+ 80033ca:	6005      	str	r5, [r0, #0]
+		thisInternalBus->bus_mask = bus_pins;
+ 80033cc:	8081      	strh	r1, [r0, #4]
 		thisInternalBus->bus_clk_mask = cl_pin;
 		thisInternalBus->BUS_CLKMASK32 = 0;
 		thisInternalBus->BUS_CLKMODER = 0;
 		thisInternalBus->BUS_CLKOSPEEDR = 0;
 
 		thisInternalBus->bus_ack = ak_bus;
- 80033ca:	4655      	mov	r5, sl
-		thisInternalBus->bus_mask = bus_pins;
- 80033cc:	4649      	mov	r1, r9
+ 80033ce:	4655      	mov	r5, sl
+		thisInternalBus->BUS_BUSOSPEEDR = 0;
+ 80033d0:	2100      	movs	r1, #0
 		thisInternalBus->BUS_BUSMASK32 = 0;
- 80033ce:	6082      	str	r2, [r0, #8]
- 80033d0:	60c3      	str	r3, [r0, #12]
+ 80033d2:	6082      	str	r2, [r0, #8]
+ 80033d4:	60c3      	str	r3, [r0, #12]
 		thisInternalBus->bus_ack_mask = ak_pin;
 		thisInternalBus->BUS_ACKMASK32 = 0;
- 80033d2:	6302      	str	r2, [r0, #48]	; 0x30
- 80033d4:	6343      	str	r3, [r0, #52]	; 0x34
-		thisInternalBus->bus_ack = ak_bus;
- 80033d6:	6285      	str	r5, [r0, #40]	; 0x28
+ 80033d6:	6302      	str	r2, [r0, #48]	; 0x30
+ 80033d8:	6343      	str	r3, [r0, #52]	; 0x34
+		thisInternalBus->BUS_BUSOSPEEDR = 0;
+ 80033da:	6101      	str	r1, [r0, #16]
 		thisInternalBus->BUS_ACKMODER = 0;
 		thisInternalBus->BUS_ACKOSPEEDR = 0;
- 80033d8:	2300      	movs	r3, #0
- 80033da:	2500      	movs	r5, #0
-		thisInternalBus->bus_ack_mask = ak_pin;
- 80033dc:	8584      	strh	r4, [r0, #44]	; 0x2c
+ 80033dc:	2300      	movs	r3, #0
+		thisInternalBus->BUS_CLKMASK32 = 0;
+ 80033de:	61c1      	str	r1, [r0, #28]
+		thisInternalBus->BUS_CLKMODER = 0;
+ 80033e0:	6201      	str	r1, [r0, #32]
+		thisInternalBus->BUS_CLKOSPEEDR = 0;
+ 80033e2:	6241      	str	r1, [r0, #36]	; 0x24
+		thisInternalBus->bus_ack = ak_bus;
+ 80033e4:	6285      	str	r5, [r0, #40]	; 0x28
+		thisInternalBus->BUS_ACKOSPEEDR = 0;
+ 80033e6:	6381      	str	r1, [r0, #56]	; 0x38
+ 80033e8:	2500      	movs	r5, #0
+		uint32_t pinShifter = 0;
+		for (pinShifter = 0; pinShifter < BUS_GPIO_PINS_PER_BUS; pinShifter++)
 		{
 			if (bus_pins & (1 << pinShifter))
 			{
-				thisInternalBus->BUS_BUSMASK32  = 0x0000ffff;//|= (0b11 << (pinShifter * 2));
-				thisInternalBus->BUS_BUSMODER   |= (0b01 << (pinShifter * 2));
-				thisInternalBus->BUS_BUSOSPEEDR |= (0b11 << (pinShifter * 2));
- 80033de:	4644      	mov	r4, r8
-		thisInternalBus->bus_mask = bus_pins;
- 80033e0:	8081      	strh	r1, [r0, #4]
-		thisInternalBus->BUS_BUSOSPEEDR = 0;
- 80033e2:	2100      	movs	r1, #0
+				thisInternalBus->BUS_BUSMASK32  |= (0b11 << (pinShifter * 2));
+ 80033ea:	9103      	str	r1, [sp, #12]
+ 80033ec:	4641      	mov	r1, r8
 		thisInternalBus->bus_clk = cl_bus;
- 80033e4:	6147      	str	r7, [r0, #20]
+ 80033ee:	6147      	str	r7, [r0, #20]
 		thisInternalBus->bus_clk_mask = cl_pin;
- 80033e6:	8306      	strh	r6, [r0, #24]
+ 80033f0:	8306      	strh	r6, [r0, #24]
 		thisInternalBus->BUS_ACKOSPEEDR = 0;
- 80033e8:	469c      	mov	ip, r3
- 80033ea:	2600      	movs	r6, #0
-				thisInternalBus->BUS_BUSOSPEEDR |= (0b11 << (pinShifter * 2));
- 80033ec:	2703      	movs	r7, #3
- 80033ee:	46a8      	mov	r8, r5
- 80033f0:	46a1      	mov	r9, r4
-		thisInternalBus->BUS_BUSOSPEEDR = 0;
- 80033f2:	6101      	str	r1, [r0, #16]
-		thisInternalBus->BUS_CLKMASK32 = 0;
- 80033f4:	61c1      	str	r1, [r0, #28]
-		thisInternalBus->BUS_CLKMODER = 0;
- 80033f6:	6201      	str	r1, [r0, #32]
-		thisInternalBus->BUS_CLKOSPEEDR = 0;
- 80033f8:	6241      	str	r1, [r0, #36]	; 0x24
-		thisInternalBus->BUS_ACKOSPEEDR = 0;
- 80033fa:	6381      	str	r1, [r0, #56]	; 0x38
+ 80033f2:	469c      	mov	ip, r3
+ 80033f4:	2700      	movs	r7, #0
+ 80033f6:	2600      	movs	r6, #0
+				thisInternalBus->BUS_BUSMASK32  |= (0b11 << (pinShifter * 2));
+ 80033f8:	46a8      	mov	r8, r5
+ 80033fa:	4689      	mov	r9, r1
+		thisInternalBus->bus_ack_mask = ak_pin;
+ 80033fc:	8584      	strh	r4, [r0, #44]	; 0x2c
 			if (bus_pins & (1 << pinShifter))
- 80033fc:	3201      	adds	r2, #1
-				thisInternalBus->BUS_BUSOSPEEDR |= (0b11 << (pinShifter * 2));
- 80033fe:	9104      	str	r1, [sp, #16]
- 8003400:	9103      	str	r1, [sp, #12]
+ 80033fe:	3201      	adds	r2, #1
+				thisInternalBus->BUS_BUSMASK32  |= (0b11 << (pinShifter * 2));
+ 8003400:	9304      	str	r3, [sp, #16]
 			if (bus_pins & (1 << pinShifter))
  8003402:	9c00      	ldr	r4, [sp, #0]
  8003404:	411c      	asrs	r4, r3
  8003406:	4222      	tst	r2, r4
- 8003408:	d00f      	beq.n	800342a <internal_bus_create+0x9a>
+ 8003408:	d012      	beq.n	8003430 <internal_bus_create+0xa0>
+				thisInternalBus->BUS_BUSMASK32  |= (0b11 << (pinShifter * 2));
+ 800340a:	2103      	movs	r1, #3
+ 800340c:	005c      	lsls	r4, r3, #1
+ 800340e:	40a1      	lsls	r1, r4
+ 8003410:	9d03      	ldr	r5, [sp, #12]
+ 8003412:	468b      	mov	fp, r1
+ 8003414:	430d      	orrs	r5, r1
 				thisInternalBus->BUS_BUSMODER   |= (0b01 << (pinShifter * 2));
- 800340a:	0014      	movs	r4, r2
-				thisInternalBus->BUS_BUSMASK32  = 0x0000ffff;//|= (0b11 << (pinShifter * 2));
- 800340c:	4943      	ldr	r1, [pc, #268]	; (800351c <internal_bus_create+0x18c>)
- 800340e:	6081      	str	r1, [r0, #8]
+ 8003416:	0011      	movs	r1, r2
+ 8003418:	40a1      	lsls	r1, r4
+ 800341a:	000c      	movs	r4, r1
+ 800341c:	68c1      	ldr	r1, [r0, #12]
+				thisInternalBus->BUS_BUSMASK32  |= (0b11 << (pinShifter * 2));
+ 800341e:	9503      	str	r5, [sp, #12]
 				thisInternalBus->BUS_BUSMODER   |= (0b01 << (pinShifter * 2));
- 8003410:	0059      	lsls	r1, r3, #1
- 8003412:	408c      	lsls	r4, r1
- 8003414:	468b      	mov	fp, r1
- 8003416:	68c1      	ldr	r1, [r0, #12]
- 8003418:	430c      	orrs	r4, r1
- 800341a:	60c4      	str	r4, [r0, #12]
+ 8003420:	430c      	orrs	r4, r1
 				thisInternalBus->BUS_BUSOSPEEDR |= (0b11 << (pinShifter * 2));
- 800341c:	4659      	mov	r1, fp
- 800341e:	003c      	movs	r4, r7
- 8003420:	408c      	lsls	r4, r1
- 8003422:	9903      	ldr	r1, [sp, #12]
- 8003424:	4321      	orrs	r1, r4
- 8003426:	9103      	str	r1, [sp, #12]
- 8003428:	6101      	str	r1, [r0, #16]
+ 8003422:	4659      	mov	r1, fp
+				thisInternalBus->BUS_BUSMODER   |= (0b01 << (pinShifter * 2));
+ 8003424:	60c4      	str	r4, [r0, #12]
+				thisInternalBus->BUS_BUSOSPEEDR |= (0b11 << (pinShifter * 2));
+ 8003426:	9c04      	ldr	r4, [sp, #16]
+				thisInternalBus->BUS_BUSMASK32  |= (0b11 << (pinShifter * 2));
+ 8003428:	6085      	str	r5, [r0, #8]
+				thisInternalBus->BUS_BUSOSPEEDR |= (0b11 << (pinShifter * 2));
+ 800342a:	430c      	orrs	r4, r1
+ 800342c:	9404      	str	r4, [sp, #16]
+ 800342e:	6104      	str	r4, [r0, #16]
 			}
 			if (cl_pin & (1 << pinShifter))
- 800342a:	9c01      	ldr	r4, [sp, #4]
- 800342c:	411c      	asrs	r4, r3
- 800342e:	4222      	tst	r2, r4
- 8003430:	d010      	beq.n	8003454 <internal_bus_create+0xc4>
+ 8003430:	9c01      	ldr	r4, [sp, #4]
+ 8003432:	411c      	asrs	r4, r3
+ 8003434:	4222      	tst	r2, r4
+ 8003436:	d00e      	beq.n	8003456 <internal_bus_create+0xc6>
 			{
 				thisInternalBus->BUS_CLKMASK32  |= (0b11 << (pinShifter * 2));
- 8003432:	0039      	movs	r1, r7
- 8003434:	005c      	lsls	r4, r3, #1
- 8003436:	40a1      	lsls	r1, r4
- 8003438:	9d04      	ldr	r5, [sp, #16]
- 800343a:	468b      	mov	fp, r1
- 800343c:	430d      	orrs	r5, r1
+ 8003438:	2103      	movs	r1, #3
+ 800343a:	005c      	lsls	r4, r3, #1
+ 800343c:	40a1      	lsls	r1, r4
+ 800343e:	468b      	mov	fp, r1
+ 8003440:	430e      	orrs	r6, r1
 				thisInternalBus->BUS_CLKMODER   |= (0b01 << (pinShifter * 2));
- 800343e:	0011      	movs	r1, r2
- 8003440:	40a1      	lsls	r1, r4
- 8003442:	000c      	movs	r4, r1
- 8003444:	6a01      	ldr	r1, [r0, #32]
+ 8003442:	0011      	movs	r1, r2
+ 8003444:	40a1      	lsls	r1, r4
+ 8003446:	000c      	movs	r4, r1
+ 8003448:	6a01      	ldr	r1, [r0, #32]
 				thisInternalBus->BUS_CLKMASK32  |= (0b11 << (pinShifter * 2));
- 8003446:	9504      	str	r5, [sp, #16]
+ 800344a:	61c6      	str	r6, [r0, #28]
 				thisInternalBus->BUS_CLKMODER   |= (0b01 << (pinShifter * 2));
- 8003448:	430c      	orrs	r4, r1
+ 800344c:	430c      	orrs	r4, r1
 				thisInternalBus->BUS_CLKOSPEEDR |= (0b11 << (pinShifter * 2));
- 800344a:	4659      	mov	r1, fp
- 800344c:	430e      	orrs	r6, r1
-				thisInternalBus->BUS_CLKMASK32  |= (0b11 << (pinShifter * 2));
- 800344e:	61c5      	str	r5, [r0, #28]
+ 800344e:	4659      	mov	r1, fp
+ 8003450:	430f      	orrs	r7, r1
 				thisInternalBus->BUS_CLKMODER   |= (0b01 << (pinShifter * 2));
- 8003450:	6204      	str	r4, [r0, #32]
+ 8003452:	6204      	str	r4, [r0, #32]
 				thisInternalBus->BUS_CLKOSPEEDR |= (0b11 << (pinShifter * 2));
- 8003452:	6246      	str	r6, [r0, #36]	; 0x24
+ 8003454:	6247      	str	r7, [r0, #36]	; 0x24
 			}
 			if (ak_pin & (1 << pinShifter))
- 8003454:	9c02      	ldr	r4, [sp, #8]
- 8003456:	411c      	asrs	r4, r3
- 8003458:	4222      	tst	r2, r4
- 800345a:	d012      	beq.n	8003482 <internal_bus_create+0xf2>
+ 8003456:	9c02      	ldr	r4, [sp, #8]
+ 8003458:	411c      	asrs	r4, r3
+ 800345a:	4222      	tst	r2, r4
+ 800345c:	d012      	beq.n	8003484 <internal_bus_create+0xf4>
 			{
 				thisInternalBus->BUS_ACKMASK32  |= (0b11 << (pinShifter * 2));
- 800345c:	0039      	movs	r1, r7
- 800345e:	005c      	lsls	r4, r3, #1
- 8003460:	40a1      	lsls	r1, r4
- 8003462:	468b      	mov	fp, r1
- 8003464:	4641      	mov	r1, r8
- 8003466:	465d      	mov	r5, fp
- 8003468:	4329      	orrs	r1, r5
- 800346a:	4688      	mov	r8, r1
- 800346c:	6301      	str	r1, [r0, #48]	; 0x30
+ 800345e:	2103      	movs	r1, #3
+ 8003460:	005c      	lsls	r4, r3, #1
+ 8003462:	40a1      	lsls	r1, r4
+ 8003464:	468b      	mov	fp, r1
+ 8003466:	4641      	mov	r1, r8
+ 8003468:	465d      	mov	r5, fp
+ 800346a:	4329      	orrs	r1, r5
+ 800346c:	4688      	mov	r8, r1
+ 800346e:	6301      	str	r1, [r0, #48]	; 0x30
 				thisInternalBus->BUS_ACKMODER   |= (0b01 << (pinShifter * 2));
- 800346e:	0011      	movs	r1, r2
- 8003470:	40a1      	lsls	r1, r4
- 8003472:	000c      	movs	r4, r1
- 8003474:	6b41      	ldr	r1, [r0, #52]	; 0x34
- 8003476:	430c      	orrs	r4, r1
+ 8003470:	0011      	movs	r1, r2
+ 8003472:	40a1      	lsls	r1, r4
+ 8003474:	000c      	movs	r4, r1
+ 8003476:	6b41      	ldr	r1, [r0, #52]	; 0x34
+ 8003478:	430c      	orrs	r4, r1
 				thisInternalBus->BUS_ACKOSPEEDR |= (0b11 << (pinShifter * 2));
- 8003478:	4661      	mov	r1, ip
- 800347a:	4329      	orrs	r1, r5
- 800347c:	468c      	mov	ip, r1
+ 800347a:	4661      	mov	r1, ip
+ 800347c:	4329      	orrs	r1, r5
+ 800347e:	468c      	mov	ip, r1
 				thisInternalBus->BUS_ACKMODER   |= (0b01 << (pinShifter * 2));
- 800347e:	6344      	str	r4, [r0, #52]	; 0x34
+ 8003480:	6344      	str	r4, [r0, #52]	; 0x34
 				thisInternalBus->BUS_ACKOSPEEDR |= (0b11 << (pinShifter * 2));
- 8003480:	6381      	str	r1, [r0, #56]	; 0x38
+ 8003482:	6381      	str	r1, [r0, #56]	; 0x38
 		for (pinShifter = 0; pinShifter < BUS_GPIO_PINS_PER_BUS; pinShifter++)
- 8003482:	3301      	adds	r3, #1
- 8003484:	2b10      	cmp	r3, #16
- 8003486:	d1bc      	bne.n	8003402 <internal_bus_create+0x72>
- 8003488:	9a03      	ldr	r2, [sp, #12]
+ 8003484:	3301      	adds	r3, #1
+ 8003486:	2b10      	cmp	r3, #16
+ 8003488:	d1bb      	bne.n	8003402 <internal_bus_create+0x72>
  800348a:	464b      	mov	r3, r9
- 800348c:	4691      	mov	r9, r2
- 800348e:	4645      	mov	r5, r8
+ 800348c:	9903      	ldr	r1, [sp, #12]
+			}
+		}
 
 		uint32_t temp = 0;
 		//Set main bus output speed to very high
 		temp = thisInternalBus->bus->OSPEEDR;
+ 800348e:	689b      	ldr	r3, [r3, #8]
+ 8003490:	9a04      	ldr	r2, [sp, #16]
 		temp &= ~thisInternalBus->BUS_BUSMASK32;
+ 8003492:	438b      	bics	r3, r1
 		temp |= thisInternalBus->BUS_BUSOSPEEDR;
- 8003490:	464c      	mov	r4, r9
- 8003492:	4698      	mov	r8, r3
-		temp = thisInternalBus->bus->OSPEEDR;
- 8003494:	689a      	ldr	r2, [r3, #8]
-		temp &= ~thisInternalBus->BUS_BUSMASK32;
- 8003496:	6883      	ldr	r3, [r0, #8]
+ 8003494:	4313      	orrs	r3, r2
 		thisInternalBus->bus->OSPEEDR = temp;
+ 8003496:	464a      	mov	r2, r9
+ 8003498:	6093      	str	r3, [r2, #8]
 		//Set main bus output type to output push-pull
 		temp = thisInternalBus->bus->OTYPER;
+ 800349a:	6853      	ldr	r3, [r2, #4]
 		temp &= ~thisInternalBus->bus_mask;
- 8003498:	9f00      	ldr	r7, [sp, #0]
-		temp &= ~thisInternalBus->BUS_BUSMASK32;
- 800349a:	439a      	bics	r2, r3
-		temp |= thisInternalBus->BUS_BUSOSPEEDR;
- 800349c:	4322      	orrs	r2, r4
-		thisInternalBus->bus->OSPEEDR = temp;
- 800349e:	4644      	mov	r4, r8
- 80034a0:	60a2      	str	r2, [r4, #8]
-		temp = thisInternalBus->bus->OTYPER;
- 80034a2:	6862      	ldr	r2, [r4, #4]
-		temp &= ~thisInternalBus->bus_mask;
- 80034a4:	9904      	ldr	r1, [sp, #16]
- 80034a6:	43ba      	bics	r2, r7
+ 800349c:	9c00      	ldr	r4, [sp, #0]
+ 800349e:	4645      	mov	r5, r8
+ 80034a0:	43a3      	bics	r3, r4
 		thisInternalBus->bus->OTYPER = temp;
- 80034a8:	6062      	str	r2, [r4, #4]
+ 80034a2:	6053      	str	r3, [r2, #4]
 		//Set main bus pullup/down resistors to none
 		temp = thisInternalBus->bus->PUPDR;
- 80034aa:	68e2      	ldr	r2, [r4, #12]
+ 80034a4:	68d3      	ldr	r3, [r2, #12]
 		temp &= ~thisInternalBus->BUS_BUSMASK32;
- 80034ac:	9300      	str	r3, [sp, #0]
- 80034ae:	439a      	bics	r2, r3
+ 80034a6:	438b      	bics	r3, r1
 		thisInternalBus->bus->PUPDR = temp;
- 80034b0:	60e2      	str	r2, [r4, #12]
+ 80034a8:	60d3      	str	r3, [r2, #12]
 
 		//Set Clock line, output speed to very high
 		temp = thisInternalBus->bus_clk->OSPEEDR;
- 80034b2:	9c05      	ldr	r4, [sp, #20]
+ 80034aa:	9a05      	ldr	r2, [sp, #20]
+ 80034ac:	6893      	ldr	r3, [r2, #8]
+		temp &= ~thisInternalBus->BUS_CLKMASK32;
+ 80034ae:	43b3      	bics	r3, r6
+		temp |= thisInternalBus->BUS_CLKOSPEEDR;
+ 80034b0:	433b      	orrs	r3, r7
+		thisInternalBus->bus_clk->OSPEEDR = temp;
+ 80034b2:	6093      	str	r3, [r2, #8]
+		//Set C bus output type to output push-pull
+		temp = thisInternalBus->bus_clk->OTYPER;
+ 80034b4:	6853      	ldr	r3, [r2, #4]
+		temp &= ~thisInternalBus->bus_clk_mask;
+ 80034b6:	9f01      	ldr	r7, [sp, #4]
+ 80034b8:	43bb      	bics	r3, r7
+		thisInternalBus->bus_clk->OTYPER = temp;
+ 80034ba:	6053      	str	r3, [r2, #4]
+		//Set C bus pullup/down resistors to none
+		temp = thisInternalBus->bus_clk->PUPDR;
+ 80034bc:	68d3      	ldr	r3, [r2, #12]
+		thisInternalBus->bus_clk->PUPDR = temp;
+
+		//Set Ack line, output speed to very high
+		temp = thisInternalBus->bus_ack->OSPEEDR;
+		temp &= ~thisInternalBus->BUS_ACKMASK32;
 		temp |= thisInternalBus->BUS_ACKOSPEEDR;
+ 80034be:	4667      	mov	r7, ip
+		temp &= ~thisInternalBus->BUS_CLKMASK32;
+ 80034c0:	43b3      	bics	r3, r6
+		thisInternalBus->bus_clk->PUPDR = temp;
+ 80034c2:	60d3      	str	r3, [r2, #12]
+		temp = thisInternalBus->bus_ack->OSPEEDR;
+ 80034c4:	4653      	mov	r3, sl
+ 80034c6:	689b      	ldr	r3, [r3, #8]
 		thisInternalBus->bus_ack->OSPEEDR = temp;
 		//Set C bus output type to output push-pull
 		temp = thisInternalBus->bus_ack->OTYPER;
 		temp &= ~thisInternalBus->bus_ack_mask;
 		thisInternalBus->bus_ack->OTYPER = temp;
- 80034b4:	4653      	mov	r3, sl
-		temp = thisInternalBus->bus_clk->OSPEEDR;
- 80034b6:	68a2      	ldr	r2, [r4, #8]
-		temp &= ~thisInternalBus->BUS_CLKMASK32;
- 80034b8:	438a      	bics	r2, r1
-		temp |= thisInternalBus->BUS_CLKOSPEEDR;
- 80034ba:	4332      	orrs	r2, r6
-		thisInternalBus->bus_clk->OSPEEDR = temp;
- 80034bc:	60a2      	str	r2, [r4, #8]
-		temp = thisInternalBus->bus_clk->OTYPER;
- 80034be:	6862      	ldr	r2, [r4, #4]
-		temp &= ~thisInternalBus->bus_clk_mask;
- 80034c0:	9e01      	ldr	r6, [sp, #4]
- 80034c2:	43b2      	bics	r2, r6
-		thisInternalBus->bus_clk->OTYPER = temp;
- 80034c4:	6062      	str	r2, [r4, #4]
-		temp = thisInternalBus->bus_clk->PUPDR;
- 80034c6:	68e2      	ldr	r2, [r4, #12]
-		temp |= thisInternalBus->BUS_ACKOSPEEDR;
- 80034c8:	4666      	mov	r6, ip
-		temp &= ~thisInternalBus->BUS_CLKMASK32;
- 80034ca:	438a      	bics	r2, r1
-		thisInternalBus->bus_clk->PUPDR = temp;
- 80034cc:	60e2      	str	r2, [r4, #12]
-		temp = thisInternalBus->bus_ack->OSPEEDR;
- 80034ce:	4652      	mov	r2, sl
- 80034d0:	6892      	ldr	r2, [r2, #8]
+ 80034c8:	4652      	mov	r2, sl
 		temp &= ~thisInternalBus->BUS_ACKMASK32;
- 80034d2:	43aa      	bics	r2, r5
+ 80034ca:	43ab      	bics	r3, r5
 		temp |= thisInternalBus->BUS_ACKOSPEEDR;
- 80034d4:	4332      	orrs	r2, r6
+ 80034cc:	433b      	orrs	r3, r7
 		thisInternalBus->bus_ack->OSPEEDR = temp;
- 80034d6:	4656      	mov	r6, sl
- 80034d8:	60b2      	str	r2, [r6, #8]
+ 80034ce:	4657      	mov	r7, sl
+ 80034d0:	60bb      	str	r3, [r7, #8]
 		temp = thisInternalBus->bus_ack->OTYPER;
- 80034da:	6872      	ldr	r2, [r6, #4]
+ 80034d2:	687b      	ldr	r3, [r7, #4]
 		temp &= ~thisInternalBus->bus_ack_mask;
- 80034dc:	9e02      	ldr	r6, [sp, #8]
- 80034de:	43b2      	bics	r2, r6
+ 80034d4:	9f02      	ldr	r7, [sp, #8]
+ 80034d6:	43bb      	bics	r3, r7
 		thisInternalBus->bus_ack->OTYPER = temp;
- 80034e0:	605a      	str	r2, [r3, #4]
+ 80034d8:	6053      	str	r3, [r2, #4]
 		//Set C bus pullup/down resistors to none
 		temp = thisInternalBus->bus_ack->PUPDR;
- 80034e2:	68da      	ldr	r2, [r3, #12]
+ 80034da:	68d3      	ldr	r3, [r2, #12]
 		temp &= ~thisInternalBus->BUS_ACKMASK32;
- 80034e4:	43aa      	bics	r2, r5
+ 80034dc:	43ab      	bics	r3, r5
 		thisInternalBus->bus_ack->PUPDR = temp;
- 80034e6:	60da      	str	r2, [r3, #12]
+ 80034de:	60d3      	str	r3, [r2, #12]
 
 inline void internal_bus_release(InternalBus_t *thisInternalBus)
 {
 	uint32_t temp = 0;
 	//Set all bus pins to low and send complete
 	thisInternalBus->bus->BRR = thisInternalBus->bus_mask;
- 80034e8:	4643      	mov	r3, r8
- 80034ea:	629f      	str	r7, [r3, #40]	; 0x28
+ 80034e0:	464b      	mov	r3, r9
+ 80034e2:	629c      	str	r4, [r3, #40]	; 0x28
 	thisInternalBus->bus_ack->BRR = thisInternalBus->bus_ack_mask;
- 80034ec:	4653      	mov	r3, sl
- 80034ee:	629e      	str	r6, [r3, #40]	; 0x28
+ 80034e4:	6297      	str	r7, [r2, #40]	; 0x28
 
 	//Set Bus pins to input
 	temp = thisInternalBus->bus->MODER;
- 80034f0:	4643      	mov	r3, r8
- 80034f2:	681a      	ldr	r2, [r3, #0]
 	temp &= ~thisInternalBus->BUS_BUSMASK32;
- 80034f4:	9b00      	ldr	r3, [sp, #0]
- 80034f6:	439a      	bics	r2, r3
 	thisInternalBus->bus->MODER = temp;
- 80034f8:	4643      	mov	r3, r8
- 80034fa:	601a      	str	r2, [r3, #0]
+ 80034e6:	464a      	mov	r2, r9
+	temp = thisInternalBus->bus->MODER;
+ 80034e8:	681b      	ldr	r3, [r3, #0]
+	temp &= ~thisInternalBus->BUS_BUSMASK32;
+ 80034ea:	438b      	bics	r3, r1
+	thisInternalBus->bus->MODER = temp;
+ 80034ec:	6013      	str	r3, [r2, #0]
 
 	//Set clock pin to input
 	temp = thisInternalBus->bus_clk->MODER;
- 80034fc:	6823      	ldr	r3, [r4, #0]
+ 80034ee:	9a05      	ldr	r2, [sp, #20]
+ 80034f0:	6813      	ldr	r3, [r2, #0]
+	temp &= ~thisInternalBus->BUS_CLKMASK32;
+ 80034f2:	43b3      	bics	r3, r6
 	thisInternalBus->bus_clk->MODER = temp;
+ 80034f4:	6013      	str	r3, [r2, #0]
 
 	//Set ack pins to input
 	temp = thisInternalBus->bus_ack->MODER;
+ 80034f6:	4653      	mov	r3, sl
 	temp &= ~thisInternalBus->BUS_ACKMASK32;
 	thisInternalBus->bus_ack->MODER = temp;
- 80034fe:	4652      	mov	r2, sl
-	temp &= ~thisInternalBus->BUS_CLKMASK32;
- 8003500:	438b      	bics	r3, r1
-	thisInternalBus->bus_clk->MODER = temp;
- 8003502:	6023      	str	r3, [r4, #0]
+ 80034f8:	4652      	mov	r2, sl
 	temp = thisInternalBus->bus_ack->MODER;
- 8003504:	4653      	mov	r3, sl
- 8003506:	681b      	ldr	r3, [r3, #0]
+ 80034fa:	681b      	ldr	r3, [r3, #0]
 	temp &= ~thisInternalBus->BUS_ACKMASK32;
- 8003508:	43ab      	bics	r3, r5
+ 80034fc:	43ab      	bics	r3, r5
 	thisInternalBus->bus_ack->MODER = temp;
- 800350a:	6013      	str	r3, [r2, #0]
+ 80034fe:	6013      	str	r3, [r2, #0]
 }
- 800350c:	b007      	add	sp, #28
- 800350e:	bcf0      	pop	{r4, r5, r6, r7}
- 8003510:	46bb      	mov	fp, r7
- 8003512:	46b2      	mov	sl, r6
- 8003514:	46a9      	mov	r9, r5
- 8003516:	46a0      	mov	r8, r4
- 8003518:	bdf0      	pop	{r4, r5, r6, r7, pc}
- 800351a:	46c0      	nop			; (mov r8, r8)
- 800351c:	0000ffff 	.word	0x0000ffff
+ 8003500:	b007      	add	sp, #28
+ 8003502:	bcf0      	pop	{r4, r5, r6, r7}
+ 8003504:	46bb      	mov	fp, r7
+ 8003506:	46b2      	mov	sl, r6
+ 8003508:	46a9      	mov	r9, r5
+ 800350a:	46a0      	mov	r8, r4
+ 800350c:	bdf0      	pop	{r4, r5, r6, r7, pc}
+ 800350e:	46c0      	nop			; (mov r8, r8)
 
-08003520 <internal_bus_write_data_frame>:
+08003510 <internal_bus_write_data_frame>:
 {
- 8003520:	b5f0      	push	{r4, r5, r6, r7, lr}
- 8003522:	4657      	mov	r7, sl
- 8003524:	464e      	mov	r6, r9
- 8003526:	4645      	mov	r5, r8
- 8003528:	46de      	mov	lr, fp
- 800352a:	b5e0      	push	{r5, r6, r7, lr}
- 800352c:	0005      	movs	r5, r0
+ 8003510:	b5f0      	push	{r4, r5, r6, r7, lr}
+ 8003512:	4657      	mov	r7, sl
+ 8003514:	464e      	mov	r6, r9
+ 8003516:	4645      	mov	r5, r8
+ 8003518:	46de      	mov	lr, fp
+ 800351a:	b5e0      	push	{r5, r6, r7, lr}
+ 800351c:	0005      	movs	r5, r0
 	temp = thisInternalBus->bus->MODER;
- 800352e:	6807      	ldr	r7, [r0, #0]
+ 800351e:	6807      	ldr	r7, [r0, #0]
 	temp &= ~thisInternalBus->BUS_BUSMASK32;
- 8003530:	6880      	ldr	r0, [r0, #8]
+ 8003520:	6880      	ldr	r0, [r0, #8]
 	temp = thisInternalBus->bus->MODER;
- 8003532:	683b      	ldr	r3, [r7, #0]
+ 8003522:	683b      	ldr	r3, [r7, #0]
 	temp &= ~thisInternalBus->BUS_BUSMASK32;
- 8003534:	43c4      	mvns	r4, r0
- 8003536:	4383      	bics	r3, r0
+ 8003524:	43c4      	mvns	r4, r0
+ 8003526:	4383      	bics	r3, r0
 	temp |= thisInternalBus->BUS_BUSMODER;
- 8003538:	68e8      	ldr	r0, [r5, #12]
+ 8003528:	68e8      	ldr	r0, [r5, #12]
 	temp &= ~thisInternalBus->BUS_BUSMASK32;
- 800353a:	46a3      	mov	fp, r4
+ 800352a:	46a3      	mov	fp, r4
 	temp |= thisInternalBus->BUS_BUSMODER;
- 800353c:	4303      	orrs	r3, r0
+ 800352c:	4303      	orrs	r3, r0
 	temp = thisInternalBus->bus_clk->MODER;
- 800353e:	696c      	ldr	r4, [r5, #20]
+ 800352e:	696c      	ldr	r4, [r5, #20]
 	thisInternalBus->bus->MODER = temp;
- 8003540:	603b      	str	r3, [r7, #0]
+ 8003530:	603b      	str	r3, [r7, #0]
 	temp &= ~thisInternalBus->BUS_CLKMASK32;
- 8003542:	69e8      	ldr	r0, [r5, #28]
+ 8003532:	69e8      	ldr	r0, [r5, #28]
 	temp = thisInternalBus->bus_clk->MODER;
- 8003544:	6823      	ldr	r3, [r4, #0]
+ 8003534:	6823      	ldr	r3, [r4, #0]
 	temp &= ~thisInternalBus->BUS_CLKMASK32;
- 8003546:	43c6      	mvns	r6, r0
- 8003548:	4383      	bics	r3, r0
+ 8003536:	43c6      	mvns	r6, r0
+ 8003538:	4383      	bics	r3, r0
 	temp |= thisInternalBus->BUS_CLKMODER;
- 800354a:	6a28      	ldr	r0, [r5, #32]
+ 800353a:	6a28      	ldr	r0, [r5, #32]
 	temp &= ~thisInternalBus->BUS_CLKMASK32;
- 800354c:	46b2      	mov	sl, r6
+ 800353c:	46b2      	mov	sl, r6
 	temp |= thisInternalBus->BUS_CLKMODER;
- 800354e:	4303      	orrs	r3, r0
+ 800353e:	4303      	orrs	r3, r0
 	thisInternalBus->bus_clk->MODER = temp;
- 8003550:	6023      	str	r3, [r4, #0]
+ 8003540:	6023      	str	r3, [r4, #0]
 	temp = thisInternalBus->bus_ack->MODER;
- 8003552:	6aab      	ldr	r3, [r5, #40]	; 0x28
+ 8003542:	6aab      	ldr	r3, [r5, #40]	; 0x28
 	temp &= ~thisInternalBus->BUS_ACKMASK32;
- 8003554:	6b28      	ldr	r0, [r5, #48]	; 0x30
+ 8003544:	6b28      	ldr	r0, [r5, #48]	; 0x30
 	temp = thisInternalBus->bus_ack->MODER;
- 8003556:	469c      	mov	ip, r3
- 8003558:	681b      	ldr	r3, [r3, #0]
+ 8003546:	469c      	mov	ip, r3
+ 8003548:	681b      	ldr	r3, [r3, #0]
 	temp &= ~thisInternalBus->BUS_ACKMASK32;
- 800355a:	43c6      	mvns	r6, r0
- 800355c:	4383      	bics	r3, r0
+ 800354a:	43c6      	mvns	r6, r0
+ 800354c:	4383      	bics	r3, r0
 	temp |= thisInternalBus->BUS_ACKMODER;
- 800355e:	6b68      	ldr	r0, [r5, #52]	; 0x34
+ 800354e:	6b68      	ldr	r0, [r5, #52]	; 0x34
 	temp &= ~thisInternalBus->BUS_ACKMASK32;
- 8003560:	46b1      	mov	r9, r6
+ 8003550:	46b1      	mov	r9, r6
 	temp |= thisInternalBus->BUS_ACKMODER;
- 8003562:	4303      	orrs	r3, r0
+ 8003552:	4303      	orrs	r3, r0
 	thisInternalBus->bus_ack->MODER = temp;
- 8003564:	4660      	mov	r0, ip
- 8003566:	6003      	str	r3, [r0, #0]
+ 8003554:	4660      	mov	r0, ip
+ 8003556:	6003      	str	r3, [r0, #0]
 	thisInternalBus->bus_ack->BSRR = (uint32_t) thisInternalBus->bus_ack_mask;
- 8003568:	8dab      	ldrh	r3, [r5, #44]	; 0x2c
- 800356a:	4698      	mov	r8, r3
- 800356c:	4663      	mov	r3, ip
- 800356e:	4640      	mov	r0, r8
- 8003570:	6198      	str	r0, [r3, #24]
+ 8003558:	8dab      	ldrh	r3, [r5, #44]	; 0x2c
+ 800355a:	4698      	mov	r8, r3
+ 800355c:	4663      	mov	r3, ip
+ 800355e:	4640      	mov	r0, r8
+ 8003560:	6198      	str	r0, [r3, #24]
 	while(buffer_len--)
- 8003572:	1e50      	subs	r0, r2, #1
- 8003574:	b2c0      	uxtb	r0, r0
- 8003576:	2a00      	cmp	r2, #0
- 8003578:	d027      	beq.n	80035ca <internal_bus_write_data_frame+0xaa>
-		thisInternalBus->bus_clk->BRR = thisInternalBus->bus_clk_mask;
- 800357a:	8b2e      	ldrh	r6, [r5, #24]
-		thisInternalBus->bus->BSRR = (uint32_t) ((thisInternalBus->bus_mask & buffer[buffer_len])  | ((thisInternalBus->bus_mask & ~buffer[buffer_len])  << 16));
- 800357c:	88ad      	ldrh	r5, [r5, #4]
- 800357e:	1808      	adds	r0, r1, r0
- 8003580:	002b      	movs	r3, r5
-		thisInternalBus->bus_clk->BRR = thisInternalBus->bus_clk_mask;
- 8003582:	62a6      	str	r6, [r4, #40]	; 0x28
-		thisInternalBus->bus->BSRR = (uint32_t) ((thisInternalBus->bus_mask & buffer[buffer_len])  | ((thisInternalBus->bus_mask & ~buffer[buffer_len])  << 16));
- 8003584:	7802      	ldrb	r2, [r0, #0]
- 8003586:	4393      	bics	r3, r2
- 8003588:	041b      	lsls	r3, r3, #16
- 800358a:	402a      	ands	r2, r5
- 800358c:	431a      	orrs	r2, r3
- 800358e:	61ba      	str	r2, [r7, #24]
+ 8003562:	1e50      	subs	r0, r2, #1
+ 8003564:	b2c0      	uxtb	r0, r0
+ 8003566:	2a00      	cmp	r2, #0
+ 8003568:	d027      	beq.n	80035ba <internal_bus_write_data_frame+0xaa>
 		thisInternalBus->bus_clk->BSRR = (uint32_t) thisInternalBus->bus_clk_mask;
- 8003590:	0003      	movs	r3, r0
- 8003592:	61a6      	str	r6, [r4, #24]
+ 800356a:	8b2e      	ldrh	r6, [r5, #24]
+		thisInternalBus->bus->BSRR = (uint32_t) ((thisInternalBus->bus_mask & buffer[buffer_len])  | ((thisInternalBus->bus_mask & ~buffer[buffer_len])  << 16));
+ 800356c:	88ad      	ldrh	r5, [r5, #4]
+ 800356e:	1808      	adds	r0, r1, r0
+ 8003570:	002b      	movs	r3, r5
+		thisInternalBus->bus_clk->BSRR = (uint32_t) thisInternalBus->bus_clk_mask;
+ 8003572:	61a6      	str	r6, [r4, #24]
+		thisInternalBus->bus->BSRR = (uint32_t) ((thisInternalBus->bus_mask & buffer[buffer_len])  | ((thisInternalBus->bus_mask & ~buffer[buffer_len])  << 16));
+ 8003574:	7802      	ldrb	r2, [r0, #0]
+ 8003576:	4393      	bics	r3, r2
+ 8003578:	041b      	lsls	r3, r3, #16
+ 800357a:	402a      	ands	r2, r5
+ 800357c:	431a      	orrs	r2, r3
+ 800357e:	61ba      	str	r2, [r7, #24]
+		thisInternalBus->bus_clk->BRR = thisInternalBus->bus_clk_mask;
+ 8003580:	0003      	movs	r3, r0
+ 8003582:	62a6      	str	r6, [r4, #40]	; 0x28
 	while(buffer_len--)
- 8003594:	3801      	subs	r0, #1
- 8003596:	4299      	cmp	r1, r3
- 8003598:	d1f2      	bne.n	8003580 <internal_bus_write_data_frame+0x60>
+ 8003584:	3801      	subs	r0, #1
+ 8003586:	4299      	cmp	r1, r3
+ 8003588:	d1f2      	bne.n	8003570 <internal_bus_write_data_frame+0x60>
 	thisInternalBus->bus_ack->BRR = thisInternalBus->bus_ack_mask;
- 800359a:	4642      	mov	r2, r8
- 800359c:	4663      	mov	r3, ip
+ 800358a:	4642      	mov	r2, r8
+ 800358c:	4663      	mov	r3, ip
 	thisInternalBus->bus->BRR = thisInternalBus->bus_mask;
- 800359e:	62bd      	str	r5, [r7, #40]	; 0x28
+ 800358e:	62bd      	str	r5, [r7, #40]	; 0x28
 	thisInternalBus->bus_ack->BRR = thisInternalBus->bus_ack_mask;
- 80035a0:	629a      	str	r2, [r3, #40]	; 0x28
+ 8003590:	629a      	str	r2, [r3, #40]	; 0x28
 	temp &= ~thisInternalBus->BUS_BUSMASK32;
- 80035a2:	465a      	mov	r2, fp
+ 8003592:	465a      	mov	r2, fp
 	temp = thisInternalBus->bus->MODER;
- 80035a4:	683b      	ldr	r3, [r7, #0]
+ 8003594:	683b      	ldr	r3, [r7, #0]
 	temp &= ~thisInternalBus->BUS_BUSMASK32;
- 80035a6:	4013      	ands	r3, r2
+ 8003596:	4013      	ands	r3, r2
 	temp &= ~thisInternalBus->BUS_CLKMASK32;
- 80035a8:	4652      	mov	r2, sl
+ 8003598:	4652      	mov	r2, sl
 	thisInternalBus->bus->MODER = temp;
- 80035aa:	603b      	str	r3, [r7, #0]
+ 800359a:	603b      	str	r3, [r7, #0]
 	temp = thisInternalBus->bus_clk->MODER;
- 80035ac:	6823      	ldr	r3, [r4, #0]
+ 800359c:	6823      	ldr	r3, [r4, #0]
 	temp &= ~thisInternalBus->BUS_CLKMASK32;
- 80035ae:	4013      	ands	r3, r2
+ 800359e:	4013      	ands	r3, r2
 	thisInternalBus->bus_clk->MODER = temp;
- 80035b0:	6023      	str	r3, [r4, #0]
+ 80035a0:	6023      	str	r3, [r4, #0]
 	temp = thisInternalBus->bus_ack->MODER;
- 80035b2:	4663      	mov	r3, ip
+ 80035a2:	4663      	mov	r3, ip
 	temp &= ~thisInternalBus->BUS_ACKMASK32;
- 80035b4:	464a      	mov	r2, r9
+ 80035a4:	464a      	mov	r2, r9
 	temp = thisInternalBus->bus_ack->MODER;
- 80035b6:	681b      	ldr	r3, [r3, #0]
+ 80035a6:	681b      	ldr	r3, [r3, #0]
 	temp &= ~thisInternalBus->BUS_ACKMASK32;
- 80035b8:	4013      	ands	r3, r2
+ 80035a8:	4013      	ands	r3, r2
 	thisInternalBus->bus_ack->MODER = temp;
- 80035ba:	4662      	mov	r2, ip
- 80035bc:	6013      	str	r3, [r2, #0]
+ 80035aa:	4662      	mov	r2, ip
+ 80035ac:	6013      	str	r3, [r2, #0]
 }
- 80035be:	bcf0      	pop	{r4, r5, r6, r7}
- 80035c0:	46bb      	mov	fp, r7
- 80035c2:	46b2      	mov	sl, r6
- 80035c4:	46a9      	mov	r9, r5
- 80035c6:	46a0      	mov	r8, r4
- 80035c8:	bdf0      	pop	{r4, r5, r6, r7, pc}
- 80035ca:	88ad      	ldrh	r5, [r5, #4]
- 80035cc:	e7e5      	b.n	800359a <internal_bus_write_data_frame+0x7a>
- 80035ce:	46c0      	nop			; (mov r8, r8)
+ 80035ae:	bcf0      	pop	{r4, r5, r6, r7}
+ 80035b0:	46bb      	mov	fp, r7
+ 80035b2:	46b2      	mov	sl, r6
+ 80035b4:	46a9      	mov	r9, r5
+ 80035b6:	46a0      	mov	r8, r4
+ 80035b8:	bdf0      	pop	{r4, r5, r6, r7, pc}
+ 80035ba:	88ad      	ldrh	r5, [r5, #4]
+ 80035bc:	e7e5      	b.n	800358a <internal_bus_write_data_frame+0x7a>
+ 80035be:	46c0      	nop			; (mov r8, r8)
 
-080035d0 <EEPROM_save>:
+080035c0 <EEPROM_save>:
 // TODO we need uint8_t EEPROM_save(unsigned char *file_name, uint8_t *buffer, uint8_t how_many_byte_write)
 uint8_t EEPROM_save(uint32_t file_name, uint8_t *buffer, uint8_t buffer_size)
 {
 	uint8_t result = 0;
 	//before anything else first check if the address you are trying to write to is in fact within the EEPROM memory map
 	if (IS_FLASH_DATA_ADDRESS(file_name))
- 80035d0:	4b0d      	ldr	r3, [pc, #52]	; (8003608 <EEPROM_save+0x38>)
+ 80035c0:	4b0d      	ldr	r3, [pc, #52]	; (80035f8 <EEPROM_save+0x38>)
 {
- 80035d2:	b570      	push	{r4, r5, r6, lr}
+ 80035c2:	b570      	push	{r4, r5, r6, lr}
 	if (IS_FLASH_DATA_ADDRESS(file_name))
- 80035d4:	18c2      	adds	r2, r0, r3
- 80035d6:	2380      	movs	r3, #128	; 0x80
+ 80035c4:	18c2      	adds	r2, r0, r3
+ 80035c6:	2380      	movs	r3, #128	; 0x80
 {
- 80035d8:	0004      	movs	r4, r0
- 80035da:	000d      	movs	r5, r1
+ 80035c8:	0004      	movs	r4, r0
+ 80035ca:	000d      	movs	r5, r1
 	if (IS_FLASH_DATA_ADDRESS(file_name))
- 80035dc:	011b      	lsls	r3, r3, #4
- 80035de:	429a      	cmp	r2, r3
- 80035e0:	d301      	bcc.n	80035e6 <EEPROM_save+0x16>
+ 80035cc:	011b      	lsls	r3, r3, #4
+ 80035ce:	429a      	cmp	r2, r3
+ 80035d0:	d301      	bcc.n	80035d6 <EEPROM_save+0x16>
 					result =1;
 				}
 				//we already unlocked the EEPROM memory no matter if we succes to write or not we need to relock
 				if( HAL_OK != HAL_FLASHEx_DATAEEPROM_Lock())
 				{
 					result =0;  //if we can not relock again it is a problem no matter if we succes to write
- 80035e2:	2000      	movs	r0, #0
+ 80035d2:	2000      	movs	r0, #0
 			}
 		}
 	}
 	//Lock the EEPROM afterwards to protect it from accidental memory writes
 	return(result);
 }
- 80035e4:	bd70      	pop	{r4, r5, r6, pc}
+ 80035d4:	bd70      	pop	{r4, r5, r6, pc}
 		if ( HAL_OK == HAL_FLASHEx_DATAEEPROM_Unlock() )
- 80035e6:	f7fe f875 	bl	80016d4 <HAL_FLASHEx_DATAEEPROM_Unlock>
- 80035ea:	2800      	cmp	r0, #0
- 80035ec:	d1f9      	bne.n	80035e2 <EEPROM_save+0x12>
+ 80035d6:	f7fe f87d 	bl	80016d4 <HAL_FLASHEx_DATAEEPROM_Unlock>
+ 80035da:	2800      	cmp	r0, #0
+ 80035dc:	d1f9      	bne.n	80035d2 <EEPROM_save+0x12>
 				if( HAL_OK == HAL_FLASHEx_DATAEEPROM_Program(FLASH_TYPEPROGRAMDATA_BYTE, (uint32_t) file_name, (uint32_t) buffer[0]) )
- 80035ee:	0021      	movs	r1, r4
- 80035f0:	782a      	ldrb	r2, [r5, #0]
- 80035f2:	f7fe f891 	bl	8001718 <HAL_FLASHEx_DATAEEPROM_Program>
- 80035f6:	0004      	movs	r4, r0
+ 80035de:	0021      	movs	r1, r4
+ 80035e0:	782a      	ldrb	r2, [r5, #0]
+ 80035e2:	f7fe f899 	bl	8001718 <HAL_FLASHEx_DATAEEPROM_Program>
+ 80035e6:	0004      	movs	r4, r0
 				if( HAL_OK != HAL_FLASHEx_DATAEEPROM_Lock())
- 80035f8:	f7fe f884 	bl	8001704 <HAL_FLASHEx_DATAEEPROM_Lock>
- 80035fc:	2800      	cmp	r0, #0
- 80035fe:	d1f0      	bne.n	80035e2 <EEPROM_save+0x12>
+ 80035e8:	f7fe f88c 	bl	8001704 <HAL_FLASHEx_DATAEEPROM_Lock>
+ 80035ec:	2800      	cmp	r0, #0
+ 80035ee:	d1f0      	bne.n	80035d2 <EEPROM_save+0x12>
 				if( HAL_OK == HAL_FLASHEx_DATAEEPROM_Program(FLASH_TYPEPROGRAMDATA_BYTE, (uint32_t) file_name, (uint32_t) buffer[0]) )
- 8003600:	4260      	negs	r0, r4
- 8003602:	4160      	adcs	r0, r4
+ 80035f0:	4260      	negs	r0, r4
+ 80035f2:	4160      	adcs	r0, r4
 	uint8_t result = 0;
- 8003604:	b2c0      	uxtb	r0, r0
- 8003606:	e7ed      	b.n	80035e4 <EEPROM_save+0x14>
- 8003608:	f7f80000 	.word	0xf7f80000
+ 80035f4:	b2c0      	uxtb	r0, r0
+ 80035f6:	e7ed      	b.n	80035d4 <EEPROM_save+0x14>
+ 80035f8:	f7f80000 	.word	0xf7f80000
 
-0800360c <EEPROM_load>:
+080035fc <EEPROM_load>:
 uint8_t EEPROM_load(uint32_t file_name, uint8_t *buffer, uint8_t buffer_size)
 {
 
 	uint8_t result = 0;
 	//before anything else first check if the address you are trying to write to is in fact within the EEPROM memory map
 	if (IS_FLASH_DATA_ADDRESS(file_name))
- 800360c:	4a06      	ldr	r2, [pc, #24]	; (8003628 <EEPROM_load+0x1c>)
+ 80035fc:	4a06      	ldr	r2, [pc, #24]	; (8003618 <EEPROM_load+0x1c>)
 {
- 800360e:	b510      	push	{r4, lr}
+ 80035fe:	b510      	push	{r4, lr}
 	if (IS_FLASH_DATA_ADDRESS(file_name))
- 8003610:	1884      	adds	r4, r0, r2
- 8003612:	2280      	movs	r2, #128	; 0x80
+ 8003600:	1884      	adds	r4, r0, r2
+ 8003602:	2280      	movs	r2, #128	; 0x80
 {
- 8003614:	0003      	movs	r3, r0
+ 8003604:	0003      	movs	r3, r0
 	if (IS_FLASH_DATA_ADDRESS(file_name))
- 8003616:	0112      	lsls	r2, r2, #4
+ 8003606:	0112      	lsls	r2, r2, #4
 	uint8_t result = 0;
- 8003618:	2000      	movs	r0, #0
+ 8003608:	2000      	movs	r0, #0
 	if (IS_FLASH_DATA_ADDRESS(file_name))
- 800361a:	4294      	cmp	r4, r2
- 800361c:	d202      	bcs.n	8003624 <EEPROM_load+0x18>
+ 800360a:	4294      	cmp	r4, r2
+ 800360c:	d202      	bcs.n	8003614 <EEPROM_load+0x18>
 	{
 		buffer[0] = *(uint8_t*) file_name;
- 800361e:	781b      	ldrb	r3, [r3, #0]
+ 800360e:	781b      	ldrb	r3, [r3, #0]
 		result = 1;
- 8003620:	3001      	adds	r0, #1
+ 8003610:	3001      	adds	r0, #1
 		buffer[0] = *(uint8_t*) file_name;
- 8003622:	700b      	strb	r3, [r1, #0]
+ 8003612:	700b      	strb	r3, [r1, #0]
 	}
 	//Lock the EEPROM afterwards to protect it from accidental memory writes
 	return(result);
 }
- 8003624:	bd10      	pop	{r4, pc}
- 8003626:	46c0      	nop			; (mov r8, r8)
- 8003628:	f7f80000 	.word	0xf7f80000
+ 8003614:	bd10      	pop	{r4, pc}
+ 8003616:	46c0      	nop			; (mov r8, r8)
+ 8003618:	f7f80000 	.word	0xf7f80000
 
-0800362c <I2C_interface_create>:
+0800361c <I2C_interface_create>:
 #include "i2c_network_interface.h"
 
 
 I2C_t * I2C_interface_create(I2C_HandleTypeDef *I2C_handle,uint8_t channel_address)
 {
- 800362c:	b570      	push	{r4, r5, r6, lr}
- 800362e:	0005      	movs	r5, r0
+ 800361c:	b570      	push	{r4, r5, r6, lr}
+ 800361e:	0005      	movs	r5, r0
 	I2C_t * thisI2C = (I2C_t *) malloc(sizeof(I2C_t));
- 8003630:	2008      	movs	r0, #8
+ 8003620:	2008      	movs	r0, #8
 {
- 8003632:	000e      	movs	r6, r1
+ 8003622:	000e      	movs	r6, r1
 	I2C_t * thisI2C = (I2C_t *) malloc(sizeof(I2C_t));
- 8003634:	f000 f93e 	bl	80038b4 <malloc>
- 8003638:	1e04      	subs	r4, r0, #0
+ 8003624:	f000 f940 	bl	80038a8 <malloc>
+ 8003628:	1e04      	subs	r4, r0, #0
 	if(thisI2C != NULL)
- 800363a:	d017      	beq.n	800366c <I2C_interface_create+0x40>
+ 800362a:	d017      	beq.n	800365c <I2C_interface_create+0x40>
 	{
 		thisI2C->I2C_line = I2C_handle;
 		i2c2_interrupt_interface_pointer = thisI2C;
- 800363c:	4b0c      	ldr	r3, [pc, #48]	; (8003670 <I2C_interface_create+0x44>)
+ 800362c:	4b0c      	ldr	r3, [pc, #48]	; (8003660 <I2C_interface_create+0x44>)
 		thisI2C->buffer_index=0;
 
 		// Disable Own Address1 before setting the new address configuration
 		//TODO it is much safer to use HAL compatible address change instead of manual mode
 		//is ther any reason for using manual mode?
 		thisI2C->I2C_line->Instance->OAR1 &= ~I2C_OAR1_OA1EN;
- 800363e:	490d      	ldr	r1, [pc, #52]	; (8003674 <I2C_interface_create+0x48>)
+ 800362e:	490d      	ldr	r1, [pc, #52]	; (8003664 <I2C_interface_create+0x48>)
 		i2c2_interrupt_interface_pointer = thisI2C;
- 8003640:	6018      	str	r0, [r3, #0]
+ 8003630:	6018      	str	r0, [r3, #0]
 		thisI2C->buffer_index=0;
- 8003642:	2300      	movs	r3, #0
- 8003644:	7003      	strb	r3, [r0, #0]
+ 8003632:	2300      	movs	r3, #0
+ 8003634:	7003      	strb	r3, [r0, #0]
 		thisI2C->I2C_line->Instance->OAR1 &= ~I2C_OAR1_OA1EN;
- 8003646:	682b      	ldr	r3, [r5, #0]
+ 8003636:	682b      	ldr	r3, [r5, #0]
 		thisI2C->I2C_line = I2C_handle;
- 8003648:	6045      	str	r5, [r0, #4]
+ 8003638:	6045      	str	r5, [r0, #4]
 		thisI2C->I2C_line->Instance->OAR1 &= ~I2C_OAR1_OA1EN;
- 800364a:	689a      	ldr	r2, [r3, #8]
- 800364c:	400a      	ands	r2, r1
- 800364e:	609a      	str	r2, [r3, #8]
+ 800363a:	689a      	ldr	r2, [r3, #8]
+ 800363c:	400a      	ands	r2, r1
+ 800363e:	609a      	str	r2, [r3, #8]
 		thisI2C->I2C_line->Instance->OAR1 = (I2C_OAR1_OA1EN | ( channel_address << 1) );
- 8003650:	2280      	movs	r2, #128	; 0x80
- 8003652:	0071      	lsls	r1, r6, #1
- 8003654:	0212      	lsls	r2, r2, #8
- 8003656:	4311      	orrs	r1, r2
- 8003658:	6099      	str	r1, [r3, #8]
+ 8003640:	2280      	movs	r2, #128	; 0x80
+ 8003642:	0071      	lsls	r1, r6, #1
+ 8003644:	0212      	lsls	r2, r2, #8
+ 8003646:	4311      	orrs	r1, r2
+ 8003648:	6099      	str	r1, [r3, #8]
 		__HAL_I2C_ENABLE_IT(thisI2C->I2C_line, I2C_IT_RXI | I2C_IT_STOPI | I2C_IT_ADDRI);
- 800365a:	212c      	movs	r1, #44	; 0x2c
- 800365c:	681a      	ldr	r2, [r3, #0]
- 800365e:	430a      	orrs	r2, r1
- 8003660:	601a      	str	r2, [r3, #0]
+ 800364a:	212c      	movs	r1, #44	; 0x2c
+ 800364c:	681a      	ldr	r2, [r3, #0]
+ 800364e:	430a      	orrs	r2, r1
+ 8003650:	601a      	str	r2, [r3, #0]
 		HAL_I2C_Slave_Receive_IT(thisI2C->I2C_line, thisI2C->receiveBuffer, I2C_RECEIVE_LENGTH);
- 8003662:	1c41      	adds	r1, r0, #1
- 8003664:	2201      	movs	r2, #1
- 8003666:	0028      	movs	r0, r5
- 8003668:	f7fe f9d0 	bl	8001a0c <HAL_I2C_Slave_Receive_IT>
+ 8003652:	1c41      	adds	r1, r0, #1
+ 8003654:	2201      	movs	r2, #1
+ 8003656:	0028      	movs	r0, r5
+ 8003658:	f7fe f9d8 	bl	8001a0c <HAL_I2C_Slave_Receive_IT>
 	else
 	{
 		//TODO  erro handler
 	}
 	return thisI2C;
 }
- 800366c:	0020      	movs	r0, r4
- 800366e:	bd70      	pop	{r4, r5, r6, pc}
- 8003670:	200001c0 	.word	0x200001c0
- 8003674:	ffff7fff 	.word	0xffff7fff
+ 800365c:	0020      	movs	r0, r4
+ 800365e:	bd70      	pop	{r4, r5, r6, pc}
+ 8003660:	200001c0 	.word	0x200001c0
+ 8003664:	ffff7fff 	.word	0xffff7fff
 
-08003678 <I2C2_IRQHandler>:
+08003668 <I2C2_IRQHandler>:
 //------------------------------------------
 void I2C2_IRQHandler(void)
 {
 	if ((I2C_CHECK_FLAG(i2c2_interrupt_interface_pointer->I2C_line->Instance->ISR, I2C_FLAG_STOPF) != RESET) && (I2C_CHECK_IT_SOURCE(i2c2_interrupt_interface_pointer->I2C_line->Instance->CR1, I2C_IT_STOPI) != RESET))
- 8003678:	2120      	movs	r1, #32
- 800367a:	4b15      	ldr	r3, [pc, #84]	; (80036d0 <I2C2_IRQHandler+0x58>)
- 800367c:	681a      	ldr	r2, [r3, #0]
- 800367e:	6853      	ldr	r3, [r2, #4]
- 8003680:	681b      	ldr	r3, [r3, #0]
- 8003682:	6998      	ldr	r0, [r3, #24]
- 8003684:	4201      	tst	r1, r0
- 8003686:	d002      	beq.n	800368e <I2C2_IRQHandler+0x16>
- 8003688:	6818      	ldr	r0, [r3, #0]
- 800368a:	4201      	tst	r1, r0
- 800368c:	d11d      	bne.n	80036ca <I2C2_IRQHandler+0x52>
+ 8003668:	2120      	movs	r1, #32
+ 800366a:	4b15      	ldr	r3, [pc, #84]	; (80036c0 <I2C2_IRQHandler+0x58>)
+ 800366c:	681a      	ldr	r2, [r3, #0]
+ 800366e:	6853      	ldr	r3, [r2, #4]
+ 8003670:	681b      	ldr	r3, [r3, #0]
+ 8003672:	6998      	ldr	r0, [r3, #24]
+ 8003674:	4201      	tst	r1, r0
+ 8003676:	d002      	beq.n	800367e <I2C2_IRQHandler+0x16>
+ 8003678:	6818      	ldr	r0, [r3, #0]
+ 800367a:	4201      	tst	r1, r0
+ 800367c:	d11d      	bne.n	80036ba <I2C2_IRQHandler+0x52>
 	{
 		// Clear STOP Flag
 		__HAL_I2C_CLEAR_FLAG(i2c2_interrupt_interface_pointer->I2C_line, I2C_FLAG_STOPF);
 	}
 	if ((I2C_CHECK_FLAG(i2c2_interrupt_interface_pointer->I2C_line->Instance->ISR, I2C_FLAG_RXNE) != RESET) && (I2C_CHECK_IT_SOURCE(i2c2_interrupt_interface_pointer->I2C_line->Instance->CR1, I2C_IT_RXI) != RESET))
- 800368e:	2104      	movs	r1, #4
- 8003690:	6998      	ldr	r0, [r3, #24]
- 8003692:	4201      	tst	r1, r0
- 8003694:	d002      	beq.n	800369c <I2C2_IRQHandler+0x24>
- 8003696:	6818      	ldr	r0, [r3, #0]
- 8003698:	4201      	tst	r1, r0
- 800369a:	d108      	bne.n	80036ae <I2C2_IRQHandler+0x36>
+ 800367e:	2104      	movs	r1, #4
+ 8003680:	6998      	ldr	r0, [r3, #24]
+ 8003682:	4201      	tst	r1, r0
+ 8003684:	d002      	beq.n	800368c <I2C2_IRQHandler+0x24>
+ 8003686:	6818      	ldr	r0, [r3, #0]
+ 8003688:	4201      	tst	r1, r0
+ 800368a:	d108      	bne.n	800369e <I2C2_IRQHandler+0x36>
 		{
 			i2c2_interrupt_interface_pointer->receiveBuffer[i2c2_interrupt_interface_pointer->buffer_index] = (uint8_t)i2c2_interrupt_interface_pointer->I2C_line->Instance->RXDR;
 			i2c2_interrupt_interface_pointer->buffer_index++;
 		}
 	}
 	if ((I2C_CHECK_FLAG(i2c2_interrupt_interface_pointer->I2C_line->Instance->ISR, I2C_FLAG_ADDR) != RESET) && (I2C_CHECK_IT_SOURCE(i2c2_interrupt_interface_pointer->I2C_line->Instance->CR1, I2C_IT_ADDRI) != RESET))
- 800369c:	2208      	movs	r2, #8
- 800369e:	6999      	ldr	r1, [r3, #24]
- 80036a0:	420a      	tst	r2, r1
- 80036a2:	d003      	beq.n	80036ac <I2C2_IRQHandler+0x34>
- 80036a4:	6819      	ldr	r1, [r3, #0]
- 80036a6:	420a      	tst	r2, r1
- 80036a8:	d000      	beq.n	80036ac <I2C2_IRQHandler+0x34>
+ 800368c:	2208      	movs	r2, #8
+ 800368e:	6999      	ldr	r1, [r3, #24]
+ 8003690:	420a      	tst	r2, r1
+ 8003692:	d003      	beq.n	800369c <I2C2_IRQHandler+0x34>
+ 8003694:	6819      	ldr	r1, [r3, #0]
+ 8003696:	420a      	tst	r2, r1
+ 8003698:	d000      	beq.n	800369c <I2C2_IRQHandler+0x34>
 	{
 		// Clear ADDR Flag and turn off line hold
 		__HAL_I2C_CLEAR_FLAG(i2c2_interrupt_interface_pointer->I2C_line, I2C_FLAG_ADDR);
- 80036aa:	61da      	str	r2, [r3, #28]
+ 800369a:	61da      	str	r2, [r3, #28]
 	}
 	return;
 }
- 80036ac:	4770      	bx	lr
+ 800369c:	4770      	bx	lr
 		__HAL_I2C_CLEAR_FLAG(i2c2_interrupt_interface_pointer->I2C_line, I2C_FLAG_RXNE);
- 80036ae:	61d9      	str	r1, [r3, #28]
+ 800369e:	61d9      	str	r1, [r3, #28]
 		if(i2c2_interrupt_interface_pointer->buffer_index < I2C_RECEIVE_LENGTH)
- 80036b0:	7811      	ldrb	r1, [r2, #0]
- 80036b2:	2900      	cmp	r1, #0
- 80036b4:	d1f2      	bne.n	800369c <I2C2_IRQHandler+0x24>
+ 80036a0:	7811      	ldrb	r1, [r2, #0]
+ 80036a2:	2900      	cmp	r1, #0
+ 80036a4:	d1f2      	bne.n	800368c <I2C2_IRQHandler+0x24>
 			i2c2_interrupt_interface_pointer->receiveBuffer[i2c2_interrupt_interface_pointer->buffer_index] = (uint8_t)i2c2_interrupt_interface_pointer->I2C_line->Instance->RXDR;
- 80036b6:	6a58      	ldr	r0, [r3, #36]	; 0x24
- 80036b8:	7811      	ldrb	r1, [r2, #0]
- 80036ba:	b2c0      	uxtb	r0, r0
- 80036bc:	1851      	adds	r1, r2, r1
- 80036be:	7048      	strb	r0, [r1, #1]
+ 80036a6:	6a58      	ldr	r0, [r3, #36]	; 0x24
+ 80036a8:	7811      	ldrb	r1, [r2, #0]
+ 80036aa:	b2c0      	uxtb	r0, r0
+ 80036ac:	1851      	adds	r1, r2, r1
+ 80036ae:	7048      	strb	r0, [r1, #1]
 			i2c2_interrupt_interface_pointer->buffer_index++;
- 80036c0:	7811      	ldrb	r1, [r2, #0]
- 80036c2:	3101      	adds	r1, #1
- 80036c4:	b2c9      	uxtb	r1, r1
- 80036c6:	7011      	strb	r1, [r2, #0]
- 80036c8:	e7e8      	b.n	800369c <I2C2_IRQHandler+0x24>
+ 80036b0:	7811      	ldrb	r1, [r2, #0]
+ 80036b2:	3101      	adds	r1, #1
+ 80036b4:	b2c9      	uxtb	r1, r1
+ 80036b6:	7011      	strb	r1, [r2, #0]
+ 80036b8:	e7e8      	b.n	800368c <I2C2_IRQHandler+0x24>
 		__HAL_I2C_CLEAR_FLAG(i2c2_interrupt_interface_pointer->I2C_line, I2C_FLAG_STOPF);
- 80036ca:	61d9      	str	r1, [r3, #28]
- 80036cc:	e7df      	b.n	800368e <I2C2_IRQHandler+0x16>
- 80036ce:	46c0      	nop			; (mov r8, r8)
- 80036d0:	200001c0 	.word	0x200001c0
+ 80036ba:	61d9      	str	r1, [r3, #28]
+ 80036bc:	e7df      	b.n	800367e <I2C2_IRQHandler+0x16>
+ 80036be:	46c0      	nop			; (mov r8, r8)
+ 80036c0:	200001c0 	.word	0x200001c0
 
-080036d4 <module_system_init>:
+080036c4 <module_system_init>:
 extern TIM_HandleTypeDef htim21;
 extern TIM_HandleTypeDef htim22;
 extern System my_sys;
 
 void module_system_init(System *thisSystem)
 {
- 80036d4:	b570      	push	{r4, r5, r6, lr}
+ 80036c4:	b570      	push	{r4, r5, r6, lr}
 	my_sys.data_bus = internal_bus_create(GPIOB,  BUS0_Pin | BUS1_Pin | BUS2_Pin | BUS3_Pin | BUS4_Pin | BUS5_Pin | BUS6_Pin | BUS7_Pin,
- 80036d6:	2380      	movs	r3, #128	; 0x80
- 80036d8:	24a0      	movs	r4, #160	; 0xa0
+ 80036c6:	2380      	movs	r3, #128	; 0x80
+ 80036c8:	24a0      	movs	r4, #160	; 0xa0
 {
- 80036da:	b084      	sub	sp, #16
+ 80036ca:	b084      	sub	sp, #16
 	my_sys.data_bus = internal_bus_create(GPIOB,  BUS0_Pin | BUS1_Pin | BUS2_Pin | BUS3_Pin | BUS4_Pin | BUS5_Pin | BUS6_Pin | BUS7_Pin,
- 80036dc:	05e4      	lsls	r4, r4, #23
- 80036de:	01db      	lsls	r3, r3, #7
- 80036e0:	0022      	movs	r2, r4
- 80036e2:	21ff      	movs	r1, #255	; 0xff
- 80036e4:	9301      	str	r3, [sp, #4]
- 80036e6:	4818      	ldr	r0, [pc, #96]	; (8003748 <module_system_init+0x74>)
- 80036e8:	2301      	movs	r3, #1
- 80036ea:	9400      	str	r4, [sp, #0]
- 80036ec:	f7ff fe50 	bl	8003390 <internal_bus_create>
+ 80036cc:	05e4      	lsls	r4, r4, #23
+ 80036ce:	01db      	lsls	r3, r3, #7
+ 80036d0:	0022      	movs	r2, r4
+ 80036d2:	21ff      	movs	r1, #255	; 0xff
+ 80036d4:	9301      	str	r3, [sp, #4]
+ 80036d6:	4818      	ldr	r0, [pc, #96]	; (8003738 <module_system_init+0x74>)
+ 80036d8:	2301      	movs	r3, #1
+ 80036da:	9400      	str	r4, [sp, #0]
+ 80036dc:	f7ff fe58 	bl	8003390 <internal_bus_create>
 											BUS_CLK_GPIO_Port, BUS_CLK_Pin,
 											BUS_C1_GPIO_Port, BUS_C1_Pin);
 
 	//GlobalTimerInit(&thisSystem->GlobalTimer);
 
 	uint8_t temp_data[4]={0,0,0,0};
- 80036f0:	2300      	movs	r3, #0
+ 80036e0:	2300      	movs	r3, #0
 	my_sys.data_bus = internal_bus_create(GPIOB,  BUS0_Pin | BUS1_Pin | BUS2_Pin | BUS3_Pin | BUS4_Pin | BUS5_Pin | BUS6_Pin | BUS7_Pin,
- 80036f2:	4d16      	ldr	r5, [pc, #88]	; (800374c <module_system_init+0x78>)
+ 80036e2:	4d16      	ldr	r5, [pc, #88]	; (800373c <module_system_init+0x78>)
 	uint8_t temp_data[4]={0,0,0,0};
- 80036f4:	ae02      	add	r6, sp, #8
+ 80036e4:	ae02      	add	r6, sp, #8
 	my_sys.data_bus = internal_bus_create(GPIOB,  BUS0_Pin | BUS1_Pin | BUS2_Pin | BUS3_Pin | BUS4_Pin | BUS5_Pin | BUS6_Pin | BUS7_Pin,
- 80036f6:	6328      	str	r0, [r5, #48]	; 0x30
+ 80036e6:	6328      	str	r0, [r5, #48]	; 0x30
 	uint8_t i2c_new_address[4]={0,0,0,0};
 
 	EEPROM_load(EEPROM_FIRST_TIME_INITIATION, temp_data, 1);  //TODO  this is bungee jumping without rope we assume everything if good no error check
- 80036f8:	2201      	movs	r2, #1
- 80036fa:	0031      	movs	r1, r6
- 80036fc:	4814      	ldr	r0, [pc, #80]	; (8003750 <module_system_init+0x7c>)
+ 80036e8:	2201      	movs	r2, #1
+ 80036ea:	0031      	movs	r1, r6
+ 80036ec:	4814      	ldr	r0, [pc, #80]	; (8003740 <module_system_init+0x7c>)
 	uint8_t temp_data[4]={0,0,0,0};
- 80036fe:	9302      	str	r3, [sp, #8]
+ 80036ee:	9302      	str	r3, [sp, #8]
 	uint8_t i2c_new_address[4]={0,0,0,0};
- 8003700:	9303      	str	r3, [sp, #12]
+ 80036f0:	9303      	str	r3, [sp, #12]
 	EEPROM_load(EEPROM_FIRST_TIME_INITIATION, temp_data, 1);  //TODO  this is bungee jumping without rope we assume everything if good no error check
- 8003702:	f7ff ff83 	bl	800360c <EEPROM_load>
+ 80036f2:	f7ff ff83 	bl	80035fc <EEPROM_load>
 	if (temp_data[0] == EEPROM_FIRST_TIME_BOOT_MARKE )
- 8003706:	7833      	ldrb	r3, [r6, #0]
- 8003708:	2b21      	cmp	r3, #33	; 0x21
- 800370a:	d00c      	beq.n	8003726 <module_system_init+0x52>
+ 80036f6:	7833      	ldrb	r3, [r6, #0]
+ 80036f8:	2b23      	cmp	r3, #35	; 0x23
+ 80036fa:	d00c      	beq.n	8003716 <module_system_init+0x52>
 		my_sys.i2c_line = I2C_interface_create(&hi2c2,i2c_new_address[0]);
 
 	}
 	else
 	{
 		my_sys.i2c_line = I2C_interface_create(&hi2c2,100 );   //TDOD hard code this to correct default value
- 800370c:	2164      	movs	r1, #100	; 0x64
- 800370e:	4811      	ldr	r0, [pc, #68]	; (8003754 <module_system_init+0x80>)
- 8003710:	f7ff ff8c 	bl	800362c <I2C_interface_create>
+ 80036fc:	2164      	movs	r1, #100	; 0x64
+ 80036fe:	4811      	ldr	r0, [pc, #68]	; (8003744 <module_system_init+0x80>)
+ 8003700:	f7ff ff8c 	bl	800361c <I2C_interface_create>
 		  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, GPIO_PIN_RESET);//red on we hard coded  address//todo test
- 8003714:	2180      	movs	r1, #128	; 0x80
+ 8003704:	2180      	movs	r1, #128	; 0x80
 		my_sys.i2c_line = I2C_interface_create(&hi2c2,100 );   //TDOD hard code this to correct default value
- 8003716:	62e8      	str	r0, [r5, #44]	; 0x2c
+ 8003706:	62e8      	str	r0, [r5, #44]	; 0x2c
 		  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, GPIO_PIN_RESET);//red on we hard coded  address//todo test
- 8003718:	2200      	movs	r2, #0
- 800371a:	0020      	movs	r0, r4
- 800371c:	0049      	lsls	r1, r1, #1
- 800371e:	f7fe f915 	bl	800194c <HAL_GPIO_WritePin>
+ 8003708:	2200      	movs	r2, #0
+ 800370a:	0020      	movs	r0, r4
+ 800370c:	0049      	lsls	r1, r1, #1
+ 800370e:	f7fe f91d 	bl	800194c <HAL_GPIO_WritePin>
 	}
 	return;
 }
- 8003722:	b004      	add	sp, #16
- 8003724:	bd70      	pop	{r4, r5, r6, pc}
+ 8003712:	b004      	add	sp, #16
+ 8003714:	bd70      	pop	{r4, r5, r6, pc}
 		EEPROM_load(EEPROM_I2C_ADDR, i2c_new_address, 1);
- 8003726:	2201      	movs	r2, #1
- 8003728:	a903      	add	r1, sp, #12
- 800372a:	480b      	ldr	r0, [pc, #44]	; (8003758 <module_system_init+0x84>)
- 800372c:	f7ff ff6e 	bl	800360c <EEPROM_load>
+ 8003716:	2201      	movs	r2, #1
+ 8003718:	a903      	add	r1, sp, #12
+ 800371a:	480b      	ldr	r0, [pc, #44]	; (8003748 <module_system_init+0x84>)
+ 800371c:	f7ff ff6e 	bl	80035fc <EEPROM_load>
 		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, GPIO_PIN_RESET);//green we set from eeprom  //todo test
- 8003730:	2200      	movs	r2, #0
- 8003732:	2140      	movs	r1, #64	; 0x40
- 8003734:	0020      	movs	r0, r4
- 8003736:	f7fe f909 	bl	800194c <HAL_GPIO_WritePin>
+ 8003720:	2200      	movs	r2, #0
+ 8003722:	2140      	movs	r1, #64	; 0x40
+ 8003724:	0020      	movs	r0, r4
+ 8003726:	f7fe f911 	bl	800194c <HAL_GPIO_WritePin>
 		my_sys.i2c_line = I2C_interface_create(&hi2c2,i2c_new_address[0]);
- 800373a:	466b      	mov	r3, sp
- 800373c:	4805      	ldr	r0, [pc, #20]	; (8003754 <module_system_init+0x80>)
- 800373e:	7b19      	ldrb	r1, [r3, #12]
- 8003740:	f7ff ff74 	bl	800362c <I2C_interface_create>
- 8003744:	62e8      	str	r0, [r5, #44]	; 0x2c
- 8003746:	e7ec      	b.n	8003722 <module_system_init+0x4e>
- 8003748:	50000400 	.word	0x50000400
- 800374c:	20000140 	.word	0x20000140
- 8003750:	08080020 	.word	0x08080020
- 8003754:	200000f4 	.word	0x200000f4
- 8003758:	08080010 	.word	0x08080010
+ 800372a:	466b      	mov	r3, sp
+ 800372c:	4805      	ldr	r0, [pc, #20]	; (8003744 <module_system_init+0x80>)
+ 800372e:	7b19      	ldrb	r1, [r3, #12]
+ 8003730:	f7ff ff74 	bl	800361c <I2C_interface_create>
+ 8003734:	62e8      	str	r0, [r5, #44]	; 0x2c
+ 8003736:	e7ec      	b.n	8003712 <module_system_init+0x4e>
+ 8003738:	50000400 	.word	0x50000400
+ 800373c:	20000140 	.word	0x20000140
+ 8003740:	08080020 	.word	0x08080020
+ 8003744:	200000f4 	.word	0x200000f4
+ 8003748:	08080010 	.word	0x08080010
 
-0800375c <state_machine>:
+0800374c <state_machine>:
 
 
 
 void state_machine(System *thisSystem)
 {
- 800375c:	b5f0      	push	{r4, r5, r6, r7, lr}
- 800375e:	b089      	sub	sp, #36	; 0x24
-	uint8_t testData[23] = {3,2,0,2,0,2,0,2,0,2,0,2,0,2,0,2,0,2,0,2,0,2,1};  //TODO remove after Link data output to magnetometer memory instead
- 8003760:	af02      	add	r7, sp, #8
- 8003762:	003a      	movs	r2, r7
- 8003764:	4b37      	ldr	r3, [pc, #220]	; (8003844 <state_machine+0xe8>)
- 8003766:	4d38      	ldr	r5, [pc, #224]	; (8003848 <state_machine+0xec>)
- 8003768:	cb13      	ldmia	r3!, {r0, r1, r4}
- 800376a:	c213      	stmia	r2!, {r0, r1, r4}
- 800376c:	cb03      	ldmia	r3!, {r0, r1}
- 800376e:	c203      	stmia	r2!, {r0, r1}
- 8003770:	8819      	ldrh	r1, [r3, #0]
- 8003772:	4e36      	ldr	r6, [pc, #216]	; (800384c <state_machine+0xf0>)
- 8003774:	8011      	strh	r1, [r2, #0]
- 8003776:	789b      	ldrb	r3, [r3, #2]
- 8003778:	ac01      	add	r4, sp, #4
- 800377a:	7093      	strb	r3, [r2, #2]
- 800377c:	6aea      	ldr	r2, [r5, #44]	; 0x2c
+ 800374c:	b5f0      	push	{r4, r5, r6, r7, lr}
+ 800374e:	b08b      	sub	sp, #44	; 0x2c
+	uint8_t testData[31] = {0,0,0,100,0,1,0,2,0,3,0,0,0,200,0,4,0,5,0,6,0,0,0,300,0,7,0,8,0,9,255};  //TODO remove after Link data output to magnetometer memory instead
+ 8003750:	af02      	add	r7, sp, #8
+ 8003752:	003a      	movs	r2, r7
+ 8003754:	4b38      	ldr	r3, [pc, #224]	; (8003838 <state_machine+0xec>)
+ 8003756:	4d39      	ldr	r5, [pc, #228]	; (800383c <state_machine+0xf0>)
+ 8003758:	cb13      	ldmia	r3!, {r0, r1, r4}
+ 800375a:	c213      	stmia	r2!, {r0, r1, r4}
+ 800375c:	cb13      	ldmia	r3!, {r0, r1, r4}
+ 800375e:	c213      	stmia	r2!, {r0, r1, r4}
+ 8003760:	6819      	ldr	r1, [r3, #0]
+ 8003762:	4e37      	ldr	r6, [pc, #220]	; (8003840 <state_machine+0xf4>)
+ 8003764:	6011      	str	r1, [r2, #0]
+ 8003766:	8899      	ldrh	r1, [r3, #4]
+ 8003768:	ac01      	add	r4, sp, #4
+ 800376a:	8091      	strh	r1, [r2, #4]
+ 800376c:	799b      	ldrb	r3, [r3, #6]
+ 800376e:	7193      	strb	r3, [r2, #6]
+ 8003770:	6aea      	ldr	r2, [r5, #44]	; 0x2c
 
 	while(1)
 	{
 	//internal_bus_write_data_frame(my_sys.data_bus,testData,22);HAL_Delay(500);
 		if(my_sys.i2c_line->buffer_index)
- 800377e:	7813      	ldrb	r3, [r2, #0]
- 8003780:	2b00      	cmp	r3, #0
- 8003782:	d0fc      	beq.n	800377e <state_machine+0x22>
+ 8003772:	7813      	ldrb	r3, [r2, #0]
+ 8003774:	2b00      	cmp	r3, #0
+ 8003776:	d0fc      	beq.n	8003772 <state_machine+0x26>
 		{
 			switch(my_sys.i2c_line->receiveBuffer[0])
- 8003784:	7853      	ldrb	r3, [r2, #1]
- 8003786:	3b0a      	subs	r3, #10
- 8003788:	b2db      	uxtb	r3, r3
- 800378a:	2b0a      	cmp	r3, #10
- 800378c:	d809      	bhi.n	80037a2 <state_machine+0x46>
- 800378e:	009b      	lsls	r3, r3, #2
- 8003790:	58f3      	ldr	r3, [r6, r3]
- 8003792:	469f      	mov	pc, r3
+ 8003778:	7853      	ldrb	r3, [r2, #1]
+ 800377a:	3b0a      	subs	r3, #10
+ 800377c:	b2db      	uxtb	r3, r3
+ 800377e:	2b0a      	cmp	r3, #10
+ 8003780:	d809      	bhi.n	8003796 <state_machine+0x4a>
+ 8003782:	009b      	lsls	r3, r3, #2
+ 8003784:	58f3      	ldr	r3, [r6, r3]
+ 8003786:	469f      	mov	pc, r3
 					break;
 				}
 				//-------------------------------
 				case I2C_PACKET_SET_BLUE_ON:
 				{
 					  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, GPIO_PIN_RESET);
- 8003794:	2200      	movs	r2, #0
+ 8003788:	2200      	movs	r2, #0
 					break;
 				}
 				//-------------------------------
 				case I2C_PACKET_SET_BLUE_OFF:
 				{
 					  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, GPIO_PIN_SET);
- 8003796:	20a0      	movs	r0, #160	; 0xa0
- 8003798:	2180      	movs	r1, #128	; 0x80
- 800379a:	05c0      	lsls	r0, r0, #23
- 800379c:	f7fe f8d6 	bl	800194c <HAL_GPIO_WritePin>
+ 800378a:	20a0      	movs	r0, #160	; 0xa0
+ 800378c:	2180      	movs	r1, #128	; 0x80
+ 800378e:	05c0      	lsls	r0, r0, #23
+ 8003790:	f7fe f8dc 	bl	800194c <HAL_GPIO_WritePin>
 					break;
- 80037a0:	6aea      	ldr	r2, [r5, #44]	; 0x2c
+ 8003794:	6aea      	ldr	r2, [r5, #44]	; 0x2c
 				}
 			}
 			//-------- if we get any data higher than 0x80  it mean it is a new address
 			if ( my_sys.i2c_line->receiveBuffer[0] > I2C_PACKET_SET_NEW_ADDRESS )
- 80037a2:	7853      	ldrb	r3, [r2, #1]
- 80037a4:	2b80      	cmp	r3, #128	; 0x80
- 80037a6:	d910      	bls.n	80037ca <state_machine+0x6e>
+ 8003796:	7853      	ldrb	r3, [r2, #1]
+ 8003798:	2b80      	cmp	r3, #128	; 0x80
+ 800379a:	d910      	bls.n	80037be <state_machine+0x72>
 			{
 				uint8_t i2c_new_address[4]={3,3,3,3};
- 80037a8:	4b29      	ldr	r3, [pc, #164]	; (8003850 <state_machine+0xf4>)
+ 800379c:	4b29      	ldr	r3, [pc, #164]	; (8003844 <state_machine+0xf8>)
 				uint8_t temp_data[4]={0,0,0,0};
 				i2c_new_address[0] =  (uint8_t)my_sys.i2c_line->receiveBuffer[0] & 0x7f;
 				if( !EEPROM_save(EEPROM_I2C_ADDR, i2c_new_address, 1) )
- 80037aa:	4669      	mov	r1, sp
+ 800379e:	4669      	mov	r1, sp
 				uint8_t i2c_new_address[4]={3,3,3,3};
- 80037ac:	9300      	str	r3, [sp, #0]
+ 80037a0:	9300      	str	r3, [sp, #0]
 				uint8_t temp_data[4]={0,0,0,0};
- 80037ae:	2300      	movs	r3, #0
- 80037b0:	6023      	str	r3, [r4, #0]
+ 80037a2:	2300      	movs	r3, #0
+ 80037a4:	6023      	str	r3, [r4, #0]
 				i2c_new_address[0] =  (uint8_t)my_sys.i2c_line->receiveBuffer[0] & 0x7f;
- 80037b2:	7852      	ldrb	r2, [r2, #1]
- 80037b4:	337f      	adds	r3, #127	; 0x7f
- 80037b6:	4013      	ands	r3, r2
- 80037b8:	466a      	mov	r2, sp
+ 80037a6:	7852      	ldrb	r2, [r2, #1]
+ 80037a8:	337f      	adds	r3, #127	; 0x7f
+ 80037aa:	4013      	ands	r3, r2
+ 80037ac:	466a      	mov	r2, sp
 				if( !EEPROM_save(EEPROM_I2C_ADDR, i2c_new_address, 1) )
- 80037ba:	4826      	ldr	r0, [pc, #152]	; (8003854 <state_machine+0xf8>)
+ 80037ae:	4826      	ldr	r0, [pc, #152]	; (8003848 <state_machine+0xfc>)
 				i2c_new_address[0] =  (uint8_t)my_sys.i2c_line->receiveBuffer[0] & 0x7f;
- 80037bc:	7013      	strb	r3, [r2, #0]
+ 80037b0:	7013      	strb	r3, [r2, #0]
 				if( !EEPROM_save(EEPROM_I2C_ADDR, i2c_new_address, 1) )
- 80037be:	2201      	movs	r2, #1
- 80037c0:	f7ff ff06 	bl	80035d0 <EEPROM_save>
- 80037c4:	2800      	cmp	r0, #0
- 80037c6:	d103      	bne.n	80037d0 <state_machine+0x74>
+ 80037b2:	2201      	movs	r2, #1
+ 80037b4:	f7ff ff04 	bl	80035c0 <EEPROM_save>
+ 80037b8:	2800      	cmp	r0, #0
+ 80037ba:	d103      	bne.n	80037c4 <state_machine+0x78>
 					if( !EEPROM_save(EEPROM_FIRST_TIME_INITIATION, temp_data,1) )  //TODO  this is bungee jumping without rope we assume everything if good no error check
 					{
 						//TODO we failed to saved
 						//this is bad we can kill the whole system master micro should now about this
 						//we donot have any valid address for now we go to idle mode we never activate common bus
 					}
- 80037c8:	6aea      	ldr	r2, [r5, #44]	; 0x2c
+ 80037bc:	6aea      	ldr	r2, [r5, #44]	; 0x2c
 				}
 			}
 		my_sys.i2c_line->buffer_index =0;
- 80037ca:	2300      	movs	r3, #0
- 80037cc:	7013      	strb	r3, [r2, #0]
- 80037ce:	e7d6      	b.n	800377e <state_machine+0x22>
+ 80037be:	2300      	movs	r3, #0
+ 80037c0:	7013      	strb	r3, [r2, #0]
+ 80037c2:	e7d6      	b.n	8003772 <state_machine+0x26>
 					temp_data[0] = EEPROM_FIRST_TIME_BOOT_MARKE;
- 80037d0:	2321      	movs	r3, #33	; 0x21
+ 80037c4:	2323      	movs	r3, #35	; 0x23
 					if( !EEPROM_save(EEPROM_FIRST_TIME_INITIATION, temp_data,1) )  //TODO  this is bungee jumping without rope we assume everything if good no error check
- 80037d2:	2201      	movs	r2, #1
- 80037d4:	0021      	movs	r1, r4
- 80037d6:	4820      	ldr	r0, [pc, #128]	; (8003858 <state_machine+0xfc>)
+ 80037c6:	2201      	movs	r2, #1
+ 80037c8:	0021      	movs	r1, r4
+ 80037ca:	4820      	ldr	r0, [pc, #128]	; (800384c <state_machine+0x100>)
 					temp_data[0] = EEPROM_FIRST_TIME_BOOT_MARKE;
- 80037d8:	7023      	strb	r3, [r4, #0]
+ 80037cc:	7023      	strb	r3, [r4, #0]
 					if( !EEPROM_save(EEPROM_FIRST_TIME_INITIATION, temp_data,1) )  //TODO  this is bungee jumping without rope we assume everything if good no error check
- 80037da:	f7ff fef9 	bl	80035d0 <EEPROM_save>
- 80037de:	e7f3      	b.n	80037c8 <state_machine+0x6c>
+ 80037ce:	f7ff fef7 	bl	80035c0 <EEPROM_save>
+ 80037d2:	e7f3      	b.n	80037bc <state_machine+0x70>
 					  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, GPIO_PIN_SET);
- 80037e0:	2201      	movs	r2, #1
- 80037e2:	20a0      	movs	r0, #160	; 0xa0
- 80037e4:	2140      	movs	r1, #64	; 0x40
- 80037e6:	05c0      	lsls	r0, r0, #23
- 80037e8:	f7fe f8b0 	bl	800194c <HAL_GPIO_WritePin>
+ 80037d4:	2201      	movs	r2, #1
+ 80037d6:	20a0      	movs	r0, #160	; 0xa0
+ 80037d8:	2140      	movs	r1, #64	; 0x40
+ 80037da:	05c0      	lsls	r0, r0, #23
+ 80037dc:	f7fe f8b6 	bl	800194c <HAL_GPIO_WritePin>
 					break;
- 80037ec:	6aea      	ldr	r2, [r5, #44]	; 0x2c
- 80037ee:	e7d8      	b.n	80037a2 <state_machine+0x46>
+ 80037e0:	6aea      	ldr	r2, [r5, #44]	; 0x2c
+ 80037e2:	e7d8      	b.n	8003796 <state_machine+0x4a>
 					  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, GPIO_PIN_RESET);
- 80037f0:	2200      	movs	r2, #0
- 80037f2:	e7f6      	b.n	80037e2 <state_machine+0x86>
+ 80037e4:	2200      	movs	r2, #0
+ 80037e6:	e7f6      	b.n	80037d6 <state_machine+0x8a>
 					  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, GPIO_PIN_SET);
- 80037f4:	2201      	movs	r2, #1
- 80037f6:	2180      	movs	r1, #128	; 0x80
- 80037f8:	20a0      	movs	r0, #160	; 0xa0
- 80037fa:	0049      	lsls	r1, r1, #1
- 80037fc:	05c0      	lsls	r0, r0, #23
- 80037fe:	f7fe f8a5 	bl	800194c <HAL_GPIO_WritePin>
+ 80037e8:	2201      	movs	r2, #1
+ 80037ea:	2180      	movs	r1, #128	; 0x80
+ 80037ec:	20a0      	movs	r0, #160	; 0xa0
+ 80037ee:	0049      	lsls	r1, r1, #1
+ 80037f0:	05c0      	lsls	r0, r0, #23
+ 80037f2:	f7fe f8ab 	bl	800194c <HAL_GPIO_WritePin>
 					break;
- 8003802:	6aea      	ldr	r2, [r5, #44]	; 0x2c
- 8003804:	e7cd      	b.n	80037a2 <state_machine+0x46>
+ 80037f6:	6aea      	ldr	r2, [r5, #44]	; 0x2c
+ 80037f8:	e7cd      	b.n	8003796 <state_machine+0x4a>
 					  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, GPIO_PIN_RESET);
- 8003806:	2200      	movs	r2, #0
- 8003808:	e7f5      	b.n	80037f6 <state_machine+0x9a>
+ 80037fa:	2200      	movs	r2, #0
+ 80037fc:	e7f5      	b.n	80037ea <state_machine+0x9e>
 					 HAL_GPIO_WritePin(CHN_OUT_RST_GPIO_Port, CHN_OUT_RST_Pin, GPIO_PIN_SET);
- 800380a:	2201      	movs	r2, #1
- 800380c:	2180      	movs	r1, #128	; 0x80
- 800380e:	4813      	ldr	r0, [pc, #76]	; (800385c <state_machine+0x100>)
- 8003810:	01c9      	lsls	r1, r1, #7
- 8003812:	f7fe f89b 	bl	800194c <HAL_GPIO_WritePin>
+ 80037fe:	2201      	movs	r2, #1
+ 8003800:	2180      	movs	r1, #128	; 0x80
+ 8003802:	4813      	ldr	r0, [pc, #76]	; (8003850 <state_machine+0x104>)
+ 8003804:	01c9      	lsls	r1, r1, #7
+ 8003806:	f7fe f8a1 	bl	800194c <HAL_GPIO_WritePin>
 					break;
- 8003816:	6aea      	ldr	r2, [r5, #44]	; 0x2c
- 8003818:	e7c3      	b.n	80037a2 <state_machine+0x46>
+ 800380a:	6aea      	ldr	r2, [r5, #44]	; 0x2c
+ 800380c:	e7c3      	b.n	8003796 <state_machine+0x4a>
 					  HAL_GPIO_WritePin(CHN_OUT_RST_GPIO_Port, CHN_OUT_RST_Pin, GPIO_PIN_RESET);
- 800381a:	2200      	movs	r2, #0
- 800381c:	e7f6      	b.n	800380c <state_machine+0xb0>
+ 800380e:	2200      	movs	r2, #0
+ 8003810:	e7f6      	b.n	8003800 <state_machine+0xb4>
 					  HAL_GPIO_WritePin(CHN_OUT_BT0_GPIO_Port, CHN_OUT_BT0_Pin, GPIO_PIN_SET);
- 800381e:	2201      	movs	r2, #1
- 8003820:	2180      	movs	r1, #128	; 0x80
- 8003822:	480e      	ldr	r0, [pc, #56]	; (800385c <state_machine+0x100>)
- 8003824:	0209      	lsls	r1, r1, #8
- 8003826:	f7fe f891 	bl	800194c <HAL_GPIO_WritePin>
+ 8003812:	2201      	movs	r2, #1
+ 8003814:	2180      	movs	r1, #128	; 0x80
+ 8003816:	480e      	ldr	r0, [pc, #56]	; (8003850 <state_machine+0x104>)
+ 8003818:	0209      	lsls	r1, r1, #8
+ 800381a:	f7fe f897 	bl	800194c <HAL_GPIO_WritePin>
 					break;
- 800382a:	6aea      	ldr	r2, [r5, #44]	; 0x2c
- 800382c:	e7b9      	b.n	80037a2 <state_machine+0x46>
+ 800381e:	6aea      	ldr	r2, [r5, #44]	; 0x2c
+ 8003820:	e7b9      	b.n	8003796 <state_machine+0x4a>
 					  HAL_GPIO_WritePin(CHN_OUT_BT0_GPIO_Port, CHN_OUT_BT0_Pin, GPIO_PIN_RESET);
- 800382e:	2200      	movs	r2, #0
- 8003830:	e7f6      	b.n	8003820 <state_machine+0xc4>
+ 8003822:	2200      	movs	r2, #0
+ 8003824:	e7f6      	b.n	8003814 <state_machine+0xc8>
 					  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, GPIO_PIN_SET);
- 8003832:	2201      	movs	r2, #1
- 8003834:	e7af      	b.n	8003796 <state_machine+0x3a>
-					internal_bus_write_data_frame(my_sys.data_bus,testData,22);
- 8003836:	2216      	movs	r2, #22
- 8003838:	0039      	movs	r1, r7
- 800383a:	6b28      	ldr	r0, [r5, #48]	; 0x30
- 800383c:	f7ff fe70 	bl	8003520 <internal_bus_write_data_frame>
+ 8003826:	2201      	movs	r2, #1
+ 8003828:	e7af      	b.n	800378a <state_machine+0x3e>
+					internal_bus_write_data_frame(my_sys.data_bus,testData,31);
+ 800382a:	221f      	movs	r2, #31
+ 800382c:	0039      	movs	r1, r7
+ 800382e:	6b28      	ldr	r0, [r5, #48]	; 0x30
+ 8003830:	f7ff fe6e 	bl	8003510 <internal_bus_write_data_frame>
 					break;
- 8003840:	6aea      	ldr	r2, [r5, #44]	; 0x2c
- 8003842:	e7ae      	b.n	80037a2 <state_machine+0x46>
- 8003844:	080039f4 	.word	0x080039f4
- 8003848:	20000140 	.word	0x20000140
- 800384c:	08003a8c 	.word	0x08003a8c
- 8003850:	03030303 	.word	0x03030303
- 8003854:	08080010 	.word	0x08080010
- 8003858:	08080020 	.word	0x08080020
- 800385c:	50000800 	.word	0x50000800
+ 8003834:	6aea      	ldr	r2, [r5, #44]	; 0x2c
+ 8003836:	e7ae      	b.n	8003796 <state_machine+0x4a>
+ 8003838:	080039e8 	.word	0x080039e8
+ 800383c:	20000140 	.word	0x20000140
+ 8003840:	08003a88 	.word	0x08003a88
+ 8003844:	03030303 	.word	0x03030303
+ 8003848:	08080010 	.word	0x08080010
+ 800384c:	08080020 	.word	0x08080020
+ 8003850:	50000800 	.word	0x50000800
 
-08003860 <__errno>:
- 8003860:	4b01      	ldr	r3, [pc, #4]	; (8003868 <__errno+0x8>)
- 8003862:	6818      	ldr	r0, [r3, #0]
- 8003864:	4770      	bx	lr
- 8003866:	46c0      	nop			; (mov r8, r8)
- 8003868:	2000000c 	.word	0x2000000c
+08003854 <__errno>:
+ 8003854:	4b01      	ldr	r3, [pc, #4]	; (800385c <__errno+0x8>)
+ 8003856:	6818      	ldr	r0, [r3, #0]
+ 8003858:	4770      	bx	lr
+ 800385a:	46c0      	nop			; (mov r8, r8)
+ 800385c:	2000000c 	.word	0x2000000c
 
-0800386c <__libc_init_array>:
- 800386c:	b570      	push	{r4, r5, r6, lr}
- 800386e:	2600      	movs	r6, #0
- 8003870:	4d0c      	ldr	r5, [pc, #48]	; (80038a4 <__libc_init_array+0x38>)
- 8003872:	4c0d      	ldr	r4, [pc, #52]	; (80038a8 <__libc_init_array+0x3c>)
- 8003874:	1b64      	subs	r4, r4, r5
- 8003876:	10a4      	asrs	r4, r4, #2
- 8003878:	42a6      	cmp	r6, r4
- 800387a:	d109      	bne.n	8003890 <__libc_init_array+0x24>
- 800387c:	2600      	movs	r6, #0
- 800387e:	f000 f8ad 	bl	80039dc <_init>
- 8003882:	4d0a      	ldr	r5, [pc, #40]	; (80038ac <__libc_init_array+0x40>)
- 8003884:	4c0a      	ldr	r4, [pc, #40]	; (80038b0 <__libc_init_array+0x44>)
- 8003886:	1b64      	subs	r4, r4, r5
- 8003888:	10a4      	asrs	r4, r4, #2
- 800388a:	42a6      	cmp	r6, r4
- 800388c:	d105      	bne.n	800389a <__libc_init_array+0x2e>
- 800388e:	bd70      	pop	{r4, r5, r6, pc}
- 8003890:	00b3      	lsls	r3, r6, #2
- 8003892:	58eb      	ldr	r3, [r5, r3]
- 8003894:	4798      	blx	r3
- 8003896:	3601      	adds	r6, #1
- 8003898:	e7ee      	b.n	8003878 <__libc_init_array+0xc>
- 800389a:	00b3      	lsls	r3, r6, #2
- 800389c:	58eb      	ldr	r3, [r5, r3]
- 800389e:	4798      	blx	r3
- 80038a0:	3601      	adds	r6, #1
- 80038a2:	e7f2      	b.n	800388a <__libc_init_array+0x1e>
+08003860 <__libc_init_array>:
+ 8003860:	b570      	push	{r4, r5, r6, lr}
+ 8003862:	2600      	movs	r6, #0
+ 8003864:	4d0c      	ldr	r5, [pc, #48]	; (8003898 <__libc_init_array+0x38>)
+ 8003866:	4c0d      	ldr	r4, [pc, #52]	; (800389c <__libc_init_array+0x3c>)
+ 8003868:	1b64      	subs	r4, r4, r5
+ 800386a:	10a4      	asrs	r4, r4, #2
+ 800386c:	42a6      	cmp	r6, r4
+ 800386e:	d109      	bne.n	8003884 <__libc_init_array+0x24>
+ 8003870:	2600      	movs	r6, #0
+ 8003872:	f000 f8ad 	bl	80039d0 <_init>
+ 8003876:	4d0a      	ldr	r5, [pc, #40]	; (80038a0 <__libc_init_array+0x40>)
+ 8003878:	4c0a      	ldr	r4, [pc, #40]	; (80038a4 <__libc_init_array+0x44>)
+ 800387a:	1b64      	subs	r4, r4, r5
+ 800387c:	10a4      	asrs	r4, r4, #2
+ 800387e:	42a6      	cmp	r6, r4
+ 8003880:	d105      	bne.n	800388e <__libc_init_array+0x2e>
+ 8003882:	bd70      	pop	{r4, r5, r6, pc}
+ 8003884:	00b3      	lsls	r3, r6, #2
+ 8003886:	58eb      	ldr	r3, [r5, r3]
+ 8003888:	4798      	blx	r3
+ 800388a:	3601      	adds	r6, #1
+ 800388c:	e7ee      	b.n	800386c <__libc_init_array+0xc>
+ 800388e:	00b3      	lsls	r3, r6, #2
+ 8003890:	58eb      	ldr	r3, [r5, r3]
+ 8003892:	4798      	blx	r3
+ 8003894:	3601      	adds	r6, #1
+ 8003896:	e7f2      	b.n	800387e <__libc_init_array+0x1e>
+ 8003898:	08003abc 	.word	0x08003abc
+ 800389c:	08003abc 	.word	0x08003abc
+ 80038a0:	08003abc 	.word	0x08003abc
  80038a4:	08003ac0 	.word	0x08003ac0
- 80038a8:	08003ac0 	.word	0x08003ac0
- 80038ac:	08003ac0 	.word	0x08003ac0
- 80038b0:	08003ac4 	.word	0x08003ac4
 
-080038b4 <malloc>:
- 80038b4:	b510      	push	{r4, lr}
- 80038b6:	4b03      	ldr	r3, [pc, #12]	; (80038c4 <malloc+0x10>)
- 80038b8:	0001      	movs	r1, r0
- 80038ba:	6818      	ldr	r0, [r3, #0]
- 80038bc:	f000 f80c 	bl	80038d8 <_malloc_r>
- 80038c0:	bd10      	pop	{r4, pc}
- 80038c2:	46c0      	nop			; (mov r8, r8)
- 80038c4:	2000000c 	.word	0x2000000c
+080038a8 <malloc>:
+ 80038a8:	b510      	push	{r4, lr}
+ 80038aa:	4b03      	ldr	r3, [pc, #12]	; (80038b8 <malloc+0x10>)
+ 80038ac:	0001      	movs	r1, r0
+ 80038ae:	6818      	ldr	r0, [r3, #0]
+ 80038b0:	f000 f80c 	bl	80038cc <_malloc_r>
+ 80038b4:	bd10      	pop	{r4, pc}
+ 80038b6:	46c0      	nop			; (mov r8, r8)
+ 80038b8:	2000000c 	.word	0x2000000c
 
-080038c8 <memset>:
- 80038c8:	0003      	movs	r3, r0
- 80038ca:	1882      	adds	r2, r0, r2
- 80038cc:	4293      	cmp	r3, r2
- 80038ce:	d100      	bne.n	80038d2 <memset+0xa>
- 80038d0:	4770      	bx	lr
- 80038d2:	7019      	strb	r1, [r3, #0]
- 80038d4:	3301      	adds	r3, #1
- 80038d6:	e7f9      	b.n	80038cc <memset+0x4>
+080038bc <memset>:
+ 80038bc:	0003      	movs	r3, r0
+ 80038be:	1882      	adds	r2, r0, r2
+ 80038c0:	4293      	cmp	r3, r2
+ 80038c2:	d100      	bne.n	80038c6 <memset+0xa>
+ 80038c4:	4770      	bx	lr
+ 80038c6:	7019      	strb	r1, [r3, #0]
+ 80038c8:	3301      	adds	r3, #1
+ 80038ca:	e7f9      	b.n	80038c0 <memset+0x4>
 
-080038d8 <_malloc_r>:
- 80038d8:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
- 80038da:	2303      	movs	r3, #3
- 80038dc:	1ccd      	adds	r5, r1, #3
- 80038de:	439d      	bics	r5, r3
- 80038e0:	3508      	adds	r5, #8
- 80038e2:	0006      	movs	r6, r0
- 80038e4:	2d0c      	cmp	r5, #12
- 80038e6:	d21f      	bcs.n	8003928 <_malloc_r+0x50>
- 80038e8:	250c      	movs	r5, #12
- 80038ea:	42a9      	cmp	r1, r5
- 80038ec:	d81e      	bhi.n	800392c <_malloc_r+0x54>
- 80038ee:	0030      	movs	r0, r6
- 80038f0:	f000 f862 	bl	80039b8 <__malloc_lock>
- 80038f4:	4925      	ldr	r1, [pc, #148]	; (800398c <_malloc_r+0xb4>)
- 80038f6:	680a      	ldr	r2, [r1, #0]
- 80038f8:	0014      	movs	r4, r2
- 80038fa:	2c00      	cmp	r4, #0
- 80038fc:	d11a      	bne.n	8003934 <_malloc_r+0x5c>
- 80038fe:	4f24      	ldr	r7, [pc, #144]	; (8003990 <_malloc_r+0xb8>)
- 8003900:	683b      	ldr	r3, [r7, #0]
- 8003902:	2b00      	cmp	r3, #0
- 8003904:	d104      	bne.n	8003910 <_malloc_r+0x38>
- 8003906:	0021      	movs	r1, r4
- 8003908:	0030      	movs	r0, r6
- 800390a:	f000 f843 	bl	8003994 <_sbrk_r>
- 800390e:	6038      	str	r0, [r7, #0]
- 8003910:	0029      	movs	r1, r5
+080038cc <_malloc_r>:
+ 80038cc:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
+ 80038ce:	2303      	movs	r3, #3
+ 80038d0:	1ccd      	adds	r5, r1, #3
+ 80038d2:	439d      	bics	r5, r3
+ 80038d4:	3508      	adds	r5, #8
+ 80038d6:	0006      	movs	r6, r0
+ 80038d8:	2d0c      	cmp	r5, #12
+ 80038da:	d21f      	bcs.n	800391c <_malloc_r+0x50>
+ 80038dc:	250c      	movs	r5, #12
+ 80038de:	42a9      	cmp	r1, r5
+ 80038e0:	d81e      	bhi.n	8003920 <_malloc_r+0x54>
+ 80038e2:	0030      	movs	r0, r6
+ 80038e4:	f000 f862 	bl	80039ac <__malloc_lock>
+ 80038e8:	4925      	ldr	r1, [pc, #148]	; (8003980 <_malloc_r+0xb4>)
+ 80038ea:	680a      	ldr	r2, [r1, #0]
+ 80038ec:	0014      	movs	r4, r2
+ 80038ee:	2c00      	cmp	r4, #0
+ 80038f0:	d11a      	bne.n	8003928 <_malloc_r+0x5c>
+ 80038f2:	4f24      	ldr	r7, [pc, #144]	; (8003984 <_malloc_r+0xb8>)
+ 80038f4:	683b      	ldr	r3, [r7, #0]
+ 80038f6:	2b00      	cmp	r3, #0
+ 80038f8:	d104      	bne.n	8003904 <_malloc_r+0x38>
+ 80038fa:	0021      	movs	r1, r4
+ 80038fc:	0030      	movs	r0, r6
+ 80038fe:	f000 f843 	bl	8003988 <_sbrk_r>
+ 8003902:	6038      	str	r0, [r7, #0]
+ 8003904:	0029      	movs	r1, r5
+ 8003906:	0030      	movs	r0, r6
+ 8003908:	f000 f83e 	bl	8003988 <_sbrk_r>
+ 800390c:	1c43      	adds	r3, r0, #1
+ 800390e:	d12b      	bne.n	8003968 <_malloc_r+0x9c>
+ 8003910:	230c      	movs	r3, #12
  8003912:	0030      	movs	r0, r6
- 8003914:	f000 f83e 	bl	8003994 <_sbrk_r>
- 8003918:	1c43      	adds	r3, r0, #1
- 800391a:	d12b      	bne.n	8003974 <_malloc_r+0x9c>
- 800391c:	230c      	movs	r3, #12
- 800391e:	0030      	movs	r0, r6
- 8003920:	6033      	str	r3, [r6, #0]
- 8003922:	f000 f851 	bl	80039c8 <__malloc_unlock>
- 8003926:	e003      	b.n	8003930 <_malloc_r+0x58>
- 8003928:	2d00      	cmp	r5, #0
- 800392a:	dade      	bge.n	80038ea <_malloc_r+0x12>
- 800392c:	230c      	movs	r3, #12
- 800392e:	6033      	str	r3, [r6, #0]
- 8003930:	2000      	movs	r0, #0
- 8003932:	bdf8      	pop	{r3, r4, r5, r6, r7, pc}
- 8003934:	6823      	ldr	r3, [r4, #0]
- 8003936:	1b5b      	subs	r3, r3, r5
- 8003938:	d419      	bmi.n	800396e <_malloc_r+0x96>
- 800393a:	2b0b      	cmp	r3, #11
- 800393c:	d903      	bls.n	8003946 <_malloc_r+0x6e>
- 800393e:	6023      	str	r3, [r4, #0]
- 8003940:	18e4      	adds	r4, r4, r3
- 8003942:	6025      	str	r5, [r4, #0]
- 8003944:	e003      	b.n	800394e <_malloc_r+0x76>
- 8003946:	6863      	ldr	r3, [r4, #4]
- 8003948:	42a2      	cmp	r2, r4
- 800394a:	d10e      	bne.n	800396a <_malloc_r+0x92>
- 800394c:	600b      	str	r3, [r1, #0]
- 800394e:	0030      	movs	r0, r6
- 8003950:	f000 f83a 	bl	80039c8 <__malloc_unlock>
- 8003954:	0020      	movs	r0, r4
- 8003956:	2207      	movs	r2, #7
- 8003958:	300b      	adds	r0, #11
- 800395a:	1d23      	adds	r3, r4, #4
- 800395c:	4390      	bics	r0, r2
- 800395e:	1ac2      	subs	r2, r0, r3
- 8003960:	4298      	cmp	r0, r3
- 8003962:	d0e6      	beq.n	8003932 <_malloc_r+0x5a>
- 8003964:	1a1b      	subs	r3, r3, r0
- 8003966:	50a3      	str	r3, [r4, r2]
- 8003968:	e7e3      	b.n	8003932 <_malloc_r+0x5a>
- 800396a:	6053      	str	r3, [r2, #4]
- 800396c:	e7ef      	b.n	800394e <_malloc_r+0x76>
- 800396e:	0022      	movs	r2, r4
- 8003970:	6864      	ldr	r4, [r4, #4]
- 8003972:	e7c2      	b.n	80038fa <_malloc_r+0x22>
- 8003974:	2303      	movs	r3, #3
- 8003976:	1cc4      	adds	r4, r0, #3
- 8003978:	439c      	bics	r4, r3
- 800397a:	42a0      	cmp	r0, r4
- 800397c:	d0e1      	beq.n	8003942 <_malloc_r+0x6a>
- 800397e:	1a21      	subs	r1, r4, r0
- 8003980:	0030      	movs	r0, r6
- 8003982:	f000 f807 	bl	8003994 <_sbrk_r>
- 8003986:	1c43      	adds	r3, r0, #1
- 8003988:	d1db      	bne.n	8003942 <_malloc_r+0x6a>
- 800398a:	e7c7      	b.n	800391c <_malloc_r+0x44>
- 800398c:	20000090 	.word	0x20000090
- 8003990:	20000094 	.word	0x20000094
+ 8003914:	6033      	str	r3, [r6, #0]
+ 8003916:	f000 f851 	bl	80039bc <__malloc_unlock>
+ 800391a:	e003      	b.n	8003924 <_malloc_r+0x58>
+ 800391c:	2d00      	cmp	r5, #0
+ 800391e:	dade      	bge.n	80038de <_malloc_r+0x12>
+ 8003920:	230c      	movs	r3, #12
+ 8003922:	6033      	str	r3, [r6, #0]
+ 8003924:	2000      	movs	r0, #0
+ 8003926:	bdf8      	pop	{r3, r4, r5, r6, r7, pc}
+ 8003928:	6823      	ldr	r3, [r4, #0]
+ 800392a:	1b5b      	subs	r3, r3, r5
+ 800392c:	d419      	bmi.n	8003962 <_malloc_r+0x96>
+ 800392e:	2b0b      	cmp	r3, #11
+ 8003930:	d903      	bls.n	800393a <_malloc_r+0x6e>
+ 8003932:	6023      	str	r3, [r4, #0]
+ 8003934:	18e4      	adds	r4, r4, r3
+ 8003936:	6025      	str	r5, [r4, #0]
+ 8003938:	e003      	b.n	8003942 <_malloc_r+0x76>
+ 800393a:	6863      	ldr	r3, [r4, #4]
+ 800393c:	42a2      	cmp	r2, r4
+ 800393e:	d10e      	bne.n	800395e <_malloc_r+0x92>
+ 8003940:	600b      	str	r3, [r1, #0]
+ 8003942:	0030      	movs	r0, r6
+ 8003944:	f000 f83a 	bl	80039bc <__malloc_unlock>
+ 8003948:	0020      	movs	r0, r4
+ 800394a:	2207      	movs	r2, #7
+ 800394c:	300b      	adds	r0, #11
+ 800394e:	1d23      	adds	r3, r4, #4
+ 8003950:	4390      	bics	r0, r2
+ 8003952:	1ac2      	subs	r2, r0, r3
+ 8003954:	4298      	cmp	r0, r3
+ 8003956:	d0e6      	beq.n	8003926 <_malloc_r+0x5a>
+ 8003958:	1a1b      	subs	r3, r3, r0
+ 800395a:	50a3      	str	r3, [r4, r2]
+ 800395c:	e7e3      	b.n	8003926 <_malloc_r+0x5a>
+ 800395e:	6053      	str	r3, [r2, #4]
+ 8003960:	e7ef      	b.n	8003942 <_malloc_r+0x76>
+ 8003962:	0022      	movs	r2, r4
+ 8003964:	6864      	ldr	r4, [r4, #4]
+ 8003966:	e7c2      	b.n	80038ee <_malloc_r+0x22>
+ 8003968:	2303      	movs	r3, #3
+ 800396a:	1cc4      	adds	r4, r0, #3
+ 800396c:	439c      	bics	r4, r3
+ 800396e:	42a0      	cmp	r0, r4
+ 8003970:	d0e1      	beq.n	8003936 <_malloc_r+0x6a>
+ 8003972:	1a21      	subs	r1, r4, r0
+ 8003974:	0030      	movs	r0, r6
+ 8003976:	f000 f807 	bl	8003988 <_sbrk_r>
+ 800397a:	1c43      	adds	r3, r0, #1
+ 800397c:	d1db      	bne.n	8003936 <_malloc_r+0x6a>
+ 800397e:	e7c7      	b.n	8003910 <_malloc_r+0x44>
+ 8003980:	20000090 	.word	0x20000090
+ 8003984:	20000094 	.word	0x20000094
 
-08003994 <_sbrk_r>:
- 8003994:	2300      	movs	r3, #0
- 8003996:	b570      	push	{r4, r5, r6, lr}
- 8003998:	4d06      	ldr	r5, [pc, #24]	; (80039b4 <_sbrk_r+0x20>)
- 800399a:	0004      	movs	r4, r0
- 800399c:	0008      	movs	r0, r1
- 800399e:	602b      	str	r3, [r5, #0]
- 80039a0:	f7fd f830 	bl	8000a04 <_sbrk>
- 80039a4:	1c43      	adds	r3, r0, #1
- 80039a6:	d103      	bne.n	80039b0 <_sbrk_r+0x1c>
- 80039a8:	682b      	ldr	r3, [r5, #0]
- 80039aa:	2b00      	cmp	r3, #0
- 80039ac:	d000      	beq.n	80039b0 <_sbrk_r+0x1c>
- 80039ae:	6023      	str	r3, [r4, #0]
- 80039b0:	bd70      	pop	{r4, r5, r6, pc}
- 80039b2:	46c0      	nop			; (mov r8, r8)
- 80039b4:	2000037c 	.word	0x2000037c
+08003988 <_sbrk_r>:
+ 8003988:	2300      	movs	r3, #0
+ 800398a:	b570      	push	{r4, r5, r6, lr}
+ 800398c:	4d06      	ldr	r5, [pc, #24]	; (80039a8 <_sbrk_r+0x20>)
+ 800398e:	0004      	movs	r4, r0
+ 8003990:	0008      	movs	r0, r1
+ 8003992:	602b      	str	r3, [r5, #0]
+ 8003994:	f7fd f836 	bl	8000a04 <_sbrk>
+ 8003998:	1c43      	adds	r3, r0, #1
+ 800399a:	d103      	bne.n	80039a4 <_sbrk_r+0x1c>
+ 800399c:	682b      	ldr	r3, [r5, #0]
+ 800399e:	2b00      	cmp	r3, #0
+ 80039a0:	d000      	beq.n	80039a4 <_sbrk_r+0x1c>
+ 80039a2:	6023      	str	r3, [r4, #0]
+ 80039a4:	bd70      	pop	{r4, r5, r6, pc}
+ 80039a6:	46c0      	nop			; (mov r8, r8)
+ 80039a8:	2000037c 	.word	0x2000037c
 
-080039b8 <__malloc_lock>:
- 80039b8:	b510      	push	{r4, lr}
- 80039ba:	4802      	ldr	r0, [pc, #8]	; (80039c4 <__malloc_lock+0xc>)
- 80039bc:	f000 f80c 	bl	80039d8 <__retarget_lock_acquire_recursive>
- 80039c0:	bd10      	pop	{r4, pc}
- 80039c2:	46c0      	nop			; (mov r8, r8)
- 80039c4:	20000384 	.word	0x20000384
+080039ac <__malloc_lock>:
+ 80039ac:	b510      	push	{r4, lr}
+ 80039ae:	4802      	ldr	r0, [pc, #8]	; (80039b8 <__malloc_lock+0xc>)
+ 80039b0:	f000 f80c 	bl	80039cc <__retarget_lock_acquire_recursive>
+ 80039b4:	bd10      	pop	{r4, pc}
+ 80039b6:	46c0      	nop			; (mov r8, r8)
+ 80039b8:	20000384 	.word	0x20000384
 
-080039c8 <__malloc_unlock>:
- 80039c8:	b510      	push	{r4, lr}
- 80039ca:	4802      	ldr	r0, [pc, #8]	; (80039d4 <__malloc_unlock+0xc>)
- 80039cc:	f000 f805 	bl	80039da <__retarget_lock_release_recursive>
- 80039d0:	bd10      	pop	{r4, pc}
+080039bc <__malloc_unlock>:
+ 80039bc:	b510      	push	{r4, lr}
+ 80039be:	4802      	ldr	r0, [pc, #8]	; (80039c8 <__malloc_unlock+0xc>)
+ 80039c0:	f000 f805 	bl	80039ce <__retarget_lock_release_recursive>
+ 80039c4:	bd10      	pop	{r4, pc}
+ 80039c6:	46c0      	nop			; (mov r8, r8)
+ 80039c8:	20000384 	.word	0x20000384
+
+080039cc <__retarget_lock_acquire_recursive>:
+ 80039cc:	4770      	bx	lr
+
+080039ce <__retarget_lock_release_recursive>:
+ 80039ce:	4770      	bx	lr
+
+080039d0 <_init>:
+ 80039d0:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
  80039d2:	46c0      	nop			; (mov r8, r8)
- 80039d4:	20000384 	.word	0x20000384
-
-080039d8 <__retarget_lock_acquire_recursive>:
- 80039d8:	4770      	bx	lr
-
-080039da <__retarget_lock_release_recursive>:
+ 80039d4:	bcf8      	pop	{r3, r4, r5, r6, r7}
+ 80039d6:	bc08      	pop	{r3}
+ 80039d8:	469e      	mov	lr, r3
  80039da:	4770      	bx	lr
 
-080039dc <_init>:
+080039dc <_fini>:
  80039dc:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
  80039de:	46c0      	nop			; (mov r8, r8)
  80039e0:	bcf8      	pop	{r3, r4, r5, r6, r7}
  80039e2:	bc08      	pop	{r3}
  80039e4:	469e      	mov	lr, r3
  80039e6:	4770      	bx	lr
-
-080039e8 <_fini>:
- 80039e8:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
- 80039ea:	46c0      	nop			; (mov r8, r8)
- 80039ec:	bcf8      	pop	{r3, r4, r5, r6, r7}
- 80039ee:	bc08      	pop	{r3}
- 80039f0:	469e      	mov	lr, r3
- 80039f2:	4770      	bx	lr

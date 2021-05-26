@@ -40,7 +40,7 @@ void module_system_init(System *thisSystem)
 
 void state_machine(System *thisSystem)
 {
-	uint8_t testData[23] = {3,2,0,2,0,2,0,2,0,2,0,2,0,2,0,2,0,2,0,2,0,2,1};  //TODO remove after Link data output to magnetometer memory instead
+	uint8_t testData[31] = {0,0,0,100,0,1,0,2,0,3,0,0,0,200,0,4,0,5,0,6,0,0,0,300,0,7,0,8,0,9,255};  //TODO remove after Link data output to magnetometer memory instead
 
 	while(1)
 	{
@@ -54,7 +54,7 @@ void state_machine(System *thisSystem)
 				{
 
 					//TODO Link data output to magnetometer memory instead
-					internal_bus_write_data_frame(my_sys.data_bus,testData,22);
+					internal_bus_write_data_frame(my_sys.data_bus,testData,31);
 					break;
 				}
 				//-------------------------------
