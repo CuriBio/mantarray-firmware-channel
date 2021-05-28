@@ -1,10 +1,4 @@
-#include <lis3mdl_driver.h>
 #include "system.h"
-#include "main.h"
-#include "GlobalTimer.h"
-#include "UART_Comm.h"
-#include "EEPROM.h"
-#include "I2C.h"
 
 extern SPI_HandleTypeDef hspi1;
 extern I2C_HandleTypeDef hi2c2;
@@ -12,22 +6,33 @@ extern TIM_HandleTypeDef htim2;
 extern TIM_HandleTypeDef htim6;
 extern TIM_HandleTypeDef htim21;
 extern TIM_HandleTypeDef htim22;
-extern UART_HandleTypeDef huart1;
-extern UART_HandleTypeDef huart2;
 extern System my_sys;
 
 void module_system_init(System *thisSystem)
 {
-	BusInit(&thisSystem->Bus);
+	my_sys.data_bus = internal_bus_create(GPIOB,  BUS0_Pin | BUS1_Pin | BUS2_Pin | BUS3_Pin | BUS4_Pin | BUS5_Pin | BUS6_Pin | BUS7_Pin,
+											BUS_CLK_GPIO_Port, BUS_CLK_Pin,
+											BUS_C1_GPIO_Port, BUS_C1_Pin);
 
-	GlobalTimerInit(&thisSystem->GlobalTimer);
-	//HAL_Delay(1000);
-	I2CInit(&thisSystem->I2C);
+	//GlobalTimerInit(&thisSystem->GlobalTimer);
 
-	MagnetometerInit(&thisSystem->s1);
+	uint8_t temp_data[4]={0,0,0,0};
+	uint8_t i2c_new_address[4]={0,0,0,0};
 
-	BusInit(&thisSystem->Bus);
+	EEPROM_load(EEPROM_FIRST_TIME_INITIATION, temp_data, 1);  //TODO  this is bungee jumping without rope we assume everything if good no error check
+	if (temp_data[0] == EEPROM_FIRST_TIME_BOOT_MARKE )
+	{
+		EEPROM_load(EEPROM_I2C_ADDR, i2c_new_address, 1);
 
+		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, GPIO_PIN_RESET);//green we set from eeprom  //todo test
+		my_sys.i2c_line = I2C_interface_create(&hi2c2,i2c_new_address[0]);
+
+	}
+	else
+	{
+		my_sys.i2c_line = I2C_interface_create(&hi2c2,100 );   //TDOD hard code this to correct default value
+		  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, GPIO_PIN_RESET);//red on we hard coded  address//todo test
+	}
 	return;
 }
 
@@ -35,25 +40,124 @@ void module_system_init(System *thisSystem)
 
 void state_machine(System *thisSystem)
 {
-	uint8_t status = 0;
-	uint8_t testData[23] = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22};
-	uint32_t temp = 0;
-	Bus_t* thisBus = &thisSystem->Bus;
+	uint8_t testData[31] = {255,0,0,100,0,1,0,2,0,3,0,0,0,200,0,4,0,5,0,6,0,0,0,300,0,7,0,8,0,9,255};  //TODO remove after Link data output to magnetometer memory instead
+
 	while(1)
 	{
+	//internal_bus_write_data_frame(my_sys.data_bus,testData,22);HAL_Delay(500);
+		if(my_sys.i2c_line->buffer_index)
+		{
+			switch(my_sys.i2c_line->receiveBuffer[0])
+			{
+				//-------------------------------
+				case I2C_PACKET_SEND_DATA_FRAME:
+				{
+
+					//TODO Link data output to magnetometer memory instead
+					internal_bus_write_data_frame(my_sys.data_bus,testData,31);
+					break;
+				}
+				//-------------------------------
+				case I2C_PACKET_SET_BOOT0_LOW:
+				{
+					  HAL_GPIO_WritePin(CHN_OUT_BT0_GPIO_Port, CHN_OUT_BT0_Pin, GPIO_PIN_RESET);
+					break;
+				}
+				//-------------------------------
+				case I2C_PACKET_SET_BOOT0_HIGH:
+				{
+					  HAL_GPIO_WritePin(CHN_OUT_BT0_GPIO_Port, CHN_OUT_BT0_Pin, GPIO_PIN_SET);
+					break;
+				}
+				//-------------------------------
+				case I2C_PACKET_SET_RESET_LOW:
+				{
+					  HAL_GPIO_WritePin(CHN_OUT_RST_GPIO_Port, CHN_OUT_RST_Pin, GPIO_PIN_RESET);
+					break;
+				}
+				//-------------------------------
+				case I2C_PACKET_SET_RESET_HIGH:
+				{
+					 HAL_GPIO_WritePin(CHN_OUT_RST_GPIO_Port, CHN_OUT_RST_Pin, GPIO_PIN_SET);
+					break;
+				}
+				//---------this is a code for testing LED and making fun demo we can not have them in production release version
+				//---------since it may make serious conflicts and issue with magnetometer reader and scheduler ----------------
+				case I2C_PACKET_SET_RED_ON:
+				{
+					  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, GPIO_PIN_RESET);
+					break;
+				}
+				//-------------------------------
+				case I2C_PACKET_SET_RED_OFF:
+				{
+					  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, GPIO_PIN_SET);
+					break;
+				}
+				//-------------------------------
+				case I2C_PACKET_SET_GREEN_ON:
+				{
+					  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, GPIO_PIN_RESET);
+					break;
+				}
+				//-------------------------------
+				case I2C_PACKET_SET_GREEN_OFF:
+				{
+					  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, GPIO_PIN_SET);
+					break;
+				}
+				//-------------------------------
+				case I2C_PACKET_SET_BLUE_ON:
+				{
+					  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, GPIO_PIN_RESET);
+					break;
+				}
+				//-------------------------------
+				case I2C_PACKET_SET_BLUE_OFF:
+				{
+					  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, GPIO_PIN_SET);
+					break;
+				}
+			}
+			//-------- if we get any data higher than 0x80  it mean it is a new address
+			if ( my_sys.i2c_line->receiveBuffer[0] > I2C_PACKET_SET_NEW_ADDRESS )
+			{
+				uint8_t i2c_new_address[4]={3,3,3,3};
+				uint8_t temp_data[4]={0,0,0,0};
+				i2c_new_address[0] =  (uint8_t)my_sys.i2c_line->receiveBuffer[0] & 0x7f;
+				if( !EEPROM_save(EEPROM_I2C_ADDR, i2c_new_address, 1) )
+				{
+					//TODO we  failed to save what should we do now?
+					//this is bad we can kill the whole system master micro should now about this
+					//we donot have any valid address for now we go to idle mode we never activate common bus
+
+				}
+				else
+				{
+					temp_data[0] = EEPROM_FIRST_TIME_BOOT_MARKE;
+					if( !EEPROM_save(EEPROM_FIRST_TIME_INITIATION, temp_data,1) )  //TODO  this is bungee jumping without rope we assume everything if good no error check
+					{
+						//TODO we failed to saved
+						//this is bad we can kill the whole system master micro should now about this
+						//we donot have any valid address for now we go to idle mode we never activate common bus
+					}
+				}
+			}
+		my_sys.i2c_line->buffer_index =0;
+		}
+	}
+
 		switch(thisSystem->state)
 		{
-			case MODULE_SYSTEM_STATUS_START:;
+			case MODULE_SYSTEM_STATUS_START:
 				//Check if system has undergone first time setup by looking for a 32-bit random number in EEPROM
 				//IF A NEW FIRST TIME SETUP IS DESIRED TO BE RUN just change the value of EEPROM_FIRST_TIME_COMPLETE in <EEPROM.h>
 				//uint32_t test = *(uint32_t*) FIRST_TIME_INITIATION;
-				thisSystem->state = (*(uint32_t*) FIRST_TIME_INITIATION != EEPROM_FIRST_TIME_COMPLETE) ?
-						MODULE_SYSTEM_STATUS_FIRST_TIME :
-						MODULE_SYSTEM_STATUS_INITIATION;
+				//thisSystem->state = (*(uint32_t*) FIRST_TIME_INITIATION != EEPROM_FIRST_TIME_COMPLETE) ?						MODULE_SYSTEM_STATUS_FIRST_TIME :						MODULE_SYSTEM_STATUS_INITIATION;
 			break;
 			//-----------
 			case MODULE_SYSTEM_STATUS_FIRST_TIME:
-				EEPROMInit(thisSystem);
+				//EEPROMInit(thisSystem);
 				thisSystem->state = MODULE_SYSTEM_STATUS_INITIATION;
 
 			break;
@@ -70,62 +174,18 @@ void state_machine(System *thisSystem)
 			case MODULE_SYSTEM_STATUS_IDLE:
 				if (thisSystem->BUS_FLAG == 1)
 				{
-					//GPIOC->BSRR = GPIO_PIN_0;
-					//GPIOC->BRR = GPIO_PIN_0;
-					//Set Bus pins to output
-					temp = GPIOB->MODER;
-					temp &= ~BUS_BUSMASK32;
-					temp |= BUS_ACK_MODER;
-					GPIOB->MODER = temp;
-					//Set CBus pins to output
-					//temp = GPIOA->MODER;
-					//temp &= ~BUS_CBUSMASK32;
-					//temp |= BUS_CACK_MODER;
-					//GPIOA->MODER = temp;
-					//Send acknowledge
-					GPIOA->BSRR = GPIO_PIN_15;
-					//GPIOA->BSRR = 0x00002000;
-					//Acknowledge(&thisSystem->Bus);
-					//GPIOC->BSRR = GPIO_PIN_0;
-					//GPIOC->BRR = GPIO_PIN_0;
-					//Send dataframe
-					GPIOB->BSRR = (uint32_t) ((0x000000FF & testData[0]) | ((0x000000FF & ~testData[0]) << 16));GPIOA->BSRR = GPIO_PIN_0;
-					GPIOA->BRR = GPIO_PIN_0;GPIOB->BSRR = (uint32_t) ((0x000000FF & testData[1]) | ((0x000000FF & ~testData[1]) << 16));GPIOA->BSRR = GPIO_PIN_0;
-					GPIOA->BRR = GPIO_PIN_0;GPIOB->BSRR = (uint32_t) ((0x000000FF & testData[2]) | ((0x000000FF & ~testData[2]) << 16));GPIOA->BSRR = GPIO_PIN_0;
-					GPIOA->BRR = GPIO_PIN_0;GPIOB->BSRR = (uint32_t) ((0x000000FF & testData[3]) | ((0x000000FF & ~testData[3]) << 16));GPIOA->BSRR = GPIO_PIN_0;
-					GPIOA->BRR = GPIO_PIN_0;GPIOB->BSRR = (uint32_t) ((0x000000FF & testData[4]) | ((0x000000FF & ~testData[4]) << 16));GPIOA->BSRR = GPIO_PIN_0;
-					GPIOA->BRR = GPIO_PIN_0;GPIOB->BSRR = (uint32_t) ((0x000000FF & testData[5]) | ((0x000000FF & ~testData[5]) << 16));GPIOA->BSRR = GPIO_PIN_0;
-					GPIOA->BRR = GPIO_PIN_0;GPIOB->BSRR = (uint32_t) ((0x000000FF & testData[6]) | ((0x000000FF & ~testData[6]) << 16));GPIOA->BSRR = GPIO_PIN_0;
-					GPIOA->BRR = GPIO_PIN_0;GPIOB->BSRR = (uint32_t) ((0x000000FF & testData[7]) | ((0x000000FF & ~testData[7]) << 16));GPIOA->BSRR = GPIO_PIN_0;
-					GPIOA->BRR = GPIO_PIN_0;GPIOB->BSRR = (uint32_t) ((0x000000FF & testData[8]) | ((0x000000FF & ~testData[8]) << 16));GPIOA->BSRR = GPIO_PIN_0;
-					GPIOA->BRR = GPIO_PIN_0;GPIOB->BSRR = (uint32_t) ((0x000000FF & testData[9]) | ((0x000000FF & ~testData[9]) << 16));GPIOA->BSRR = GPIO_PIN_0;
-					GPIOA->BRR = GPIO_PIN_0;GPIOB->BSRR = (uint32_t) ((0x000000FF & testData[10]) | ((0x000000FF & ~testData[10]) << 16));GPIOA->BSRR = GPIO_PIN_0;
-					GPIOA->BRR = GPIO_PIN_0;GPIOB->BSRR = (uint32_t) ((0x000000FF & testData[11]) | ((0x000000FF & ~testData[11]) << 16));GPIOA->BSRR = GPIO_PIN_0;
-					GPIOA->BRR = GPIO_PIN_0;GPIOB->BSRR = (uint32_t) ((0x000000FF & testData[12]) | ((0x000000FF & ~testData[12]) << 16));GPIOA->BSRR = GPIO_PIN_0;
-					GPIOA->BRR = GPIO_PIN_0;GPIOB->BSRR = (uint32_t) ((0x000000FF & testData[13]) | ((0x000000FF & ~testData[13]) << 16));GPIOA->BSRR = GPIO_PIN_0;
-					GPIOA->BRR = GPIO_PIN_0;GPIOB->BSRR = (uint32_t) ((0x000000FF & testData[14]) | ((0x000000FF & ~testData[14]) << 16));GPIOA->BSRR = GPIO_PIN_0;
-					GPIOA->BRR = GPIO_PIN_0;GPIOB->BSRR = (uint32_t) ((0x000000FF & testData[15]) | ((0x000000FF & ~testData[15]) << 16));GPIOA->BSRR = GPIO_PIN_0;
-					GPIOA->BRR = GPIO_PIN_0;GPIOB->BSRR = (uint32_t) ((0x000000FF & testData[16]) | ((0x000000FF & ~testData[16]) << 16));GPIOA->BSRR = GPIO_PIN_0;
-					GPIOA->BRR = GPIO_PIN_0;GPIOB->BSRR = (uint32_t) ((0x000000FF & testData[17]) | ((0x000000FF & ~testData[17]) << 16));GPIOA->BSRR = GPIO_PIN_0;
-					GPIOA->BRR = GPIO_PIN_0;GPIOB->BSRR = (uint32_t) ((0x000000FF & testData[18]) | ((0x000000FF & ~testData[18]) << 16));GPIOA->BSRR = GPIO_PIN_0;
-					GPIOA->BRR = GPIO_PIN_0;GPIOB->BSRR = (uint32_t) ((0x000000FF & testData[19]) | ((0x000000FF & ~testData[19]) << 16));GPIOA->BSRR = GPIO_PIN_0;
-					GPIOA->BRR = GPIO_PIN_0;GPIOB->BSRR = (uint32_t) ((0x000000FF & testData[20]) | ((0x000000FF & ~testData[20]) << 16));GPIOA->BSRR = GPIO_PIN_0;
-					GPIOA->BRR = GPIO_PIN_0;GPIOB->BSRR = (uint32_t) ((0x000000FF & testData[21]) | ((0x000000FF & ~testData[21]) << 16));GPIOA->BSRR = GPIO_PIN_0;
-					GPIOA->BRR = GPIO_PIN_0;GPIOB->BSRR = (uint32_t) ((0x000000FF & testData[22]) | ((0x000000FF & ~testData[22]) << 16));GPIOA->BSRR = GPIO_PIN_0;
-					GPIOA->BRR = GPIO_PIN_0;
-					thisSystem->BUS_FLAG = 0;
 					//MockData(&thisSystem->Magnetometer);
 					//WriteDataFrame(&thisSystem->Magnetometer, &thisSystem->Bus) ;
 					//GPIOC->BSRR = GPIO_PIN_0;
 					//GPIOC->BRR = GPIO_PIN_0;
 					//Set all bus pins to low and send complete
-					thisBus->_GPIO_Bus->BRR = (uint32_t) (0x000000FF);
-					GPIOA->BRR = GPIO_PIN_15;
+					///thisBus->_GPIO_Bus->BRR = (uint32_t) (0x000000FF);
+					//GPIOA->BRR = GPIO_PIN_15;
 					//GPIOA->BRR = (uint32_t) (0x00002000);
 					//Set Bus pins to input
-					temp = GPIOB->MODER;
-					temp &= ~BUS_BUSMASK32;
-					GPIOB->MODER = temp;
+					//temp = GPIOB->MODER;
+					///temp &= ~BUS_BUSMASK32;
+					//GPIOB->MODER = temp;
 					//Set CBus pins to input
 					//temp = GPIOA->MODER;
 					//temp &= ~BUS_CBUSMASK32;
@@ -176,5 +236,5 @@ void state_machine(System *thisSystem)
 			case MODULE_SYSTEM_STATUS_FAULTY:
 			break;
 		}
-	}
+
 }

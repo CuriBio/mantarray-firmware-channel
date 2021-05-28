@@ -1,17 +1,11 @@
 #include "mmc5983_driver.h"
-#include "system.h"
-#include "main.h"
-#include <stdio.h>
-#include <stdlib.h>
-
-
-extern System my_sys;
 
 
 MMC5983_t * MMC5983_create(SPI_HandleTypeDef *spi_line,GPIO_TypeDef *CS_Bus,uint16_t CS_Pin,GPIO_TypeDef *INT_Bus,uint16_t INT_Pin)
 {
 	//TODO Do we want to use a series of #defines with | in between to describe configuration registers to make this function more human readable?
-	MMC5983_t * thisMMC5983 = malloc(sizeof(MMC5983_t));
+
+	MMC5983_t * thisMMC5983 = (MMC5983_t *) malloc(sizeof(MMC5983_t));
 	HAL_GPIO_WritePin(thisMMC5983->CS_GPIO_Bus, thisMMC5983->CS_GPIO_Pin, GPIO_PIN_SET);   //Set CS pin on sensor A to high to ensure no SPI communication enabled initially
 	if(thisMMC5983 != NULL)
 	{

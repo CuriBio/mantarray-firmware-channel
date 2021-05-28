@@ -82,5 +82,5 @@ uint8_t magnetometer_read(Magnetometer_t *thisMagnetometer)
 		res = MMC5983_read_XYZ((MMC5983_t*)thisMagnetometer->magnetometer,thisMagnetometer->Readings);
 		break;
 	}
-	return;
+	return res;
 }

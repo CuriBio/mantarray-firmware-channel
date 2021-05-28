@@ -1,7 +1,8 @@
 //this is the driver layer to connect with specific chip
-#include <string.h>
+
 #include <stdio.h>
-#include "main.h"
+#include <stdlib.h>
+#include "stm32l0xx_hal.h"
 
 #ifndef MMC5983_H_
 #define MMC5983_H_
@@ -45,8 +46,9 @@
 #define MMC5983_CTRL1_X_inhibit					0x04
 #define MMC5983_CTRL1_YZ_inhibit_l				0x08
 #define MMC5983_CTRL1_YZ_inhibit_2				0x10
-#define MMC5983_CTRL1_Reserved					0x20
-#define MMC5983_CTRL1_Reserved					0x40
+
+#define MMC5983_CTRL1_Reserved_5				0x20
+#define MMC5983_CTRL1_Reserved_6				0x40
 #define MMC5983_CTRL1_SW_RST					0x80
 //----------------Internal Control 2 --------
 #define MMC5983_CTRL2_Cm_freq0					0x01
@@ -61,11 +63,11 @@
 #define MMC5983_CTRL3_Reservd					0x01
 #define MMC5983_CTRL3_St_enp					0x02
 #define MMC5983_CTRL3_ST_enm					0x04
-#define MMC5983_CTRL3_Reserved					0x08
-#define MMC5983_CTRL3_Reserved					0x10
-#define MMC5983_CTRL3_Reserved					0x20
+#define MMC5983_CTRL3_Reserved_3				0x08
+#define MMC5983_CTRL3_Reserved_4				0x10
+#define MMC5983_CTRL3_Reserved_5				0x20
 #define MMC5983_CTRL3_Spi_3w					0x40
-#define MMC5983_CTRL3_Reserved					0x80
+#define MMC5983_CTRL3_Reserved_7				0x80
 //-----------------------------------------------------------------------------
 #define MMC5983_MAXREADINGS						10
 
