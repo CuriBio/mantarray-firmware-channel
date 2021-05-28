@@ -26,9 +26,7 @@ typedef struct
 	uint32_t BUS_ACKMASK32;
 	uint32_t BUS_ACKMODER;
 	uint32_t BUS_ACKOSPEEDR;
-
-	GPIO_InitTypeDef GPIO_InitStruct;  //todo what is the usage of this?
-
+	
 }InternalBus_t;
 
 InternalBus_t * internal_bus_create(GPIO_TypeDef *bus_line,uint16_t bus_pins,GPIO_TypeDef *cl_bus,uint16_t cl_pin,GPIO_TypeDef *ak_bus,uint16_t ak_pin);
