@@ -46,6 +46,7 @@
 #define MMC5983_CTRL1_X_inhibit					0x04
 #define MMC5983_CTRL1_YZ_inhibit_l				0x08
 #define MMC5983_CTRL1_YZ_inhibit_2				0x10
+
 #define MMC5983_CTRL1_Reserved_5				0x20
 #define MMC5983_CTRL1_Reserved_6				0x40
 #define MMC5983_CTRL1_SW_RST					0x80
