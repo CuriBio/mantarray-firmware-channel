@@ -1,14 +1,10 @@
 #include "GlobalTimer.h"
-#include "mmc5983_driver.h"
-#include "system.h"
 #include "main.h"
-#include <string.h>
 #include <stdio.h>
 extern TIM_HandleTypeDef htim6;
 extern TIM_HandleTypeDef htim21;
 extern TIM_HandleTypeDef htim22;
 
-extern System my_sys;
 
 void GlobalTimerInit(GlobalTimer_t *thisGlobalTimer)
 {
@@ -24,7 +20,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 	if (htim == &htim6)
 	{
 		//TODO set up tim2's clock frequency
-		my_sys.GlobalTimer.overflowCounter++;
+	///my_sys.GlobalTimer.overflowCounter++;
 		//TEST CODE
 		//my_sys.GlobalTimerTest.uartBufLen = sprintf(my_sys.GlobalTimerTest.uartBuffer, "Reached Max \r\n");
 		//serialSend(&huart2, my_sys.GlobalTimerTest.uartBuffer, my_sys.GlobalTimerTest.uartBufLen);

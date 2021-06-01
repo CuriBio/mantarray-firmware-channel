@@ -18,7 +18,7 @@ MMC5983_t * MMC5983_create(SPI_HandleTypeDef *spi_line,GPIO_TypeDef *CS_Bus,uint
 		MMC5983_register_write(thisMMC5983, MMC5983_INTERNALCONTROL0, MMC5983_CTRL0_INT_meas_done_en);  //7:Reserved    6:OTP    5:Auto_SR  4:Reset    3:Set   2:INT_meas_done_en   1:TM_T   0:TM_M
 		MMC5983_register_write(thisMMC5983, MMC5983_INTERNALCONTROL1, 0);  //7:SW_	RST    6:Reserved    5:Reserved  4:YZ-inhibit    3:YZ-inhibit   2:X-inhibit   1:BW1   0:BW0 {100 200 400 800}Hz
 		MMC5983_register_write(thisMMC5983, MMC5983_INTERNALCONTROL2, MMC5983_CTRL2_Cm_freq1 | MMC5983_CTRL2_Cm_freq2 | MMC5983_CTRL2_Cmm_en);  //7:En_prd_set     4-6:Prd_set    3:Cmm_en     0-2: CM_Freq {off 1 10 20 50 100 200 1000}Hz
-		//Check whether you are communicating with the ST sensor
+		//Check whether you are communicating with the MEMSIC sensor
 		uint8_t SPITestWHOAMI = MMC5983_register_read(thisMMC5983, MMC5983_WHOAMI);
 		if (SPITestWHOAMI==MMC5983_WHO_ID_RESPONSE)
 		{

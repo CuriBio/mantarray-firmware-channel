@@ -20,11 +20,11 @@ void module_system_init(System *thisSystem)
 	uint8_t i2c_new_address[4]={0,0,0,0};
 
 	EEPROM_load(EEPROM_FIRST_TIME_INITIATION, temp_data, 1);  //TODO  this is bungee jumping without rope we assume everything if good no error check
-	if (temp_data[0] == EEPROM_FIRST_TIME_BOOT_MARKE )
+	if (temp_data[0] == EEPROM_FIRST_TIME_BOOT_MARKER )
 	{
 		EEPROM_load(EEPROM_I2C_ADDR, i2c_new_address, 1);
 
-		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, GPIO_PIN_RESET);//green we set from eeprom  //todo test
+		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, GPIO_PIN_RESET);//BLUE we set from eeprom  //todo test
 		my_sys.i2c_line = I2C_interface_create(&hi2c2,i2c_new_address[0]);
 
 	}
@@ -40,7 +40,7 @@ void module_system_init(System *thisSystem)
 
 void state_machine(System *thisSystem)
 {
-	uint8_t testData[31] = {255,0,0,100,0,1,0,2,0,3,0,0,0,200,0,4,0,5,0,6,0,0,0,300,0,7,0,8,0,9,255};  //TODO remove after Link data output to magnetometer memory instead
+	uint8_t testData[34] = {255,0,0,100,0,1,0,2,0,3,0,0,0,200,0,4,0,5,0,6,0,0,0,300,0,7,0,8,0,9,255};  //TODO remove after Link data output to magnetometer memory instead
 
 	while(1)
 	{
@@ -134,7 +134,7 @@ void state_machine(System *thisSystem)
 				}
 				else
 				{
-					temp_data[0] = EEPROM_FIRST_TIME_BOOT_MARKE;
+					temp_data[0] = EEPROM_FIRST_TIME_BOOT_MARKER;
 					if( !EEPROM_save(EEPROM_FIRST_TIME_INITIATION, temp_data,1) )  //TODO  this is bungee jumping without rope we assume everything if good no error check
 					{
 						//TODO we failed to saved
