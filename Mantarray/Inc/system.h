@@ -40,9 +40,7 @@ typedef struct
 	uint8_t BUS_FLAG;
 	GlobalTimer_t GlobalTimer;
 
-	Magnetometer_t *s1;  //
-	Magnetometer_t *s2;
-	Magnetometer_t *s3;
+	Magnetometer_t *sensors[3];
 
 	I2C_t *i2c_line;
 

@@ -6,6 +6,10 @@ MMC5983_t * MMC5983_create(SPI_HandleTypeDef *spi_line,GPIO_TypeDef *CS_Bus,uint
 	//TODO Do we want to use a series of #defines with | in between to describe configuration registers to make this function more human readable?
 
 	MMC5983_t * thisMMC5983 = (MMC5983_t *) malloc(sizeof(MMC5983_t));
+	thisMMC5983->CS_GPIO_Bus = CS_Bus;
+	thisMMC5983->CS_GPIO_Pin = CS_Pin;
+	thisMMC5983->INT_GPIO_Bus = INT_Bus;
+	thisMMC5983->INT_GPIO_Pin = INT_Pin;
 	HAL_GPIO_WritePin(thisMMC5983->CS_GPIO_Bus, thisMMC5983->CS_GPIO_Pin, GPIO_PIN_SET);   //Set CS pin on sensor A to high to ensure no SPI communication enabled initially
 	if(thisMMC5983 != NULL)
 	{

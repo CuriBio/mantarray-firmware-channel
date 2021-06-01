@@ -4,6 +4,10 @@
 LIS3MDL_t * LIS3MDL_create(SPI_HandleTypeDef *spi_line,GPIO_TypeDef *CS_Bus,uint16_t CS_Pin,GPIO_TypeDef *DRDY_Bus,uint16_t DRDY_Pin)
 {
 	LIS3MDL_t * thisLIS3MDL = (LIS3MDL_t *)malloc(sizeof(LIS3MDL_t));
+	thisLIS3MDL->CS_GPIO_Bus = CS_Bus;
+	thisLIS3MDL->CS_GPIO_Pin = CS_Pin;
+	thisLIS3MDL->DRDY_GPIO_Bus = DRDY_Bus;
+	thisLIS3MDL->DRDY_GPIO_Pin = DRDY_Pin;
 	HAL_GPIO_WritePin(thisLIS3MDL->CS_GPIO_Bus, thisLIS3MDL->CS_GPIO_Pin, GPIO_PIN_SET);   //Set CS pin on sensor A to high to ensure no SPI communication enabled initially
 	if(thisLIS3MDL != NULL)
 	{

@@ -23,24 +23,25 @@ void module_system_init(System *thisSystem)
 	if (temp_data[0] == EEPROM_FIRST_TIME_BOOT_MARKER )
 	{
 		EEPROM_load(EEPROM_I2C_ADDR, i2c_new_address, 1);
-
-		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, GPIO_PIN_RESET);//BLUE we set from eeprom  //todo test
+		HAL_GPIO_WritePin(SPI_B_CS_GPIO_Port, SPI_B_CS_Pin, GPIO_PIN_RESET);//BLUE we set from eeprom  //todo test
 		my_sys.i2c_line = I2C_interface_create(&hi2c2,i2c_new_address[0]);
-
 	}
 	else
 	{
 		my_sys.i2c_line = I2C_interface_create(&hi2c2,100 );   //TDOD hard code this to correct default value
-		  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, GPIO_PIN_RESET);//red on we hard coded  address//todo test
+		HAL_GPIO_WritePin(SPI_C_CS_GPIO_Port, SPI_C_CS_Pin, GPIO_PIN_RESET);//red on we hard coded  address//todo test
 	}
+	// init sensors
+	my_sys.sensors[0] = magnetometer_create(MAGNETOMETER_TYPE_MMC5983,&hspi1 , SPI_A_CS_GPIO_Port , SPI_A_CS_Pin , mag_int_a_GPIO_Port , mag_int_a_Pin);
+	my_sys.sensors[1] = magnetometer_create(MAGNETOMETER_TYPE_MMC5983,&hspi1 , SPI_B_CS_GPIO_Port , SPI_B_CS_Pin , mag_int_b_GPIO_Port , mag_int_b_Pin);
+	my_sys.sensors[2] = magnetometer_create(MAGNETOMETER_TYPE_MMC5983,&hspi1 , SPI_C_CS_GPIO_Port , SPI_C_CS_Pin , mag_int_c_GPIO_Port , mag_int_c_Pin);
+
 	return;
 }
 
-
-
 void state_machine(System *thisSystem)
 {
-	uint8_t testData[34] = {255,0,0,100,0,1,0,2,0,3,0,0,0,200,0,4,0,5,0,6,0,0,0,300,0,7,0,8,0,9,255};  //TODO remove after Link data output to magnetometer memory instead
+	uint8_t testData[34] = {255,0,0,100,0,1,0,2,0,3,0,0,0,200,0,4,0,5,0,6,0,0,0,30,0,7,0,8,0,9,255};  //TODO remove after Link data output to magnetometer memory instead
 
 	while(1)
 	{
@@ -49,12 +50,23 @@ void state_machine(System *thisSystem)
 		{
 			switch(my_sys.i2c_line->receiveBuffer[0])
 			{
+			//-------------------------------
+			case 30://TODO remove just test
+			{
+				my_sys.sensors[0] = magnetometer_create(MAGNETOMETER_TYPE_MMC5983,&hspi1 , SPI_A_CS_GPIO_Port , SPI_A_CS_Pin , mag_int_a_GPIO_Port , mag_int_a_Pin);
+				my_sys.sensors[1] = magnetometer_create(MAGNETOMETER_TYPE_MMC5983,&hspi1 , SPI_B_CS_GPIO_Port , SPI_B_CS_Pin , mag_int_b_GPIO_Port , mag_int_b_Pin);
+				my_sys.sensors[2] = magnetometer_create(MAGNETOMETER_TYPE_MMC5983,&hspi1 , SPI_C_CS_GPIO_Port , SPI_C_CS_Pin , mag_int_c_GPIO_Port , mag_int_c_Pin);
+				break;
+			}
 				//-------------------------------
 				case I2C_PACKET_SEND_DATA_FRAME:
 				{
 
 					//TODO Link data output to magnetometer memory instead
 					internal_bus_write_data_frame(my_sys.data_bus,testData,31);
+					magnetometer_read(my_sys.sensors[0]);
+					magnetometer_read(my_sys.sensors[1]);
+					magnetometer_read(my_sys.sensors[2]);
 					break;
 				}
 				//-------------------------------
@@ -85,37 +97,37 @@ void state_machine(System *thisSystem)
 				//---------since it may make serious conflicts and issue with magnetometer reader and scheduler ----------------
 				case I2C_PACKET_SET_RED_ON:
 				{
-					  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, GPIO_PIN_RESET);
+					  HAL_GPIO_WritePin(SPI_C_CS_GPIO_Port, SPI_C_CS_Pin, GPIO_PIN_RESET);
 					break;
 				}
 				//-------------------------------
 				case I2C_PACKET_SET_RED_OFF:
 				{
-					  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, GPIO_PIN_SET);
+					  HAL_GPIO_WritePin(SPI_C_CS_GPIO_Port, SPI_C_CS_Pin, GPIO_PIN_SET);
 					break;
 				}
 				//-------------------------------
 				case I2C_PACKET_SET_GREEN_ON:
 				{
-					  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, GPIO_PIN_RESET);
+					  HAL_GPIO_WritePin(SPI_A_CS_GPIO_Port, SPI_A_CS_Pin, GPIO_PIN_RESET);
 					break;
 				}
 				//-------------------------------
 				case I2C_PACKET_SET_GREEN_OFF:
 				{
-					  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, GPIO_PIN_SET);
+					  HAL_GPIO_WritePin(SPI_A_CS_GPIO_Port, SPI_A_CS_Pin, GPIO_PIN_SET);
 					break;
 				}
 				//-------------------------------
 				case I2C_PACKET_SET_BLUE_ON:
 				{
-					  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, GPIO_PIN_RESET);
+					  HAL_GPIO_WritePin(SPI_B_CS_GPIO_Port, SPI_B_CS_Pin, GPIO_PIN_RESET);
 					break;
 				}
 				//-------------------------------
 				case I2C_PACKET_SET_BLUE_OFF:
 				{
-					  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, GPIO_PIN_SET);
+					  HAL_GPIO_WritePin(SPI_B_CS_GPIO_Port, SPI_B_CS_Pin, GPIO_PIN_SET);
 					break;
 				}
 			}

@@ -1,5 +1,5 @@
-lis3mdl_driver.c:4:13:LIS3MDL_create	32	static
-lis3mdl_driver.c:33:9:LIS3MDL_register_read	24	static
-lis3mdl_driver.c:47:6:LIS3MDL_register_write	16	static
-lis3mdl_driver.c:59:6:LIS3MDL_destroy	8	static
-lis3mdl_driver.c:64:9:LIS3MDL_read_XYZ	0	static
+lis3mdl_driver.c:4:13:LIS3MDL_create	40	static
+lis3mdl_driver.c:37:9:LIS3MDL_register_read	24	static
+lis3mdl_driver.c:51:6:LIS3MDL_register_write	16	static
+lis3mdl_driver.c:63:6:LIS3MDL_destroy	8	static
+lis3mdl_driver.c:68:9:LIS3MDL_read_XYZ	0	static
