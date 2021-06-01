@@ -88,3 +88,21 @@ uint8_t magnetometer_read(Magnetometer_t *thisMagnetometer)
 	}
 	return res;
 }
+//--------------------test sensor---------------------------
+/*uint8_t magnetometer_test(Magnetometer_t *thisMagnetometer)
+{
+	uint8_t res=0;
+	switch (thisMagnetometer->whichMagnetometer)
+	{
+	case MAGNETOMETER_TYPE_LIS3MDL:
+		if((LIS3MDL_t*)thisMagnetometer->sensor_status == LIS3MDL_SENSOR_FOUND)
+			res=1;
+		break;
+	//------------------------------
+	case MAGNETOMETER_TYPE_MMC5983:
+		if((MMC5983_t*)thisMagnetometer->sensor_status == MMC5983_SENSOR_FOUND)
+			res=1;
+		break;
+	}
+	return res;
+}*/

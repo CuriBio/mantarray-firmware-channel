@@ -19,17 +19,18 @@ void module_system_init(System *thisSystem)
 	uint8_t temp_data[4]={0,0,0,0};
 	uint8_t i2c_new_address[4]={0,0,0,0};
 
+	  HAL_GPIO_WritePin(SPI_A_CS_GPIO_Port, SPI_A_CS_Pin, GPIO_PIN_SET);
+	  HAL_GPIO_WritePin(SPI_B_CS_GPIO_Port, SPI_B_CS_Pin, GPIO_PIN_SET);
+	  HAL_GPIO_WritePin(SPI_C_CS_GPIO_Port, SPI_C_CS_Pin, GPIO_PIN_SET);
 	EEPROM_load(EEPROM_FIRST_TIME_INITIATION, temp_data, 1);  //TODO  this is bungee jumping without rope we assume everything if good no error check
 	if (temp_data[0] == EEPROM_FIRST_TIME_BOOT_MARKER )
 	{
 		EEPROM_load(EEPROM_I2C_ADDR, i2c_new_address, 1);
-		HAL_GPIO_WritePin(SPI_B_CS_GPIO_Port, SPI_B_CS_Pin, GPIO_PIN_RESET);//BLUE we set from eeprom  //todo test
 		my_sys.i2c_line = I2C_interface_create(&hi2c2,i2c_new_address[0]);
 	}
 	else
 	{
 		my_sys.i2c_line = I2C_interface_create(&hi2c2,100 );   //TDOD hard code this to correct default value
-		HAL_GPIO_WritePin(SPI_C_CS_GPIO_Port, SPI_C_CS_Pin, GPIO_PIN_RESET);//red on we hard coded  address//todo test
 	}
 	// init sensors
 	my_sys.sensors[0] = magnetometer_create(MAGNETOMETER_TYPE_MMC5983,&hspi1 , SPI_A_CS_GPIO_Port , SPI_A_CS_Pin , mag_int_a_GPIO_Port , mag_int_a_Pin);
@@ -41,11 +42,47 @@ void module_system_init(System *thisSystem)
 
 void state_machine(System *thisSystem)
 {
-	uint8_t testData[34] = {255,0,0,100,0,1,0,2,0,3,0,0,0,200,0,4,0,5,0,6,0,0,0,30,0,7,0,8,0,9,255};  //TODO remove after Link data output to magnetometer memory instead
+	uint8_t testData[40];// = {255,0,0,100,0,1,0,2,0,3,0,0,0,200,0,4,0,5,0,6,0,0,0,30,0,7,0,8,0,9,255};  //TODO remove after Link data output to magnetometer memory instead
 
 	while(1)
 	{
-	//internal_bus_write_data_frame(my_sys.data_bus,testData,22);HAL_Delay(500);
+		if(magnetometer_read(my_sys.sensors[0]))
+		{
+			*(uint32_t *)testData[0]++;
+			testData[4] = *((uint8_t*)my_sys.sensors[0]->Readings + 0);
+			testData[5] = *((uint8_t*)my_sys.sensors[0]->Readings + 1);
+			testData[6] = *((uint8_t*)my_sys.sensors[0]->Readings + 2);
+			testData[7] = *((uint8_t*)my_sys.sensors[0]->Readings + 3);
+			testData[8] = *((uint8_t*)my_sys.sensors[0]->Readings + 4);
+			testData[9] = *((uint8_t*)my_sys.sensors[0]->Readings + 5);
+
+		}
+		//---------------
+		if(magnetometer_read(my_sys.sensors[0]))
+		{
+
+			*(uint32_t *)testData[10]++;
+			testData[14] = *((uint8_t*)my_sys.sensors[1]->Readings + 0);
+			testData[15] = *((uint8_t*)my_sys.sensors[1]->Readings + 1);
+			testData[16] = *((uint8_t*)my_sys.sensors[1]->Readings + 2);
+			testData[17] = *((uint8_t*)my_sys.sensors[1]->Readings + 3);
+			testData[18] = *((uint8_t*)my_sys.sensors[1]->Readings + 4);
+			testData[19] = *((uint8_t*)my_sys.sensors[1]->Readings + 5);
+
+		}
+		//-------------
+		if(magnetometer_read(my_sys.sensors[0]))
+		{
+
+			*(uint32_t *)testData[20]++;
+			testData[24] = *((uint8_t*)my_sys.sensors[2]->Readings + 0);
+			testData[25] = *((uint8_t*)my_sys.sensors[2]->Readings + 1);
+			testData[26] = *((uint8_t*)my_sys.sensors[2]->Readings + 2);
+			testData[27] = *((uint8_t*)my_sys.sensors[2]->Readings + 3);
+			testData[28] = *((uint8_t*)my_sys.sensors[2]->Readings + 4);
+			testData[29] = *((uint8_t*)my_sys.sensors[2]->Readings + 5);
+		}
+		//------------------------------------------
 		if(my_sys.i2c_line->buffer_index)
 		{
 			switch(my_sys.i2c_line->receiveBuffer[0])
@@ -53,9 +90,31 @@ void state_machine(System *thisSystem)
 			//-------------------------------
 			case 30://TODO remove just test
 			{
-				my_sys.sensors[0] = magnetometer_create(MAGNETOMETER_TYPE_MMC5983,&hspi1 , SPI_A_CS_GPIO_Port , SPI_A_CS_Pin , mag_int_a_GPIO_Port , mag_int_a_Pin);
-				my_sys.sensors[1] = magnetometer_create(MAGNETOMETER_TYPE_MMC5983,&hspi1 , SPI_B_CS_GPIO_Port , SPI_B_CS_Pin , mag_int_b_GPIO_Port , mag_int_b_Pin);
-				my_sys.sensors[2] = magnetometer_create(MAGNETOMETER_TYPE_MMC5983,&hspi1 , SPI_C_CS_GPIO_Port , SPI_C_CS_Pin , mag_int_c_GPIO_Port , mag_int_c_Pin);
+/*
+				while(1)
+				{
+					if(magnetometer_read(my_sys.sensors[0]))
+					{
+
+						  //HAL_GPIO_WritePin(BUS_CLK_GPIO_Port, BUS_CLK_Pin, GPIO_PIN_SET);
+						  //HAL_Delay(1);
+						  //HAL_GPIO_WritePin(BUS_CLK_GPIO_Port, BUS_CLK_Pin, GPIO_PIN_RESET);
+
+							internal_bus_write_data_frame(my_sys.data_bus,testData,3);
+					}
+
+				}*/
+				/*
+				if(my_sys.sensors[0]->magnetometer->sensor_status == MMC5983_SENSOR_FOUND)
+					  HAL_GPIO_WritePin(SPI_A_CS_GPIO_Port, SPI_A_CS_Pin, GPIO_PIN_RESET);
+				if(my_sys.sensors[1]->magnetometer->sensor_status == MMC5983_SENSOR_FOUND)
+					  HAL_GPIO_WritePin(SPI_B_CS_GPIO_Port, SPI_B_CS_Pin, GPIO_PIN_RESET);
+				if(my_sys.sensors[2]->magnetometer->sensor_status == MMC5983_SENSOR_FOUND)
+					  HAL_GPIO_WritePin(SPI_C_CS_GPIO_Port, SPI_C_CS_Pin, GPIO_PIN_RESET);
+*/
+				//my_sys.sensors[0] = magnetometer_create(MAGNETOMETER_TYPE_MMC5983,&hspi1 , SPI_A_CS_GPIO_Port , SPI_A_CS_Pin , mag_int_a_GPIO_Port , mag_int_a_Pin);
+				//my_sys.sensors[1] = magnetometer_create(MAGNETOMETER_TYPE_MMC5983,&hspi1 , SPI_B_CS_GPIO_Port , SPI_B_CS_Pin , mag_int_b_GPIO_Port , mag_int_b_Pin);
+				//my_sys.sensors[2] = magnetometer_create(MAGNETOMETER_TYPE_MMC5983,&hspi1 , SPI_C_CS_GPIO_Port , SPI_C_CS_Pin , mag_int_c_GPIO_Port , mag_int_c_Pin);
 				break;
 			}
 				//-------------------------------
@@ -64,9 +123,6 @@ void state_machine(System *thisSystem)
 
 					//TODO Link data output to magnetometer memory instead
 					internal_bus_write_data_frame(my_sys.data_bus,testData,31);
-					magnetometer_read(my_sys.sensors[0]);
-					magnetometer_read(my_sys.sensors[1]);
-					magnetometer_read(my_sys.sensors[2]);
 					break;
 				}
 				//-------------------------------
