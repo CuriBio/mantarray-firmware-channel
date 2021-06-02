@@ -5,47 +5,47 @@ Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
   0 .isr_vector   000000c0  08000000  08000000  00010000  2**0
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
-  1 .text         000044fc  080000c0  080000c0  000100c0  2**2
+  1 .text         0000450c  080000c0  080000c0  000100c0  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  2 .rodata       000000ac  080045bc  080045bc  000145bc  2**2
+  2 .rodata       000000d4  080045cc  080045cc  000145cc  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
-  3 .ARM.extab    00000000  08004668  08004668  00020070  2**0
+  3 .ARM.extab    00000000  080046a0  080046a0  00020070  2**0
                   CONTENTS
-  4 .ARM          00000008  08004668  08004668  00014668  2**2
+  4 .ARM          00000008  080046a0  080046a0  000146a0  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
-  5 .preinit_array 00000000  08004670  08004670  00020070  2**0
+  5 .preinit_array 00000000  080046a8  080046a8  00020070  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  6 .init_array   00000004  08004670  08004670  00014670  2**2
+  6 .init_array   00000004  080046a8  080046a8  000146a8  2**2
                   CONTENTS, ALLOC, LOAD, DATA
-  7 .fini_array   00000004  08004674  08004674  00014674  2**2
+  7 .fini_array   00000004  080046ac  080046ac  000146ac  2**2
                   CONTENTS, ALLOC, LOAD, DATA
-  8 .data         00000070  20000000  08004678  00020000  2**2
+  8 .data         00000070  20000000  080046b0  00020000  2**2
                   CONTENTS, ALLOC, LOAD, DATA
-  9 .bss          0000031c  20000070  080046e8  00020070  2**3
+  9 .bss          0000031c  20000070  08004720  00020070  2**3
                   ALLOC
- 10 ._user_heap_stack 00000604  2000038c  080046e8  0002038c  2**0
+ 10 ._user_heap_stack 00000604  2000038c  08004720  0002038c  2**0
                   ALLOC
  11 .ARM.attributes 00000028  00000000  00000000  00020070  2**0
                   CONTENTS, READONLY
- 12 .debug_info   00027fb8  00000000  00000000  00020098  2**0
+ 12 .debug_info   00027fc4  00000000  00000000  00020098  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 13 .debug_abbrev 000053e8  00000000  00000000  00048050  2**0
+ 13 .debug_abbrev 000053fc  00000000  00000000  0004805c  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 14 .debug_aranges 000010a0  00000000  00000000  0004d438  2**3
+ 14 .debug_aranges 000010a0  00000000  00000000  0004d458  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 15 .debug_ranges 00002e70  00000000  00000000  0004e4d8  2**3
+ 15 .debug_ranges 00002e70  00000000  00000000  0004e4f8  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 16 .debug_macro  000188da  00000000  00000000  00051348  2**0
+ 16 .debug_macro  000188da  00000000  00000000  00051368  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .debug_line   0002879b  00000000  00000000  00069c22  2**0
+ 17 .debug_line   0002879e  00000000  00000000  00069c42  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_str    00086216  00000000  00000000  000923bd  2**0
+ 18 .debug_str    00086222  00000000  00000000  000923e0  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .comment      00000053  00000000  00000000  001185d3  2**0
+ 19 .comment      00000053  00000000  00000000  00118602  2**0
                   CONTENTS, READONLY
- 20 .debug_frame  000034fc  00000000  00000000  00118628  2**2
+ 20 .debug_frame  00003504  00000000  00000000  00118658  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 21 .debug_loc    00019aed  00000000  00000000  0011bb24  2**0
+ 21 .debug_loc    00019b1d  00000000  00000000  0011bb5c  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -67,7 +67,7 @@ Disassembly of section .text:
  80000da:	bd10      	pop	{r4, pc}
  80000dc:	20000070 	.word	0x20000070
  80000e0:	00000000 	.word	0x00000000
- 80000e4:	080045a4 	.word	0x080045a4
+ 80000e4:	080045b4 	.word	0x080045b4
 
 080000e8 <frame_dummy>:
  80000e8:	4b04      	ldr	r3, [pc, #16]	; (80000fc <frame_dummy+0x14>)
@@ -82,7 +82,7 @@ Disassembly of section .text:
  80000fa:	46c0      	nop			; (mov r8, r8)
  80000fc:	00000000 	.word	0x00000000
  8000100:	20000074 	.word	0x20000074
- 8000104:	080045a4 	.word	0x080045a4
+ 8000104:	080045b4 	.word	0x080045b4
 
 08000108 <__udivsi3>:
  8000108:	2200      	movs	r2, #0
@@ -564,7 +564,7 @@ void MX_ADC_Init(void)
  80004a0:	2208      	movs	r2, #8
  80004a2:	2100      	movs	r1, #0
  80004a4:	4668      	mov	r0, sp
- 80004a6:	f003 fff3 	bl	8004490 <memset>
+ 80004a6:	f003 fffb 	bl	80044a0 <memset>
   hadc.Init.ScanConvMode = ADC_SCAN_DIRECTION_FORWARD;
   hadc.Init.DataAlign = ADC_DATAALIGN_RIGHT;
   hadc.Init.ContinuousConvMode = DISABLE;
@@ -732,7 +732,7 @@ void MX_GPIO_Init(void)
  800055c:	2214      	movs	r2, #20
  800055e:	2100      	movs	r1, #0
  8000560:	a804      	add	r0, sp, #16
- 8000562:	f003 ff95 	bl	8004490 <memset>
+ 8000562:	f003 ff9d 	bl	80044a0 <memset>
 
   /* GPIO Ports Clock Enable */
   __HAL_RCC_GPIOA_CLK_ENABLE();
@@ -1015,7 +1015,7 @@ void HAL_I2C_MspInit(I2C_HandleTypeDef* i2cHandle)
  80006b2:	2214      	movs	r2, #20
  80006b4:	2100      	movs	r1, #0
  80006b6:	a802      	add	r0, sp, #8
- 80006b8:	f003 feea 	bl	8004490 <memset>
+ 80006b8:	f003 fef2 	bl	80044a0 <memset>
   if(i2cHandle->Instance==I2C2)
  80006bc:	4b15      	ldr	r3, [pc, #84]	; (8000714 <HAL_I2C_MspInit+0x68>)
  80006be:	6822      	ldr	r2, [r4, #0]
@@ -1097,17 +1097,17 @@ void SystemClock_Config(void)
  8000724:	2224      	movs	r2, #36	; 0x24
  8000726:	2100      	movs	r1, #0
  8000728:	a80f      	add	r0, sp, #60	; 0x3c
- 800072a:	f003 feb1 	bl	8004490 <memset>
+ 800072a:	f003 feb9 	bl	80044a0 <memset>
   RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
  800072e:	2214      	movs	r2, #20
  8000730:	2100      	movs	r1, #0
  8000732:	4668      	mov	r0, sp
- 8000734:	f003 feac 	bl	8004490 <memset>
+ 8000734:	f003 feb4 	bl	80044a0 <memset>
   RCC_PeriphCLKInitTypeDef PeriphClkInit = {0};
  8000738:	2220      	movs	r2, #32
  800073a:	2100      	movs	r1, #0
  800073c:	a806      	add	r0, sp, #24
- 800073e:	f003 fea7 	bl	8004490 <memset>
+ 800073e:	f003 feaf 	bl	80044a0 <memset>
 
   /** Configure the main internal regulator output voltage
   */
@@ -1483,7 +1483,7 @@ void HAL_SPI_MspInit(SPI_HandleTypeDef* spiHandle)
  8000972:	2214      	movs	r2, #20
  8000974:	2100      	movs	r1, #0
  8000976:	a802      	add	r0, sp, #8
- 8000978:	f003 fd8a 	bl	8004490 <memset>
+ 8000978:	f003 fd92 	bl	80044a0 <memset>
   if(spiHandle->Instance==SPI1)
  800097c:	4b12      	ldr	r3, [pc, #72]	; (80009c8 <HAL_SPI_MspInit+0x5c>)
  800097e:	6822      	ldr	r2, [r4, #0]
@@ -1681,7 +1681,7 @@ void *_sbrk(ptrdiff_t incr)
  8000a26:	4293      	cmp	r3, r2
  8000a28:	d9f8      	bls.n	8000a1c <_sbrk+0x18>
     errno = ENOMEM;
- 8000a2a:	f003 fcfd 	bl	8004428 <__errno>
+ 8000a2a:	f003 fd05 	bl	8004438 <__errno>
  8000a2e:	230c      	movs	r3, #12
  8000a30:	6003      	str	r3, [r0, #0]
     return (void *)-1;
@@ -1721,7 +1721,7 @@ void MX_TIM6_Init(void)
  8000a50:	2208      	movs	r2, #8
  8000a52:	2100      	movs	r1, #0
  8000a54:	4668      	mov	r0, sp
- 8000a56:	f003 fd1b 	bl	8004490 <memset>
+ 8000a56:	f003 fd23 	bl	80044a0 <memset>
 
   /* USER CODE BEGIN TIM6_Init 1 */
 
@@ -1805,12 +1805,12 @@ void MX_TIM21_Init(void)
  8000ab0:	2210      	movs	r2, #16
  8000ab2:	2100      	movs	r1, #0
  8000ab4:	a802      	add	r0, sp, #8
- 8000ab6:	f003 fceb 	bl	8004490 <memset>
+ 8000ab6:	f003 fcf3 	bl	80044a0 <memset>
   TIM_MasterConfigTypeDef sMasterConfig = {0};
  8000aba:	2208      	movs	r2, #8
  8000abc:	2100      	movs	r1, #0
  8000abe:	4668      	mov	r0, sp
- 8000ac0:	f003 fce6 	bl	8004490 <memset>
+ 8000ac0:	f003 fcee 	bl	80044a0 <memset>
 
   /* USER CODE BEGIN TIM21_Init 1 */
 
@@ -1924,12 +1924,12 @@ void MX_TIM22_Init(void)
  8000b3c:	2210      	movs	r2, #16
  8000b3e:	2100      	movs	r1, #0
  8000b40:	a802      	add	r0, sp, #8
- 8000b42:	f003 fca5 	bl	8004490 <memset>
+ 8000b42:	f003 fcad 	bl	80044a0 <memset>
   TIM_MasterConfigTypeDef sMasterConfig = {0};
  8000b46:	2208      	movs	r2, #8
  8000b48:	2100      	movs	r1, #0
  8000b4a:	4668      	mov	r0, sp
- 8000b4c:	f003 fca0 	bl	8004490 <memset>
+ 8000b4c:	f003 fca8 	bl	80044a0 <memset>
 
   /* USER CODE BEGIN TIM22_Init 1 */
 
@@ -2036,7 +2036,7 @@ void HAL_TIM_Base_MspInit(TIM_HandleTypeDef* tim_baseHandle)
  8000bc6:	2214      	movs	r2, #20
  8000bc8:	2100      	movs	r1, #0
  8000bca:	a802      	add	r0, sp, #8
- 8000bcc:	f003 fc60 	bl	8004490 <memset>
+ 8000bcc:	f003 fc68 	bl	80044a0 <memset>
   if(tim_baseHandle->Instance==TIM6)
  8000bd0:	6823      	ldr	r3, [r4, #0]
  8000bd2:	4a1a      	ldr	r2, [pc, #104]	; (8000c3c <HAL_TIM_Base_MspInit+0x7c>)
@@ -2203,7 +2203,7 @@ void HAL_UART_MspInit(UART_HandleTypeDef* uartHandle)
  8000c96:	2214      	movs	r2, #20
  8000c98:	2100      	movs	r1, #0
  8000c9a:	a802      	add	r0, sp, #8
- 8000c9c:	f003 fbf8 	bl	8004490 <memset>
+ 8000c9c:	f003 fc00 	bl	80044a0 <memset>
   if(uartHandle->Instance==USART2)
  8000ca0:	4b11      	ldr	r3, [pc, #68]	; (8000ce8 <HAL_UART_MspInit+0x58>)
  8000ca2:	6822      	ldr	r2, [r4, #0]
@@ -2335,7 +2335,7 @@ LoopFillZerobss:
  8000d1a:	f7ff fe95 	bl	8000a48 <SystemInit>
 /* Call static constructors */
     bl __libc_init_array
- 8000d1e:	f003 fb89 	bl	8004434 <__libc_init_array>
+ 8000d1e:	f003 fb91 	bl	8004444 <__libc_init_array>
 /* Call the application's entry point.*/
   bl  main
  8000d22:	f7ff fd4f 	bl	80007c4 <main>
@@ -2352,7 +2352,7 @@ LoopForever:
   ldr r1, =_edata
  8000d30:	20000070 	.word	0x20000070
   ldr r2, =_sidata
- 8000d34:	08004678 	.word	0x08004678
+ 8000d34:	080046b0 	.word	0x080046b0
   ldr r2, =_sbss
  8000d38:	20000070 	.word	0x20000070
   ldr r4, =_ebss
@@ -6194,7 +6194,7 @@ HAL_StatusTypeDef HAL_I2CEx_ConfigDigitalFilter(I2C_HandleTypeDef *hi2c, uint32_
  80021d8:	007a1200 	.word	0x007a1200
  80021dc:	ff48e500 	.word	0xff48e500
  80021e0:	00f42400 	.word	0x00f42400
- 80021e4:	080045d4 	.word	0x080045d4
+ 80021e4:	080045e4 	.word	0x080045e4
  80021e8:	003d0900 	.word	0x003d0900
 
 080021ec <HAL_RCC_OscConfig>:
@@ -6725,7 +6725,7 @@ HAL_StatusTypeDef HAL_I2CEx_ConfigDigitalFilter(I2C_HandleTypeDef *hi2c, uint32_
  8002544:	00001388 	.word	0x00001388
  8002548:	40010000 	.word	0x40010000
  800254c:	feffffff 	.word	0xfeffffff
- 8002550:	080045bc 	.word	0x080045bc
+ 8002550:	080045cc 	.word	0x080045cc
  8002554:	20000000 	.word	0x20000000
  8002558:	20000008 	.word	0x20000008
        || ((sysclk_source == RCC_SYSCLKSOURCE_STATUS_PLLCLK) && (pll_config == RCC_PLLSOURCE_HSI)))
@@ -7099,7 +7099,7 @@ HAL_StatusTypeDef HAL_I2CEx_ConfigDigitalFilter(I2C_HandleTypeDef *hi2c, uint32_
  80027a6:	46c0      	nop			; (mov r8, r8)
  80027a8:	40021000 	.word	0x40021000
  80027ac:	ffffe0ff 	.word	0xffffe0ff
- 80027b0:	080045bc 	.word	0x080045bc
+ 80027b0:	080045cc 	.word	0x080045cc
  80027b4:	20000000 	.word	0x20000000
  80027b8:	20000008 	.word	0x20000008
  80027bc:	fffffeff 	.word	0xfffffeff
@@ -7395,7 +7395,7 @@ HAL_StatusTypeDef HAL_I2CEx_ConfigDigitalFilter(I2C_HandleTypeDef *hi2c, uint32_
  80029a0:	40021000 	.word	0x40021000
  80029a4:	00001388 	.word	0x00001388
  80029a8:	fffff8ff 	.word	0xfffff8ff
- 80029ac:	080045bc 	.word	0x080045bc
+ 80029ac:	080045cc 	.word	0x080045cc
  80029b0:	20000000 	.word	0x20000000
  80029b4:	20000008 	.word	0x20000008
  80029b8:	ffffc7ff 	.word	0xffffc7ff
@@ -7419,7 +7419,7 @@ uint32_t HAL_RCC_GetPCLK1Freq(void)
 }
  80029ce:	4770      	bx	lr
  80029d0:	40021000 	.word	0x40021000
- 80029d4:	080045cc 	.word	0x080045cc
+ 80029d4:	080045dc 	.word	0x080045dc
  80029d8:	20000000 	.word	0x20000000
 
 080029dc <HAL_RCC_GetPCLK2Freq>:
@@ -7441,7 +7441,7 @@ uint32_t HAL_RCC_GetPCLK2Freq(void)
 }
  80029ee:	4770      	bx	lr
  80029f0:	40021000 	.word	0x40021000
- 80029f4:	080045cc 	.word	0x080045cc
+ 80029f4:	080045dc 	.word	0x080045dc
  80029f8:	20000000 	.word	0x20000000
 
 080029fc <HAL_RCCEx_PeriphCLKConfig>:
@@ -10398,17 +10398,17 @@ HAL_StatusTypeDef UART_WaitOnFlagUntilTimeout(UART_HandleTypeDef *huart, uint32_
  8003978:	40013800 	.word	0x40013800
  800397c:	40004400 	.word	0x40004400
  8003980:	40021000 	.word	0x40021000
- 8003984:	08004628 	.word	0x08004628
- 8003988:	080045e0 	.word	0x080045e0
+ 8003984:	08004638 	.word	0x08004638
+ 8003988:	080045f0 	.word	0x080045f0
  800398c:	fffffd00 	.word	0xfffffd00
  8003990:	000ffcff 	.word	0x000ffcff
  8003994:	0000ffef 	.word	0x0000ffef
  8003998:	ffffb7ff 	.word	0xffffb7ff
  800399c:	00b71b00 	.word	0x00b71b00
  80039a0:	003d0900 	.word	0x003d0900
- 80039a4:	08004604 	.word	0x08004604
+ 80039a4:	08004614 	.word	0x08004614
  80039a8:	0000fff0 	.word	0x0000fff0
- 80039ac:	0800462c 	.word	0x0800462c
+ 80039ac:	0800463c 	.word	0x0800463c
  80039b0:	016e3600 	.word	0x016e3600
  80039b4:	007a1200 	.word	0x007a1200
 
@@ -10440,7 +10440,7 @@ InternalBus_t * internal_bus_create(GPIO_TypeDef *bus_line,uint16_t bus_pins,GPI
  80039dc:	9205      	str	r2, [sp, #20]
  80039de:	9402      	str	r4, [sp, #8]
 	InternalBus_t * thisInternalBus = (InternalBus_t *) malloc(sizeof(InternalBus_t));
- 80039e0:	f000 fd4c 	bl	800447c <malloc>
+ 80039e0:	f000 fd54 	bl	800448c <malloc>
 	if(thisInternalBus != NULL)
  80039e4:	2800      	cmp	r0, #0
  80039e6:	d100      	bne.n	80039ea <internal_bus_create+0x32>
@@ -11021,7 +11021,7 @@ Magnetometer_t * magnetometer_create(uint8_t type,SPI_HandleTypeDef *spi_line,GP
  8003c60:	4690      	mov	r8, r2
  8003c62:	469a      	mov	sl, r3
 	Magnetometer_t *  thisMagnetometer = malloc(sizeof(Magnetometer_t));
- 8003c64:	f000 fc0a 	bl	800447c <malloc>
+ 8003c64:	f000 fc12 	bl	800448c <malloc>
  8003c68:	1e04      	subs	r4, r0, #0
 	if(thisMagnetometer != NULL)
  8003c6a:	d015      	beq.n	8003c98 <magnetometer_create+0x54>
@@ -11142,7 +11142,7 @@ I2C_t * I2C_interface_create(I2C_HandleTypeDef *I2C_handle,uint8_t channel_addre
 {
  8003cee:	000e      	movs	r6, r1
 	I2C_t * thisI2C = (I2C_t *) malloc(sizeof(I2C_t));
- 8003cf0:	f000 fbc4 	bl	800447c <malloc>
+ 8003cf0:	f000 fbcc 	bl	800448c <malloc>
  8003cf4:	1e04      	subs	r4, r0, #0
 	if(thisI2C != NULL)
  8003cf6:	d017      	beq.n	8003d28 <I2C_interface_create+0x40>
@@ -11292,7 +11292,7 @@ LIS3MDL_t * LIS3MDL_create(SPI_HandleTypeDef *spi_line,GPIO_TypeDef *CS_Bus,uint
  8003da6:	0016      	movs	r6, r2
  8003da8:	4699      	mov	r9, r3
 	LIS3MDL_t * thisLIS3MDL = (LIS3MDL_t *)malloc(sizeof(LIS3MDL_t));
- 8003daa:	f000 fb67 	bl	800447c <malloc>
+ 8003daa:	f000 fb6f 	bl	800448c <malloc>
 	thisLIS3MDL->CS_GPIO_Bus = CS_Bus;
 	thisLIS3MDL->CS_GPIO_Pin = CS_Pin;
 	thisLIS3MDL->DRDY_GPIO_Bus = DRDY_Bus;
@@ -11531,7 +11531,7 @@ MMC5983_t * MMC5983_create(SPI_HandleTypeDef *spi_line,GPIO_TypeDef *CS_Bus,uint
  8003f1e:	0016      	movs	r6, r2
  8003f20:	4699      	mov	r9, r3
 	MMC5983_t * thisMMC5983 = (MMC5983_t *) malloc(sizeof(MMC5983_t));
- 8003f22:	f000 faab 	bl	800447c <malloc>
+ 8003f22:	f000 fab3 	bl	800448c <malloc>
 	thisMMC5983->CS_GPIO_Bus = CS_Bus;
 	thisMMC5983->CS_GPIO_Pin = CS_Pin;
 	thisMMC5983->INT_GPIO_Bus = INT_Bus;
@@ -12110,487 +12110,478 @@ void module_system_init(System *thisSystem)
 void state_machine(System *thisSystem)
 {
  80042a4:	b5f0      	push	{r4, r5, r6, r7, lr}
- 80042a6:	4d5a      	ldr	r5, [pc, #360]	; (8004410 <state_machine+0x16c>)
- 80042a8:	b08d      	sub	sp, #52	; 0x34
- 80042aa:	4f5a      	ldr	r7, [pc, #360]	; (8004414 <state_machine+0x170>)
- 80042ac:	ac02      	add	r4, sp, #8
- 80042ae:	ae01      	add	r6, sp, #4
+ 80042a6:	46ce      	mov	lr, r9
+ 80042a8:	2612      	movs	r6, #18
+ 80042aa:	b500      	push	{lr}
+ 80042ac:	4b5c      	ldr	r3, [pc, #368]	; (8004420 <state_machine+0x17c>)
+ 80042ae:	b08c      	sub	sp, #48	; 0x30
 	uint8_t testData[40];// = {255,0,0,100,0,1,0,2,0,3,0,0,0,200,0,4,0,5,0,6,0,0,0,30,0,7,0,8,0,9,255};  //TODO remove after Link data output to magnetometer memory instead
-
-	while(1)
-	{
-		if(magnetometer_read(my_sys.sensors[0]))
- 80042b0:	6a28      	ldr	r0, [r5, #32]
- 80042b2:	f7ff fd05 	bl	8003cc0 <magnetometer_read>
- 80042b6:	2800      	cmp	r0, #0
- 80042b8:	d158      	bne.n	800436c <state_machine+0xc8>
- 80042ba:	6a28      	ldr	r0, [r5, #32]
-			testData[8] = *((uint8_t*)my_sys.sensors[0]->Readings + 4);
-			testData[9] = *((uint8_t*)my_sys.sensors[0]->Readings + 5);
-
-		}
-		//---------------
-		if(magnetometer_read(my_sys.sensors[0]))
- 80042bc:	f7ff fd00 	bl	8003cc0 <magnetometer_read>
- 80042c0:	2800      	cmp	r0, #0
- 80042c2:	d00f      	beq.n	80042e4 <state_machine+0x40>
-		{
-
-			*(uint32_t *)testData[10]++;
- 80042c4:	7aa3      	ldrb	r3, [r4, #10]
- 80042c6:	3301      	adds	r3, #1
- 80042c8:	72a3      	strb	r3, [r4, #10]
-			testData[14] = *((uint8_t*)my_sys.sensors[1]->Readings + 0);
- 80042ca:	6a6b      	ldr	r3, [r5, #36]	; 0x24
- 80042cc:	7a1a      	ldrb	r2, [r3, #8]
- 80042ce:	73a2      	strb	r2, [r4, #14]
-			testData[15] = *((uint8_t*)my_sys.sensors[1]->Readings + 1);
- 80042d0:	7a5a      	ldrb	r2, [r3, #9]
- 80042d2:	73e2      	strb	r2, [r4, #15]
-			testData[16] = *((uint8_t*)my_sys.sensors[1]->Readings + 2);
- 80042d4:	7a9a      	ldrb	r2, [r3, #10]
- 80042d6:	7422      	strb	r2, [r4, #16]
-			testData[17] = *((uint8_t*)my_sys.sensors[1]->Readings + 3);
- 80042d8:	7ada      	ldrb	r2, [r3, #11]
- 80042da:	7462      	strb	r2, [r4, #17]
-			testData[18] = *((uint8_t*)my_sys.sensors[1]->Readings + 4);
- 80042dc:	7b1a      	ldrb	r2, [r3, #12]
- 80042de:	74a2      	strb	r2, [r4, #18]
-			testData[19] = *((uint8_t*)my_sys.sensors[1]->Readings + 5);
- 80042e0:	7b5b      	ldrb	r3, [r3, #13]
- 80042e2:	74e3      	strb	r3, [r4, #19]
-
-		}
-		//-------------
-		if(magnetometer_read(my_sys.sensors[0]))
- 80042e4:	6a28      	ldr	r0, [r5, #32]
- 80042e6:	f7ff fceb 	bl	8003cc0 <magnetometer_read>
- 80042ea:	2800      	cmp	r0, #0
- 80042ec:	d100      	bne.n	80042f0 <state_machine+0x4c>
- 80042ee:	e088      	b.n	8004402 <state_machine+0x15e>
-		{
-
-			*(uint32_t *)testData[20]++;
- 80042f0:	7d23      	ldrb	r3, [r4, #20]
- 80042f2:	3301      	adds	r3, #1
- 80042f4:	7523      	strb	r3, [r4, #20]
-			testData[24] = *((uint8_t*)my_sys.sensors[2]->Readings + 0);
- 80042f6:	6aab      	ldr	r3, [r5, #40]	; 0x28
- 80042f8:	7a1a      	ldrb	r2, [r3, #8]
- 80042fa:	7622      	strb	r2, [r4, #24]
-			testData[25] = *((uint8_t*)my_sys.sensors[2]->Readings + 1);
- 80042fc:	7a5a      	ldrb	r2, [r3, #9]
- 80042fe:	7662      	strb	r2, [r4, #25]
-			testData[26] = *((uint8_t*)my_sys.sensors[2]->Readings + 2);
- 8004300:	7a9a      	ldrb	r2, [r3, #10]
- 8004302:	76a2      	strb	r2, [r4, #26]
-			testData[27] = *((uint8_t*)my_sys.sensors[2]->Readings + 3);
- 8004304:	7ada      	ldrb	r2, [r3, #11]
- 8004306:	76e2      	strb	r2, [r4, #27]
-			testData[28] = *((uint8_t*)my_sys.sensors[2]->Readings + 4);
- 8004308:	7b1a      	ldrb	r2, [r3, #12]
- 800430a:	7722      	strb	r2, [r4, #28]
-			testData[29] = *((uint8_t*)my_sys.sensors[2]->Readings + 5);
- 800430c:	7b5b      	ldrb	r3, [r3, #13]
- 800430e:	7763      	strb	r3, [r4, #29]
+	int read_permit =0;
+ 80042b0:	2700      	movs	r7, #0
+ 80042b2:	4699      	mov	r9, r3
+ 80042b4:	4d5b      	ldr	r5, [pc, #364]	; (8004424 <state_machine+0x180>)
+ 80042b6:	ac02      	add	r4, sp, #8
+ 80042b8:	446e      	add	r6, sp
+ 80042ba:	e003      	b.n	80042c4 <state_machine+0x20>
+				testData[28] = *((uint8_t*)my_sys.sensors[2]->Readings + 4);
+				testData[29] = *((uint8_t*)my_sys.sensors[2]->Readings + 5);
+			}
 		}
 		//------------------------------------------
 		if(my_sys.i2c_line->buffer_index)
- 8004310:	6aeb      	ldr	r3, [r5, #44]	; 0x2c
- 8004312:	781a      	ldrb	r2, [r3, #0]
- 8004314:	2a00      	cmp	r2, #0
- 8004316:	d0cb      	beq.n	80042b0 <state_machine+0xc>
+ 80042bc:	6aeb      	ldr	r3, [r5, #44]	; 0x2c
+ 80042be:	781a      	ldrb	r2, [r3, #0]
+ 80042c0:	2a00      	cmp	r2, #0
+ 80042c2:	d149      	bne.n	8004358 <state_machine+0xb4>
+		if(read_permit)
+ 80042c4:	2f00      	cmp	r7, #0
+ 80042c6:	d0f9      	beq.n	80042bc <state_machine+0x18>
+			if(magnetometer_read(my_sys.sensors[0]))
+ 80042c8:	6a28      	ldr	r0, [r5, #32]
+ 80042ca:	f7ff fcf9 	bl	8003cc0 <magnetometer_read>
+ 80042ce:	2800      	cmp	r0, #0
+ 80042d0:	d00f      	beq.n	80042f2 <state_machine+0x4e>
+				(*(uint32_t *)(testData + 0))++;
+ 80042d2:	9b02      	ldr	r3, [sp, #8]
+ 80042d4:	3301      	adds	r3, #1
+ 80042d6:	9302      	str	r3, [sp, #8]
+				testData[4] = *((uint8_t*)my_sys.sensors[0]->Readings + 0);
+ 80042d8:	6a2b      	ldr	r3, [r5, #32]
+ 80042da:	7a1a      	ldrb	r2, [r3, #8]
+ 80042dc:	7122      	strb	r2, [r4, #4]
+				testData[5] = *((uint8_t*)my_sys.sensors[0]->Readings + 1);
+ 80042de:	7a5a      	ldrb	r2, [r3, #9]
+ 80042e0:	7162      	strb	r2, [r4, #5]
+				testData[6] = *((uint8_t*)my_sys.sensors[0]->Readings + 2);
+ 80042e2:	7a9a      	ldrb	r2, [r3, #10]
+ 80042e4:	71a2      	strb	r2, [r4, #6]
+				testData[7] = *((uint8_t*)my_sys.sensors[0]->Readings + 3);
+ 80042e6:	7ada      	ldrb	r2, [r3, #11]
+ 80042e8:	71e2      	strb	r2, [r4, #7]
+				testData[8] = *((uint8_t*)my_sys.sensors[0]->Readings + 4);
+ 80042ea:	7b1a      	ldrb	r2, [r3, #12]
+ 80042ec:	7222      	strb	r2, [r4, #8]
+				testData[9] = *((uint8_t*)my_sys.sensors[0]->Readings + 5);
+ 80042ee:	7b5b      	ldrb	r3, [r3, #13]
+ 80042f0:	7263      	strb	r3, [r4, #9]
+			if(magnetometer_read(my_sys.sensors[1]))
+ 80042f2:	6a68      	ldr	r0, [r5, #36]	; 0x24
+ 80042f4:	f7ff fce4 	bl	8003cc0 <magnetometer_read>
+ 80042f8:	2800      	cmp	r0, #0
+ 80042fa:	d014      	beq.n	8004326 <state_machine+0x82>
+				(*(uint32_t *)(testData + 10))++;
+ 80042fc:	8873      	ldrh	r3, [r6, #2]
+ 80042fe:	8832      	ldrh	r2, [r6, #0]
+ 8004300:	041b      	lsls	r3, r3, #16
+ 8004302:	4313      	orrs	r3, r2
+ 8004304:	3301      	adds	r3, #1
+ 8004306:	8033      	strh	r3, [r6, #0]
+ 8004308:	0c1b      	lsrs	r3, r3, #16
+ 800430a:	8073      	strh	r3, [r6, #2]
+				testData[14] = *((uint8_t*)my_sys.sensors[1]->Readings + 0);
+ 800430c:	6a6b      	ldr	r3, [r5, #36]	; 0x24
+ 800430e:	7a1a      	ldrb	r2, [r3, #8]
+ 8004310:	73a2      	strb	r2, [r4, #14]
+				testData[15] = *((uint8_t*)my_sys.sensors[1]->Readings + 1);
+ 8004312:	7a5a      	ldrb	r2, [r3, #9]
+ 8004314:	73e2      	strb	r2, [r4, #15]
+				testData[16] = *((uint8_t*)my_sys.sensors[1]->Readings + 2);
+ 8004316:	7a9a      	ldrb	r2, [r3, #10]
+ 8004318:	7422      	strb	r2, [r4, #16]
+				testData[17] = *((uint8_t*)my_sys.sensors[1]->Readings + 3);
+ 800431a:	7ada      	ldrb	r2, [r3, #11]
+ 800431c:	7462      	strb	r2, [r4, #17]
+				testData[18] = *((uint8_t*)my_sys.sensors[1]->Readings + 4);
+ 800431e:	7b1a      	ldrb	r2, [r3, #12]
+ 8004320:	74a2      	strb	r2, [r4, #18]
+				testData[19] = *((uint8_t*)my_sys.sensors[1]->Readings + 5);
+ 8004322:	7b5b      	ldrb	r3, [r3, #13]
+ 8004324:	74e3      	strb	r3, [r4, #19]
+			if(magnetometer_read(my_sys.sensors[2]))
+ 8004326:	6aa8      	ldr	r0, [r5, #40]	; 0x28
+ 8004328:	f7ff fcca 	bl	8003cc0 <magnetometer_read>
+ 800432c:	2800      	cmp	r0, #0
+ 800432e:	d0c5      	beq.n	80042bc <state_machine+0x18>
+				(*(uint32_t *)(testData + 20))++;
+ 8004330:	9b07      	ldr	r3, [sp, #28]
+ 8004332:	3301      	adds	r3, #1
+ 8004334:	9307      	str	r3, [sp, #28]
+				testData[24] = *((uint8_t*)my_sys.sensors[2]->Readings + 0);
+ 8004336:	6aab      	ldr	r3, [r5, #40]	; 0x28
+ 8004338:	7a1a      	ldrb	r2, [r3, #8]
+ 800433a:	7622      	strb	r2, [r4, #24]
+				testData[25] = *((uint8_t*)my_sys.sensors[2]->Readings + 1);
+ 800433c:	7a5a      	ldrb	r2, [r3, #9]
+ 800433e:	7662      	strb	r2, [r4, #25]
+				testData[26] = *((uint8_t*)my_sys.sensors[2]->Readings + 2);
+ 8004340:	7a9a      	ldrb	r2, [r3, #10]
+ 8004342:	76a2      	strb	r2, [r4, #26]
+				testData[27] = *((uint8_t*)my_sys.sensors[2]->Readings + 3);
+ 8004344:	7ada      	ldrb	r2, [r3, #11]
+ 8004346:	76e2      	strb	r2, [r4, #27]
+				testData[28] = *((uint8_t*)my_sys.sensors[2]->Readings + 4);
+ 8004348:	7b1a      	ldrb	r2, [r3, #12]
+ 800434a:	7722      	strb	r2, [r4, #28]
+				testData[29] = *((uint8_t*)my_sys.sensors[2]->Readings + 5);
+ 800434c:	7b5b      	ldrb	r3, [r3, #13]
+ 800434e:	7763      	strb	r3, [r4, #29]
+		if(my_sys.i2c_line->buffer_index)
+ 8004350:	6aeb      	ldr	r3, [r5, #44]	; 0x2c
+ 8004352:	781a      	ldrb	r2, [r3, #0]
+ 8004354:	2a00      	cmp	r2, #0
+ 8004356:	d0b5      	beq.n	80042c4 <state_machine+0x20>
 		{
 			switch(my_sys.i2c_line->receiveBuffer[0])
- 8004318:	785a      	ldrb	r2, [r3, #1]
- 800431a:	3a0a      	subs	r2, #10
- 800431c:	b2d2      	uxtb	r2, r2
- 800431e:	2a0a      	cmp	r2, #10
- 8004320:	d809      	bhi.n	8004336 <state_machine+0x92>
- 8004322:	0092      	lsls	r2, r2, #2
- 8004324:	58bb      	ldr	r3, [r7, r2]
- 8004326:	469f      	mov	pc, r3
-					break;
-				}
-				//-------------------------------
-				case I2C_PACKET_SET_BLUE_ON:
-				{
-					  HAL_GPIO_WritePin(SPI_B_CS_GPIO_Port, SPI_B_CS_Pin, GPIO_PIN_RESET);
- 8004328:	2200      	movs	r2, #0
+ 8004358:	785a      	ldrb	r2, [r3, #1]
+ 800435a:	3a0a      	subs	r2, #10
+ 800435c:	b2d2      	uxtb	r2, r2
+ 800435e:	2a14      	cmp	r2, #20
+ 8004360:	d80a      	bhi.n	8004378 <state_machine+0xd4>
+ 8004362:	4649      	mov	r1, r9
+ 8004364:	0092      	lsls	r2, r2, #2
+ 8004366:	588a      	ldr	r2, [r1, r2]
+ 8004368:	4697      	mov	pc, r2
 					break;
 				}
 				//-------------------------------
 				case I2C_PACKET_SET_BLUE_OFF:
 				{
 					  HAL_GPIO_WritePin(SPI_B_CS_GPIO_Port, SPI_B_CS_Pin, GPIO_PIN_SET);
- 800432a:	20a0      	movs	r0, #160	; 0xa0
- 800432c:	2180      	movs	r1, #128	; 0x80
- 800432e:	05c0      	lsls	r0, r0, #23
- 8004330:	f7fd fb0c 	bl	800194c <HAL_GPIO_WritePin>
+ 800436a:	2201      	movs	r2, #1
+ 800436c:	20a0      	movs	r0, #160	; 0xa0
+ 800436e:	2180      	movs	r1, #128	; 0x80
+ 8004370:	05c0      	lsls	r0, r0, #23
+ 8004372:	f7fd faeb 	bl	800194c <HAL_GPIO_WritePin>
 					break;
- 8004334:	6aeb      	ldr	r3, [r5, #44]	; 0x2c
+ 8004376:	6aeb      	ldr	r3, [r5, #44]	; 0x2c
 				}
 			}
 			//-------- if we get any data higher than 0x80  it mean it is a new address
 			if ( my_sys.i2c_line->receiveBuffer[0] > I2C_PACKET_SET_NEW_ADDRESS )
- 8004336:	785a      	ldrb	r2, [r3, #1]
- 8004338:	2a80      	cmp	r2, #128	; 0x80
- 800433a:	d910      	bls.n	800435e <state_machine+0xba>
+ 8004378:	785a      	ldrb	r2, [r3, #1]
+ 800437a:	2a80      	cmp	r2, #128	; 0x80
+ 800437c:	d910      	bls.n	80043a0 <state_machine+0xfc>
 			{
 				uint8_t i2c_new_address[4]={3,3,3,3};
- 800433c:	4a36      	ldr	r2, [pc, #216]	; (8004418 <state_machine+0x174>)
+ 800437e:	4a2a      	ldr	r2, [pc, #168]	; (8004428 <state_machine+0x184>)
 				uint8_t temp_data[4]={0,0,0,0};
 				i2c_new_address[0] =  (uint8_t)my_sys.i2c_line->receiveBuffer[0] & 0x7f;
 				if( !EEPROM_save(EEPROM_I2C_ADDR, i2c_new_address, 1) )
- 800433e:	4669      	mov	r1, sp
+ 8004380:	4669      	mov	r1, sp
 				uint8_t i2c_new_address[4]={3,3,3,3};
- 8004340:	9200      	str	r2, [sp, #0]
+ 8004382:	9200      	str	r2, [sp, #0]
 				uint8_t temp_data[4]={0,0,0,0};
- 8004342:	2200      	movs	r2, #0
- 8004344:	6032      	str	r2, [r6, #0]
+ 8004384:	2200      	movs	r2, #0
+ 8004386:	9201      	str	r2, [sp, #4]
 				i2c_new_address[0] =  (uint8_t)my_sys.i2c_line->receiveBuffer[0] & 0x7f;
- 8004346:	785a      	ldrb	r2, [r3, #1]
- 8004348:	237f      	movs	r3, #127	; 0x7f
- 800434a:	4013      	ands	r3, r2
- 800434c:	466a      	mov	r2, sp
+ 8004388:	785a      	ldrb	r2, [r3, #1]
+ 800438a:	237f      	movs	r3, #127	; 0x7f
+ 800438c:	4013      	ands	r3, r2
+ 800438e:	466a      	mov	r2, sp
 				if( !EEPROM_save(EEPROM_I2C_ADDR, i2c_new_address, 1) )
- 800434e:	4833      	ldr	r0, [pc, #204]	; (800441c <state_machine+0x178>)
+ 8004390:	4826      	ldr	r0, [pc, #152]	; (800442c <state_machine+0x188>)
 				i2c_new_address[0] =  (uint8_t)my_sys.i2c_line->receiveBuffer[0] & 0x7f;
- 8004350:	7013      	strb	r3, [r2, #0]
+ 8004392:	7013      	strb	r3, [r2, #0]
 				if( !EEPROM_save(EEPROM_I2C_ADDR, i2c_new_address, 1) )
- 8004352:	2201      	movs	r2, #1
- 8004354:	f7ff fc48 	bl	8003be8 <EEPROM_save>
- 8004358:	2800      	cmp	r0, #0
- 800435a:	d118      	bne.n	800438e <state_machine+0xea>
+ 8004394:	2201      	movs	r2, #1
+ 8004396:	f7ff fc27 	bl	8003be8 <EEPROM_save>
+ 800439a:	2800      	cmp	r0, #0
+ 800439c:	d103      	bne.n	80043a6 <state_machine+0x102>
 					if( !EEPROM_save(EEPROM_FIRST_TIME_INITIATION, temp_data,1) )  //TODO  this is bungee jumping without rope we assume everything if good no error check
 					{
 						//TODO we failed to saved
 						//this is bad we can kill the whole system master micro should now about this
 						//we donot have any valid address for now we go to idle mode we never activate common bus
 					}
- 800435c:	6aeb      	ldr	r3, [r5, #44]	; 0x2c
+ 800439e:	6aeb      	ldr	r3, [r5, #44]	; 0x2c
 				}
 			}
 		my_sys.i2c_line->buffer_index =0;
- 800435e:	2200      	movs	r2, #0
- 8004360:	701a      	strb	r2, [r3, #0]
-		if(magnetometer_read(my_sys.sensors[0]))
- 8004362:	6a28      	ldr	r0, [r5, #32]
- 8004364:	f7ff fcac 	bl	8003cc0 <magnetometer_read>
- 8004368:	2800      	cmp	r0, #0
- 800436a:	d0a6      	beq.n	80042ba <state_machine+0x16>
-			*(uint32_t *)testData[0]++;
- 800436c:	7823      	ldrb	r3, [r4, #0]
-			testData[4] = *((uint8_t*)my_sys.sensors[0]->Readings + 0);
- 800436e:	6a28      	ldr	r0, [r5, #32]
-			*(uint32_t *)testData[0]++;
- 8004370:	3301      	adds	r3, #1
- 8004372:	7023      	strb	r3, [r4, #0]
-			testData[4] = *((uint8_t*)my_sys.sensors[0]->Readings + 0);
- 8004374:	7a03      	ldrb	r3, [r0, #8]
- 8004376:	7123      	strb	r3, [r4, #4]
-			testData[5] = *((uint8_t*)my_sys.sensors[0]->Readings + 1);
- 8004378:	7a43      	ldrb	r3, [r0, #9]
- 800437a:	7163      	strb	r3, [r4, #5]
-			testData[6] = *((uint8_t*)my_sys.sensors[0]->Readings + 2);
- 800437c:	7a83      	ldrb	r3, [r0, #10]
- 800437e:	71a3      	strb	r3, [r4, #6]
-			testData[7] = *((uint8_t*)my_sys.sensors[0]->Readings + 3);
- 8004380:	7ac3      	ldrb	r3, [r0, #11]
- 8004382:	71e3      	strb	r3, [r4, #7]
-			testData[8] = *((uint8_t*)my_sys.sensors[0]->Readings + 4);
- 8004384:	7b03      	ldrb	r3, [r0, #12]
- 8004386:	7223      	strb	r3, [r4, #8]
-			testData[9] = *((uint8_t*)my_sys.sensors[0]->Readings + 5);
- 8004388:	7b43      	ldrb	r3, [r0, #13]
- 800438a:	7263      	strb	r3, [r4, #9]
- 800438c:	e796      	b.n	80042bc <state_machine+0x18>
+ 80043a0:	2200      	movs	r2, #0
+ 80043a2:	701a      	strb	r2, [r3, #0]
+ 80043a4:	e78e      	b.n	80042c4 <state_machine+0x20>
 					temp_data[0] = EEPROM_FIRST_TIME_BOOT_MARKER;
- 800438e:	2321      	movs	r3, #33	; 0x21
+ 80043a6:	466a      	mov	r2, sp
+ 80043a8:	2321      	movs	r3, #33	; 0x21
 					if( !EEPROM_save(EEPROM_FIRST_TIME_INITIATION, temp_data,1) )  //TODO  this is bungee jumping without rope we assume everything if good no error check
- 8004390:	2201      	movs	r2, #1
- 8004392:	0031      	movs	r1, r6
- 8004394:	4822      	ldr	r0, [pc, #136]	; (8004420 <state_machine+0x17c>)
+ 80043aa:	a901      	add	r1, sp, #4
 					temp_data[0] = EEPROM_FIRST_TIME_BOOT_MARKER;
- 8004396:	7033      	strb	r3, [r6, #0]
+ 80043ac:	7113      	strb	r3, [r2, #4]
 					if( !EEPROM_save(EEPROM_FIRST_TIME_INITIATION, temp_data,1) )  //TODO  this is bungee jumping without rope we assume everything if good no error check
- 8004398:	f7ff fc26 	bl	8003be8 <EEPROM_save>
- 800439c:	e7de      	b.n	800435c <state_machine+0xb8>
+ 80043ae:	4820      	ldr	r0, [pc, #128]	; (8004430 <state_machine+0x18c>)
+ 80043b0:	2201      	movs	r2, #1
+ 80043b2:	f7ff fc19 	bl	8003be8 <EEPROM_save>
+ 80043b6:	e7f2      	b.n	800439e <state_machine+0xfa>
+					  HAL_GPIO_WritePin(SPI_B_CS_GPIO_Port, SPI_B_CS_Pin, GPIO_PIN_RESET);
+ 80043b8:	2200      	movs	r2, #0
+ 80043ba:	e7d7      	b.n	800436c <state_machine+0xc8>
 					  HAL_GPIO_WritePin(SPI_A_CS_GPIO_Port, SPI_A_CS_Pin, GPIO_PIN_SET);
- 800439e:	2201      	movs	r2, #1
- 80043a0:	20a0      	movs	r0, #160	; 0xa0
- 80043a2:	2140      	movs	r1, #64	; 0x40
- 80043a4:	05c0      	lsls	r0, r0, #23
- 80043a6:	f7fd fad1 	bl	800194c <HAL_GPIO_WritePin>
+ 80043bc:	2201      	movs	r2, #1
+ 80043be:	20a0      	movs	r0, #160	; 0xa0
+ 80043c0:	2140      	movs	r1, #64	; 0x40
+ 80043c2:	05c0      	lsls	r0, r0, #23
+ 80043c4:	f7fd fac2 	bl	800194c <HAL_GPIO_WritePin>
 					break;
- 80043aa:	6aeb      	ldr	r3, [r5, #44]	; 0x2c
- 80043ac:	e7c3      	b.n	8004336 <state_machine+0x92>
+ 80043c8:	6aeb      	ldr	r3, [r5, #44]	; 0x2c
+ 80043ca:	e7d5      	b.n	8004378 <state_machine+0xd4>
 					  HAL_GPIO_WritePin(SPI_A_CS_GPIO_Port, SPI_A_CS_Pin, GPIO_PIN_RESET);
- 80043ae:	2200      	movs	r2, #0
- 80043b0:	e7f6      	b.n	80043a0 <state_machine+0xfc>
+ 80043cc:	2200      	movs	r2, #0
+ 80043ce:	e7f6      	b.n	80043be <state_machine+0x11a>
 					  HAL_GPIO_WritePin(SPI_C_CS_GPIO_Port, SPI_C_CS_Pin, GPIO_PIN_SET);
- 80043b2:	2201      	movs	r2, #1
- 80043b4:	2180      	movs	r1, #128	; 0x80
- 80043b6:	20a0      	movs	r0, #160	; 0xa0
- 80043b8:	0049      	lsls	r1, r1, #1
- 80043ba:	05c0      	lsls	r0, r0, #23
- 80043bc:	f7fd fac6 	bl	800194c <HAL_GPIO_WritePin>
+ 80043d0:	2201      	movs	r2, #1
+ 80043d2:	2180      	movs	r1, #128	; 0x80
+ 80043d4:	20a0      	movs	r0, #160	; 0xa0
+ 80043d6:	0049      	lsls	r1, r1, #1
+ 80043d8:	05c0      	lsls	r0, r0, #23
+ 80043da:	f7fd fab7 	bl	800194c <HAL_GPIO_WritePin>
 					break;
- 80043c0:	6aeb      	ldr	r3, [r5, #44]	; 0x2c
- 80043c2:	e7b8      	b.n	8004336 <state_machine+0x92>
+ 80043de:	6aeb      	ldr	r3, [r5, #44]	; 0x2c
+ 80043e0:	e7ca      	b.n	8004378 <state_machine+0xd4>
 					  HAL_GPIO_WritePin(SPI_C_CS_GPIO_Port, SPI_C_CS_Pin, GPIO_PIN_RESET);
- 80043c4:	2200      	movs	r2, #0
- 80043c6:	e7f5      	b.n	80043b4 <state_machine+0x110>
+ 80043e2:	2200      	movs	r2, #0
+ 80043e4:	e7f5      	b.n	80043d2 <state_machine+0x12e>
 					 HAL_GPIO_WritePin(CHN_OUT_RST_GPIO_Port, CHN_OUT_RST_Pin, GPIO_PIN_SET);
- 80043c8:	2201      	movs	r2, #1
- 80043ca:	2180      	movs	r1, #128	; 0x80
- 80043cc:	4815      	ldr	r0, [pc, #84]	; (8004424 <state_machine+0x180>)
- 80043ce:	01c9      	lsls	r1, r1, #7
- 80043d0:	f7fd fabc 	bl	800194c <HAL_GPIO_WritePin>
+ 80043e6:	2201      	movs	r2, #1
+ 80043e8:	2180      	movs	r1, #128	; 0x80
+ 80043ea:	4812      	ldr	r0, [pc, #72]	; (8004434 <state_machine+0x190>)
+ 80043ec:	01c9      	lsls	r1, r1, #7
+ 80043ee:	f7fd faad 	bl	800194c <HAL_GPIO_WritePin>
 					break;
- 80043d4:	6aeb      	ldr	r3, [r5, #44]	; 0x2c
- 80043d6:	e7ae      	b.n	8004336 <state_machine+0x92>
+ 80043f2:	6aeb      	ldr	r3, [r5, #44]	; 0x2c
+ 80043f4:	e7c0      	b.n	8004378 <state_machine+0xd4>
 					  HAL_GPIO_WritePin(CHN_OUT_RST_GPIO_Port, CHN_OUT_RST_Pin, GPIO_PIN_RESET);
- 80043d8:	2200      	movs	r2, #0
- 80043da:	e7f6      	b.n	80043ca <state_machine+0x126>
+ 80043f6:	2200      	movs	r2, #0
+ 80043f8:	e7f6      	b.n	80043e8 <state_machine+0x144>
 					  HAL_GPIO_WritePin(CHN_OUT_BT0_GPIO_Port, CHN_OUT_BT0_Pin, GPIO_PIN_SET);
- 80043dc:	2201      	movs	r2, #1
- 80043de:	2180      	movs	r1, #128	; 0x80
- 80043e0:	4810      	ldr	r0, [pc, #64]	; (8004424 <state_machine+0x180>)
- 80043e2:	0209      	lsls	r1, r1, #8
- 80043e4:	f7fd fab2 	bl	800194c <HAL_GPIO_WritePin>
+ 80043fa:	2201      	movs	r2, #1
+ 80043fc:	2180      	movs	r1, #128	; 0x80
+ 80043fe:	480d      	ldr	r0, [pc, #52]	; (8004434 <state_machine+0x190>)
+ 8004400:	0209      	lsls	r1, r1, #8
+ 8004402:	f7fd faa3 	bl	800194c <HAL_GPIO_WritePin>
 					break;
- 80043e8:	6aeb      	ldr	r3, [r5, #44]	; 0x2c
- 80043ea:	e7a4      	b.n	8004336 <state_machine+0x92>
-					  HAL_GPIO_WritePin(SPI_B_CS_GPIO_Port, SPI_B_CS_Pin, GPIO_PIN_SET);
- 80043ec:	2201      	movs	r2, #1
- 80043ee:	e79c      	b.n	800432a <state_machine+0x86>
+ 8004406:	6aeb      	ldr	r3, [r5, #44]	; 0x2c
+ 8004408:	e7b6      	b.n	8004378 <state_machine+0xd4>
 					  HAL_GPIO_WritePin(CHN_OUT_BT0_GPIO_Port, CHN_OUT_BT0_Pin, GPIO_PIN_RESET);
- 80043f0:	2200      	movs	r2, #0
- 80043f2:	e7f4      	b.n	80043de <state_machine+0x13a>
+ 800440a:	2200      	movs	r2, #0
+ 800440c:	e7f6      	b.n	80043fc <state_machine+0x158>
 					internal_bus_write_data_frame(my_sys.data_bus,testData,31);
- 80043f4:	221f      	movs	r2, #31
- 80043f6:	0021      	movs	r1, r4
- 80043f8:	6b28      	ldr	r0, [r5, #48]	; 0x30
- 80043fa:	f7ff fb9d 	bl	8003b38 <internal_bus_write_data_frame>
+ 800440e:	221f      	movs	r2, #31
+ 8004410:	0021      	movs	r1, r4
+ 8004412:	6b28      	ldr	r0, [r5, #48]	; 0x30
+ 8004414:	f7ff fb90 	bl	8003b38 <internal_bus_write_data_frame>
 					break;
- 80043fe:	6aeb      	ldr	r3, [r5, #44]	; 0x2c
- 8004400:	e799      	b.n	8004336 <state_machine+0x92>
-		if(my_sys.i2c_line->buffer_index)
- 8004402:	6aeb      	ldr	r3, [r5, #44]	; 0x2c
- 8004404:	781a      	ldrb	r2, [r3, #0]
- 8004406:	2a00      	cmp	r2, #0
- 8004408:	d100      	bne.n	800440c <state_machine+0x168>
- 800440a:	e751      	b.n	80042b0 <state_machine+0xc>
- 800440c:	e784      	b.n	8004318 <state_machine+0x74>
- 800440e:	46c0      	nop			; (mov r8, r8)
- 8004410:	20000140 	.word	0x20000140
- 8004414:	0800463c 	.word	0x0800463c
- 8004418:	03030303 	.word	0x03030303
- 800441c:	08080010 	.word	0x08080010
- 8004420:	08080020 	.word	0x08080020
- 8004424:	50000800 	.word	0x50000800
+ 8004418:	6aeb      	ldr	r3, [r5, #44]	; 0x2c
+ 800441a:	e7ad      	b.n	8004378 <state_machine+0xd4>
+			switch(my_sys.i2c_line->receiveBuffer[0])
+ 800441c:	2701      	movs	r7, #1
+ 800441e:	e7ab      	b.n	8004378 <state_machine+0xd4>
+ 8004420:	0800464c 	.word	0x0800464c
+ 8004424:	20000140 	.word	0x20000140
+ 8004428:	03030303 	.word	0x03030303
+ 800442c:	08080010 	.word	0x08080010
+ 8004430:	08080020 	.word	0x08080020
+ 8004434:	50000800 	.word	0x50000800
 
-08004428 <__errno>:
- 8004428:	4b01      	ldr	r3, [pc, #4]	; (8004430 <__errno+0x8>)
- 800442a:	6818      	ldr	r0, [r3, #0]
- 800442c:	4770      	bx	lr
- 800442e:	46c0      	nop			; (mov r8, r8)
- 8004430:	2000000c 	.word	0x2000000c
+08004438 <__errno>:
+ 8004438:	4b01      	ldr	r3, [pc, #4]	; (8004440 <__errno+0x8>)
+ 800443a:	6818      	ldr	r0, [r3, #0]
+ 800443c:	4770      	bx	lr
+ 800443e:	46c0      	nop			; (mov r8, r8)
+ 8004440:	2000000c 	.word	0x2000000c
 
-08004434 <__libc_init_array>:
- 8004434:	b570      	push	{r4, r5, r6, lr}
- 8004436:	2600      	movs	r6, #0
- 8004438:	4d0c      	ldr	r5, [pc, #48]	; (800446c <__libc_init_array+0x38>)
- 800443a:	4c0d      	ldr	r4, [pc, #52]	; (8004470 <__libc_init_array+0x3c>)
- 800443c:	1b64      	subs	r4, r4, r5
- 800443e:	10a4      	asrs	r4, r4, #2
- 8004440:	42a6      	cmp	r6, r4
- 8004442:	d109      	bne.n	8004458 <__libc_init_array+0x24>
- 8004444:	2600      	movs	r6, #0
- 8004446:	f000 f8ad 	bl	80045a4 <_init>
- 800444a:	4d0a      	ldr	r5, [pc, #40]	; (8004474 <__libc_init_array+0x40>)
- 800444c:	4c0a      	ldr	r4, [pc, #40]	; (8004478 <__libc_init_array+0x44>)
- 800444e:	1b64      	subs	r4, r4, r5
- 8004450:	10a4      	asrs	r4, r4, #2
- 8004452:	42a6      	cmp	r6, r4
- 8004454:	d105      	bne.n	8004462 <__libc_init_array+0x2e>
- 8004456:	bd70      	pop	{r4, r5, r6, pc}
- 8004458:	00b3      	lsls	r3, r6, #2
- 800445a:	58eb      	ldr	r3, [r5, r3]
- 800445c:	4798      	blx	r3
- 800445e:	3601      	adds	r6, #1
- 8004460:	e7ee      	b.n	8004440 <__libc_init_array+0xc>
- 8004462:	00b3      	lsls	r3, r6, #2
- 8004464:	58eb      	ldr	r3, [r5, r3]
- 8004466:	4798      	blx	r3
- 8004468:	3601      	adds	r6, #1
- 800446a:	e7f2      	b.n	8004452 <__libc_init_array+0x1e>
- 800446c:	08004670 	.word	0x08004670
- 8004470:	08004670 	.word	0x08004670
- 8004474:	08004670 	.word	0x08004670
- 8004478:	08004674 	.word	0x08004674
+08004444 <__libc_init_array>:
+ 8004444:	b570      	push	{r4, r5, r6, lr}
+ 8004446:	2600      	movs	r6, #0
+ 8004448:	4d0c      	ldr	r5, [pc, #48]	; (800447c <__libc_init_array+0x38>)
+ 800444a:	4c0d      	ldr	r4, [pc, #52]	; (8004480 <__libc_init_array+0x3c>)
+ 800444c:	1b64      	subs	r4, r4, r5
+ 800444e:	10a4      	asrs	r4, r4, #2
+ 8004450:	42a6      	cmp	r6, r4
+ 8004452:	d109      	bne.n	8004468 <__libc_init_array+0x24>
+ 8004454:	2600      	movs	r6, #0
+ 8004456:	f000 f8ad 	bl	80045b4 <_init>
+ 800445a:	4d0a      	ldr	r5, [pc, #40]	; (8004484 <__libc_init_array+0x40>)
+ 800445c:	4c0a      	ldr	r4, [pc, #40]	; (8004488 <__libc_init_array+0x44>)
+ 800445e:	1b64      	subs	r4, r4, r5
+ 8004460:	10a4      	asrs	r4, r4, #2
+ 8004462:	42a6      	cmp	r6, r4
+ 8004464:	d105      	bne.n	8004472 <__libc_init_array+0x2e>
+ 8004466:	bd70      	pop	{r4, r5, r6, pc}
+ 8004468:	00b3      	lsls	r3, r6, #2
+ 800446a:	58eb      	ldr	r3, [r5, r3]
+ 800446c:	4798      	blx	r3
+ 800446e:	3601      	adds	r6, #1
+ 8004470:	e7ee      	b.n	8004450 <__libc_init_array+0xc>
+ 8004472:	00b3      	lsls	r3, r6, #2
+ 8004474:	58eb      	ldr	r3, [r5, r3]
+ 8004476:	4798      	blx	r3
+ 8004478:	3601      	adds	r6, #1
+ 800447a:	e7f2      	b.n	8004462 <__libc_init_array+0x1e>
+ 800447c:	080046a8 	.word	0x080046a8
+ 8004480:	080046a8 	.word	0x080046a8
+ 8004484:	080046a8 	.word	0x080046a8
+ 8004488:	080046ac 	.word	0x080046ac
 
-0800447c <malloc>:
- 800447c:	b510      	push	{r4, lr}
- 800447e:	4b03      	ldr	r3, [pc, #12]	; (800448c <malloc+0x10>)
- 8004480:	0001      	movs	r1, r0
- 8004482:	6818      	ldr	r0, [r3, #0]
- 8004484:	f000 f80c 	bl	80044a0 <_malloc_r>
- 8004488:	bd10      	pop	{r4, pc}
- 800448a:	46c0      	nop			; (mov r8, r8)
- 800448c:	2000000c 	.word	0x2000000c
+0800448c <malloc>:
+ 800448c:	b510      	push	{r4, lr}
+ 800448e:	4b03      	ldr	r3, [pc, #12]	; (800449c <malloc+0x10>)
+ 8004490:	0001      	movs	r1, r0
+ 8004492:	6818      	ldr	r0, [r3, #0]
+ 8004494:	f000 f80c 	bl	80044b0 <_malloc_r>
+ 8004498:	bd10      	pop	{r4, pc}
+ 800449a:	46c0      	nop			; (mov r8, r8)
+ 800449c:	2000000c 	.word	0x2000000c
 
-08004490 <memset>:
- 8004490:	0003      	movs	r3, r0
- 8004492:	1882      	adds	r2, r0, r2
- 8004494:	4293      	cmp	r3, r2
- 8004496:	d100      	bne.n	800449a <memset+0xa>
- 8004498:	4770      	bx	lr
- 800449a:	7019      	strb	r1, [r3, #0]
- 800449c:	3301      	adds	r3, #1
- 800449e:	e7f9      	b.n	8004494 <memset+0x4>
+080044a0 <memset>:
+ 80044a0:	0003      	movs	r3, r0
+ 80044a2:	1882      	adds	r2, r0, r2
+ 80044a4:	4293      	cmp	r3, r2
+ 80044a6:	d100      	bne.n	80044aa <memset+0xa>
+ 80044a8:	4770      	bx	lr
+ 80044aa:	7019      	strb	r1, [r3, #0]
+ 80044ac:	3301      	adds	r3, #1
+ 80044ae:	e7f9      	b.n	80044a4 <memset+0x4>
 
-080044a0 <_malloc_r>:
- 80044a0:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
- 80044a2:	2303      	movs	r3, #3
- 80044a4:	1ccd      	adds	r5, r1, #3
- 80044a6:	439d      	bics	r5, r3
- 80044a8:	3508      	adds	r5, #8
- 80044aa:	0006      	movs	r6, r0
- 80044ac:	2d0c      	cmp	r5, #12
- 80044ae:	d21f      	bcs.n	80044f0 <_malloc_r+0x50>
- 80044b0:	250c      	movs	r5, #12
- 80044b2:	42a9      	cmp	r1, r5
- 80044b4:	d81e      	bhi.n	80044f4 <_malloc_r+0x54>
- 80044b6:	0030      	movs	r0, r6
- 80044b8:	f000 f862 	bl	8004580 <__malloc_lock>
- 80044bc:	4925      	ldr	r1, [pc, #148]	; (8004554 <_malloc_r+0xb4>)
- 80044be:	680a      	ldr	r2, [r1, #0]
- 80044c0:	0014      	movs	r4, r2
- 80044c2:	2c00      	cmp	r4, #0
- 80044c4:	d11a      	bne.n	80044fc <_malloc_r+0x5c>
- 80044c6:	4f24      	ldr	r7, [pc, #144]	; (8004558 <_malloc_r+0xb8>)
- 80044c8:	683b      	ldr	r3, [r7, #0]
- 80044ca:	2b00      	cmp	r3, #0
- 80044cc:	d104      	bne.n	80044d8 <_malloc_r+0x38>
- 80044ce:	0021      	movs	r1, r4
- 80044d0:	0030      	movs	r0, r6
- 80044d2:	f000 f843 	bl	800455c <_sbrk_r>
- 80044d6:	6038      	str	r0, [r7, #0]
- 80044d8:	0029      	movs	r1, r5
- 80044da:	0030      	movs	r0, r6
- 80044dc:	f000 f83e 	bl	800455c <_sbrk_r>
- 80044e0:	1c43      	adds	r3, r0, #1
- 80044e2:	d12b      	bne.n	800453c <_malloc_r+0x9c>
- 80044e4:	230c      	movs	r3, #12
- 80044e6:	0030      	movs	r0, r6
- 80044e8:	6033      	str	r3, [r6, #0]
- 80044ea:	f000 f851 	bl	8004590 <__malloc_unlock>
- 80044ee:	e003      	b.n	80044f8 <_malloc_r+0x58>
- 80044f0:	2d00      	cmp	r5, #0
- 80044f2:	dade      	bge.n	80044b2 <_malloc_r+0x12>
+080044b0 <_malloc_r>:
+ 80044b0:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
+ 80044b2:	2303      	movs	r3, #3
+ 80044b4:	1ccd      	adds	r5, r1, #3
+ 80044b6:	439d      	bics	r5, r3
+ 80044b8:	3508      	adds	r5, #8
+ 80044ba:	0006      	movs	r6, r0
+ 80044bc:	2d0c      	cmp	r5, #12
+ 80044be:	d21f      	bcs.n	8004500 <_malloc_r+0x50>
+ 80044c0:	250c      	movs	r5, #12
+ 80044c2:	42a9      	cmp	r1, r5
+ 80044c4:	d81e      	bhi.n	8004504 <_malloc_r+0x54>
+ 80044c6:	0030      	movs	r0, r6
+ 80044c8:	f000 f862 	bl	8004590 <__malloc_lock>
+ 80044cc:	4925      	ldr	r1, [pc, #148]	; (8004564 <_malloc_r+0xb4>)
+ 80044ce:	680a      	ldr	r2, [r1, #0]
+ 80044d0:	0014      	movs	r4, r2
+ 80044d2:	2c00      	cmp	r4, #0
+ 80044d4:	d11a      	bne.n	800450c <_malloc_r+0x5c>
+ 80044d6:	4f24      	ldr	r7, [pc, #144]	; (8004568 <_malloc_r+0xb8>)
+ 80044d8:	683b      	ldr	r3, [r7, #0]
+ 80044da:	2b00      	cmp	r3, #0
+ 80044dc:	d104      	bne.n	80044e8 <_malloc_r+0x38>
+ 80044de:	0021      	movs	r1, r4
+ 80044e0:	0030      	movs	r0, r6
+ 80044e2:	f000 f843 	bl	800456c <_sbrk_r>
+ 80044e6:	6038      	str	r0, [r7, #0]
+ 80044e8:	0029      	movs	r1, r5
+ 80044ea:	0030      	movs	r0, r6
+ 80044ec:	f000 f83e 	bl	800456c <_sbrk_r>
+ 80044f0:	1c43      	adds	r3, r0, #1
+ 80044f2:	d12b      	bne.n	800454c <_malloc_r+0x9c>
  80044f4:	230c      	movs	r3, #12
- 80044f6:	6033      	str	r3, [r6, #0]
- 80044f8:	2000      	movs	r0, #0
- 80044fa:	bdf8      	pop	{r3, r4, r5, r6, r7, pc}
- 80044fc:	6823      	ldr	r3, [r4, #0]
- 80044fe:	1b5b      	subs	r3, r3, r5
- 8004500:	d419      	bmi.n	8004536 <_malloc_r+0x96>
- 8004502:	2b0b      	cmp	r3, #11
- 8004504:	d903      	bls.n	800450e <_malloc_r+0x6e>
- 8004506:	6023      	str	r3, [r4, #0]
- 8004508:	18e4      	adds	r4, r4, r3
- 800450a:	6025      	str	r5, [r4, #0]
- 800450c:	e003      	b.n	8004516 <_malloc_r+0x76>
- 800450e:	6863      	ldr	r3, [r4, #4]
- 8004510:	42a2      	cmp	r2, r4
- 8004512:	d10e      	bne.n	8004532 <_malloc_r+0x92>
- 8004514:	600b      	str	r3, [r1, #0]
- 8004516:	0030      	movs	r0, r6
- 8004518:	f000 f83a 	bl	8004590 <__malloc_unlock>
- 800451c:	0020      	movs	r0, r4
- 800451e:	2207      	movs	r2, #7
- 8004520:	300b      	adds	r0, #11
- 8004522:	1d23      	adds	r3, r4, #4
- 8004524:	4390      	bics	r0, r2
- 8004526:	1ac2      	subs	r2, r0, r3
- 8004528:	4298      	cmp	r0, r3
- 800452a:	d0e6      	beq.n	80044fa <_malloc_r+0x5a>
- 800452c:	1a1b      	subs	r3, r3, r0
- 800452e:	50a3      	str	r3, [r4, r2]
- 8004530:	e7e3      	b.n	80044fa <_malloc_r+0x5a>
- 8004532:	6053      	str	r3, [r2, #4]
- 8004534:	e7ef      	b.n	8004516 <_malloc_r+0x76>
- 8004536:	0022      	movs	r2, r4
- 8004538:	6864      	ldr	r4, [r4, #4]
- 800453a:	e7c2      	b.n	80044c2 <_malloc_r+0x22>
- 800453c:	2303      	movs	r3, #3
- 800453e:	1cc4      	adds	r4, r0, #3
- 8004540:	439c      	bics	r4, r3
- 8004542:	42a0      	cmp	r0, r4
- 8004544:	d0e1      	beq.n	800450a <_malloc_r+0x6a>
- 8004546:	1a21      	subs	r1, r4, r0
- 8004548:	0030      	movs	r0, r6
- 800454a:	f000 f807 	bl	800455c <_sbrk_r>
- 800454e:	1c43      	adds	r3, r0, #1
- 8004550:	d1db      	bne.n	800450a <_malloc_r+0x6a>
- 8004552:	e7c7      	b.n	80044e4 <_malloc_r+0x44>
- 8004554:	20000090 	.word	0x20000090
- 8004558:	20000094 	.word	0x20000094
+ 80044f6:	0030      	movs	r0, r6
+ 80044f8:	6033      	str	r3, [r6, #0]
+ 80044fa:	f000 f851 	bl	80045a0 <__malloc_unlock>
+ 80044fe:	e003      	b.n	8004508 <_malloc_r+0x58>
+ 8004500:	2d00      	cmp	r5, #0
+ 8004502:	dade      	bge.n	80044c2 <_malloc_r+0x12>
+ 8004504:	230c      	movs	r3, #12
+ 8004506:	6033      	str	r3, [r6, #0]
+ 8004508:	2000      	movs	r0, #0
+ 800450a:	bdf8      	pop	{r3, r4, r5, r6, r7, pc}
+ 800450c:	6823      	ldr	r3, [r4, #0]
+ 800450e:	1b5b      	subs	r3, r3, r5
+ 8004510:	d419      	bmi.n	8004546 <_malloc_r+0x96>
+ 8004512:	2b0b      	cmp	r3, #11
+ 8004514:	d903      	bls.n	800451e <_malloc_r+0x6e>
+ 8004516:	6023      	str	r3, [r4, #0]
+ 8004518:	18e4      	adds	r4, r4, r3
+ 800451a:	6025      	str	r5, [r4, #0]
+ 800451c:	e003      	b.n	8004526 <_malloc_r+0x76>
+ 800451e:	6863      	ldr	r3, [r4, #4]
+ 8004520:	42a2      	cmp	r2, r4
+ 8004522:	d10e      	bne.n	8004542 <_malloc_r+0x92>
+ 8004524:	600b      	str	r3, [r1, #0]
+ 8004526:	0030      	movs	r0, r6
+ 8004528:	f000 f83a 	bl	80045a0 <__malloc_unlock>
+ 800452c:	0020      	movs	r0, r4
+ 800452e:	2207      	movs	r2, #7
+ 8004530:	300b      	adds	r0, #11
+ 8004532:	1d23      	adds	r3, r4, #4
+ 8004534:	4390      	bics	r0, r2
+ 8004536:	1ac2      	subs	r2, r0, r3
+ 8004538:	4298      	cmp	r0, r3
+ 800453a:	d0e6      	beq.n	800450a <_malloc_r+0x5a>
+ 800453c:	1a1b      	subs	r3, r3, r0
+ 800453e:	50a3      	str	r3, [r4, r2]
+ 8004540:	e7e3      	b.n	800450a <_malloc_r+0x5a>
+ 8004542:	6053      	str	r3, [r2, #4]
+ 8004544:	e7ef      	b.n	8004526 <_malloc_r+0x76>
+ 8004546:	0022      	movs	r2, r4
+ 8004548:	6864      	ldr	r4, [r4, #4]
+ 800454a:	e7c2      	b.n	80044d2 <_malloc_r+0x22>
+ 800454c:	2303      	movs	r3, #3
+ 800454e:	1cc4      	adds	r4, r0, #3
+ 8004550:	439c      	bics	r4, r3
+ 8004552:	42a0      	cmp	r0, r4
+ 8004554:	d0e1      	beq.n	800451a <_malloc_r+0x6a>
+ 8004556:	1a21      	subs	r1, r4, r0
+ 8004558:	0030      	movs	r0, r6
+ 800455a:	f000 f807 	bl	800456c <_sbrk_r>
+ 800455e:	1c43      	adds	r3, r0, #1
+ 8004560:	d1db      	bne.n	800451a <_malloc_r+0x6a>
+ 8004562:	e7c7      	b.n	80044f4 <_malloc_r+0x44>
+ 8004564:	20000090 	.word	0x20000090
+ 8004568:	20000094 	.word	0x20000094
 
-0800455c <_sbrk_r>:
- 800455c:	2300      	movs	r3, #0
- 800455e:	b570      	push	{r4, r5, r6, lr}
- 8004560:	4d06      	ldr	r5, [pc, #24]	; (800457c <_sbrk_r+0x20>)
- 8004562:	0004      	movs	r4, r0
- 8004564:	0008      	movs	r0, r1
- 8004566:	602b      	str	r3, [r5, #0]
- 8004568:	f7fc fa4c 	bl	8000a04 <_sbrk>
- 800456c:	1c43      	adds	r3, r0, #1
- 800456e:	d103      	bne.n	8004578 <_sbrk_r+0x1c>
- 8004570:	682b      	ldr	r3, [r5, #0]
- 8004572:	2b00      	cmp	r3, #0
- 8004574:	d000      	beq.n	8004578 <_sbrk_r+0x1c>
- 8004576:	6023      	str	r3, [r4, #0]
- 8004578:	bd70      	pop	{r4, r5, r6, pc}
- 800457a:	46c0      	nop			; (mov r8, r8)
- 800457c:	2000037c 	.word	0x2000037c
-
-08004580 <__malloc_lock>:
- 8004580:	b510      	push	{r4, lr}
- 8004582:	4802      	ldr	r0, [pc, #8]	; (800458c <__malloc_lock+0xc>)
- 8004584:	f000 f80c 	bl	80045a0 <__retarget_lock_acquire_recursive>
- 8004588:	bd10      	pop	{r4, pc}
+0800456c <_sbrk_r>:
+ 800456c:	2300      	movs	r3, #0
+ 800456e:	b570      	push	{r4, r5, r6, lr}
+ 8004570:	4d06      	ldr	r5, [pc, #24]	; (800458c <_sbrk_r+0x20>)
+ 8004572:	0004      	movs	r4, r0
+ 8004574:	0008      	movs	r0, r1
+ 8004576:	602b      	str	r3, [r5, #0]
+ 8004578:	f7fc fa44 	bl	8000a04 <_sbrk>
+ 800457c:	1c43      	adds	r3, r0, #1
+ 800457e:	d103      	bne.n	8004588 <_sbrk_r+0x1c>
+ 8004580:	682b      	ldr	r3, [r5, #0]
+ 8004582:	2b00      	cmp	r3, #0
+ 8004584:	d000      	beq.n	8004588 <_sbrk_r+0x1c>
+ 8004586:	6023      	str	r3, [r4, #0]
+ 8004588:	bd70      	pop	{r4, r5, r6, pc}
  800458a:	46c0      	nop			; (mov r8, r8)
- 800458c:	20000384 	.word	0x20000384
+ 800458c:	2000037c 	.word	0x2000037c
 
-08004590 <__malloc_unlock>:
+08004590 <__malloc_lock>:
  8004590:	b510      	push	{r4, lr}
- 8004592:	4802      	ldr	r0, [pc, #8]	; (800459c <__malloc_unlock+0xc>)
- 8004594:	f000 f805 	bl	80045a2 <__retarget_lock_release_recursive>
+ 8004592:	4802      	ldr	r0, [pc, #8]	; (800459c <__malloc_lock+0xc>)
+ 8004594:	f000 f80c 	bl	80045b0 <__retarget_lock_acquire_recursive>
  8004598:	bd10      	pop	{r4, pc}
  800459a:	46c0      	nop			; (mov r8, r8)
  800459c:	20000384 	.word	0x20000384
 
-080045a0 <__retarget_lock_acquire_recursive>:
- 80045a0:	4770      	bx	lr
+080045a0 <__malloc_unlock>:
+ 80045a0:	b510      	push	{r4, lr}
+ 80045a2:	4802      	ldr	r0, [pc, #8]	; (80045ac <__malloc_unlock+0xc>)
+ 80045a4:	f000 f805 	bl	80045b2 <__retarget_lock_release_recursive>
+ 80045a8:	bd10      	pop	{r4, pc}
+ 80045aa:	46c0      	nop			; (mov r8, r8)
+ 80045ac:	20000384 	.word	0x20000384
 
-080045a2 <__retarget_lock_release_recursive>:
- 80045a2:	4770      	bx	lr
+080045b0 <__retarget_lock_acquire_recursive>:
+ 80045b0:	4770      	bx	lr
 
-080045a4 <_init>:
- 80045a4:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
- 80045a6:	46c0      	nop			; (mov r8, r8)
- 80045a8:	bcf8      	pop	{r3, r4, r5, r6, r7}
- 80045aa:	bc08      	pop	{r3}
- 80045ac:	469e      	mov	lr, r3
- 80045ae:	4770      	bx	lr
+080045b2 <__retarget_lock_release_recursive>:
+ 80045b2:	4770      	bx	lr
 
-080045b0 <_fini>:
- 80045b0:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
- 80045b2:	46c0      	nop			; (mov r8, r8)
- 80045b4:	bcf8      	pop	{r3, r4, r5, r6, r7}
- 80045b6:	bc08      	pop	{r3}
- 80045b8:	469e      	mov	lr, r3
- 80045ba:	4770      	bx	lr
+080045b4 <_init>:
+ 80045b4:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
+ 80045b6:	46c0      	nop			; (mov r8, r8)
+ 80045b8:	bcf8      	pop	{r3, r4, r5, r6, r7}
+ 80045ba:	bc08      	pop	{r3}
+ 80045bc:	469e      	mov	lr, r3
+ 80045be:	4770      	bx	lr
+
+080045c0 <_fini>:
+ 80045c0:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
+ 80045c2:	46c0      	nop			; (mov r8, r8)
+ 80045c4:	bcf8      	pop	{r3, r4, r5, r6, r7}
+ 80045c6:	bc08      	pop	{r3}
+ 80045c8:	469e      	mov	lr, r3
+ 80045ca:	4770      	bx	lr

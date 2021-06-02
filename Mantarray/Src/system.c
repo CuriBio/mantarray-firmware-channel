@@ -43,44 +43,47 @@ void module_system_init(System *thisSystem)
 void state_machine(System *thisSystem)
 {
 	uint8_t testData[40];// = {255,0,0,100,0,1,0,2,0,3,0,0,0,200,0,4,0,5,0,6,0,0,0,30,0,7,0,8,0,9,255};  //TODO remove after Link data output to magnetometer memory instead
-
+	int read_permit =0;
 	while(1)
 	{
-		if(magnetometer_read(my_sys.sensors[0]))
+		if(read_permit)
 		{
-			*(uint32_t *)testData[0]++;
-			testData[4] = *((uint8_t*)my_sys.sensors[0]->Readings + 0);
-			testData[5] = *((uint8_t*)my_sys.sensors[0]->Readings + 1);
-			testData[6] = *((uint8_t*)my_sys.sensors[0]->Readings + 2);
-			testData[7] = *((uint8_t*)my_sys.sensors[0]->Readings + 3);
-			testData[8] = *((uint8_t*)my_sys.sensors[0]->Readings + 4);
-			testData[9] = *((uint8_t*)my_sys.sensors[0]->Readings + 5);
+			if(magnetometer_read(my_sys.sensors[0]))
+			{
+				(*(uint32_t *)(testData + 0))++;
+				testData[4] = *((uint8_t*)my_sys.sensors[0]->Readings + 0);
+				testData[5] = *((uint8_t*)my_sys.sensors[0]->Readings + 1);
+				testData[6] = *((uint8_t*)my_sys.sensors[0]->Readings + 2);
+				testData[7] = *((uint8_t*)my_sys.sensors[0]->Readings + 3);
+				testData[8] = *((uint8_t*)my_sys.sensors[0]->Readings + 4);
+				testData[9] = *((uint8_t*)my_sys.sensors[0]->Readings + 5);
 
-		}
-		//---------------
-		if(magnetometer_read(my_sys.sensors[0]))
-		{
+			}
+			//---------------
+			if(magnetometer_read(my_sys.sensors[1]))
+			{
 
-			*(uint32_t *)testData[10]++;
-			testData[14] = *((uint8_t*)my_sys.sensors[1]->Readings + 0);
-			testData[15] = *((uint8_t*)my_sys.sensors[1]->Readings + 1);
-			testData[16] = *((uint8_t*)my_sys.sensors[1]->Readings + 2);
-			testData[17] = *((uint8_t*)my_sys.sensors[1]->Readings + 3);
-			testData[18] = *((uint8_t*)my_sys.sensors[1]->Readings + 4);
-			testData[19] = *((uint8_t*)my_sys.sensors[1]->Readings + 5);
+				(*(uint32_t *)(testData + 10))++;
+				testData[14] = *((uint8_t*)my_sys.sensors[1]->Readings + 0);
+				testData[15] = *((uint8_t*)my_sys.sensors[1]->Readings + 1);
+				testData[16] = *((uint8_t*)my_sys.sensors[1]->Readings + 2);
+				testData[17] = *((uint8_t*)my_sys.sensors[1]->Readings + 3);
+				testData[18] = *((uint8_t*)my_sys.sensors[1]->Readings + 4);
+				testData[19] = *((uint8_t*)my_sys.sensors[1]->Readings + 5);
 
-		}
-		//-------------
-		if(magnetometer_read(my_sys.sensors[0]))
-		{
+			}
+			//-------------
+			if(magnetometer_read(my_sys.sensors[2]))
+			{
 
-			*(uint32_t *)testData[20]++;
-			testData[24] = *((uint8_t*)my_sys.sensors[2]->Readings + 0);
-			testData[25] = *((uint8_t*)my_sys.sensors[2]->Readings + 1);
-			testData[26] = *((uint8_t*)my_sys.sensors[2]->Readings + 2);
-			testData[27] = *((uint8_t*)my_sys.sensors[2]->Readings + 3);
-			testData[28] = *((uint8_t*)my_sys.sensors[2]->Readings + 4);
-			testData[29] = *((uint8_t*)my_sys.sensors[2]->Readings + 5);
+				(*(uint32_t *)(testData + 20))++;
+				testData[24] = *((uint8_t*)my_sys.sensors[2]->Readings + 0);
+				testData[25] = *((uint8_t*)my_sys.sensors[2]->Readings + 1);
+				testData[26] = *((uint8_t*)my_sys.sensors[2]->Readings + 2);
+				testData[27] = *((uint8_t*)my_sys.sensors[2]->Readings + 3);
+				testData[28] = *((uint8_t*)my_sys.sensors[2]->Readings + 4);
+				testData[29] = *((uint8_t*)my_sys.sensors[2]->Readings + 5);
+			}
 		}
 		//------------------------------------------
 		if(my_sys.i2c_line->buffer_index)
@@ -89,7 +92,7 @@ void state_machine(System *thisSystem)
 			{
 			//-------------------------------
 			case 30://TODO remove just test
-			{
+			{	read_permit =1;
 /*
 				while(1)
 				{
