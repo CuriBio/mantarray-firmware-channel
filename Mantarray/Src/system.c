@@ -19,9 +19,9 @@ void module_system_init(System *thisSystem)
 	uint8_t temp_data[4]={0,0,0,0};
 	uint8_t i2c_new_address[4]={0,0,0,0};
 
-	  HAL_GPIO_WritePin(SPI_A_CS_GPIO_Port, SPI_A_CS_Pin, GPIO_PIN_SET);
-	  HAL_GPIO_WritePin(SPI_B_CS_GPIO_Port, SPI_B_CS_Pin, GPIO_PIN_SET);
-	  HAL_GPIO_WritePin(SPI_C_CS_GPIO_Port, SPI_C_CS_Pin, GPIO_PIN_SET);
+	HAL_GPIO_WritePin(SPI_A_CS_GPIO_Port, SPI_A_CS_Pin, GPIO_PIN_SET);
+	HAL_GPIO_WritePin(SPI_B_CS_GPIO_Port, SPI_B_CS_Pin, GPIO_PIN_SET);
+	HAL_GPIO_WritePin(SPI_C_CS_GPIO_Port, SPI_C_CS_Pin, GPIO_PIN_SET);
 	EEPROM_load(EEPROM_FIRST_TIME_INITIATION, temp_data, 1);  //TODO  this is bungee jumping without rope we assume everything if good no error check
 	if (temp_data[0] == EEPROM_FIRST_TIME_BOOT_MARKER )
 	{
@@ -30,7 +30,7 @@ void module_system_init(System *thisSystem)
 	}
 	else
 	{
-		my_sys.i2c_line = I2C_interface_create(&hi2c2,100 );   //TDOD hard code this to correct default value
+		my_sys.i2c_line = I2C_interface_create(&hi2c2,100);   //TDOD hard code this to correct default value
 	}
 	// init sensors
 	my_sys.sensors[0] = magnetometer_create(MAGNETOMETER_TYPE_MMC5983,&hspi1 , SPI_A_CS_GPIO_Port , SPI_A_CS_Pin , mag_int_a_GPIO_Port , mag_int_a_Pin);
@@ -92,7 +92,7 @@ void state_machine(System *thisSystem)
 			{
 			//-------------------------------
 			case 30://TODO remove just test
-			{	read_permit =1;
+			{	//read_permit =1;
 /*
 				while(1)
 				{
