@@ -25,13 +25,16 @@ void module_system_init(System *thisSystem)
 	EEPROM_load(EEPROM_FIRST_TIME_INITIATION, temp_data, 1);  //TODO  this is bungee jumping without rope we assume everything if good no error check
 	if (temp_data[0] == EEPROM_FIRST_TIME_BOOT_MARKER )
 	{
+		HAL_GPIO_WritePin(SPI_A_CS_GPIO_Port, SPI_A_CS_Pin, GPIO_PIN_RESET);
 		EEPROM_load(EEPROM_I2C_ADDR, i2c_new_address, 1);
 		my_sys.i2c_line = I2C_interface_create(&hi2c2,i2c_new_address[0]);
 	}
 	else
 	{
+		HAL_GPIO_WritePin(SPI_B_CS_GPIO_Port, SPI_B_CS_Pin, GPIO_PIN_RESET);
 		my_sys.i2c_line = I2C_interface_create(&hi2c2,100);   //TDOD hard code this to correct default value
 	}
+	HAL_Delay(100);
 	// init sensors
 	my_sys.sensors[0] = magnetometer_create(MAGNETOMETER_TYPE_MMC5983,&hspi1 , SPI_A_CS_GPIO_Port , SPI_A_CS_Pin , mag_int_a_GPIO_Port , mag_int_a_Pin);
 	my_sys.sensors[1] = magnetometer_create(MAGNETOMETER_TYPE_MMC5983,&hspi1 , SPI_B_CS_GPIO_Port , SPI_B_CS_Pin , mag_int_b_GPIO_Port , mag_int_b_Pin);
@@ -50,39 +53,35 @@ void state_machine(System *thisSystem)
 		{
 			if(magnetometer_read(my_sys.sensors[0]))
 			{
-				(*(uint32_t *)(testData + 0))++;
-				testData[4] = *((uint8_t*)my_sys.sensors[0]->Readings + 0);
-				testData[5] = *((uint8_t*)my_sys.sensors[0]->Readings + 1);
-				testData[6] = *((uint8_t*)my_sys.sensors[0]->Readings + 2);
-				testData[7] = *((uint8_t*)my_sys.sensors[0]->Readings + 3);
-				testData[8] = *((uint8_t*)my_sys.sensors[0]->Readings + 4);
-				testData[9] = *((uint8_t*)my_sys.sensors[0]->Readings + 5);
-
+				(*(uint32_t *)(testData + 0))++;   //uint_40   from 0-4    only 4 byte used for test
+				testData[5] = *((uint8_t*)my_sys.sensors[0]->Readings + 0);
+				testData[6] = *((uint8_t*)my_sys.sensors[0]->Readings + 1);
+				testData[7] = *((uint8_t*)my_sys.sensors[0]->Readings + 2);
+				testData[8] = *((uint8_t*)my_sys.sensors[0]->Readings + 3);
+				testData[9] = *((uint8_t*)my_sys.sensors[0]->Readings + 4);
+				testData[10] = *((uint8_t*)my_sys.sensors[0]->Readings + 5);
 			}
 			//---------------
 			if(magnetometer_read(my_sys.sensors[1]))
 			{
-
-				(*(uint32_t *)(testData + 10))++;
-				testData[14] = *((uint8_t*)my_sys.sensors[1]->Readings + 0);
-				testData[15] = *((uint8_t*)my_sys.sensors[1]->Readings + 1);
-				testData[16] = *((uint8_t*)my_sys.sensors[1]->Readings + 2);
-				testData[17] = *((uint8_t*)my_sys.sensors[1]->Readings + 3);
-				testData[18] = *((uint8_t*)my_sys.sensors[1]->Readings + 4);
-				testData[19] = *((uint8_t*)my_sys.sensors[1]->Readings + 5);
-
+				(*(uint32_t *)(testData + 11))++;   //uint_40   from 11-15    only 4 byte used for test
+				testData[16] = *((uint8_t*)my_sys.sensors[1]->Readings + 0);
+				testData[17] = *((uint8_t*)my_sys.sensors[1]->Readings + 1);
+				testData[18] = *((uint8_t*)my_sys.sensors[1]->Readings + 2);
+				testData[19] = *((uint8_t*)my_sys.sensors[1]->Readings + 3);
+				testData[20] = *((uint8_t*)my_sys.sensors[1]->Readings + 4);
+				testData[21] = *((uint8_t*)my_sys.sensors[1]->Readings + 5);
 			}
 			//-------------
 			if(magnetometer_read(my_sys.sensors[2]))
 			{
-
-				(*(uint32_t *)(testData + 20))++;
-				testData[24] = *((uint8_t*)my_sys.sensors[2]->Readings + 0);
-				testData[25] = *((uint8_t*)my_sys.sensors[2]->Readings + 1);
-				testData[26] = *((uint8_t*)my_sys.sensors[2]->Readings + 2);
-				testData[27] = *((uint8_t*)my_sys.sensors[2]->Readings + 3);
-				testData[28] = *((uint8_t*)my_sys.sensors[2]->Readings + 4);
-				testData[29] = *((uint8_t*)my_sys.sensors[2]->Readings + 5);
+				(*(uint32_t *)(testData + 22))++;   //uint_40   from 22-26    only 4 byte used for test
+				testData[27] = *((uint8_t*)my_sys.sensors[2]->Readings + 0);
+				testData[28] = *((uint8_t*)my_sys.sensors[2]->Readings + 1);
+				testData[29] = *((uint8_t*)my_sys.sensors[2]->Readings + 2);
+				testData[30] = *((uint8_t*)my_sys.sensors[2]->Readings + 3);
+				testData[31] = *((uint8_t*)my_sys.sensors[2]->Readings + 4);
+				testData[32] = *((uint8_t*)my_sys.sensors[2]->Readings + 5);
 			}
 		}
 		//------------------------------------------
@@ -92,7 +91,7 @@ void state_machine(System *thisSystem)
 			{
 			//-------------------------------
 			case 30://TODO remove just test
-			{	//read_permit =1;
+			{	read_permit =1;
 /*
 				while(1)
 				{
@@ -125,7 +124,7 @@ void state_machine(System *thisSystem)
 				{
 
 					//TODO Link data output to magnetometer memory instead
-					internal_bus_write_data_frame(my_sys.data_bus,testData,31);
+					internal_bus_write_data_frame(my_sys.data_bus,testData,33);
 					break;
 				}
 				//-------------------------------
