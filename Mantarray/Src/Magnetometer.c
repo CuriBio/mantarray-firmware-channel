@@ -1,13 +1,4 @@
-#include <string.h>
-#include <stdio.h>
-#include "system.h"
-#include "EEPROM.h"
-#include <stdio.h>
-#include <stdlib.h>
-
-extern System my_sys;
-extern SPI_HandleTypeDef hspi1;
-extern UART_HandleTypeDef huart2;
+#include "magnetometer.h"
 
 //!---------------------------------------------------------------------------------------------------------------------
 //!-------------- create a new magenotometer object and add that to the system this methode need to know what is the
@@ -48,6 +39,7 @@ Magnetometer_t * magnetometer_create(uint8_t type,SPI_HandleTypeDef *spi_line,GP
 					thisMagnetometer->Readings[X_AX] = 0;
 					thisMagnetometer->Readings[Y_AX] = 0;
 					thisMagnetometer->Readings[Z_AX] = 0;
+					thisMagnetometer->sensor_status = ( MMC5983_get_status(thisMagnetometer->magnetometer) ? MAGNETOMETER_OK : MAGNETOMETER_FAULTY);
 				}
 			}
 			break;
@@ -89,7 +81,7 @@ uint8_t magnetometer_read(Magnetometer_t *thisMagnetometer)
 	return res;
 }
 //--------------------test sensor---------------------------
-/*uint8_t magnetometer_test(Magnetometer_t *thisMagnetometer)
+/*uint8_t get_status(Magnetometer_t *thisMagnetometer)
 {
 	uint8_t res=0;
 	switch (thisMagnetometer->whichMagnetometer)

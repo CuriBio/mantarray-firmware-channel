@@ -25,16 +25,13 @@ void module_system_init(System *thisSystem)
 	EEPROM_load(EEPROM_FIRST_TIME_INITIATION, temp_data, 1);  //TODO  this is bungee jumping without rope we assume everything if good no error check
 	if (temp_data[0] == EEPROM_FIRST_TIME_BOOT_MARKER )
 	{
-		HAL_GPIO_WritePin(SPI_A_CS_GPIO_Port, SPI_A_CS_Pin, GPIO_PIN_RESET);
 		EEPROM_load(EEPROM_I2C_ADDR, i2c_new_address, 1);
 		my_sys.i2c_line = I2C_interface_create(&hi2c2,i2c_new_address[0]);
 	}
 	else
 	{
-		HAL_GPIO_WritePin(SPI_B_CS_GPIO_Port, SPI_B_CS_Pin, GPIO_PIN_RESET);
 		my_sys.i2c_line = I2C_interface_create(&hi2c2,100);   //TDOD hard code this to correct default value
 	}
-	HAL_Delay(100);
 	// init sensors
 	my_sys.sensors[0] = magnetometer_create(MAGNETOMETER_TYPE_MMC5983,&hspi1 , SPI_A_CS_GPIO_Port , SPI_A_CS_Pin , mag_int_a_GPIO_Port , mag_int_a_Pin);
 	my_sys.sensors[1] = magnetometer_create(MAGNETOMETER_TYPE_MMC5983,&hspi1 , SPI_B_CS_GPIO_Port , SPI_B_CS_Pin , mag_int_b_GPIO_Port , mag_int_b_Pin);
@@ -89,36 +86,6 @@ void state_machine(System *thisSystem)
 		{
 			switch(my_sys.i2c_line->receiveBuffer[0])
 			{
-			//-------------------------------
-			case 30://TODO remove just test
-			{	read_permit =1;
-/*
-				while(1)
-				{
-					if(magnetometer_read(my_sys.sensors[0]))
-					{
-
-						  //HAL_GPIO_WritePin(BUS_CLK_GPIO_Port, BUS_CLK_Pin, GPIO_PIN_SET);
-						  //HAL_Delay(1);
-						  //HAL_GPIO_WritePin(BUS_CLK_GPIO_Port, BUS_CLK_Pin, GPIO_PIN_RESET);
-
-							internal_bus_write_data_frame(my_sys.data_bus,testData,3);
-					}
-
-				}*/
-				/*
-				if(my_sys.sensors[0]->magnetometer->sensor_status == MMC5983_SENSOR_FOUND)
-					  HAL_GPIO_WritePin(SPI_A_CS_GPIO_Port, SPI_A_CS_Pin, GPIO_PIN_RESET);
-				if(my_sys.sensors[1]->magnetometer->sensor_status == MMC5983_SENSOR_FOUND)
-					  HAL_GPIO_WritePin(SPI_B_CS_GPIO_Port, SPI_B_CS_Pin, GPIO_PIN_RESET);
-				if(my_sys.sensors[2]->magnetometer->sensor_status == MMC5983_SENSOR_FOUND)
-					  HAL_GPIO_WritePin(SPI_C_CS_GPIO_Port, SPI_C_CS_Pin, GPIO_PIN_RESET);
-*/
-				//my_sys.sensors[0] = magnetometer_create(MAGNETOMETER_TYPE_MMC5983,&hspi1 , SPI_A_CS_GPIO_Port , SPI_A_CS_Pin , mag_int_a_GPIO_Port , mag_int_a_Pin);
-				//my_sys.sensors[1] = magnetometer_create(MAGNETOMETER_TYPE_MMC5983,&hspi1 , SPI_B_CS_GPIO_Port , SPI_B_CS_Pin , mag_int_b_GPIO_Port , mag_int_b_Pin);
-				//my_sys.sensors[2] = magnetometer_create(MAGNETOMETER_TYPE_MMC5983,&hspi1 , SPI_C_CS_GPIO_Port , SPI_C_CS_Pin , mag_int_c_GPIO_Port , mag_int_c_Pin);
-				break;
-			}
 				//-------------------------------
 				case I2C_PACKET_SEND_DATA_FRAME:
 				{
@@ -186,6 +153,37 @@ void state_machine(System *thisSystem)
 				case I2C_PACKET_SET_BLUE_OFF:
 				{
 					  HAL_GPIO_WritePin(SPI_B_CS_GPIO_Port, SPI_B_CS_Pin, GPIO_PIN_SET);
+					break;
+				}
+				//----------test cases---------------------
+				case 31:
+				{
+					if(my_sys.sensors[0]->sensor_status == MAGNETOMETER_FAULTY )
+					{
+						HAL_GPIO_WritePin(SPI_A_CS_GPIO_Port, SPI_A_CS_Pin, GPIO_PIN_RESET);
+						HAL_Delay(200);
+						HAL_GPIO_WritePin(SPI_A_CS_GPIO_Port, SPI_A_CS_Pin, GPIO_PIN_SET);
+						HAL_Delay(250);
+					}
+					if(my_sys.sensors[1]->sensor_status == MAGNETOMETER_FAULTY )
+					{
+						HAL_GPIO_WritePin(SPI_B_CS_GPIO_Port, SPI_B_CS_Pin, GPIO_PIN_RESET);
+						HAL_Delay(200);
+						HAL_GPIO_WritePin(SPI_B_CS_GPIO_Port, SPI_B_CS_Pin, GPIO_PIN_SET);
+						HAL_Delay(250);
+					}
+					if(my_sys.sensors[2]->sensor_status == MAGNETOMETER_FAULTY )
+					{
+						HAL_GPIO_WritePin(SPI_C_CS_GPIO_Port, SPI_C_CS_Pin, GPIO_PIN_RESET);
+						HAL_Delay(200);
+						HAL_GPIO_WritePin(SPI_C_CS_GPIO_Port, SPI_C_CS_Pin, GPIO_PIN_SET);
+						HAL_Delay(250);
+					}
+				}
+				break;
+				case 30://TODO remove just test
+				{
+					read_permit =1;
 					break;
 				}
 			}

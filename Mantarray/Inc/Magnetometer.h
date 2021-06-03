@@ -3,12 +3,12 @@
 
 #include "lis3mdl_driver.h"
 #include "mmc5983_driver.h"
-#include "stm32l0xx_hal.h"
-#include <stdio.h>
-#include <stdlib.h>
 
 #define MAGNETOMETER_TYPE_LIS3MDL	10
 #define MAGNETOMETER_TYPE_MMC5983	20
+
+#define MAGNETOMETER_FAULTY			80
+#define MAGNETOMETER_OK				81
 
 #define MAGNETOMETER_DEFAULT_SAMPLE_RATE	100
 #define X_AX	0
@@ -27,6 +27,7 @@ typedef struct
 	uint16_t sampleRate;
 	uint16_t sensorConfig;
 	uint32_t timeStamp;
+	uint8_t sensor_status;
 
 }Magnetometer_t;
 //thses two function should be impliment with polymorphism

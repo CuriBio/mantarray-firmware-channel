@@ -1,5 +1,4 @@
 #include "mmc5983_driver.h"
-#include "main.h"
 
 MMC5983_t * MMC5983_create(SPI_HandleTypeDef *spi_line,GPIO_TypeDef *CS_Bus,uint16_t CS_Pin,GPIO_TypeDef *INT_Bus,uint16_t INT_Pin)
 {
@@ -15,10 +14,10 @@ MMC5983_t * MMC5983_create(SPI_HandleTypeDef *spi_line,GPIO_TypeDef *CS_Bus,uint
 	if(thisMMC5983 != NULL)
 	{
 		//Set all of the configuration registers every time on bootup
-		//MMC5983_register_write(thisMMC5983, MMC5983_INTERNALCONTROL1, MMC5983_CTRL1_SW_RST); //128: Reset chip, operation takes 10 msec
-		//HAL_Delay(20);
+		MMC5983_register_write(thisMMC5983, MMC5983_INTERNALCONTROL1, MMC5983_CTRL1_SW_RST); //128: Reset chip, operation takes 10 msec
+		HAL_Delay(20);
 		MMC5983_register_write(thisMMC5983, MMC5983_INTERNALCONTROL0, MMC5983_CTRL0_Set);  //8: Set  magnetic sensor
-		//HAL_Delay(20);
+		HAL_Delay(5);
 		MMC5983_register_write(thisMMC5983, MMC5983_INTERNALCONTROL3, 0);  //64: SPI 3-wire mode   4/2: Saturation checks.
 		MMC5983_register_write(thisMMC5983, MMC5983_INTERNALCONTROL0, MMC5983_CTRL0_Auto_SR_en);  //7:Reserved    6:OTP    5:Auto_SR  4:Reset    3:Set   2:INT_meas_done_en   1:TM_T   0:TM_M
 		MMC5983_register_write(thisMMC5983, MMC5983_INTERNALCONTROL1, 0);  //7:SW_	RST    6:Reserved    5:Reserved  4:YZ-inhibit    3:YZ-inhibit   2:X-inhibit   1:BW1   0:BW0 {100 200 400 800}Hz
@@ -89,4 +88,15 @@ uint8_t MMC5983_read_XYZ(MMC5983_t *thisMMC5983,uint16_t *data)
 	}
 	return 0;
 }
-
+//---------------------------
+uint8_t MMC5983_get_status(MMC5983_t *thisMMC5983)
+{
+	if(thisMMC5983->sensor_status == MMC5983_SENSOR_FOUND)
+	{
+		return 1;
+	}
+	else
+	{
+		return 0;
+	}
+}
