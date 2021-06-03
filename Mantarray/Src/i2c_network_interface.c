@@ -39,7 +39,6 @@ void I2C2_IRQHandler(void)
 		{
 			i2c2_interrupt_interface_pointer->receiveBuffer[i2c2_interrupt_interface_pointer->buffer_index] = (uint8_t)i2c2_interrupt_interface_pointer->I2C_line->Instance->RXDR;
 			i2c2_interrupt_interface_pointer->buffer_index++;
-			goto I2C_PACKET_SEND_DATA_FRAME:;
 		}
 	}
 	if ((I2C_CHECK_FLAG(i2c2_interrupt_interface_pointer->I2C_line->Instance->ISR, I2C_FLAG_ADDR) != RESET) && (I2C_CHECK_IT_SOURCE(i2c2_interrupt_interface_pointer->I2C_line->Instance->CR1, I2C_IT_ADDRI) != RESET))

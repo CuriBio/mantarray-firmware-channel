@@ -48,38 +48,41 @@ void state_machine(System *thisSystem)
 	{
 		if(read_permit)
 		{
-			if(magnetometer_read(my_sys.sensors[0]))
-			{
-				(*(uint32_t *)(testData + 0))++;   //uint_40   from 0-4    only 4 byte used for test
-				testData[5] = *((uint8_t*)my_sys.sensors[0]->Readings + 0);
-				testData[6] = *((uint8_t*)my_sys.sensors[0]->Readings + 1);
-				testData[7] = *((uint8_t*)my_sys.sensors[0]->Readings + 2);
-				testData[8] = *((uint8_t*)my_sys.sensors[0]->Readings + 3);
-				testData[9] = *((uint8_t*)my_sys.sensors[0]->Readings + 4);
-				testData[10] = *((uint8_t*)my_sys.sensors[0]->Readings + 5);
-			}
+			if( my_sys.sensors[0]->sensor_status == MAGNETOMETER_OK )
+				if(magnetometer_read(my_sys.sensors[0]))
+				{
+					(*(uint32_t *)(testData + 0))++;   //uint_40   from 0-4    only 4 byte used for test
+					testData[5] = *((uint8_t*)my_sys.sensors[0]->Readings + 0);
+					testData[6] = *((uint8_t*)my_sys.sensors[0]->Readings + 1);
+					testData[7] = *((uint8_t*)my_sys.sensors[0]->Readings + 2);
+					testData[8] = *((uint8_t*)my_sys.sensors[0]->Readings + 3);
+					testData[9] = *((uint8_t*)my_sys.sensors[0]->Readings + 4);
+					testData[10] = *((uint8_t*)my_sys.sensors[0]->Readings + 5);
+				}
 			//---------------
-			if(magnetometer_read(my_sys.sensors[1]))
-			{
-				(*(uint32_t *)(testData + 11))++;   //uint_40   from 11-15    only 4 byte used for test
-				testData[16] = *((uint8_t*)my_sys.sensors[1]->Readings + 0);
-				testData[17] = *((uint8_t*)my_sys.sensors[1]->Readings + 1);
-				testData[18] = *((uint8_t*)my_sys.sensors[1]->Readings + 2);
-				testData[19] = *((uint8_t*)my_sys.sensors[1]->Readings + 3);
-				testData[20] = *((uint8_t*)my_sys.sensors[1]->Readings + 4);
-				testData[21] = *((uint8_t*)my_sys.sensors[1]->Readings + 5);
-			}
+			if( my_sys.sensors[1]->sensor_status == MAGNETOMETER_OK )
+				if(magnetometer_read(my_sys.sensors[1]))
+				{
+					(*(uint32_t *)(testData + 11))++;   //uint_40   from 11-15    only 4 byte used for test
+					testData[16] = *((uint8_t*)my_sys.sensors[1]->Readings + 0);
+					testData[17] = *((uint8_t*)my_sys.sensors[1]->Readings + 1);
+					testData[18] = *((uint8_t*)my_sys.sensors[1]->Readings + 2);
+					testData[19] = *((uint8_t*)my_sys.sensors[1]->Readings + 3);
+					testData[20] = *((uint8_t*)my_sys.sensors[1]->Readings + 4);
+					testData[21] = *((uint8_t*)my_sys.sensors[1]->Readings + 5);
+				}
 			//-------------
-			if(magnetometer_read(my_sys.sensors[2]))
-			{
-				(*(uint32_t *)(testData + 22))++;   //uint_40   from 22-26    only 4 byte used for test
-				testData[27] = *((uint8_t*)my_sys.sensors[2]->Readings + 0);
-				testData[28] = *((uint8_t*)my_sys.sensors[2]->Readings + 1);
-				testData[29] = *((uint8_t*)my_sys.sensors[2]->Readings + 2);
-				testData[30] = *((uint8_t*)my_sys.sensors[2]->Readings + 3);
-				testData[31] = *((uint8_t*)my_sys.sensors[2]->Readings + 4);
-				testData[32] = *((uint8_t*)my_sys.sensors[2]->Readings + 5);
-			}
+			if( my_sys.sensors[2]->sensor_status == MAGNETOMETER_OK )
+				if(magnetometer_read(my_sys.sensors[2]))
+				{
+					(*(uint32_t *)(testData + 22))++;   //uint_40   from 22-26    only 4 byte used for test
+					testData[27] = *((uint8_t*)my_sys.sensors[2]->Readings + 0);
+					testData[28] = *((uint8_t*)my_sys.sensors[2]->Readings + 1);
+					testData[29] = *((uint8_t*)my_sys.sensors[2]->Readings + 2);
+					testData[30] = *((uint8_t*)my_sys.sensors[2]->Readings + 3);
+					testData[31] = *((uint8_t*)my_sys.sensors[2]->Readings + 4);
+					testData[32] = *((uint8_t*)my_sys.sensors[2]->Readings + 5);
+				}
 		}
 		//------------------------------------------
 		if(my_sys.i2c_line->buffer_index)
