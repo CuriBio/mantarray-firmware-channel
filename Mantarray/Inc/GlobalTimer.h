@@ -3,19 +3,18 @@
 
 #include <string.h>
 #include <stdio.h>
+#include "main.h"
 
 typedef struct
 {
-	uint8_t overflowCounter;
-	uint32_t countReg;
-	uint8_t overflowCountBegin;
-	uint64_t totValue;
+	uint8_t overflow_counter;
+	TIM_HandleTypeDef h_timer;
 } GlobalTimer_t;
 
-void GlobalTimerInit(GlobalTimer_t *thisGlobalTimer);
+void global_timer_create(GlobalTimer_t *thisGlobalTimer, TIM_HandleTypeDef timer_id);
 
-uint64_t getGlobalTimer(GlobalTimer_t *thisGlobalTimer);
+uint64_t get_global_timer(GlobalTimer_t *thisGlobalTimer);
 
-void setGlobalTimer(GlobalTimer_t *thisGlobalTimer, uint64_t newValue);
+void set_global_timer(GlobalTimer_t *thisGlobalTimer, uint64_t new_value);
 
 #endif /* GLOBALTIMER_H_ */

@@ -1,5 +1,7 @@
 #include "mmc5983_driver.h"
 #include "stdlib.h"
+#include "Magnetometer.h"
+#include "GlobalTimer.h"
 
 MMC5983_t * MMC5983_create(SPI_HandleTypeDef *spi_line,GPIO_TypeDef *CS_Bus,uint16_t CS_Pin,GPIO_TypeDef *INT_Bus,uint16_t INT_Pin)
 {
@@ -72,7 +74,7 @@ void MMC5983_destroy(MMC5983_t *thisMMC5983)
 //------- we can calculate the offset of x y z data place holder there is risk on that approach if someone in future ------------
 //--- add more eleman at the bigining of the structure or change the data type we need to consider those changes ---------
 //----and after c++ 11 compiler can not guarantee the address of the first member of the struct is equal to the struct address -------------
-uint8_t MMC5983_read_XYZ(MMC5983_t *thisMMC5983,uint16_t *data)
+uint8_t MMC5983_read_XYZ(MMC5983_t *thisMMC5983,uint8_t * data, uint64_t * time_stamp,GlobalTimer_t *thisGlobalTimer)
 {
 	//TODO  need a better implimentation
 	uint8_t sensor_status;
@@ -85,10 +87,10 @@ uint8_t MMC5983_read_XYZ(MMC5983_t *thisMMC5983,uint16_t *data)
 		data[3] =MMC5983_register_read(thisMMC5983, MMC5983_YOUT0);
 		data[4] =MMC5983_register_read(thisMMC5983, MMC5983_ZOUT1);
 		data[5] =MMC5983_register_read(thisMMC5983, MMC5983_ZOUT0);
+		MMC5983_register_write(thisMMC5983, MMC5983_INTERNALCONTROL0, MMC5983_CTRL0_TM_M);
+		*time_stamp = get_global_timer(thisGlobalTimer);
 		return 1;
 	}
-	MMC5983_register_write(thisMMC5983, MMC5983_INTERNALCONTROL0, MMC5983_CTRL0_TM_M);
-	//TODO set up timestamp capture here
 	return 0;
 }
 //---------------------------

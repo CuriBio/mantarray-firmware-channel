@@ -2,10 +2,7 @@
 
 extern SPI_HandleTypeDef hspi1;
 extern I2C_HandleTypeDef hi2c2;
-extern TIM_HandleTypeDef htim2;
-extern TIM_HandleTypeDef htim6;
 extern TIM_HandleTypeDef htim21;
-extern TIM_HandleTypeDef htim22;
 extern System my_sys;
 
 void module_system_init(System *thisSystem)
@@ -14,7 +11,7 @@ void module_system_init(System *thisSystem)
 											BUS_CLK_GPIO_Port, BUS_CLK_Pin,
 											BUS_C1_GPIO_Port, BUS_C1_Pin);
 
-	//GlobalTimerInit(&thisSystem->GlobalTimer);
+	global_timer_create(thisSystem->ph_global_timer, htim21);
 
 	uint8_t temp_data[4]={0,0,0,0};
 	uint8_t i2c_new_address[4]={0,0,0,0};
@@ -42,47 +39,33 @@ void module_system_init(System *thisSystem)
 
 void state_machine(System *thisSystem)
 {
-	uint8_t testData[40];// = {255,0,0,100,0,1,0,2,0,3,0,0,0,200,0,4,0,5,0,6,0,0,0,30,0,7,0,8,0,9,255};  //TODO remove after Link data output to magnetometer memory instead
+	uint8_t testData[40] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};  //TODO remove after Link data output to magnetometer memory instead
 	int read_permit =0;
 	while(1)
 	{
 		if(read_permit)
 		{
 			if( my_sys.sensors[0]->sensor_status == MAGNETOMETER_OK )
-				if(magnetometer_read(my_sys.sensors[0]))
+				if(magnetometer_read(my_sys.sensors[0], thisSystem->ph_global_timer))
 				{
-					(*(uint32_t *)(testData + 0))++;   //uint_40   from 0-4    only 4 byte used for test
-					testData[5] = *((uint8_t*)my_sys.sensors[0]->Readings + 0);
-					testData[6] = *((uint8_t*)my_sys.sensors[0]->Readings + 1);
-					testData[7] = *((uint8_t*)my_sys.sensors[0]->Readings + 2);
-					testData[8] = *((uint8_t*)my_sys.sensors[0]->Readings + 3);
-					testData[9] = *((uint8_t*)my_sys.sensors[0]->Readings + 4);
-					testData[10] = *((uint8_t*)my_sys.sensors[0]->Readings + 5);
+					memcpy(testData + 11, &thisSystem->sensors[1]->time_stamp, 5);
+					memcpy(testData + 16, my_sys.sensors[1]->Readings, 6);
 				}
 			//---------------
 			if( my_sys.sensors[1]->sensor_status == MAGNETOMETER_OK )
-				if(magnetometer_read(my_sys.sensors[1]))
+				if(magnetometer_read(my_sys.sensors[1], thisSystem->ph_global_timer))
 				{
-					(*(uint32_t *)(testData + 11))++;   //uint_40   from 11-15    only 4 byte used for test
-					testData[16] = *((uint8_t*)my_sys.sensors[1]->Readings + 0);
-					testData[17] = *((uint8_t*)my_sys.sensors[1]->Readings + 1);
-					testData[18] = *((uint8_t*)my_sys.sensors[1]->Readings + 2);
-					testData[19] = *((uint8_t*)my_sys.sensors[1]->Readings + 3);
-					testData[20] = *((uint8_t*)my_sys.sensors[1]->Readings + 4);
-					testData[21] = *((uint8_t*)my_sys.sensors[1]->Readings + 5);
+					memcpy(testData + 11, &thisSystem->sensors[1]->time_stamp, 5);
+					memcpy(testData + 16, my_sys.sensors[1]->Readings, 6);
 				}
 			//-------------
 			if( my_sys.sensors[2]->sensor_status == MAGNETOMETER_OK )
-				if(magnetometer_read(my_sys.sensors[2]))
+				if(magnetometer_read(my_sys.sensors[2], thisSystem->ph_global_timer))
 				{
-					(*(uint32_t *)(testData + 22))++;   //uint_40   from 22-26    only 4 byte used for test
-					testData[27] = *((uint8_t*)my_sys.sensors[2]->Readings + 0);
-					testData[28] = *((uint8_t*)my_sys.sensors[2]->Readings + 1);
-					testData[29] = *((uint8_t*)my_sys.sensors[2]->Readings + 2);
-					testData[30] = *((uint8_t*)my_sys.sensors[2]->Readings + 3);
-					testData[31] = *((uint8_t*)my_sys.sensors[2]->Readings + 4);
-					testData[32] = *((uint8_t*)my_sys.sensors[2]->Readings + 5);
+					memcpy(testData + 22, &thisSystem->sensors[2]->time_stamp, 5);
+					memcpy(testData + 27, my_sys.sensors[2]->Readings, 6);
 				}
+			read_permit =0;
 		}
 		//------------------------------------------
 		if(my_sys.i2c_line->buffer_index)
@@ -158,8 +141,15 @@ void state_machine(System *thisSystem)
 					  HAL_GPIO_WritePin(SPI_B_CS_GPIO_Port, SPI_B_CS_Pin, GPIO_PIN_SET);
 					break;
 				}
+				case I2C_PACKET_RESET_GLOBAL_TIMER:
+				{
+					thisSystem->ph_global_timer->h_timer.Instance->CNT = 0;
+					thisSystem->ph_global_timer->overflow_counter = 0;
+					break;
+				}
+
 				//----------test cases---------------------
-				case 31:
+				case I2C_PACKET_SENSOR_TEST_ROUTINE:
 				{
 					if(my_sys.sensors[0]->sensor_status == MAGNETOMETER_FAULTY )
 					{
@@ -184,7 +174,7 @@ void state_machine(System *thisSystem)
 					}
 				}
 				break;
-				case 30://TODO remove just test
+				case I2C_PACKET_BEGIN_MAG_CONVERSION:
 				{
 					read_permit =1;
 					break;

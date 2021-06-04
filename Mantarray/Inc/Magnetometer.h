@@ -3,6 +3,7 @@
 
 #include "lis3mdl_driver.h"
 #include "mmc5983_driver.h"
+#include "GlobalTimer.h"
 
 #define MAGNETOMETER_TYPE_LIS3MDL	10
 #define MAGNETOMETER_TYPE_MMC5983	20
@@ -23,10 +24,12 @@ typedef struct
 	//or just x for single axies sensor like TI- DRV425 we may consider moving this inside the sensor deiver
 	//and then we may need to change this to32 bit variable since mmc5983  chip can provide 18bits results
 	uint16_t Readings[3];
+	uint64_t old_timestamp;
+	uint64_t new_timestamp;
 
 	uint16_t sampleRate;
 	uint16_t sensorConfig;
-	uint32_t timeStamp;
+	uint64_t time_stamp;
 	uint8_t sensor_status;
 
 }Magnetometer_t;
@@ -35,6 +38,6 @@ Magnetometer_t * magnetometer_create(uint8_t,SPI_HandleTypeDef *,GPIO_TypeDef *,
 //------------------destroy a megnetometer turn it off release hardware pin and release memory ----------------------------------
 void magnetometer_destroy(Magnetometer_t *);
 //----------------------- by passing a magnetometer object to this method it will update X Y Z --otherwise will return fail----------------
-uint8_t magnetometer_read(Magnetometer_t *);
+uint8_t magnetometer_read(Magnetometer_t *thisMagnetometer, GlobalTimer_t *thisGlobalTimer);
 
 #endif /* MAGNETOMETER_H_ */
