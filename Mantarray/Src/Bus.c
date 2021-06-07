@@ -101,7 +101,7 @@ InternalBus_t * internal_bus_create(GPIO_TypeDef *bus_line,uint16_t bus_pins,GPI
 	return thisInternalBus;
 }
 
-inline void internal_bus_write_data_frame(InternalBus_t *thisInternalBus, uint8_t *buffer, uint8_t buffer_len)
+inline void internal_bus_write_data_frame(InternalBus_t *thisInternalBus, uint32_t *buffer, uint8_t buffer_len)
 {
 	//TODO Link data output to magnetometer memory instead
 
@@ -113,8 +113,7 @@ inline void internal_bus_write_data_frame(InternalBus_t *thisInternalBus, uint8_
 	for(uint8_t buf_cnt=0 ; buf_cnt < buffer_len ; buf_cnt++)
 	{
 		thisInternalBus->bus_clk->BSRR = (uint32_t) thisInternalBus->bus_clk_mask;
-		thisInternalBus->bus->BSRR = (uint32_t) ((thisInternalBus->bus_mask & buffer[buf_cnt])  | ((thisInternalBus->bus_mask & ~buffer[buf_cnt])  << 16));
-		//thisInternalBus->bus->BSRR = buffer[buf_cnt];
+		thisInternalBus->bus->BSRR = buffer[buf_cnt];
 		thisInternalBus->bus_clk->BRR = thisInternalBus->bus_clk_mask;
 	}
 

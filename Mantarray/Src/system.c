@@ -11,7 +11,7 @@ void module_system_init(System *thisSystem)
 											BUS_CLK_GPIO_Port, BUS_CLK_Pin,
 											BUS_C1_GPIO_Port, BUS_C1_Pin);
 
-	global_timer_create(thisSystem->ph_global_timer, &htim21);
+	thisSystem->ph_global_timer = global_timer_create(&htim21);
 
 	uint8_t temp_data[4]={0,0,0,0};
 	uint8_t i2c_new_address[4]={0,0,0,0};
@@ -39,7 +39,7 @@ void module_system_init(System *thisSystem)
 
 void state_machine(System *thisSystem)
 {
-	uint8_t output_data[33];// = {01,01,01,01,01,01,01,01,01,01,01,01,01,01,01,01,01,01,01,01,01,01,01,01,01,01,01,01,01,01,01,01,01,01};  //TODO remove after Link data output to magnetometer memory instead
+	uint32_t output_data[33];
 	uint8_t b_read_permit =0;
 	uint8_t byte_shifter = 0;
 	uint8_t this_byte = 0;
@@ -53,32 +53,30 @@ void state_machine(System *thisSystem)
 				{
 					if(magnetometer_read(thisSystem->sensors[sensor_num]))
 					{
-						memcpy(output_data + sensor_num * 11, &thisSystem->sensors[sensor_num]->time_stamp, 5);
-						memcpy(output_data + 5 + sensor_num * 11, thisSystem->sensors[sensor_num]->Readings, 6);
-
-						/*byte_shifter = 0;
+						byte_shifter = 0;
 						while (byte_shifter < 5)
 						{
-							output_data[byte_shifter + sensor_num * 11] = *(((uint8_t*)&thisSystem->sensors[sensor_num]->time_stamp) + byte_shifter);
-							//this_byte = *(((uint8_t*)&thisSystem->sensors[sensor_num]->time_stamp) + byte_shifter);
-							//output_data[byte_shifter + sensor_num * 11] = (uint32_t)(thisSystem->data_bus->bus_mask & this_byte)  | ((thisSystem->data_bus->bus_mask & ~this_byte)  << 16);
+							//output_data[byte_shifter + sensor_num * 11] = *(((uint8_t*)&thisSystem->sensors[sensor_num]->time_stamp) + byte_shifter);
+							this_byte = *(((uint8_t*)&thisSystem->sensors[sensor_num]->time_stamp) + byte_shifter);
+							output_data[byte_shifter + sensor_num * 11] = (uint32_t)(thisSystem->data_bus->bus_mask & this_byte)  | ((thisSystem->data_bus->bus_mask & ~this_byte)  << 16);
 							byte_shifter++;
 						}
 
 						while (byte_shifter < 11)
 						{
-							output_data[byte_shifter + sensor_num * 11] = *(((uint8_t*)thisSystem->sensors[sensor_num]->Readings) + (byte_shifter - 5));
-							//this_byte = *(((uint8_t*)thisSystem->sensors[sensor_num]->Readings) + (byte_shifter - 5));
-							//output_data[byte_shifter + sensor_num * 11] = (uint32_t)(thisSystem->data_bus->bus_mask & this_byte)  | ((thisSystem->data_bus->bus_mask & ~this_byte)  << 16);
+							//output_data[byte_shifter + sensor_num * 11] = *(((uint8_t*)thisSystem->sensors[sensor_num]->Readings) + (byte_shifter - 5));
+							this_byte = *(((uint8_t*)thisSystem->sensors[sensor_num]->Readings) + (byte_shifter - 5));
+							output_data[byte_shifter + sensor_num * 11] = (uint32_t)(thisSystem->data_bus->bus_mask & this_byte)  | ((thisSystem->data_bus->bus_mask & ~this_byte)  << 16);
 							byte_shifter++;
-						}*/
+						}
 
 						//Declare that new data is no longer needed
 						thisSystem->sensors[sensor_num]->b_new_data_needed = 0;
 						//Begin a new data conversion immediately
 						MMC5983_register_write((MMC5983_t*)thisSystem->sensors[sensor_num]->magnetometer, MMC5983_INTERNALCONTROL0, MMC5983_CTRL0_TM_M);
 						//Timestamp the new data conversion you ordered
-						//thisSystem->sensors[sensor_num]->time_stamp = get_global_timer(thisSystem->ph_global_timer);
+						thisSystem->sensors[sensor_num]->time_stamp = get_global_timer(thisSystem->ph_global_timer);
+						//thisSystem->sensors[sensor_num]->time_stamp++;
 
 					} //Check if the magnetometer has new data ready
 				} //Check if magnetometer is functional and if new data is needed
@@ -164,7 +162,7 @@ void state_machine(System *thisSystem)
 				}
 				case I2C_PACKET_RESET_GLOBAL_TIMER:
 				{
-					//thisSystem->ph_global_timer->h_timer->Instance->CNT = 0;
+					thisSystem->ph_global_timer->h_timer->Instance->CNT = 0;
 					thisSystem->ph_global_timer->overflow_counter = 0;
 					break;
 				}

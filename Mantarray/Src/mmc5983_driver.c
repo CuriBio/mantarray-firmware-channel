@@ -35,6 +35,7 @@ MMC5983_t * MMC5983_create(SPI_HandleTypeDef *spi_line,GPIO_TypeDef *CS_Bus,uint
 			thisMMC5983->sensor_status = MMC5983_SENSOR_NOT_FOUND;
 		}
 	}
+	MMC5983_register_write(thisMMC5983, MMC5983_INTERNALCONTROL0, MMC5983_CTRL0_TM_M);
 	return(thisMMC5983);
 }
 

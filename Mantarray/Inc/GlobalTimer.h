@@ -11,7 +11,7 @@ typedef struct
 	TIM_HandleTypeDef* h_timer;
 } GlobalTimer_t;
 
-void global_timer_create(GlobalTimer_t *thisGlobalTimer, TIM_HandleTypeDef* timer_id);
+GlobalTimer_t * global_timer_create(TIM_HandleTypeDef* timer_id);
 
 uint64_t get_global_timer(GlobalTimer_t *thisGlobalTimer);
 
