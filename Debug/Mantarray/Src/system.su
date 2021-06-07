@@ -1,2 +1,2 @@
-system.c:11:6:module_system_init	40	static
-system.c:43:6:state_machine	80	static
+system.c:8:6:module_system_init	40	static
+system.c:40:6:state_machine	216	static

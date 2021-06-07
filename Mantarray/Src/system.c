@@ -11,7 +11,7 @@ void module_system_init(System *thisSystem)
 											BUS_CLK_GPIO_Port, BUS_CLK_Pin,
 											BUS_C1_GPIO_Port, BUS_C1_Pin);
 
-	global_timer_create(thisSystem->ph_global_timer, htim21);
+	//global_timer_create(thisSystem->ph_global_timer, &htim21);
 
 	uint8_t temp_data[4]={0,0,0,0};
 	uint8_t i2c_new_address[4]={0,0,0,0};
@@ -39,33 +39,46 @@ void module_system_init(System *thisSystem)
 
 void state_machine(System *thisSystem)
 {
-	uint8_t testData[40] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};  //TODO remove after Link data output to magnetometer memory instead
-	int read_permit =0;
+	uint32_t output_data[40] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};  //TODO remove after Link data output to magnetometer memory instead
+	uint8_t b_read_permit =0;
+	uint8_t byte_shifter = 0;
+	uint8_t this_byte = 0;
 	while(1)
 	{
-		if(read_permit)
+		if(b_read_permit)
 		{
-			if( my_sys.sensors[0]->sensor_status == MAGNETOMETER_OK )
-				if(magnetometer_read(my_sys.sensors[0], thisSystem->ph_global_timer))
+			for (uint8_t sensor_num = 0; sensor_num < NUM_SENSORS; sensor_num++)
+			{
+				if( (my_sys.sensors[sensor_num]->sensor_status == MAGNETOMETER_OK) & my_sys.sensors[sensor_num]->b_new_data_needed)
 				{
-					memcpy(testData + 11, &thisSystem->sensors[1]->time_stamp, 5);
-					memcpy(testData + 16, my_sys.sensors[1]->Readings, 6);
-				}
-			//---------------
-			if( my_sys.sensors[1]->sensor_status == MAGNETOMETER_OK )
-				if(magnetometer_read(my_sys.sensors[1], thisSystem->ph_global_timer))
-				{
-					memcpy(testData + 11, &thisSystem->sensors[1]->time_stamp, 5);
-					memcpy(testData + 16, my_sys.sensors[1]->Readings, 6);
-				}
-			//-------------
-			if( my_sys.sensors[2]->sensor_status == MAGNETOMETER_OK )
-				if(magnetometer_read(my_sys.sensors[2], thisSystem->ph_global_timer))
-				{
-					memcpy(testData + 22, &thisSystem->sensors[2]->time_stamp, 5);
-					memcpy(testData + 27, my_sys.sensors[2]->Readings, 6);
-				}
-			read_permit =0;
+					if(magnetometer_read(my_sys.sensors[sensor_num]))
+					{
+						byte_shifter = 0;
+						while (byte_shifter < 5)
+						{
+							this_byte = *(((uint8_t*)thisSystem->sensors[sensor_num]->time_stamp) + byte_shifter);
+							output_data[byte_shifter + sensor_num * 11] = (thisSystem->data_bus->bus_mask & this_byte)  | ((thisSystem->data_bus->bus_mask & ~this_byte)  << 16);
+							byte_shifter++;
+						}
+
+						while (byte_shifter < 11)
+						{
+							this_byte = *(((uint8_t*)thisSystem->sensors[sensor_num]->Readings) + (byte_shifter - 5));
+							output_data[byte_shifter + sensor_num * 11] = (thisSystem->data_bus->bus_mask & this_byte)  | ((thisSystem->data_bus->bus_mask & ~this_byte)  << 16);
+							byte_shifter++;
+						}
+
+						//Declare that new data is no longer needed
+						my_sys.sensors[sensor_num]->b_new_data_needed = 0;
+						//Begin a new data conversion immediately
+						MMC5983_register_write((MMC5983_t*)thisSystem->sensors[sensor_num]->magnetometer, MMC5983_INTERNALCONTROL0, MMC5983_CTRL0_TM_M);
+						//Timestamp the new data conversion you ordered
+						*thisSystem->sensors[sensor_num]->time_stamp = get_global_timer(thisSystem->ph_global_timer);
+
+					} //Check if the magnetometer has new data ready
+				} //Check if magnetometer is functional and if new data is needed
+			} //Sensor loop
+			b_read_permit =0;
 		}
 		//------------------------------------------
 		if(my_sys.i2c_line->buffer_index)
@@ -77,7 +90,10 @@ void state_machine(System *thisSystem)
 				{
 
 					//TODO Link data output to magnetometer memory instead
-					internal_bus_write_data_frame(my_sys.data_bus,testData,33);
+					internal_bus_write_data_frame(my_sys.data_bus, output_data, 33);
+					my_sys.sensors[0]->b_new_data_needed = 1;
+					my_sys.sensors[1]->b_new_data_needed = 1;
+					my_sys.sensors[2]->b_new_data_needed = 1;
 					break;
 				}
 				//-------------------------------
@@ -143,7 +159,7 @@ void state_machine(System *thisSystem)
 				}
 				case I2C_PACKET_RESET_GLOBAL_TIMER:
 				{
-					thisSystem->ph_global_timer->h_timer.Instance->CNT = 0;
+					thisSystem->ph_global_timer->h_timer->Instance->CNT = 0;
 					thisSystem->ph_global_timer->overflow_counter = 0;
 					break;
 				}
@@ -176,7 +192,7 @@ void state_machine(System *thisSystem)
 				break;
 				case I2C_PACKET_BEGIN_MAG_CONVERSION:
 				{
-					read_permit =1;
+					b_read_permit =1;
 					break;
 				}
 			}

@@ -8,10 +8,10 @@
 typedef struct
 {
 	uint8_t overflow_counter;
-	TIM_HandleTypeDef h_timer;
+	TIM_HandleTypeDef* h_timer;
 } GlobalTimer_t;
 
-void global_timer_create(GlobalTimer_t *thisGlobalTimer, TIM_HandleTypeDef timer_id);
+void global_timer_create(GlobalTimer_t *thisGlobalTimer, TIM_HandleTypeDef* timer_id);
 
 uint64_t get_global_timer(GlobalTimer_t *thisGlobalTimer);
 

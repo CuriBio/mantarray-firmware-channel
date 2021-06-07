@@ -17,6 +17,7 @@
 
 //-------------------------------------------------
 #define MODULE_NUMBER							24
+#define NUM_SENSORS                             3
 //--------------------------------------------------
 #define MODULE_SYSTEM_STATUS_START				0
 
