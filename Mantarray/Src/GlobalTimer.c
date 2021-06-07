@@ -10,6 +10,7 @@ extern System my_sys;
 void global_timer_create(GlobalTimer_t *thisGlobalTimer, TIM_HandleTypeDef *timer_id)
 {
 	//Start global timer and initialize struct
+	thisGlobalTimer = malloc(sizeof(GlobalTimer_t));
 	thisGlobalTimer->h_timer = timer_id;
 	HAL_TIM_Base_Start_IT(thisGlobalTimer->h_timer);
 	thisGlobalTimer->overflow_counter = 0;

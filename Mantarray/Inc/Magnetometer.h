@@ -15,6 +15,8 @@
 #define Y_AX	1
 #define Z_AX	2
 
+#pragma pack (push, 1)
+
 typedef struct
 {
 	uint8_t whichMagnetometer; //MAGNETOMETER_TYPE_LIS3MDL   or   MAGNETOMETER_TYPE_MMC5983
@@ -23,7 +25,7 @@ typedef struct
 	//or just x for single axies sensor like TI- DRV425 we may consider moving this inside the sensor deiver
 	//and then we may need to change this to32 bit variable since mmc5983  chip can provide 18bits results
 	uint16_t Readings[3];
-	uint64_t* time_stamp;
+	uint64_t time_stamp;
 	uint8_t b_new_data_needed;
 
 	uint16_t sampleRate;
@@ -31,6 +33,8 @@ typedef struct
 	uint8_t sensor_status;
 
 }Magnetometer_t;
+
+#pragma pack (pop)
 //thses two function should be impliment with polymorphism
 Magnetometer_t * magnetometer_create(uint8_t,SPI_HandleTypeDef *,GPIO_TypeDef *,uint16_t,GPIO_TypeDef *,uint16_t);
 //------------------destroy a megnetometer turn it off release hardware pin and release memory ----------------------------------

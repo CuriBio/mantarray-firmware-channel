@@ -1,6 +1,6 @@
-mmc5983_driver.c:4:13:MMC5983_create	48	static
-mmc5983_driver.c:41:9:MMC5983_register_read	24	static
-mmc5983_driver.c:55:6:MMC5983_register_write	16	static
-mmc5983_driver.c:65:6:MMC5983_destroy	8	static
-mmc5983_driver.c:75:9:MMC5983_read_XYZ	48	static
-mmc5983_driver.c:93:9:MMC5983_get_status	0	static
+mmc5983_driver.c:4:13:MMC5983_create	40	static
+mmc5983_driver.c:41:9:MMC5983_register_read	40	static
+mmc5983_driver.c:55:6:MMC5983_register_write	32	static
+mmc5983_driver.c:65:6:MMC5983_destroy	16	static
+mmc5983_driver.c:75:9:MMC5983_read_XYZ	32	static
+mmc5983_driver.c:93:9:MMC5983_get_status	16	static
