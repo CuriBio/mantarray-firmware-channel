@@ -16,7 +16,7 @@
 //-------------------------------------------------
 
 //-------------------------------------------------
-#define MODULE_NUMBER							24
+#define NUM_SENSORS                             3
 //--------------------------------------------------
 #define MODULE_SYSTEM_STATUS_START				0
 
@@ -38,11 +38,9 @@ typedef struct
 	uint8_t status;   	// what is our status now active disabled ....
 	uint8_t state;    	// this is the current state of this module which is used and update in state machine
 	uint8_t BUS_FLAG;
-	GlobalTimer_t GlobalTimer;
+	GlobalTimer_t * ph_global_timer;
 
-	Magnetometer_t *s1;  //
-	Magnetometer_t *s2;
-	Magnetometer_t *s3;
+	Magnetometer_t *sensors[NUM_SENSORS];
 
 	I2C_t *i2c_line;
 

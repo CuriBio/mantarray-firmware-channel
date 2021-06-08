@@ -1,13 +1,4 @@
-#include <string.h>
-#include <stdio.h>
-#include "system.h"
-#include "EEPROM.h"
-#include <stdio.h>
-#include <stdlib.h>
-
-extern System my_sys;
-extern SPI_HandleTypeDef hspi1;
-extern UART_HandleTypeDef huart2;
+#include "magnetometer.h"
 
 //!---------------------------------------------------------------------------------------------------------------------
 //!-------------- create a new magenotometer object and add that to the system this methode need to know what is the
@@ -25,28 +16,33 @@ Magnetometer_t * magnetometer_create(uint8_t type,SPI_HandleTypeDef *spi_line,GP
 		switch (thisMagnetometer->whichMagnetometer)
 		{
 		case MAGNETOMETER_TYPE_LIS3MDL:
-			thisMagnetometer->magnetometer = (LIS3MDL_t*)LIS3MDL_create(spi_line,CS_Bus,CS_Pin,INT_Bus,INT_Pin);
-			if(thisMagnetometer->magnetometer != NULL)
 			{
-				thisMagnetometer->sampleRate = MAGNETOMETER_DEFAULT_SAMPLE_RATE;
-				thisMagnetometer->timeStamp = 0;
-				thisMagnetometer->Readings[X_AX] = 0;
-				thisMagnetometer->Readings[Y_AX] = 0;
-				thisMagnetometer->Readings[Z_AX] = 0;
+				thisMagnetometer->magnetometer = (LIS3MDL_t*)LIS3MDL_create(spi_line,CS_Bus,CS_Pin,INT_Bus,INT_Pin);
+				if(thisMagnetometer->magnetometer != NULL)
+				{
+					thisMagnetometer->sampleRate = MAGNETOMETER_DEFAULT_SAMPLE_RATE;
+					thisMagnetometer->time_stamp = 0;
+					thisMagnetometer->Readings[X_AX] = 0;
+					thisMagnetometer->Readings[Y_AX] = 0;
+					thisMagnetometer->Readings[Z_AX] = 0;
+				}
 			}
-			break;
+		break;
 		//------------------------------
 		case MAGNETOMETER_TYPE_MMC5983:
-			thisMagnetometer->magnetometer = (MMC5983_t*)MMC5983_create(spi_line,CS_Bus,CS_Pin,INT_Bus,INT_Pin);
-			if(thisMagnetometer->magnetometer != NULL)
 			{
-				thisMagnetometer->sampleRate = MAGNETOMETER_DEFAULT_SAMPLE_RATE;
-				thisMagnetometer->timeStamp = 0;
-				thisMagnetometer->Readings[X_AX] = 0;
-				thisMagnetometer->Readings[Y_AX] = 0;
-				thisMagnetometer->Readings[Z_AX] = 0;
+				thisMagnetometer->magnetometer = (MMC5983_t*)MMC5983_create(spi_line,CS_Bus,CS_Pin,INT_Bus,INT_Pin);
+				if(thisMagnetometer->magnetometer != NULL)
+				{
+					thisMagnetometer->sampleRate = MAGNETOMETER_DEFAULT_SAMPLE_RATE;
+					thisMagnetometer->time_stamp = 0;
+					thisMagnetometer->Readings[X_AX] = 0;
+					thisMagnetometer->Readings[Y_AX] = 0;
+					thisMagnetometer->Readings[Z_AX] = 0;
+					thisMagnetometer->sensor_status = ( MMC5983_get_status(thisMagnetometer->magnetometer) ? MAGNETOMETER_OK : MAGNETOMETER_FAULTY);
+				}
 			}
-			break;
+		break;
 		}
 	}
 	return(thisMagnetometer);
@@ -79,8 +75,26 @@ uint8_t magnetometer_read(Magnetometer_t *thisMagnetometer)
 		break;
 	//------------------------------
 	case MAGNETOMETER_TYPE_MMC5983:
-		res = MMC5983_read_XYZ((MMC5983_t*)thisMagnetometer->magnetometer,thisMagnetometer->Readings);
+		res = MMC5983_read_XYZ((MMC5983_t*)thisMagnetometer->magnetometer, (uint8_t*)thisMagnetometer->Readings);
 		break;
 	}
 	return res;
 }
+//--------------------test sensor---------------------------
+/*uint8_t get_status(Magnetometer_t *thisMagnetometer)
+{
+	uint8_t res=0;
+	switch (thisMagnetometer->whichMagnetometer)
+	{
+	case MAGNETOMETER_TYPE_LIS3MDL:
+		if((LIS3MDL_t*)thisMagnetometer->sensor_status == LIS3MDL_SENSOR_FOUND)
+			res=1;
+		break;
+	//------------------------------
+	case MAGNETOMETER_TYPE_MMC5983:
+		if((MMC5983_t*)thisMagnetometer->sensor_status == MMC5983_SENSOR_FOUND)
+			res=1;
+		break;
+	}
+	return res;
+}*/

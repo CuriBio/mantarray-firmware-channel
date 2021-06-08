@@ -1,67 +1,46 @@
 #include "GlobalTimer.h"
-#include "mmc5983_driver.h"
-#include "system.h"
 #include "main.h"
-#include <string.h>
+#include "system.h"
 #include <stdio.h>
-extern TIM_HandleTypeDef htim6;
 extern TIM_HandleTypeDef htim21;
-extern TIM_HandleTypeDef htim22;
 
 extern System my_sys;
 
-void GlobalTimerInit(GlobalTimer_t *thisGlobalTimer)
+
+GlobalTimer_t * global_timer_create(TIM_HandleTypeDef *timer_id)
 {
 	//Start global timer and initialize struct
-	//HAL_TIM_Base_Start_IT(&htim6);
-	//HAL_TIM_Base_Start_IT(&htim21);
-	//HAL_TIM_Base_Start_IT(&htim22);
-	thisGlobalTimer->overflowCounter = 0;
+	GlobalTimer_t *thisGlobalTimer = malloc(sizeof(GlobalTimer_t));
+	thisGlobalTimer->h_timer = timer_id;
+	HAL_TIM_Base_Start_IT(thisGlobalTimer->h_timer);
+	thisGlobalTimer->overflow_counter = 0;
+	return thisGlobalTimer;
 }
 
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
-	if (htim == &htim6)
-	{
-		//TODO set up tim2's clock frequency
-		my_sys.GlobalTimer.overflowCounter++;
-		//TEST CODE
-		//my_sys.GlobalTimerTest.uartBufLen = sprintf(my_sys.GlobalTimerTest.uartBuffer, "Reached Max \r\n");
-		//serialSend(&huart2, my_sys.GlobalTimerTest.uartBuffer, my_sys.GlobalTimerTest.uartBufLen);
-	}
 	if (htim == &htim21)
 	{
-		//readMMC5983_XYZ(&my_sys.Magnetometer, &my_sys.Magnetometer.sensorB_MMC5983);
-		/*(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_14) == GPIO_PIN_SET) ?
-				HAL_GPIO_WritePin(GPIOA, GPIO_PIN_14, GPIO_PIN_RESET) :
-				HAL_GPIO_WritePin(GPIOA, GPIO_PIN_14, GPIO_PIN_SET);*/
-	}
-	if (htim == &htim22)
-	{
-		//uint8_t test = register_read_MMC5983(&my_sys.Magnetometer.sensorB_MMC5983, MMC5983_INTERNALCONTROL0);
-		//test = register_read_MMC5983(&my_sys.Magnetometer.sensorB_MMC5983, MMC5983_INTERNALCONTROL1);
-		//test = register_read_MMC5983(&my_sys.Magnetometer.sensorB_MMC5983, MMC5983_INTERNALCONTROL2);
-		//test = 0;
-		//readMMC5983_XYZ(&my_sys.sensorB_MMC5983);
+		my_sys.ph_global_timer->overflow_counter++;
 	}
 }
 
-uint64_t getGlobalTimer(GlobalTimer_t *thisGlobalTimer)
+uint64_t get_global_timer(GlobalTimer_t *thisGlobalTimer)
 {
-	uint8_t overflowCountBegin;
-	uint64_t totValue;
+	uint8_t overflow_count_begin;
+	uint64_t tot_value;
 	do
 	{
-		overflowCountBegin = thisGlobalTimer->overflowCounter;
-		totValue = htim6.Instance->CNT + htim6.Instance->ARR * (thisGlobalTimer->overflowCounter);
+		overflow_count_begin = thisGlobalTimer->overflow_counter;
+		tot_value = thisGlobalTimer->h_timer->Instance->CNT + thisGlobalTimer->h_timer->Instance->ARR * (thisGlobalTimer->overflow_counter);
 
-	} while (overflowCountBegin != thisGlobalTimer->overflowCounter);
+	} while (overflow_count_begin != thisGlobalTimer->overflow_counter);
 
-	return totValue;	//TODO there is a lot of potential timestamp synchronization issues here, need to be addressed
+	return tot_value;	//TODO there is a lot of potential timestamp synchronization issues here, need to be addressed
 }
 
-void setGlobalTimer(GlobalTimer_t *thisGlobalTimer, uint64_t newValue)
+void set_global_timer(GlobalTimer_t *thisGlobalTimer, uint64_t new_value)
 {
-	uint32_t newValueMinus = newValue % htim6.Instance->ARR;
-	htim6.Instance->CNT = newValueMinus;
+	uint32_t new_value_minus = new_value % thisGlobalTimer->h_timer->Instance->ARR;
+	thisGlobalTimer->h_timer->Instance->CNT = new_value_minus;
 }

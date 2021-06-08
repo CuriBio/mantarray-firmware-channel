@@ -2,10 +2,7 @@
 
 extern SPI_HandleTypeDef hspi1;
 extern I2C_HandleTypeDef hi2c2;
-extern TIM_HandleTypeDef htim2;
-extern TIM_HandleTypeDef htim6;
 extern TIM_HandleTypeDef htim21;
-extern TIM_HandleTypeDef htim22;
 extern System my_sys;
 
 void module_system_init(System *thisSystem)
@@ -14,37 +11,79 @@ void module_system_init(System *thisSystem)
 											BUS_CLK_GPIO_Port, BUS_CLK_Pin,
 											BUS_C1_GPIO_Port, BUS_C1_Pin);
 
-	//GlobalTimerInit(&thisSystem->GlobalTimer);
+	thisSystem->ph_global_timer = global_timer_create(&htim21);
 
 	uint8_t temp_data[4]={0,0,0,0};
 	uint8_t i2c_new_address[4]={0,0,0,0};
 
+	HAL_GPIO_WritePin(SPI_A_CS_GPIO_Port, SPI_A_CS_Pin, GPIO_PIN_SET);
+	HAL_GPIO_WritePin(SPI_B_CS_GPIO_Port, SPI_B_CS_Pin, GPIO_PIN_SET);
+	HAL_GPIO_WritePin(SPI_C_CS_GPIO_Port, SPI_C_CS_Pin, GPIO_PIN_SET);
 	EEPROM_load(EEPROM_FIRST_TIME_INITIATION, temp_data, 1);  //TODO  this is bungee jumping without rope we assume everything if good no error check
-	if (temp_data[0] == EEPROM_FIRST_TIME_BOOT_MARKE )
+	if (temp_data[0] == EEPROM_FIRST_TIME_BOOT_MARKER )
 	{
 		EEPROM_load(EEPROM_I2C_ADDR, i2c_new_address, 1);
-
-		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, GPIO_PIN_RESET);//green we set from eeprom  //todo test
 		my_sys.i2c_line = I2C_interface_create(&hi2c2,i2c_new_address[0]);
-
 	}
 	else
 	{
-		my_sys.i2c_line = I2C_interface_create(&hi2c2,100 );   //TDOD hard code this to correct default value
-		  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, GPIO_PIN_RESET);//red on we hard coded  address//todo test
+		my_sys.i2c_line = I2C_interface_create(&hi2c2,100);   //TDOD hard code this to correct default value
 	}
+	// init sensors
+	my_sys.sensors[0] = magnetometer_create(MAGNETOMETER_TYPE_MMC5983,&hspi1 , SPI_A_CS_GPIO_Port , SPI_A_CS_Pin , mag_int_a_GPIO_Port , mag_int_a_Pin);
+	my_sys.sensors[1] = magnetometer_create(MAGNETOMETER_TYPE_MMC5983,&hspi1 , SPI_B_CS_GPIO_Port , SPI_B_CS_Pin , mag_int_b_GPIO_Port , mag_int_b_Pin);
+	my_sys.sensors[2] = magnetometer_create(MAGNETOMETER_TYPE_MMC5983,&hspi1 , SPI_C_CS_GPIO_Port , SPI_C_CS_Pin , mag_int_c_GPIO_Port , mag_int_c_Pin);
+
 	return;
 }
 
-
-
 void state_machine(System *thisSystem)
 {
-	uint8_t testData[31] = {255,0,0,100,0,1,0,2,0,3,0,0,0,200,0,4,0,5,0,6,0,0,0,300,0,7,0,8,0,9,255};  //TODO remove after Link data output to magnetometer memory instead
-
+	uint32_t output_data[33];
+	uint8_t b_read_permit =0;
+	uint8_t byte_shifter = 0;
+	uint8_t this_byte = 0;
 	while(1)
 	{
-	//internal_bus_write_data_frame(my_sys.data_bus,testData,22);HAL_Delay(500);
+		if(b_read_permit)
+		{
+			for (uint8_t sensor_num = 0; sensor_num < NUM_SENSORS; sensor_num++)
+			{
+				if( (thisSystem->sensors[sensor_num]->sensor_status == MAGNETOMETER_OK) & thisSystem->sensors[sensor_num]->b_new_data_needed)
+				{
+					if(magnetometer_read(thisSystem->sensors[sensor_num]))
+					{
+						byte_shifter = 0;
+						while (byte_shifter < 5)
+						{
+							//output_data[byte_shifter + sensor_num * 11] = *(((uint8_t*)&thisSystem->sensors[sensor_num]->time_stamp) + byte_shifter);
+							this_byte = *(((uint8_t*)&thisSystem->sensors[sensor_num]->time_stamp) + byte_shifter);
+							output_data[byte_shifter + sensor_num * 11] = (uint32_t)(thisSystem->data_bus->bus_mask & this_byte)  | ((thisSystem->data_bus->bus_mask & ~this_byte)  << 16);
+							byte_shifter++;
+						}
+
+						while (byte_shifter < 11)
+						{
+							//output_data[byte_shifter + sensor_num * 11] = *(((uint8_t*)thisSystem->sensors[sensor_num]->Readings) + (byte_shifter - 5));
+							this_byte = *(((uint8_t*)thisSystem->sensors[sensor_num]->Readings) + (byte_shifter - 5));
+							output_data[byte_shifter + sensor_num * 11] = (uint32_t)(thisSystem->data_bus->bus_mask & this_byte)  | ((thisSystem->data_bus->bus_mask & ~this_byte)  << 16);
+							byte_shifter++;
+						}
+
+						//Declare that new data is no longer needed
+						thisSystem->sensors[sensor_num]->b_new_data_needed = 0;
+						//Begin a new data conversion immediately
+						MMC5983_register_write((MMC5983_t*)thisSystem->sensors[sensor_num]->magnetometer, MMC5983_INTERNALCONTROL0, MMC5983_CTRL0_TM_M);
+						//Timestamp the new data conversion you ordered
+						thisSystem->sensors[sensor_num]->time_stamp = get_global_timer(thisSystem->ph_global_timer);
+						//thisSystem->sensors[sensor_num]->time_stamp++;
+
+					} //Check if the magnetometer has new data ready
+				} //Check if magnetometer is functional and if new data is needed
+			} //Sensor loop
+			b_read_permit =0;
+		}
+		//------------------------------------------
 		if(my_sys.i2c_line->buffer_index)
 		{
 			switch(my_sys.i2c_line->receiveBuffer[0])
@@ -54,7 +93,10 @@ void state_machine(System *thisSystem)
 				{
 
 					//TODO Link data output to magnetometer memory instead
-					internal_bus_write_data_frame(my_sys.data_bus,testData,31);
+					internal_bus_write_data_frame(thisSystem->data_bus, output_data, 33);
+					my_sys.sensors[0]->b_new_data_needed = 1;
+					my_sys.sensors[1]->b_new_data_needed = 1;
+					my_sys.sensors[2]->b_new_data_needed = 1;
 					break;
 				}
 				//-------------------------------
@@ -85,37 +127,75 @@ void state_machine(System *thisSystem)
 				//---------since it may make serious conflicts and issue with magnetometer reader and scheduler ----------------
 				case I2C_PACKET_SET_RED_ON:
 				{
-					  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, GPIO_PIN_RESET);
+					  HAL_GPIO_WritePin(SPI_C_CS_GPIO_Port, SPI_C_CS_Pin, GPIO_PIN_RESET);
 					break;
 				}
 				//-------------------------------
 				case I2C_PACKET_SET_RED_OFF:
 				{
-					  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, GPIO_PIN_SET);
+					  HAL_GPIO_WritePin(SPI_C_CS_GPIO_Port, SPI_C_CS_Pin, GPIO_PIN_SET);
 					break;
 				}
 				//-------------------------------
 				case I2C_PACKET_SET_GREEN_ON:
 				{
-					  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, GPIO_PIN_RESET);
+					  HAL_GPIO_WritePin(SPI_A_CS_GPIO_Port, SPI_A_CS_Pin, GPIO_PIN_RESET);
 					break;
 				}
 				//-------------------------------
 				case I2C_PACKET_SET_GREEN_OFF:
 				{
-					  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, GPIO_PIN_SET);
+					  HAL_GPIO_WritePin(SPI_A_CS_GPIO_Port, SPI_A_CS_Pin, GPIO_PIN_SET);
 					break;
 				}
 				//-------------------------------
 				case I2C_PACKET_SET_BLUE_ON:
 				{
-					  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, GPIO_PIN_RESET);
+					  HAL_GPIO_WritePin(SPI_B_CS_GPIO_Port, SPI_B_CS_Pin, GPIO_PIN_RESET);
 					break;
 				}
 				//-------------------------------
 				case I2C_PACKET_SET_BLUE_OFF:
 				{
-					  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, GPIO_PIN_SET);
+					  HAL_GPIO_WritePin(SPI_B_CS_GPIO_Port, SPI_B_CS_Pin, GPIO_PIN_SET);
+					break;
+				}
+				case I2C_PACKET_RESET_GLOBAL_TIMER:
+				{
+					thisSystem->ph_global_timer->h_timer->Instance->CNT = 0;
+					thisSystem->ph_global_timer->overflow_counter = 0;
+					break;
+				}
+
+				//----------test cases---------------------
+				case I2C_PACKET_SENSOR_TEST_ROUTINE:
+				{
+					if(my_sys.sensors[0]->sensor_status == MAGNETOMETER_FAULTY )
+					{
+						HAL_GPIO_WritePin(SPI_A_CS_GPIO_Port, SPI_A_CS_Pin, GPIO_PIN_RESET);
+						HAL_Delay(200);
+						HAL_GPIO_WritePin(SPI_A_CS_GPIO_Port, SPI_A_CS_Pin, GPIO_PIN_SET);
+						HAL_Delay(250);
+					}
+					if(my_sys.sensors[1]->sensor_status == MAGNETOMETER_FAULTY )
+					{
+						HAL_GPIO_WritePin(SPI_B_CS_GPIO_Port, SPI_B_CS_Pin, GPIO_PIN_RESET);
+						HAL_Delay(200);
+						HAL_GPIO_WritePin(SPI_B_CS_GPIO_Port, SPI_B_CS_Pin, GPIO_PIN_SET);
+						HAL_Delay(250);
+					}
+					if(my_sys.sensors[2]->sensor_status == MAGNETOMETER_FAULTY )
+					{
+						HAL_GPIO_WritePin(SPI_C_CS_GPIO_Port, SPI_C_CS_Pin, GPIO_PIN_RESET);
+						HAL_Delay(200);
+						HAL_GPIO_WritePin(SPI_C_CS_GPIO_Port, SPI_C_CS_Pin, GPIO_PIN_SET);
+						HAL_Delay(250);
+					}
+				}
+				break;
+				case I2C_PACKET_BEGIN_MAG_CONVERSION:
+				{
+					b_read_permit =1;
 					break;
 				}
 			}
@@ -134,7 +214,7 @@ void state_machine(System *thisSystem)
 				}
 				else
 				{
-					temp_data[0] = EEPROM_FIRST_TIME_BOOT_MARKE;
+					temp_data[0] = EEPROM_FIRST_TIME_BOOT_MARKER;
 					if( !EEPROM_save(EEPROM_FIRST_TIME_INITIATION, temp_data,1) )  //TODO  this is bungee jumping without rope we assume everything if good no error check
 					{
 						//TODO we failed to saved

@@ -1,8 +1,6 @@
 //this is the driver layer to connect with specific chip
-
-#include <stdio.h>
-#include <stdlib.h>
-#include "stm32l0xx_hal.h"
+#include "main.h"
+#include "GlobalTimer.h"
 
 #ifndef MMC5983_H_
 #define MMC5983_H_
@@ -96,6 +94,7 @@ void MMC5983_register_write(MMC5983_t *, uint8_t, uint8_t);
 //-----------  we really do not need to the second parameter since by having the address of the magnetometer object ----------
 //------- we can calculate the offset of x y z data place holder there is risk on that approach if someone in future ------------
 //--- add more eleman at the bigining of the structure or change the data type we need to consider those changes ---------
-uint8_t MMC5983_read_XYZ(MMC5983_t *,uint16_t *);
-
+uint8_t MMC5983_read_XYZ(MMC5983_t *thisMMC5983,uint8_t * data);
+//-----------return query sensor status --------
+uint8_t MMC5983_get_status(MMC5983_t *);
 #endif /* MMC5983_H_ */

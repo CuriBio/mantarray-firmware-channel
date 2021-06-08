@@ -16,7 +16,7 @@ I2C_t * I2C_interface_create(I2C_HandleTypeDef *I2C_handle,uint8_t channel_addre
 		thisI2C->I2C_line->Instance->OAR1 &= ~I2C_OAR1_OA1EN;
 		thisI2C->I2C_line->Instance->OAR1 = (I2C_OAR1_OA1EN | ( channel_address << 1) );
 		__HAL_I2C_ENABLE_IT(thisI2C->I2C_line, I2C_IT_RXI | I2C_IT_STOPI | I2C_IT_ADDRI);
-		HAL_I2C_Slave_Receive_IT(thisI2C->I2C_line, thisI2C->receiveBuffer, I2C_RECEIVE_LENGTH);
+		HAL_I2C_Slave_Receive_IT(thisI2C->I2C_line, (uint8_t *)thisI2C->receiveBuffer, I2C_RECEIVE_LENGTH);
 	}
 	else
 	{
