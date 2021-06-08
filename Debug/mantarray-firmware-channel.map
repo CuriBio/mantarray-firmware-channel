@@ -4447,7 +4447,7 @@ Discarded input sections
  .debug_macro   0x0000000000000000       0x34 Mantarray/Src/GlobalTimer.o
  .debug_macro   0x0000000000000000       0x10 Mantarray/Src/GlobalTimer.o
  .debug_macro   0x0000000000000000       0x34 Mantarray/Src/GlobalTimer.o
- .debug_macro   0x0000000000000000       0x4c Mantarray/Src/GlobalTimer.o
+ .debug_macro   0x0000000000000000       0x46 Mantarray/Src/GlobalTimer.o
  .group         0x0000000000000000        0xc Mantarray/Src/Magnetometer.o
  .group         0x0000000000000000        0xc Mantarray/Src/Magnetometer.o
  .group         0x0000000000000000        0xc Mantarray/Src/Magnetometer.o
@@ -5399,7 +5399,7 @@ Discarded input sections
  .debug_macro   0x0000000000000000       0x34 Mantarray/Src/system.o
  .debug_macro   0x0000000000000000       0x10 Mantarray/Src/system.o
  .debug_macro   0x0000000000000000       0x34 Mantarray/Src/system.o
- .debug_macro   0x0000000000000000       0x4c Mantarray/Src/system.o
+ .debug_macro   0x0000000000000000       0x46 Mantarray/Src/system.o
  .text          0x0000000000000000        0x0 c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.9-2020-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/9.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp\libc_nano.a(lib_a-errno.o)
  .data          0x0000000000000000        0x0 c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.9-2020-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/9.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp\libc_nano.a(lib_a-errno.o)
  .bss           0x0000000000000000        0x0 c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.9-2020-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/9.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp\libc_nano.a(lib_a-errno.o)
@@ -6474,7 +6474,7 @@ LOAD c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.exte
  .debug_ranges  0x0000000000002cf8      0x140 Mantarray/Src/mmc5983_driver.o
  .debug_ranges  0x0000000000002e38       0x50 Mantarray/Src/system.o
 
-.debug_macro    0x0000000000000000    0x18d66
+.debug_macro    0x0000000000000000    0x18d60
  .debug_macro   0x0000000000000000      0x200 Core/Src/adc.o
  .debug_macro   0x0000000000000200      0xa8a Core/Src/adc.o
  .debug_macro   0x0000000000000c8a      0x131 Core/Src/adc.o
@@ -6560,48 +6560,48 @@ LOAD c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.exte
  .debug_macro   0x0000000000013bcd       0x34 Core/Src/main.o
  .debug_macro   0x0000000000013c01       0x10 Core/Src/main.o
  .debug_macro   0x0000000000013c11       0x34 Core/Src/main.o
- .debug_macro   0x0000000000013c45       0x4c Core/Src/main.o
- .debug_macro   0x0000000000013c91      0x200 Core/Src/spi.o
- .debug_macro   0x0000000000013e91      0x1f6 Core/Src/stm32l0xx_hal_msp.o
- .debug_macro   0x0000000000014087      0x200 Core/Src/stm32l0xx_it.o
- .debug_macro   0x0000000000014287       0xff Core/Src/sysmem.o
- .debug_macro   0x0000000000014386      0x23b Core/Src/sysmem.o
- .debug_macro   0x00000000000145c1      0x1e7 Core/Src/system_stm32l0xx.o
- .debug_macro   0x00000000000147a8      0x200 Core/Src/tim.o
- .debug_macro   0x00000000000149a8      0x200 Core/Src/usart.o
- .debug_macro   0x0000000000014ba8      0x20b Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal.o
- .debug_macro   0x0000000000014db3      0x1f6 Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_adc.o
- .debug_macro   0x0000000000014fa9      0x1e7 Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_cortex.o
- .debug_macro   0x0000000000015190      0x1e7 Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_dma.o
- .debug_macro   0x0000000000015377      0x1e8 Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_flash.o
- .debug_macro   0x000000000001555f      0x1e7 Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_flash_ex.o
- .debug_macro   0x0000000000015746      0x21f Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_gpio.o
- .debug_macro   0x0000000000015965      0x2ac Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_i2c.o
- .debug_macro   0x0000000000015c11      0x1e7 Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_i2c_ex.o
- .debug_macro   0x0000000000015df8      0x20b Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_rcc.o
- .debug_macro   0x0000000000016003      0x1e7 Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_rcc_ex.o
- .debug_macro   0x00000000000161ea      0x1f6 Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_spi.o
- .debug_macro   0x00000000000163e0      0x1e8 Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_tim.o
- .debug_macro   0x00000000000165c8      0x1e7 Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_tim_ex.o
- .debug_macro   0x00000000000167af      0x212 Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_uart.o
- .debug_macro   0x00000000000169c1      0x386 Mantarray/Src/Bus.o
- .debug_macro   0x0000000000016d47      0x10e Mantarray/Src/Bus.o
- .debug_macro   0x0000000000016e55       0x8d Mantarray/Src/Bus.o
- .debug_macro   0x0000000000016ee2       0xaf Mantarray/Src/Bus.o
- .debug_macro   0x0000000000016f91       0x55 Mantarray/Src/Bus.o
- .debug_macro   0x0000000000016fe6      0x386 Mantarray/Src/EEPROM.o
- .debug_macro   0x000000000001736c      0x42a Mantarray/Src/GlobalTimer.o
- .debug_macro   0x0000000000017796       0x10 Mantarray/Src/GlobalTimer.o
- .debug_macro   0x00000000000177a6      0x3d8 Mantarray/Src/Magnetometer.o
- .debug_macro   0x0000000000017b7e       0x16 Mantarray/Src/Magnetometer.o
- .debug_macro   0x0000000000017b94       0x97 Mantarray/Src/Magnetometer.o
- .debug_macro   0x0000000000017c2b       0xfd Mantarray/Src/Magnetometer.o
- .debug_macro   0x0000000000017d28      0x11e Mantarray/Src/Magnetometer.o
- .debug_macro   0x0000000000017e46       0x34 Mantarray/Src/Magnetometer.o
- .debug_macro   0x0000000000017e7a      0x383 Mantarray/Src/i2c_network_interface.o
- .debug_macro   0x00000000000181fd      0x37d Mantarray/Src/lis3mdl_driver.o
- .debug_macro   0x000000000001857a      0x3cc Mantarray/Src/mmc5983_driver.o
- .debug_macro   0x0000000000018946      0x420 Mantarray/Src/system.o
+ .debug_macro   0x0000000000013c45       0x46 Core/Src/main.o
+ .debug_macro   0x0000000000013c8b      0x200 Core/Src/spi.o
+ .debug_macro   0x0000000000013e8b      0x1f6 Core/Src/stm32l0xx_hal_msp.o
+ .debug_macro   0x0000000000014081      0x200 Core/Src/stm32l0xx_it.o
+ .debug_macro   0x0000000000014281       0xff Core/Src/sysmem.o
+ .debug_macro   0x0000000000014380      0x23b Core/Src/sysmem.o
+ .debug_macro   0x00000000000145bb      0x1e7 Core/Src/system_stm32l0xx.o
+ .debug_macro   0x00000000000147a2      0x200 Core/Src/tim.o
+ .debug_macro   0x00000000000149a2      0x200 Core/Src/usart.o
+ .debug_macro   0x0000000000014ba2      0x20b Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal.o
+ .debug_macro   0x0000000000014dad      0x1f6 Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_adc.o
+ .debug_macro   0x0000000000014fa3      0x1e7 Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_cortex.o
+ .debug_macro   0x000000000001518a      0x1e7 Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_dma.o
+ .debug_macro   0x0000000000015371      0x1e8 Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_flash.o
+ .debug_macro   0x0000000000015559      0x1e7 Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_flash_ex.o
+ .debug_macro   0x0000000000015740      0x21f Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_gpio.o
+ .debug_macro   0x000000000001595f      0x2ac Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_i2c.o
+ .debug_macro   0x0000000000015c0b      0x1e7 Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_i2c_ex.o
+ .debug_macro   0x0000000000015df2      0x20b Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_rcc.o
+ .debug_macro   0x0000000000015ffd      0x1e7 Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_rcc_ex.o
+ .debug_macro   0x00000000000161e4      0x1f6 Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_spi.o
+ .debug_macro   0x00000000000163da      0x1e8 Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_tim.o
+ .debug_macro   0x00000000000165c2      0x1e7 Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_tim_ex.o
+ .debug_macro   0x00000000000167a9      0x212 Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_uart.o
+ .debug_macro   0x00000000000169bb      0x386 Mantarray/Src/Bus.o
+ .debug_macro   0x0000000000016d41      0x10e Mantarray/Src/Bus.o
+ .debug_macro   0x0000000000016e4f       0x8d Mantarray/Src/Bus.o
+ .debug_macro   0x0000000000016edc       0xaf Mantarray/Src/Bus.o
+ .debug_macro   0x0000000000016f8b       0x55 Mantarray/Src/Bus.o
+ .debug_macro   0x0000000000016fe0      0x386 Mantarray/Src/EEPROM.o
+ .debug_macro   0x0000000000017366      0x42a Mantarray/Src/GlobalTimer.o
+ .debug_macro   0x0000000000017790       0x10 Mantarray/Src/GlobalTimer.o
+ .debug_macro   0x00000000000177a0      0x3d8 Mantarray/Src/Magnetometer.o
+ .debug_macro   0x0000000000017b78       0x16 Mantarray/Src/Magnetometer.o
+ .debug_macro   0x0000000000017b8e       0x97 Mantarray/Src/Magnetometer.o
+ .debug_macro   0x0000000000017c25       0xfd Mantarray/Src/Magnetometer.o
+ .debug_macro   0x0000000000017d22      0x11e Mantarray/Src/Magnetometer.o
+ .debug_macro   0x0000000000017e40       0x34 Mantarray/Src/Magnetometer.o
+ .debug_macro   0x0000000000017e74      0x383 Mantarray/Src/i2c_network_interface.o
+ .debug_macro   0x00000000000181f7      0x37d Mantarray/Src/lis3mdl_driver.o
+ .debug_macro   0x0000000000018574      0x3cc Mantarray/Src/mmc5983_driver.o
+ .debug_macro   0x0000000000018940      0x420 Mantarray/Src/system.o
 
 .debug_line     0x0000000000000000    0x29492
  .debug_line    0x0000000000000000      0x863 Core/Src/adc.o
@@ -6640,77 +6640,77 @@ LOAD c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.exte
  .debug_line    0x0000000000027860      0xd9c Mantarray/Src/mmc5983_driver.o
  .debug_line    0x00000000000285fc      0xe96 Mantarray/Src/system.o
 
-.debug_str      0x0000000000000000    0x863ba
+.debug_str      0x0000000000000000    0x863a9
  .debug_str     0x0000000000000000    0x7b4be Core/Src/adc.o
                                       0x7b83f (size before relaxing)
  .debug_str     0x000000000007b4be       0xc9 Core/Src/gpio.o
                                       0x7b457 (size before relaxing)
  .debug_str     0x000000000007b587      0x48e Core/Src/i2c.o
                                       0x7bb67 (size before relaxing)
- .debug_str     0x000000000007ba15     0x5a3a Core/Src/main.o
-                                      0x815db (size before relaxing)
- .debug_str     0x000000000008144f       0x4b Core/Src/spi.o
+ .debug_str     0x000000000007ba15     0x5a29 Core/Src/main.o
+                                      0x815ca (size before relaxing)
+ .debug_str     0x000000000008143e       0x4b Core/Src/spi.o
                                       0x7b874 (size before relaxing)
- .debug_str     0x000000000008149a       0x2c Core/Src/stm32l0xx_hal_msp.o
+ .debug_str     0x0000000000081489       0x2c Core/Src/stm32l0xx_hal_msp.o
                                       0x7b38f (size before relaxing)
- .debug_str     0x00000000000814c6       0xa6 Core/Src/stm32l0xx_it.o
+ .debug_str     0x00000000000814b5       0xa6 Core/Src/stm32l0xx_it.o
                                       0x7b825 (size before relaxing)
- .debug_str     0x000000000008156c      0x4f1 Core/Src/sysmem.o
+ .debug_str     0x000000000008155b      0x4f1 Core/Src/sysmem.o
                                        0x61f3 (size before relaxing)
- .debug_str     0x0000000000081a5d       0x61 Core/Src/system_stm32l0xx.o
+ .debug_str     0x0000000000081a4c       0x61 Core/Src/system_stm32l0xx.o
                                       0x7af65 (size before relaxing)
- .debug_str     0x0000000000081abe      0x12d Core/Src/tim.o
+ .debug_str     0x0000000000081aad      0x12d Core/Src/tim.o
                                       0x7bc43 (size before relaxing)
- .debug_str     0x0000000000081beb       0x57 Core/Src/usart.o
+ .debug_str     0x0000000000081bda       0x57 Core/Src/usart.o
                                       0x7b8af (size before relaxing)
- .debug_str     0x0000000000081c42       0x36 Core/Startup/startup_stm32l052t8yx.o
+ .debug_str     0x0000000000081c31       0x36 Core/Startup/startup_stm32l052t8yx.o
                                          0x83 (size before relaxing)
- .debug_str     0x0000000000081c78      0x3ec Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal.o
+ .debug_str     0x0000000000081c67      0x3ec Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal.o
                                       0x7b600 (size before relaxing)
- .debug_str     0x0000000000082064      0x33a Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_adc.o
+ .debug_str     0x0000000000082053      0x33a Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_adc.o
                                       0x7b67b (size before relaxing)
- .debug_str     0x000000000008239e      0x277 Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_cortex.o
+ .debug_str     0x000000000008238d      0x277 Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_cortex.o
                                       0x7b3ed (size before relaxing)
- .debug_str     0x0000000000082615      0x248 Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_dma.o
+ .debug_str     0x0000000000082604      0x248 Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_dma.o
                                       0x7b323 (size before relaxing)
- .debug_str     0x000000000008285d      0x246 Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_flash.o
+ .debug_str     0x000000000008284c      0x246 Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_flash.o
                                       0x7b1a9 (size before relaxing)
- .debug_str     0x0000000000082aa3      0x39e Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_flash_ex.o
+ .debug_str     0x0000000000082a92      0x39e Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_flash_ex.o
                                       0x7b487 (size before relaxing)
- .debug_str     0x0000000000082e41      0x1b9 Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_gpio.o
+ .debug_str     0x0000000000082e30      0x1b9 Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_gpio.o
                                       0x7b20a (size before relaxing)
- .debug_str     0x0000000000082ffa      0xd2c Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_i2c.o
+ .debug_str     0x0000000000082fe9      0xd2c Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_i2c.o
                                       0x7c20f (size before relaxing)
- .debug_str     0x0000000000083d26       0x9b Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_i2c_ex.o
+ .debug_str     0x0000000000083d15       0x9b Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_i2c_ex.o
                                       0x7b515 (size before relaxing)
- .debug_str     0x0000000000083dc1      0x248 Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_rcc.o
+ .debug_str     0x0000000000083db0      0x248 Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_rcc.o
                                       0x7b456 (size before relaxing)
- .debug_str     0x0000000000084009      0x326 Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_rcc_ex.o
+ .debug_str     0x0000000000083ff8      0x326 Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_rcc_ex.o
                                       0x7b46f (size before relaxing)
- .debug_str     0x000000000008432f      0x557 Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_spi.o
+ .debug_str     0x000000000008431e      0x557 Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_spi.o
                                       0x7b883 (size before relaxing)
- .debug_str     0x0000000000084886      0xd4a Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_tim.o
+ .debug_str     0x0000000000084875      0xd4a Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_tim.o
                                       0x7c270 (size before relaxing)
- .debug_str     0x00000000000855d0       0x57 Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_tim_ex.o
+ .debug_str     0x00000000000855bf       0x57 Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_tim_ex.o
                                       0x7b42c (size before relaxing)
- .debug_str     0x0000000000085627      0x86c Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_uart.o
+ .debug_str     0x0000000000085616      0x86c Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_uart.o
                                       0x7bd03 (size before relaxing)
- .debug_str     0x0000000000085e93       0xf0 Mantarray/Src/Bus.o
+ .debug_str     0x0000000000085e82       0xf0 Mantarray/Src/Bus.o
                                       0x7f682 (size before relaxing)
- .debug_str     0x0000000000085f83       0x48 Mantarray/Src/EEPROM.o
+ .debug_str     0x0000000000085f72       0x48 Mantarray/Src/EEPROM.o
                                       0x7f6c4 (size before relaxing)
- .debug_str     0x0000000000085fcb       0xa7 Mantarray/Src/GlobalTimer.o
-                                      0x80d82 (size before relaxing)
- .debug_str     0x0000000000086072      0x179 Mantarray/Src/Magnetometer.o
+ .debug_str     0x0000000000085fba       0xa7 Mantarray/Src/GlobalTimer.o
+                                      0x80d71 (size before relaxing)
+ .debug_str     0x0000000000086061      0x179 Mantarray/Src/Magnetometer.o
                                       0x803ce (size before relaxing)
- .debug_str     0x00000000000861eb       0x71 Mantarray/Src/i2c_network_interface.o
+ .debug_str     0x00000000000861da       0x71 Mantarray/Src/i2c_network_interface.o
                                       0x7f794 (size before relaxing)
- .debug_str     0x000000000008625c       0x88 Mantarray/Src/lis3mdl_driver.o
+ .debug_str     0x000000000008624b       0x88 Mantarray/Src/lis3mdl_driver.o
                                       0x7f7e9 (size before relaxing)
- .debug_str     0x00000000000862e4       0x5b Mantarray/Src/mmc5983_driver.o
+ .debug_str     0x00000000000862d3       0x5b Mantarray/Src/mmc5983_driver.o
                                       0x8008e (size before relaxing)
- .debug_str     0x000000000008633f       0x7b Mantarray/Src/system.o
-                                      0x8104e (size before relaxing)
+ .debug_str     0x000000000008632e       0x7b Mantarray/Src/system.o
+                                      0x8103d (size before relaxing)
 
 .comment        0x0000000000000000       0x53
  .comment       0x0000000000000000       0x53 Core/Src/adc.o

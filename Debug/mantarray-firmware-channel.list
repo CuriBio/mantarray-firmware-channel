@@ -35,17 +35,17 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING, OCTETS
  15 .debug_ranges 00002e88  00000000  00000000  0004fed8  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 16 .debug_macro  00018d66  00000000  00000000  00052d60  2**0
+ 16 .debug_macro  00018d60  00000000  00000000  00052d60  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .debug_line   00029492  00000000  00000000  0006bac6  2**0
+ 17 .debug_line   00029492  00000000  00000000  0006bac0  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_str    000863ba  00000000  00000000  00094f58  2**0
+ 18 .debug_str    000863a9  00000000  00000000  00094f52  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .comment      00000053  00000000  00000000  0011b312  2**0
+ 19 .comment      00000053  00000000  00000000  0011b2fb  2**0
                   CONTENTS, READONLY
- 20 .debug_frame  00003598  00000000  00000000  0011b368  2**2
+ 20 .debug_frame  00003598  00000000  00000000  0011b350  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 21 .debug_loc    00019dd3  00000000  00000000  0011e900  2**0
+ 21 .debug_loc    00019dd3  00000000  00000000  0011e8e8  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -11252,7 +11252,7 @@ Magnetometer_t * magnetometer_create(uint8_t type,SPI_HandleTypeDef *spi_line,GP
  8003d32:	2d14      	cmp	r5, #20
  8003d34:	d006      	beq.n	8003d44 <magnetometer_create+0x40>
 			}
-			break;
+		break;
 		}
 	}
 	return(thisMagnetometer);
