@@ -1,4 +1,0 @@
-lis3mdl.c:12:6:init_LIS3MDL_struct	32	static
-lis3mdl.c:37:9:register_read	40	static
-lis3mdl.c:51:6:register_write	32	static
-lis3mdl.c:62:6:readLIS3MDL_XYZ	48	static

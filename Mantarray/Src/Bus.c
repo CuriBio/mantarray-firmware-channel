@@ -1,167 +1,168 @@
-#include <string.h>
-#include <stdio.h>
-#include "main.h"
-#include "system.h"
-#include "Magnetometer.h"
 #include "Bus.h"
 
-extern System my_sys;
-extern UART_HandleTypeDef huart1;
-extern I2C_HandleTypeDef hi2c2;
-
-void BusInit(Bus_t *thisBus)
+InternalBus_t * internal_bus_create(GPIO_TypeDef *bus_line,uint16_t bus_pins,GPIO_TypeDef *cl_bus,uint16_t cl_pin,GPIO_TypeDef *ak_bus,uint16_t ak_pin)
 {
-	thisBus->_C_GPIO_Bus = GPIOA;
-	thisBus->_GPIO_Bus = GPIOB;
-
-	thisBus->_C0_GPIO_Pin = GPIO_PIN_13;
-	thisBus->_C1_GPIO_Pin = GPIO_PIN_14;
-	thisBus->_C2_GPIO_Pin = GPIO_PIN_15;
-	thisBus->_0_GPIO_Pin = GPIO_PIN_0;
-	thisBus->_1_GPIO_Pin = GPIO_PIN_1;
-	thisBus->_2_GPIO_Pin = GPIO_PIN_2;
-	thisBus->_3_GPIO_Pin = GPIO_PIN_3;
-	thisBus->_4_GPIO_Pin = GPIO_PIN_4;
-	thisBus->_5_GPIO_Pin = GPIO_PIN_5;
-	thisBus->_6_GPIO_Pin = GPIO_PIN_6;
-	thisBus->_7_GPIO_Pin = GPIO_PIN_7;
-
-	uint32_t temp = 0;
-	//Set main bus output speed to very high
-	temp = thisBus->_GPIO_Bus->OSPEEDR;
-	temp &= ~BUS_BUSMASK32;
-	temp |= BUS_ACK_OSPEEDR;
-	thisBus->_GPIO_Bus->OSPEEDR = temp;
-	//Set main bus output type to output push-pull
-	temp = thisBus->_GPIO_Bus->OTYPER;
-	temp &= ~BUS_BUSMASK32;
-	thisBus->_GPIO_Bus->OTYPER = temp;
-	//Set main bus pullup/down resistors to none
-	temp = thisBus->_GPIO_Bus->PUPDR;
-	temp &= ~BUS_BUSMASK32;
-	thisBus->_GPIO_Bus->PUPDR = temp;
-	//Set C bus output speed to very high
-	temp = thisBus->_C_GPIO_Bus->OSPEEDR;
-	temp &= ~BUS_CBUSMASK32;
-	temp |= BUS_CACK_OSPEEDR;
-	thisBus->_C_GPIO_Bus->OSPEEDR = temp;
-	//Set C bus output type to output push-pull
-	temp = thisBus->_C_GPIO_Bus->OTYPER;
-	temp &= ~BUS_CBUSMASK32;
-	thisBus->_C_GPIO_Bus->OTYPER = temp;
-	//Set C bus pullup/down resistors to none
-	temp = thisBus->_C_GPIO_Bus->PUPDR;
-	temp &= ~BUS_CBUSMASK32;
-	thisBus->_C_GPIO_Bus->PUPDR = temp;
-}
-
-void MockData(Magnetometer_t * thisMagnetometer)
-{
-	thisMagnetometer->XReadings[0] += 1000;
-	thisMagnetometer->XReadings[1] += 100;
-	thisMagnetometer->XReadings[2] += 10;
-	thisMagnetometer->YReadings[0] += 2000;
-	thisMagnetometer->YReadings[1] += 200;
-	thisMagnetometer->YReadings[2] += 20;
-	thisMagnetometer->ZReadings[0] += 3000;
-	thisMagnetometer->ZReadings[1] += 300;
-	thisMagnetometer->ZReadings[2] += 30;
-	thisMagnetometer->tempReading += 40;
-}
-
-void WriteDataFrame(Magnetometer_t * thisMagnetometer, Bus_t *thisBus)
-{
-
-	Acknowledge(thisBus);
-
-	//thisMagnetometer->timeStamp = getGlobalTimer(&my_sys.GlobalTimer);
-	SendData(thisBus, (uint8_t*)(&thisMagnetometer->timeStamp), 4);
-	for (uint8_t i = 0; i < 9; i++)
+	InternalBus_t * thisInternalBus = (InternalBus_t *) malloc(sizeof(InternalBus_t));
+	if(thisInternalBus != NULL)
 	{
-		if (thisMagnetometer->sensorConfig>>i & 0x0001)
+		//assign desired value for clock pin and other bus  so this bus will now which pins assigned for clock ack and bus line it self
+		//everything else in this lib should use this data for other settings
+		thisInternalBus->bus = bus_line;
+		thisInternalBus->bus_mask = bus_pins;
+		thisInternalBus->BUS_BUSMASK32 = 0;
+		thisInternalBus->BUS_BUSMODER = 0;
+		thisInternalBus->BUS_BUSOSPEEDR = 0;
+
+		thisInternalBus->bus_clk = cl_bus;
+		thisInternalBus->bus_clk_mask = cl_pin;
+		thisInternalBus->BUS_CLKMASK32 = 0;
+		thisInternalBus->BUS_CLKMODER = 0;
+		thisInternalBus->BUS_CLKOSPEEDR = 0;
+
+		thisInternalBus->bus_ack = ak_bus;
+		thisInternalBus->bus_ack_mask = ak_pin;
+		thisInternalBus->BUS_ACKMASK32 = 0;
+		thisInternalBus->BUS_ACKMODER = 0;
+		thisInternalBus->BUS_ACKOSPEEDR = 0;
+
+		uint32_t pinShifter = 0;
+		for (pinShifter = 0; pinShifter < BUS_GPIO_PINS_PER_BUS; pinShifter++)
 		{
-			SendData(thisBus, (uint8_t*)(thisMagnetometer->XReadings + i), 2);
+			if (bus_pins & (1 << pinShifter))
+			{
+				thisInternalBus->BUS_BUSMASK32  |= (0b11 << (pinShifter * 2));
+				thisInternalBus->BUS_BUSMODER   |= (0b01 << (pinShifter * 2));
+				thisInternalBus->BUS_BUSOSPEEDR |= (0b11 << (pinShifter * 2));
+			}
+			if (cl_pin & (1 << pinShifter))
+			{
+				thisInternalBus->BUS_CLKMASK32  |= (0b11 << (pinShifter * 2));
+				thisInternalBus->BUS_CLKMODER   |= (0b01 << (pinShifter * 2));
+				thisInternalBus->BUS_CLKOSPEEDR |= (0b11 << (pinShifter * 2));
+			}
+			if (ak_pin & (1 << pinShifter))
+			{
+				thisInternalBus->BUS_ACKMASK32  |= (0b11 << (pinShifter * 2));
+				thisInternalBus->BUS_ACKMODER   |= (0b01 << (pinShifter * 2));
+				thisInternalBus->BUS_ACKOSPEEDR |= (0b11 << (pinShifter * 2));
+			}
 		}
-	}
-	SendData(thisBus, (uint8_t*)(&thisMagnetometer->tempReading), 2);
-	Complete(thisBus);
-}
 
-void SendData (Bus_t *thisBus, uint8_t* data, uint8_t len)
-{
-	for (uint8_t i = 0; i < len; i++)
+		uint32_t temp = 0;
+		//Set main bus output speed to very high
+		temp = thisInternalBus->bus->OSPEEDR;
+		temp &= ~thisInternalBus->BUS_BUSMASK32;
+		temp |= thisInternalBus->BUS_BUSOSPEEDR;
+		thisInternalBus->bus->OSPEEDR = temp;
+		//Set main bus output type to output push-pull
+		temp = thisInternalBus->bus->OTYPER;
+		temp &= ~thisInternalBus->bus_mask;
+		thisInternalBus->bus->OTYPER = temp;
+		//Set main bus pullup/down resistors to none
+		temp = thisInternalBus->bus->PUPDR;
+		temp &= ~thisInternalBus->BUS_BUSMASK32;
+		thisInternalBus->bus->PUPDR = temp;
+
+		//Set Clock line, output speed to very high
+		temp = thisInternalBus->bus_clk->OSPEEDR;
+		temp &= ~thisInternalBus->BUS_CLKMASK32;
+		temp |= thisInternalBus->BUS_CLKOSPEEDR;
+		thisInternalBus->bus_clk->OSPEEDR = temp;
+		//Set C bus output type to output push-pull
+		temp = thisInternalBus->bus_clk->OTYPER;
+		temp &= ~thisInternalBus->bus_clk_mask;
+		thisInternalBus->bus_clk->OTYPER = temp;
+		//Set C bus pullup/down resistors to none
+		temp = thisInternalBus->bus_clk->PUPDR;
+		temp &= ~thisInternalBus->BUS_CLKMASK32;
+		thisInternalBus->bus_clk->PUPDR = temp;
+
+		//Set Ack line, output speed to very high
+		temp = thisInternalBus->bus_ack->OSPEEDR;
+		temp &= ~thisInternalBus->BUS_ACKMASK32;
+		temp |= thisInternalBus->BUS_ACKOSPEEDR;
+		thisInternalBus->bus_ack->OSPEEDR = temp;
+		//Set C bus output type to output push-pull
+		temp = thisInternalBus->bus_ack->OTYPER;
+		temp &= ~thisInternalBus->bus_ack_mask;
+		thisInternalBus->bus_ack->OTYPER = temp;
+		//Set C bus pullup/down resistors to none
+		temp = thisInternalBus->bus_ack->PUPDR;
+		temp &= ~thisInternalBus->BUS_ACKMASK32;
+		thisInternalBus->bus_ack->PUPDR = temp;
+
+		//by default we do not have to take the bus before any persmission from the master micro
+		internal_bus_release(thisInternalBus);
+	}
+	else
 	{
-		thisBus->_GPIO_Bus->BSRR = (uint32_t) ((0x000000FF & data[i]) | ((0x000000FF & ~data[i]) << 16));
-		//thisBus->_GPIO_Bus->BRR = (uint32_t) (0x000000FF & ~data[i]);
-		GPIOA->BSRR = GPIO_PIN_14;
-		GPIOA->BRR = GPIO_PIN_14;
-		//thisBus->_C_GPIO_Bus->BSRR = thisBus->_C1_GPIO_Pin;
-		//thisBus->_C_GPIO_Bus->BRR = thisBus->_C1_GPIO_Pin;
+		//TODO  erro handler
 	}
-	//Set A2, A12, A13 (HIGH)
-	//GPIOA->BRR = 0b0011000000000100 << 16; //move to upper 16 bits
-	//Set A2, A12, A13 (HIGH)
-	//GPIOA->BSRR = 0b0011000000000100;
-	//Clear A2, A12, A13 (LOW)
-	//GPIOA->BSRR = 0b0011000000000100 << 16; //move to upper 16 bits
-	//Clear A2, A12, A13 (LOW)
-	//GPIOA->BRR = 0b0011000000000100;
-
-	/*HAL_GPIO_WritePin(thisBus->_GPIO_Bus, thisBus->_0_GPIO_Pin, 1);
-	HAL_GPIO_WritePin(thisBus->_GPIO_Bus, thisBus->_1_GPIO_Pin, 0);
-	HAL_GPIO_WritePin(thisBus->_GPIO_Bus, thisBus->_2_GPIO_Pin, 1);
-	HAL_GPIO_WritePin(thisBus->_GPIO_Bus, thisBus->_3_GPIO_Pin, 0);
-	HAL_GPIO_WritePin(thisBus->_GPIO_Bus, thisBus->_4_GPIO_Pin, 1);
-	HAL_GPIO_WritePin(thisBus->_GPIO_Bus, thisBus->_5_GPIO_Pin, 0);
-	HAL_GPIO_WritePin(thisBus->_GPIO_Bus, thisBus->_6_GPIO_Pin, 1);
-	HAL_GPIO_WritePin(thisBus->_GPIO_Bus, thisBus->_7_GPIO_Pin, 0);*/
+	return thisInternalBus;
 }
 
-void Acknowledge (Bus_t *thisBus)
+inline void internal_bus_write_data_frame(InternalBus_t *thisInternalBus, uint32_t *buffer, uint8_t buffer_len)
 {
-	//thisBus->_GPIO_Bus->MODER ^= BUS_ACK_MODER;
-	//thisBus->_C_GPIO_Bus->MODER ^= BUS_CACK_MODER;
-	//thisBus->_C_GPIO_Bus->BSRR = (uint32_t) (0x00002000);
-	thisBus->GPIO_InitStruct.Pin = thisBus->_0_GPIO_Pin | thisBus->_1_GPIO_Pin |
-								   thisBus->_2_GPIO_Pin | thisBus->_3_GPIO_Pin |
-								   thisBus->_4_GPIO_Pin | thisBus->_5_GPIO_Pin |
-								   thisBus->_6_GPIO_Pin | thisBus->_7_GPIO_Pin;
-	thisBus->GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-	thisBus->GPIO_InitStruct.Pull = GPIO_NOPULL;
-	thisBus->GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
-	HAL_GPIO_Init(thisBus->_GPIO_Bus, &thisBus->GPIO_InitStruct);
+	//TODO Link data output to magnetometer memory instead
 
-	thisBus->GPIO_InitStruct.Pin = thisBus->_C0_GPIO_Pin | thisBus->_C1_GPIO_Pin |
-								   thisBus->_C2_GPIO_Pin;
-	thisBus->GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-	thisBus->GPIO_InitStruct.Pull = GPIO_NOPULL;
-	thisBus->GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
-	//HAL_GPIO_Init(thisBus->_C_GPIO_Bus, &thisBus->GPIO_InitStruct);
+	internal_bus_utilize(thisInternalBus);
 
-	//Send Acknowledge on line C0 to main micro
-	HAL_GPIO_WritePin(thisBus->_C_GPIO_Bus, thisBus->_C0_GPIO_Pin, GPIO_PIN_SET);
+	//Send dataframe
+	//TODO may need a data offset term if the bus pins do not begin at 0
+	//ie. thisInternalBus->bus->BSRR = (uint32_t) ((thisInternalBus->bus_mask & (testData[0] << BUSOFFSET))  | ((thisInternalBus->bus_mask & ~(testData[0] << BUSOFFSET))  << 16));
+	for(uint8_t buf_cnt=0 ; buf_cnt < buffer_len ; buf_cnt++)
+	{
+		thisInternalBus->bus_clk->BSRR = (uint32_t) thisInternalBus->bus_clk_mask;
+		thisInternalBus->bus->BSRR = buffer[buf_cnt];
+		thisInternalBus->bus_clk->BRR = thisInternalBus->bus_clk_mask;
+	}
+
+	internal_bus_release(thisInternalBus);
 }
 
-void Complete (Bus_t *thisBus)
+inline void internal_bus_utilize(InternalBus_t *thisInternalBus)
 {
-	thisBus->_GPIO_Bus->BRR = (uint32_t) (0x000000FF);
-	thisBus->_C_GPIO_Bus->BRR = (uint32_t) (0x00002000);
-	//thisBus->_GPIO_Bus->MODER ^= BUS_ACK_MODER;
-	//thisBus->_C_GPIO_Bus->MODER ^= BUS_CACK_MODER;
-	//Signal data frame is over on line C0 to main micro
-	HAL_GPIO_WritePin(thisBus->_C_GPIO_Bus, thisBus->_C0_GPIO_Pin, GPIO_PIN_RESET);
+	uint32_t temp = 0;
+	//Set Bus pins to output
+	temp = thisInternalBus->bus->MODER;
+	temp &= ~thisInternalBus->BUS_BUSMASK32;
+	temp |= thisInternalBus->BUS_BUSMODER;
+	thisInternalBus->bus->MODER = temp;
 
-	thisBus->GPIO_InitStruct.Pin = thisBus->_0_GPIO_Pin | thisBus->_1_GPIO_Pin |
-						  	  	   thisBus->_2_GPIO_Pin | thisBus->_3_GPIO_Pin |
-								   thisBus->_4_GPIO_Pin | thisBus->_5_GPIO_Pin |
-								   thisBus->_6_GPIO_Pin | thisBus->_7_GPIO_Pin;
-	thisBus->GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
-	thisBus->GPIO_InitStruct.Pull = GPIO_NOPULL;
-	HAL_GPIO_Init(thisBus->_GPIO_Bus, &thisBus->GPIO_InitStruct);
+	//Set clock pin to output
+	temp = thisInternalBus->bus_clk->MODER;
+	temp &= ~thisInternalBus->BUS_CLKMASK32;
+	temp |= thisInternalBus->BUS_CLKMODER;
+	thisInternalBus->bus_clk->MODER = temp;
 
-	thisBus->GPIO_InitStruct.Pin = thisBus->_C0_GPIO_Pin | thisBus->_C1_GPIO_Pin |
-								   thisBus->_C2_GPIO_Pin;
-	thisBus->GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
-	thisBus->GPIO_InitStruct.Pull = GPIO_NOPULL;
-	//HAL_GPIO_Init(thisBus->_C_GPIO_Bus, &thisBus->GPIO_InitStruct);
+	//Set ack pin to output
+	temp = thisInternalBus->bus_ack->MODER;
+	temp &= ~thisInternalBus->BUS_ACKMASK32;
+	temp |= thisInternalBus->BUS_ACKMODER;
+	thisInternalBus->bus_ack->MODER = temp;
+
+	thisInternalBus->bus_ack->BSRR = (uint32_t) thisInternalBus->bus_ack_mask;
+}
+
+inline void internal_bus_release(InternalBus_t *thisInternalBus)
+{
+	uint32_t temp = 0;
+	//Set all bus pins to low and send complete
+	thisInternalBus->bus->BRR = thisInternalBus->bus_mask;
+	thisInternalBus->bus_ack->BRR = thisInternalBus->bus_ack_mask;
+
+	//Set Bus pins to input
+	temp = thisInternalBus->bus->MODER;
+	temp &= ~thisInternalBus->BUS_BUSMASK32;
+	thisInternalBus->bus->MODER = temp;
+
+	//Set clock pin to input
+	temp = thisInternalBus->bus_clk->MODER;
+	temp &= ~thisInternalBus->BUS_CLKMASK32;
+	thisInternalBus->bus_clk->MODER = temp;
+
+	//Set ack pins to input
+	temp = thisInternalBus->bus_ack->MODER;
+	temp &= ~thisInternalBus->BUS_ACKMASK32;
+	thisInternalBus->bus_ack->MODER = temp;
 }

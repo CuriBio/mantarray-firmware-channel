@@ -1,4 +1,5 @@
-Mantarray/Src/EEPROM.o: ../Mantarray/Src/EEPROM.c ../Core/Inc/main.h \
+Mantarray/Src/EEPROM.o: ../Mantarray/Src/EEPROM.c \
+ ../Mantarray/inc/EEPROM.h ../Core/Inc/main.h \
  ../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal.h \
  ../Core/Inc/stm32l0xx_hal_conf.h \
  ../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal_rcc.h \
@@ -31,12 +32,9 @@ Mantarray/Src/EEPROM.o: ../Mantarray/Src/EEPROM.c ../Core/Inc/main.h \
  ../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal_tim.h \
  ../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal_tim_ex.h \
  ../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal_uart.h \
- ../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal_uart_ex.h \
- ../Mantarray/inc/system.h ../Mantarray/inc/GlobalTimer.h \
- ../Mantarray/inc/lis3mdl.h ../Mantarray/inc/mmc5983.h \
- ../Mantarray/inc/UART_Comm.h ../Mantarray/inc/I2C.h \
- ../Mantarray/inc/Magnetometer.h ../Mantarray/inc/Bus.h \
- ../Mantarray/inc/EEPROM.h ../Mantarray/inc/system.h
+ ../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal_uart_ex.h
+
+../Mantarray/inc/EEPROM.h:
 
 ../Core/Inc/main.h:
 
@@ -105,23 +103,3 @@ Mantarray/Src/EEPROM.o: ../Mantarray/Src/EEPROM.c ../Core/Inc/main.h \
 ../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal_uart.h:
 
 ../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal_uart_ex.h:
-
-../Mantarray/inc/system.h:
-
-../Mantarray/inc/GlobalTimer.h:
-
-../Mantarray/inc/lis3mdl.h:
-
-../Mantarray/inc/mmc5983.h:
-
-../Mantarray/inc/UART_Comm.h:
-
-../Mantarray/inc/I2C.h:
-
-../Mantarray/inc/Magnetometer.h:
-
-../Mantarray/inc/Bus.h:
-
-../Mantarray/inc/EEPROM.h:
-
-../Mantarray/inc/system.h:

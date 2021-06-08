@@ -1,114 +1,100 @@
-#include <string.h>
-#include <stdio.h>
-#include "system.h"
-#include "EEPROM.h"
+#include "magnetometer.h"
 
-extern System my_sys;
-extern SPI_HandleTypeDef hspi1;
-extern UART_HandleTypeDef huart2;
-
-void MagnetometerInit(Magnetometer_t *thisMagnetometer)
+//!---------------------------------------------------------------------------------------------------------------------
+//!-------------- create a new magenotometer object and add that to the system this methode need to know what is the
+//!TODO if in future we decided to use analog sensors or different kind of sensors this function need to change to a variadic function like printf
+//!since different sensors may have different type and number of variables
+//!1 - sensor type  depend to the sensor type
+//!2 - data tranmitter handler in this implimentation we just limited that to SPI in future if we add I2C or analog sensor ADC line can passs as a parameter
+//!--------------------------create a new magnotmemeter of any type lower layer support and make a interface and initilize that-----------------------------------
+Magnetometer_t * magnetometer_create(uint8_t type,SPI_HandleTypeDef *spi_line,GPIO_TypeDef *CS_Bus,uint16_t CS_Pin,GPIO_TypeDef *INT_Bus,uint16_t INT_Pin)
 {
-	thisMagnetometer->whichMagnetometer = *(uint8_t*) WHICH_MAGNETOMETER;
-	thisMagnetometer->sensorConfig = 0b0000000111111111;
-	thisMagnetometer->XReadings[0] = 0;
-	thisMagnetometer->XReadings[1] = 0;
-	thisMagnetometer->XReadings[2] = 0;
-	thisMagnetometer->YReadings[0] = 0;
-	thisMagnetometer->YReadings[1] = 0;
-	thisMagnetometer->YReadings[2] = 0;
-	thisMagnetometer->ZReadings[0] = 0;
-	thisMagnetometer->ZReadings[1] = 0;
-	thisMagnetometer->ZReadings[2] = 0;
-	thisMagnetometer->timeStamp = 0;
-	thisMagnetometer->tempReading = 0;
-
-	if (thisMagnetometer->whichMagnetometer==1)
+	Magnetometer_t *  thisMagnetometer = malloc(sizeof(Magnetometer_t));
+	if(thisMagnetometer != NULL)
 	{
-		//Start lis3mdl and initialize struct
-		thisMagnetometer->sensorA_LIS3MDL.CS_GPIO_Bus = GPIOA;
-		thisMagnetometer->sensorA_LIS3MDL.CS_GPIO_Pin = GPIO_PIN_6;
-		thisMagnetometer->sensorB_LIS3MDL.CS_GPIO_Bus = GPIOA;
-		thisMagnetometer->sensorB_LIS3MDL.CS_GPIO_Pin = GPIO_PIN_7;
-		thisMagnetometer->sensorC_LIS3MDL.CS_GPIO_Bus = GPIOA;
-		thisMagnetometer->sensorC_LIS3MDL.CS_GPIO_Pin = GPIO_PIN_8;
-		thisMagnetometer->sensorA_LIS3MDL.DRDY_GPIO_Pin = GPIO_PIN_8;
-		thisMagnetometer->sensorB_LIS3MDL.DRDY_GPIO_Pin = GPIO_PIN_12;
-		thisMagnetometer->sensorC_LIS3MDL.DRDY_GPIO_Pin = GPIO_PIN_4;
-		thisMagnetometer->sensorA_LIS3MDL.id = 'A';
-		thisMagnetometer->sensorB_LIS3MDL.id = 'B';
-		thisMagnetometer->sensorC_LIS3MDL.id = 'C';
-		//init_LIS3MDL_struct(&thisMagnetometer->sensorA_LIS3MDL);
-		//init_LIS3MDL_struct(&thisMagnetometer->sensorB_LIS3MDL);
-		//init_LIS3MDL_struct(&thisMagnetometer->sensorC_LIS3MDL);
-		//thisMagnetometer->sensorA.uartBufLen = sprintf(thisMagnetometer->sensorA.uartBuffer, "SPI Config Complete\r\n");
-		//serialSend(&huart2, thisMagnetometer->sensorC.uartBuffer, thisMagnetometer->sensorC.uartBufLen);
+		thisMagnetometer->whichMagnetometer = type;
+		switch (thisMagnetometer->whichMagnetometer)
+		{
+		case MAGNETOMETER_TYPE_LIS3MDL:
+			{
+				thisMagnetometer->magnetometer = (LIS3MDL_t*)LIS3MDL_create(spi_line,CS_Bus,CS_Pin,INT_Bus,INT_Pin);
+				if(thisMagnetometer->magnetometer != NULL)
+				{
+					thisMagnetometer->sampleRate = MAGNETOMETER_DEFAULT_SAMPLE_RATE;
+					thisMagnetometer->time_stamp = 0;
+					thisMagnetometer->Readings[X_AX] = 0;
+					thisMagnetometer->Readings[Y_AX] = 0;
+					thisMagnetometer->Readings[Z_AX] = 0;
+				}
+			}
+		break;
+		//------------------------------
+		case MAGNETOMETER_TYPE_MMC5983:
+			{
+				thisMagnetometer->magnetometer = (MMC5983_t*)MMC5983_create(spi_line,CS_Bus,CS_Pin,INT_Bus,INT_Pin);
+				if(thisMagnetometer->magnetometer != NULL)
+				{
+					thisMagnetometer->sampleRate = MAGNETOMETER_DEFAULT_SAMPLE_RATE;
+					thisMagnetometer->time_stamp = 0;
+					thisMagnetometer->Readings[X_AX] = 0;
+					thisMagnetometer->Readings[Y_AX] = 0;
+					thisMagnetometer->Readings[Z_AX] = 0;
+					thisMagnetometer->sensor_status = ( MMC5983_get_status(thisMagnetometer->magnetometer) ? MAGNETOMETER_OK : MAGNETOMETER_FAULTY);
+				}
+			}
+		break;
+		}
 	}
-	else if (thisMagnetometer->whichMagnetometer==2)
+	return(thisMagnetometer);
+}
+//------------------destroy a megnetometer turn it off release hardware pin and release memory ----------------------------------
+void magnetometer_destroy(Magnetometer_t *thisMagnetometer)
+{
+	switch (thisMagnetometer->whichMagnetometer)    //we need to freeup child memory first before freeing mother class otherwise we will lost trace of that
 	{
-		//Start mmc5983 and initialize struct
-		thisMagnetometer->sensorA_MMC5983.CS_GPIO_Bus = GPIOA;
-		thisMagnetometer->sensorA_MMC5983.CS_GPIO_Pin = GPIO_PIN_6;
-		thisMagnetometer->sensorB_MMC5983.CS_GPIO_Bus = GPIOA;
-		thisMagnetometer->sensorB_MMC5983.CS_GPIO_Pin = GPIO_PIN_7;
-		thisMagnetometer->sensorA_MMC5983.INT_GPIO_Pin = GPIO_PIN_8;
-		thisMagnetometer->sensorB_MMC5983.INT_GPIO_Pin = GPIO_PIN_12;
-		thisMagnetometer->sensorA_MMC5983.idChar = 'A';
-		thisMagnetometer->sensorB_MMC5983.idChar = 'B';
-		thisMagnetometer->sensorC_MMC5983.idChar = 'C';
-		thisMagnetometer->sensorA_MMC5983.idNum = 0;
-		thisMagnetometer->sensorB_MMC5983.idNum = 1;
-		thisMagnetometer->sensorC_MMC5983.idNum = 2;
-		//init_MMC5983_struct(&thisMagnetometer->sensorA_MMC5983);
-		//readMMC5983_XYZ(thisMagnetometer, &thisMagnetometer->sensorA_MMC5983);
-		//init_MMC5983_struct(&thisMagnetometer->sensorB_MMC5983);
-		//readMMC5983_XYZ(thisMagnetometer, &thisMagnetometer->sensorB_MMC5983);
-		//init_MMC5983_struct(&thisMagnetometer->sensorC_MMC5983);
-		//thisMagnetometer->uartBufLen = sprintf(thisMagnetometer->uartBuffer, "SPI Config Complete\r\n");
-		//serialSend(&huart2, thisMagnetometer->uartBuffer, thisMagnetometer->uartBufLen);
+	case MAGNETOMETER_TYPE_LIS3MDL:
+		LIS3MDL_destroy((LIS3MDL_t*)thisMagnetometer->magnetometer);//we may need to turn off or reset chip before freeing memory each chip must have its own destroyer
+		break;
+	//------------------------------
+	case MAGNETOMETER_TYPE_MMC5983:
+		MMC5983_destroy((MMC5983_t*)thisMagnetometer->magnetometer);//we may need to turn off or reset chip before freeing memory each chip must have its own destroyer
+		break;
 	}
+	//any extera hardware or software init before killin the magnetometer will go here
+	free(thisMagnetometer);
 }
-
-void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
+//----------------regardless of magnetometer type this methode is our interface between higher layer and driver layer---------------------------------------
+//--------------- by calling this methode we will have fresh data provided by low level layer driver ready to use --------------------------
+uint8_t magnetometer_read(Magnetometer_t *thisMagnetometer)
 {
-	/*if (GPIO_Pin==my_sys.Magnetometer.sensorA_MMC5983.INT_GPIO_Pin)
+	uint8_t res=0;
+	switch (thisMagnetometer->whichMagnetometer)
 	{
-		readMMC5983_XYZ(&my_sys.Magnetometer, &my_sys.Magnetometer.sensorA_MMC5983);
-	}*/
-	/*if (GPIO_Pin==my_sys.Magnetometer.sensorB_MMC5983.INT_GPIO_Pin)
-	{
-		readMMC5983_XYZ(&my_sys.Magnetometer, &my_sys.Magnetometer.sensorB_MMC5983);
-	}*/
+	case MAGNETOMETER_TYPE_LIS3MDL:
+		res = LIS3MDL_read_XYZ((LIS3MDL_t*)thisMagnetometer->magnetometer,thisMagnetometer->Readings);
+		break;
+	//------------------------------
+	case MAGNETOMETER_TYPE_MMC5983:
+		res = MMC5983_read_XYZ((MMC5983_t*)thisMagnetometer->magnetometer, (uint8_t*)thisMagnetometer->Readings);
+		break;
+	}
+	return res;
 }
-
-void readMMC5983_XYZ(Magnetometer_t *thisMagnetometer, MMC5983_t *thisMMC5983)
+//--------------------test sensor---------------------------
+/*uint8_t get_status(Magnetometer_t *thisMagnetometer)
 {
-	thisMagnetometer->out[0] = MMC5983_READ | MMC5983_XOUT0;   //Doing a continuous read and starting at the first measurement register (X_Low)
-	HAL_GPIO_WritePin(thisMMC5983->CS_GPIO_Bus, thisMMC5983->CS_GPIO_Pin, GPIO_PIN_RESET); //! Set CS pin low to begin SPI read on target device
-	HAL_SPI_TransmitReceive(&hspi1, thisMagnetometer->out, thisMagnetometer->in, 8, 10);   //Read all the data at once
-	HAL_GPIO_WritePin(thisMMC5983->CS_GPIO_Bus, thisMMC5983->CS_GPIO_Pin, GPIO_PIN_SET); //! Set CS pin high to signal SPI read as done
-	MMC5983_register_write(thisMMC5983, MMC5983_STATUS, 0b00000001);
-	//Concatenate low and high bits
-	thisMagnetometer->XReadings[thisMMC5983->idNum] = (thisMagnetometer->in[1]<<10) | thisMagnetometer->in[2]<<2 | ((thisMagnetometer->in[7]>>6) & 3);
-	thisMagnetometer->YReadings[thisMMC5983->idNum] = (thisMagnetometer->in[3]<<10) | thisMagnetometer->in[4]<<2 | ((thisMagnetometer->in[7]>>4) & 3);
-	thisMagnetometer->ZReadings[thisMMC5983->idNum] = (thisMagnetometer->in[5]<<10) | thisMagnetometer->in[6]<<2 | ((thisMagnetometer->in[7]>>2) & 3);
-	//thisMMC5983->magneticX[thisMMC5983->magneticFront]= (thisMMC5983->in[1]<<10) | thisMMC5983->in[2]<<2 | ((thisMMC5983->in[7]>>6) & 3);
-	//thisMMC5983->magneticY[thisMMC5983->magneticFront]= (thisMMC5983->in[3]<<10) | thisMMC5983->in[4]<<2 | ((thisMMC5983->in[7]>>4) & 3);
-	//thisMMC5983->magneticZ[thisMMC5983->magneticFront]= (thisMMC5983->in[5]<<10) | thisMMC5983->in[6]<<2 | ((thisMMC5983->in[7]>>2) & 3);
-
-	//TEST CODE
-	thisMagnetometer->timeStamp = getGlobalTimer(&my_sys.GlobalTimer);
-	//thisMagnetometer->uartBufLen = sprintf(thisMagnetometer->uartBuffer, "%c %u %u %u %u\r\n",
-	//								  thisMMC5983->idChar,
-	//								  thisMagnetometer->XReadings[thisMMC5983->idNum],
-	//								  thisMagnetometer->YReadings[thisMMC5983->idNum],
-	//								  thisMagnetometer->ZReadings[thisMMC5983->idNum],
-	//								  thisMagnetometer->timeStamp);
-	//serialSend(&huart2, thisMagnetometer->uartBuffer, thisMagnetometer->uartBufLen);
-
-	//thisMMC5983->magneticFront++;
-	//if (thisMMC5983->magneticFront == MMC5983_MAXREADINGS)
-	//{
-	//	thisMMC5983->magneticFront = 0;
-	//}
-}
+	uint8_t res=0;
+	switch (thisMagnetometer->whichMagnetometer)
+	{
+	case MAGNETOMETER_TYPE_LIS3MDL:
+		if((LIS3MDL_t*)thisMagnetometer->sensor_status == LIS3MDL_SENSOR_FOUND)
+			res=1;
+		break;
+	//------------------------------
+	case MAGNETOMETER_TYPE_MMC5983:
+		if((MMC5983_t*)thisMagnetometer->sensor_status == MMC5983_SENSOR_FOUND)
+			res=1;
+		break;
+	}
+	return res;
+}*/
