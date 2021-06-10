@@ -12405,6 +12405,7 @@ void module_system_init(System *thisSystem)
 	HAL_GPIO_WritePin(SPI_C_CS_GPIO_Port, SPI_C_CS_Pin, GPIO_PIN_SET);
  80043e8:	0049      	lsls	r1, r1, #1
  80043ea:	f7fd fa33 	bl	8001854 <HAL_GPIO_WritePin>
+
 	EEPROM_load(EEPROM_FIRST_TIME_INITIATION, temp_data, 1);  //TODO  this is bungee jumping without rope we assume everything if good no error check
  80043ee:	2201      	movs	r2, #1
  80043f0:	0031      	movs	r1, r6
@@ -12412,7 +12413,7 @@ void module_system_init(System *thisSystem)
  80043f4:	f7ff fc50 	bl	8003c98 <EEPROM_load>
 	if (temp_data[0] == EEPROM_FIRST_TIME_BOOT_MARKER )
  80043f8:	7833      	ldrb	r3, [r6, #0]
- 80043fa:	2b80      	cmp	r3, #128	; 0x80
+ 80043fa:	2b67      	cmp	r3, #103	; 0x67
  80043fc:	d029      	beq.n	8004452 <module_system_init+0xb6>
 		EEPROM_load(EEPROM_I2C_ADDR, i2c_new_address, 1);
 		my_sys.i2c_line = I2C_interface_create(&hi2c2,i2c_new_address[0]);
@@ -12425,6 +12426,7 @@ void module_system_init(System *thisSystem)
  8004402:	f7ff fd11 	bl	8003e28 <I2C_interface_create>
  8004406:	61a0      	str	r0, [r4, #24]
 	}
+
 	// init sensors
 	my_sys.sensors[0] = magnetometer_create(MAGNETOMETER_TYPE_MMC5983,&hspi1 , SPI_A_CS_GPIO_Port , SPI_A_CS_Pin , mag_int_a_GPIO_Port , mag_int_a_Pin);
  8004408:	25a0      	movs	r5, #160	; 0xa0
@@ -12612,7 +12614,7 @@ void state_machine(System *thisSystem)
 				else
 				{
 					temp_data[0] = EEPROM_FIRST_TIME_BOOT_MARKER;
- 8004514:	2380      	movs	r3, #128	; 0x80
+ 8004514:	2367      	movs	r3, #103	; 0x67
 					if( !EEPROM_save(EEPROM_FIRST_TIME_INITIATION, temp_data,1) )  //TODO  this is bungee jumping without rope we assume everything if good no error check
  8004516:	2201      	movs	r2, #1
  8004518:	0039      	movs	r1, r7

@@ -19,7 +19,10 @@ void module_system_init(System *thisSystem)
 	HAL_GPIO_WritePin(SPI_A_CS_GPIO_Port, SPI_A_CS_Pin, GPIO_PIN_SET);
 	HAL_GPIO_WritePin(SPI_B_CS_GPIO_Port, SPI_B_CS_Pin, GPIO_PIN_SET);
 	HAL_GPIO_WritePin(SPI_C_CS_GPIO_Port, SPI_C_CS_Pin, GPIO_PIN_SET);
-	EEPROM_load(EEPROM_FIRST_TIME_INITIATION, temp_data, 1);  //TODO  this is bungee jumping without rope we assume everything if good no error check
+
+	my_sys.i2c_line = I2C_interface_create(&hi2c2,100);
+
+	/*EEPROM_load(EEPROM_FIRST_TIME_INITIATION, temp_data, 1);  //TODO  this is bungee jumping without rope we assume everything if good no error check
 	if (temp_data[0] == EEPROM_FIRST_TIME_BOOT_MARKER )
 	{
 		EEPROM_load(EEPROM_I2C_ADDR, i2c_new_address, 1);
@@ -28,7 +31,8 @@ void module_system_init(System *thisSystem)
 	else
 	{
 		my_sys.i2c_line = I2C_interface_create(&hi2c2,100);   //TDOD hard code this to correct default value
-	}
+	}*/
+
 	// init sensors
 	my_sys.sensors[0] = magnetometer_create(MAGNETOMETER_TYPE_MMC5983,&hspi1 , SPI_A_CS_GPIO_Port , SPI_A_CS_Pin , mag_int_a_GPIO_Port , mag_int_a_Pin);
 	my_sys.sensors[1] = magnetometer_create(MAGNETOMETER_TYPE_MMC5983,&hspi1 , SPI_B_CS_GPIO_Port , SPI_B_CS_Pin , mag_int_b_GPIO_Port , mag_int_b_Pin);
@@ -202,7 +206,12 @@ void state_machine(System *thisSystem)
 			//-------- if we get any data higher than 0x80  it mean it is a new address
 			if ( my_sys.i2c_line->receiveBuffer[0] > I2C_PACKET_SET_NEW_ADDRESS )
 			{
-				uint8_t i2c_new_address[4]={3,3,3,3};
+				__HAL_I2C_DISABLE_IT(thisI2C->I2C_line, I2C_IT_RXI | I2C_IT_STOPI | I2C_IT_ADDRI);
+				uint8_t i2c_new_address =  (uint8_t)my_sys.i2c_line->receiveBuffer[0] & 0x7f;
+				thisI2C->I2C_line->Instance->OAR1 &= ~I2C_OAR1_OA1EN;
+				thisI2C->I2C_line->Instance->OAR1 = (I2C_OAR1_OA1EN | ( channel_address << 1) );
+				__HAL_I2C_ENABLE_IT(thisI2C->I2C_line, I2C_IT_RXI | I2C_IT_STOPI | I2C_IT_ADDRI);
+				/*uint8_t i2c_new_address[4]={3,3,3,3};
 				uint8_t temp_data[4]={0,0,0,0};
 				i2c_new_address[0] =  (uint8_t)my_sys.i2c_line->receiveBuffer[0] & 0x7f;
 				if( !EEPROM_save(EEPROM_I2C_ADDR, i2c_new_address, 1) )
@@ -221,7 +230,7 @@ void state_machine(System *thisSystem)
 						//this is bad we can kill the whole system master micro should now about this
 						//we donot have any valid address for now we go to idle mode we never activate common bus
 					}
-				}
+				}*/
 			}
 		my_sys.i2c_line->buffer_index =0;
 		}
