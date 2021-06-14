@@ -1,0 +1,2 @@
+system.c:8:6:module_system_init	32	static
+system.c:44:6:state_machine	184	static

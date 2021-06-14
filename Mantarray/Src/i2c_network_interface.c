@@ -15,7 +15,7 @@ I2C_t * I2C_interface_create(I2C_HandleTypeDef *I2C_handle,uint8_t channel_addre
 		//is ther any reason for using manual mode?
 		thisI2C->I2C_line->Instance->OAR1 &= ~I2C_OAR1_OA1EN;
 		thisI2C->I2C_line->Instance->OAR1 = (I2C_OAR1_OA1EN | ( channel_address << 1) );
-		hi2c->Instance->CR2 &= ~I2C_CR2_NACK;
+		thisI2C->I2C_line->Instance->CR2 &= ~I2C_CR2_NACK;
 		__HAL_I2C_ENABLE_IT(thisI2C->I2C_line, I2C_IT_RXI | I2C_IT_STOPI | I2C_IT_ADDRI);
 		//HAL_I2C_Slave_Receive_IT(thisI2C->I2C_line, (uint8_t *)thisI2C->receiveBuffer, I2C_RECEIVE_LENGTH);
 	}
