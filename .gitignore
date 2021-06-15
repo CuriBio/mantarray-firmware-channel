@@ -1,0 +1,8 @@
+/.settings
+/Debug/*
+!/Debug/mantarray-firmware-channel.bin
+/Drivers
+/.cproject
+/.mxproject
+/.project
+/STM32L052T8YX_FLASH.ld

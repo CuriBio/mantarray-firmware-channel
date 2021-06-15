@@ -1,4 +1,0 @@
-GlobalTimer.c:10:17:global_timer_create	16	static
-GlobalTimer.c:20:6:HAL_TIM_PeriodElapsedCallback	0	static
-GlobalTimer.c:28:10:get_global_timer	0	static
-GlobalTimer.c:42:6:set_global_timer	8	static
