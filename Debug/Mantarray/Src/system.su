@@ -1,2 +1,8 @@
+<<<<<<< Updated upstream
 system.c:8:6:module_system_init	88	static
 system.c:40:6:state_machine	80	static
+=======
+system.c:10:6:I2C2_IRQHandler	16	static
+system.c:46:6:module_system_init	40	static
+system.c:78:6:state_machine	40	static
+>>>>>>> Stashed changes

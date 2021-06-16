@@ -2,8 +2,46 @@
 
 extern SPI_HandleTypeDef hspi1;
 extern I2C_HandleTypeDef hi2c2;
-extern TIM_HandleTypeDef htim21;
+//extern TIM_HandleTypeDef htim21;
 extern System my_sys;
+
+uint32_t output_data[33];
+//------------------------------------------
+void I2C2_IRQHandler(void)
+{
+	if ((I2C_CHECK_FLAG(i2c2_interrupt_interface_pointer->I2C_line->Instance->ISR, I2C_FLAG_STOPF) != RESET) && (I2C_CHECK_IT_SOURCE(i2c2_interrupt_interface_pointer->I2C_line->Instance->CR1, I2C_IT_STOPI) != RESET))
+	{
+		// Clear STOP Flag
+		__HAL_I2C_CLEAR_FLAG(i2c2_interrupt_interface_pointer->I2C_line, I2C_FLAG_STOPF);
+	}
+	if ((I2C_CHECK_FLAG(i2c2_interrupt_interface_pointer->I2C_line->Instance->ISR, I2C_FLAG_RXNE) != RESET) && (I2C_CHECK_IT_SOURCE(i2c2_interrupt_interface_pointer->I2C_line->Instance->CR1, I2C_IT_RXI) != RESET))
+	{
+		__HAL_I2C_CLEAR_FLAG(i2c2_interrupt_interface_pointer->I2C_line, I2C_FLAG_RXNE);
+		if(i2c2_interrupt_interface_pointer->buffer_index < I2C_RECEIVE_LENGTH)
+		{
+				if((uint8_t)i2c2_interrupt_interface_pointer->I2C_line->Instance->RXDR == I2C_PACKET_SEND_DATA_FRAME)
+				{
+
+					//TODO Link data output to magnetometer memory instead
+					internal_bus_write_data_frame(my_sys.data_bus, output_data, 33);
+					my_sys.sensors[0]->b_new_data_needed = 1;
+					my_sys.sensors[1]->b_new_data_needed = 1;
+					my_sys.sensors[2]->b_new_data_needed = 1;
+				}
+				else
+				{
+					i2c2_interrupt_interface_pointer->receiveBuffer[i2c2_interrupt_interface_pointer->buffer_index] = (uint8_t)i2c2_interrupt_interface_pointer->I2C_line->Instance->RXDR;
+					i2c2_interrupt_interface_pointer->buffer_index++;
+				}
+		}
+	}
+	if ((I2C_CHECK_FLAG(i2c2_interrupt_interface_pointer->I2C_line->Instance->ISR, I2C_FLAG_ADDR) != RESET) && (I2C_CHECK_IT_SOURCE(i2c2_interrupt_interface_pointer->I2C_line->Instance->CR1, I2C_IT_ADDRI) != RESET))
+	{
+		// Clear ADDR Flag and turn off line hold
+		__HAL_I2C_CLEAR_FLAG(i2c2_interrupt_interface_pointer->I2C_line, I2C_FLAG_ADDR);
+	}
+	return;
+}
 
 void module_system_init(System *thisSystem)
 {
@@ -11,7 +49,11 @@ void module_system_init(System *thisSystem)
 											BUS_CLK_GPIO_Port, BUS_CLK_Pin,
 											BUS_C1_GPIO_Port, BUS_C1_Pin);
 
+<<<<<<< Updated upstream
 	global_timer_create(thisSystem->ph_global_timer, htim21);
+=======
+	//thisSystem->ph_global_timer = global_timer_create(&htim21);
+>>>>>>> Stashed changes
 
 	uint8_t temp_data[4]={0,0,0,0};
 	uint8_t i2c_new_address[4]={0,0,0,0};
@@ -39,8 +81,14 @@ void module_system_init(System *thisSystem)
 
 void state_machine(System *thisSystem)
 {
+<<<<<<< Updated upstream
 	uint8_t testData[40] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};  //TODO remove after Link data output to magnetometer memory instead
 	int read_permit =0;
+=======
+	uint8_t b_read_permit =0;
+	uint8_t byte_shifter = 0;
+	uint8_t this_byte = 0;
+>>>>>>> Stashed changes
 	while(1)
 	{
 		if(read_permit)
@@ -48,6 +96,7 @@ void state_machine(System *thisSystem)
 			if( my_sys.sensors[0]->sensor_status == MAGNETOMETER_OK )
 				if(magnetometer_read(my_sys.sensors[0], thisSystem->ph_global_timer))
 				{
+<<<<<<< Updated upstream
 					memcpy(testData + 11, &thisSystem->sensors[1]->time_stamp, 5);
 					memcpy(testData + 16, my_sys.sensors[1]->Readings, 6);
 				}
@@ -66,6 +115,39 @@ void state_machine(System *thisSystem)
 					memcpy(testData + 27, my_sys.sensors[2]->Readings, 6);
 				}
 			read_permit =0;
+=======
+					if(magnetometer_read(thisSystem->sensors[sensor_num]))
+					{
+						byte_shifter = 0;
+						while (byte_shifter < 5)
+						{
+							//output_data[byte_shifter + sensor_num * 11] = *(((uint8_t*)&thisSystem->sensors[sensor_num]->time_stamp) + byte_shifter);
+							this_byte = *(((uint8_t*)&thisSystem->sensors[sensor_num]->time_stamp) + byte_shifter);
+							output_data[byte_shifter + sensor_num * 11] = (uint32_t)(thisSystem->data_bus->bus_mask & this_byte)  | ((thisSystem->data_bus->bus_mask & ~this_byte)  << 16);
+							byte_shifter++;
+						}
+
+						while (byte_shifter < 11)
+						{
+							//output_data[byte_shifter + sensor_num * 11] = *(((uint8_t*)thisSystem->sensors[sensor_num]->Readings) + (byte_shifter - 5));
+							this_byte = *(((uint8_t*)thisSystem->sensors[sensor_num]->Readings) + (byte_shifter - 5));
+							output_data[byte_shifter + sensor_num * 11] = (uint32_t)(thisSystem->data_bus->bus_mask & this_byte)  | ((thisSystem->data_bus->bus_mask & ~this_byte)  << 16);
+							byte_shifter++;
+						}
+
+						//Declare that new data is no longer needed
+						thisSystem->sensors[sensor_num]->b_new_data_needed = 0;
+						//Begin a new data conversion immediately
+						MMC5983_register_write((MMC5983_t*)thisSystem->sensors[sensor_num]->magnetometer, MMC5983_INTERNALCONTROL0, MMC5983_CTRL0_TM_M);
+						//Timestamp the new data conversion you ordered
+						//thisSystem->sensors[sensor_num]->time_stamp = get_global_timer(thisSystem->ph_global_timer);
+						//thisSystem->sensors[sensor_num]->time_stamp++;
+
+					} //Check if the magnetometer has new data ready
+				} //Check if magnetometer is functional and if new data is needed
+			} //Sensor loop
+			b_read_permit =0;
+>>>>>>> Stashed changes
 		}
 		//------------------------------------------
 		if(my_sys.i2c_line->buffer_index)
@@ -73,13 +155,13 @@ void state_machine(System *thisSystem)
 			switch(my_sys.i2c_line->receiveBuffer[0])
 			{
 				//-------------------------------
-				case I2C_PACKET_SEND_DATA_FRAME:
+			/*	case I2C_PACKET_SEND_DATA_FRAME:
 				{
 
 					//TODO Link data output to magnetometer memory instead
 					internal_bus_write_data_frame(my_sys.data_bus,testData,33);
 					break;
-				}
+				}*/
 				//-------------------------------
 				case I2C_PACKET_SET_BOOT0_LOW:
 				{
@@ -172,6 +254,7 @@ void state_machine(System *thisSystem)
 						HAL_GPIO_WritePin(SPI_C_CS_GPIO_Port, SPI_C_CS_Pin, GPIO_PIN_SET);
 						HAL_Delay(250);
 					}
+					HAL_SuspendTick();
 				}
 				break;
 				case I2C_PACKET_BEGIN_MAG_CONVERSION:

@@ -12,7 +12,11 @@
 #define EEPROM_OTHERINFO2             	(DATA_EEPROM_BASE + 0x00000050UL) //Make sure to use the appropriate FLASHEx_Type_Program_Data Where the options are:
 #define EEPROM_OTHERINFO3             	(DATA_EEPROM_BASE + 0x00000060UL) //FLASH_TYPEPROGRAMDATA_BYTE, FLASH_TYPEPROGRAMDATA_HALFWORD, and FLASH_TYPEPROGRAMDATA_WORD
 
+<<<<<<< Updated upstream
 #define EEPROM_FIRST_TIME_BOOT_MARKER		0x48
+=======
+#define EEPROM_FIRST_TIME_BOOT_MARKER		0x22
+>>>>>>> Stashed changes
 
 // save and load file in and from the eeprom
 // for now we relay on predefined names for file names later we will change it to a real file name and variable file size

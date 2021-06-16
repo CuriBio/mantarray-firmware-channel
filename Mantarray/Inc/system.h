@@ -6,11 +6,9 @@
 #include "GlobalTimer.h"
 
 
-#include "UART_Comm.h"
 #include "Bus.h"
 #include "main.h"
 #include "GlobalTimer.h"
-#include "UART_Comm.h"
 #include "EEPROM.h"
 #include "I2C.h"
 //-------------------------------------------------

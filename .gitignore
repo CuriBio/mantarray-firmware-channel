@@ -1,0 +1,13 @@
+
+Debug/Core/Src/main.o
+*.o
+*.o
+Debug/mantarray-firmware-channel.bin
+Debug/mantarray-firmware-channel.elf
+Debug/mantarray-firmware-channel.list
+Debug/mantarray-firmware-channel.map
+Debug/Mantarray/Src/system.o
+Debug/Mantarray/Src/system.su
+*.o
+*.su
+*.su

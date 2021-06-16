@@ -19,8 +19,6 @@ Mantarray/Src/GlobalTimer.o: ../Mantarray/Src/GlobalTimer.c \
  ../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal_gpio_ex.h \
  ../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal_dma.h \
  ../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal_cortex.h \
- ../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal_adc.h \
- ../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal_adc_ex.h \
  ../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal_flash.h \
  ../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal_flash_ex.h \
  ../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal_flash_ramfunc.h \
@@ -31,13 +29,11 @@ Mantarray/Src/GlobalTimer.o: ../Mantarray/Src/GlobalTimer.c \
  ../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal_spi.h \
  ../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal_tim.h \
  ../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal_tim_ex.h \
- ../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal_uart.h \
- ../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal_uart_ex.h \
  ../Mantarray/inc/system.h ../Mantarray/inc/i2c_network_interface.h \
  ../Mantarray/inc/Magnetometer.h ../Mantarray/inc/lis3mdl_driver.h \
  ../Mantarray/inc/mmc5983_driver.h ../Mantarray/inc/GlobalTimer.h \
- ../Mantarray/inc/UART_Comm.h ../Mantarray/inc/Bus.h \
- ../Mantarray/inc/EEPROM.h ../Core/Inc/I2C.h ../Core/Inc/main.h
+ ../Mantarray/inc/Bus.h ../Mantarray/inc/EEPROM.h ../Core/Inc/I2C.h \
+ ../Core/Inc/main.h
 
 ../Mantarray/inc/GlobalTimer.h:
 
@@ -81,10 +77,6 @@ Mantarray/Src/GlobalTimer.o: ../Mantarray/Src/GlobalTimer.c \
 
 ../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal_cortex.h:
 
-../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal_adc.h:
-
-../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal_adc_ex.h:
-
 ../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal_flash.h:
 
 ../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal_flash_ex.h:
@@ -105,10 +97,6 @@ Mantarray/Src/GlobalTimer.o: ../Mantarray/Src/GlobalTimer.c \
 
 ../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal_tim_ex.h:
 
-../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal_uart.h:
-
-../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal_uart_ex.h:
-
 ../Mantarray/inc/system.h:
 
 ../Mantarray/inc/i2c_network_interface.h:
@@ -120,8 +108,6 @@ Mantarray/Src/GlobalTimer.o: ../Mantarray/Src/GlobalTimer.c \
 ../Mantarray/inc/mmc5983_driver.h:
 
 ../Mantarray/inc/GlobalTimer.h:
-
-../Mantarray/inc/UART_Comm.h:
 
 ../Mantarray/inc/Bus.h:
 
