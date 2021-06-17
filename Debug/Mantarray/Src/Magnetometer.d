@@ -1,5 +1,5 @@
 Mantarray/Src/Magnetometer.o: ../Mantarray/Src/Magnetometer.c \
- ../Mantarray/inc/magnetometer.h ../Mantarray/inc/lis3mdl_driver.h \
+ ../mantarray/inc/magnetometer.h ../mantarray/inc/lis3mdl_driver.h \
  ../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal.h \
  ../Core/Inc/stm32l0xx_hal_conf.h \
  ../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal_rcc.h \
@@ -29,12 +29,12 @@ Mantarray/Src/Magnetometer.o: ../Mantarray/Src/Magnetometer.c \
  ../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal_spi.h \
  ../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal_tim.h \
  ../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal_tim_ex.h \
- ../Mantarray/inc/mmc5983_driver.h ../Core/Inc/main.h \
- ../Mantarray/inc/GlobalTimer.h
+ ../mantarray/inc/mmc5983_driver.h ../Core/Inc/main.h \
+ ../mantarray/inc/GlobalTimer.h
 
-../Mantarray/inc/magnetometer.h:
+../mantarray/inc/magnetometer.h:
 
-../Mantarray/inc/lis3mdl_driver.h:
+../mantarray/inc/lis3mdl_driver.h:
 
 ../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal.h:
 
@@ -94,8 +94,8 @@ Mantarray/Src/Magnetometer.o: ../Mantarray/Src/Magnetometer.c \
 
 ../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal_tim_ex.h:
 
-../Mantarray/inc/mmc5983_driver.h:
+../mantarray/inc/mmc5983_driver.h:
 
 ../Core/Inc/main.h:
 
-../Mantarray/inc/GlobalTimer.h:
+../mantarray/inc/GlobalTimer.h:

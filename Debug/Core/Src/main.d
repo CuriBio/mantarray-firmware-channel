@@ -29,11 +29,11 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
  ../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal_tim.h \
  ../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal_tim_ex.h \
  ../Core/Inc/i2c.h ../Core/Inc/main.h ../Core/Inc/spi.h ../Core/Inc/tim.h \
- ../Core/Inc/gpio.h ../Mantarray/inc/system.h \
- ../Mantarray/inc/i2c_network_interface.h ../Mantarray/inc/Magnetometer.h \
- ../Mantarray/inc/lis3mdl_driver.h ../Mantarray/inc/mmc5983_driver.h \
- ../Mantarray/inc/GlobalTimer.h ../Mantarray/inc/Bus.h \
- ../Mantarray/inc/EEPROM.h ../Core/Inc/I2C.h
+ ../Core/Inc/gpio.h ../mantarray/inc/system.h \
+ ../mantarray/inc/i2c_network_interface.h ../mantarray/inc/Magnetometer.h \
+ ../mantarray/inc/lis3mdl_driver.h ../mantarray/inc/mmc5983_driver.h \
+ ../mantarray/inc/GlobalTimer.h ../mantarray/inc/Bus.h \
+ ../mantarray/inc/EEPROM.h ../Core/Inc/I2C.h
 
 ../Core/Inc/main.h:
 
@@ -105,20 +105,20 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
 
 ../Core/Inc/gpio.h:
 
-../Mantarray/inc/system.h:
+../mantarray/inc/system.h:
 
-../Mantarray/inc/i2c_network_interface.h:
+../mantarray/inc/i2c_network_interface.h:
 
-../Mantarray/inc/Magnetometer.h:
+../mantarray/inc/Magnetometer.h:
 
-../Mantarray/inc/lis3mdl_driver.h:
+../mantarray/inc/lis3mdl_driver.h:
 
-../Mantarray/inc/mmc5983_driver.h:
+../mantarray/inc/mmc5983_driver.h:
 
-../Mantarray/inc/GlobalTimer.h:
+../mantarray/inc/GlobalTimer.h:
 
-../Mantarray/inc/Bus.h:
+../mantarray/inc/Bus.h:
 
-../Mantarray/inc/EEPROM.h:
+../mantarray/inc/EEPROM.h:
 
 ../Core/Inc/I2C.h:

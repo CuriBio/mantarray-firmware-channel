@@ -1,6 +1,6 @@
 Mantarray/Src/i2c_network_interface.o: \
  ../Mantarray/Src/i2c_network_interface.c \
- ../Mantarray/inc/i2c_network_interface.h \
+ ../mantarray/inc/i2c_network_interface.h \
  ../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal.h \
  ../Core/Inc/stm32l0xx_hal_conf.h \
  ../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal_rcc.h \
@@ -31,7 +31,7 @@ Mantarray/Src/i2c_network_interface.o: \
  ../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal_tim.h \
  ../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal_tim_ex.h
 
-../Mantarray/inc/i2c_network_interface.h:
+../mantarray/inc/i2c_network_interface.h:
 
 ../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal.h:
 

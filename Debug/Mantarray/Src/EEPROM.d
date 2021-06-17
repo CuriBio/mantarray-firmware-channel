@@ -1,5 +1,5 @@
 Mantarray/Src/EEPROM.o: ../Mantarray/Src/EEPROM.c \
- ../Mantarray/inc/EEPROM.h ../Core/Inc/main.h \
+ ../mantarray/inc/EEPROM.h ../Core/Inc/main.h \
  ../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal.h \
  ../Core/Inc/stm32l0xx_hal_conf.h \
  ../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal_rcc.h \
@@ -30,7 +30,7 @@ Mantarray/Src/EEPROM.o: ../Mantarray/Src/EEPROM.c \
  ../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal_tim.h \
  ../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal_tim_ex.h
 
-../Mantarray/inc/EEPROM.h:
+../mantarray/inc/EEPROM.h:
 
 ../Core/Inc/main.h:
 

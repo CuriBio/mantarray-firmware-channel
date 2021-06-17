@@ -1,4 +1,4 @@
-Mantarray/Src/Bus.o: ../Mantarray/Src/Bus.c ../Mantarray/inc/Bus.h \
+Mantarray/Src/Bus.o: ../Mantarray/Src/Bus.c ../mantarray/inc/Bus.h \
  ../Core/Inc/main.h ../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal.h \
  ../Core/Inc/stm32l0xx_hal_conf.h \
  ../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal_rcc.h \
@@ -29,7 +29,7 @@ Mantarray/Src/Bus.o: ../Mantarray/Src/Bus.c ../Mantarray/inc/Bus.h \
  ../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal_tim.h \
  ../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal_tim_ex.h
 
-../Mantarray/inc/Bus.h:
+../mantarray/inc/Bus.h:
 
 ../Core/Inc/main.h:
 

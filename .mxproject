@@ -8,31 +8,6 @@ CDefines=USE_HAL_DRIVER;STM32L052xx;USE_HAL_DRIVER;USE_HAL_DRIVER;
 
 [PreviousGenFiles]
 AdvancedFolderStructure=true
-<<<<<<< Updated upstream
-HeaderFileListSize=9
-HeaderFiles#0=C:/Users/farsh/Documents/ST_EVAL/mantarray-firmware-channel/Core/Inc/gpio.h
-HeaderFiles#1=C:/Users/farsh/Documents/ST_EVAL/mantarray-firmware-channel/Core/Inc/adc.h
-HeaderFiles#2=C:/Users/farsh/Documents/ST_EVAL/mantarray-firmware-channel/Core/Inc/i2c.h
-HeaderFiles#3=C:/Users/farsh/Documents/ST_EVAL/mantarray-firmware-channel/Core/Inc/spi.h
-HeaderFiles#4=C:/Users/farsh/Documents/ST_EVAL/mantarray-firmware-channel/Core/Inc/tim.h
-HeaderFiles#5=C:/Users/farsh/Documents/ST_EVAL/mantarray-firmware-channel/Core/Inc/usart.h
-HeaderFiles#6=C:/Users/farsh/Documents/ST_EVAL/mantarray-firmware-channel/Core/Inc/stm32l0xx_it.h
-HeaderFiles#7=C:/Users/farsh/Documents/ST_EVAL/mantarray-firmware-channel/Core/Inc/stm32l0xx_hal_conf.h
-HeaderFiles#8=C:/Users/farsh/Documents/ST_EVAL/mantarray-firmware-channel/Core/Inc/main.h
-HeaderFolderListSize=1
-HeaderPath#0=C:/Users/farsh/Documents/ST_EVAL/mantarray-firmware-channel/Core/Inc
-HeaderFiles=;
-SourceFileListSize=9
-SourceFiles#0=C:/Users/farsh/Documents/ST_EVAL/mantarray-firmware-channel/Core/Src/gpio.c
-SourceFiles#1=C:/Users/farsh/Documents/ST_EVAL/mantarray-firmware-channel/Core/Src/adc.c
-SourceFiles#2=C:/Users/farsh/Documents/ST_EVAL/mantarray-firmware-channel/Core/Src/i2c.c
-SourceFiles#3=C:/Users/farsh/Documents/ST_EVAL/mantarray-firmware-channel/Core/Src/spi.c
-SourceFiles#4=C:/Users/farsh/Documents/ST_EVAL/mantarray-firmware-channel/Core/Src/tim.c
-SourceFiles#5=C:/Users/farsh/Documents/ST_EVAL/mantarray-firmware-channel/Core/Src/usart.c
-SourceFiles#6=C:/Users/farsh/Documents/ST_EVAL/mantarray-firmware-channel/Core/Src/stm32l0xx_it.c
-SourceFiles#7=C:/Users/farsh/Documents/ST_EVAL/mantarray-firmware-channel/Core/Src/stm32l0xx_hal_msp.c
-SourceFiles#8=C:/Users/farsh/Documents/ST_EVAL/mantarray-firmware-channel/Core/Src/main.c
-=======
 HeaderFileListSize=7
 HeaderFiles#0=C:/Users/farsh/Documents/ST_EVAL/mantarray-firmware-channel/Core/Inc/gpio.h
 HeaderFiles#1=C:/Users/farsh/Documents/ST_EVAL/mantarray-firmware-channel/Core/Inc/i2c.h
@@ -52,7 +27,6 @@ SourceFiles#3=C:/Users/farsh/Documents/ST_EVAL/mantarray-firmware-channel/Core/S
 SourceFiles#4=C:/Users/farsh/Documents/ST_EVAL/mantarray-firmware-channel/Core/Src/stm32l0xx_it.c
 SourceFiles#5=C:/Users/farsh/Documents/ST_EVAL/mantarray-firmware-channel/Core/Src/stm32l0xx_hal_msp.c
 SourceFiles#6=C:/Users/farsh/Documents/ST_EVAL/mantarray-firmware-channel/Core/Src/main.c
->>>>>>> Stashed changes
 SourceFolderListSize=1
 SourcePath#0=C:/Users/farsh/Documents/ST_EVAL/mantarray-firmware-channel/Core/Src
 SourceFiles=;

@@ -5,7 +5,6 @@
 #include "Magnetometer.h"
 #include "GlobalTimer.h"
 
-
 #include "Bus.h"
 #include "main.h"
 #include "GlobalTimer.h"
@@ -14,7 +13,8 @@
 //-------------------------------------------------
 
 //-------------------------------------------------
-#define MODULE_NUMBER							24
+#define MODULE_SYSTEM_NUM_SENSORS               3
+#define MODULE_SYSTEM_PACKET_LENGHT             33
 //--------------------------------------------------
 #define MODULE_SYSTEM_STATUS_START				0
 
@@ -36,9 +36,11 @@ typedef struct
 	uint8_t status;   	// what is our status now active disabled ....
 	uint8_t state;    	// this is the current state of this module which is used and update in state machine
 	uint8_t BUS_FLAG;
+	uint32_t bus_output_buffer[MODULE_SYSTEM_PACKET_LENGHT];
+
 	GlobalTimer_t * ph_global_timer;
 
-	Magnetometer_t *sensors[3];
+	Magnetometer_t *sensors[MODULE_SYSTEM_NUM_SENSORS];
 
 	I2C_t *i2c_line;
 

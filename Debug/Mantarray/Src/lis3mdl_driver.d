@@ -1,5 +1,5 @@
 Mantarray/Src/lis3mdl_driver.o: ../Mantarray/Src/lis3mdl_driver.c \
- ../Mantarray/inc/lis3mdl_driver.h \
+ ../mantarray/inc/lis3mdl_driver.h \
  ../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal.h \
  ../Core/Inc/stm32l0xx_hal_conf.h \
  ../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal_rcc.h \
@@ -30,7 +30,7 @@ Mantarray/Src/lis3mdl_driver.o: ../Mantarray/Src/lis3mdl_driver.c \
  ../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal_tim.h \
  ../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal_tim_ex.h
 
-../Mantarray/inc/lis3mdl_driver.h:
+../mantarray/inc/lis3mdl_driver.h:
 
 ../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal.h:
 

@@ -27,7 +27,7 @@ Magnetometer_t * magnetometer_create(uint8_t type,SPI_HandleTypeDef *spi_line,GP
 					thisMagnetometer->Readings[Z_AX] = 0;
 				}
 			}
-			break;
+		break;
 		//------------------------------
 		case MAGNETOMETER_TYPE_MMC5983:
 			{
@@ -42,7 +42,7 @@ Magnetometer_t * magnetometer_create(uint8_t type,SPI_HandleTypeDef *spi_line,GP
 					thisMagnetometer->sensor_status = ( MMC5983_get_status(thisMagnetometer->magnetometer) ? MAGNETOMETER_OK : MAGNETOMETER_FAULTY);
 				}
 			}
-			break;
+		break;
 		}
 	}
 	return(thisMagnetometer);
@@ -65,7 +65,7 @@ void magnetometer_destroy(Magnetometer_t *thisMagnetometer)
 }
 //----------------regardless of magnetometer type this methode is our interface between higher layer and driver layer---------------------------------------
 //--------------- by calling this methode we will have fresh data provided by low level layer driver ready to use --------------------------
-uint8_t magnetometer_read(Magnetometer_t *thisMagnetometer, GlobalTimer_t *thisGlobalTimer)
+uint8_t magnetometer_read(Magnetometer_t *thisMagnetometer)
 {
 	uint8_t res=0;
 	switch (thisMagnetometer->whichMagnetometer)
@@ -75,7 +75,7 @@ uint8_t magnetometer_read(Magnetometer_t *thisMagnetometer, GlobalTimer_t *thisG
 		break;
 	//------------------------------
 	case MAGNETOMETER_TYPE_MMC5983:
-		res = MMC5983_read_XYZ((MMC5983_t*)thisMagnetometer->magnetometer,(uint8_t*)thisMagnetometer->Readings,&thisMagnetometer->time_stamp, thisGlobalTimer);
+		res = MMC5983_read_XYZ((MMC5983_t*)thisMagnetometer->magnetometer, (uint8_t*)thisMagnetometer->Readings);
 		break;
 	}
 	return res;

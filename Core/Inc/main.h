@@ -96,8 +96,6 @@ void Error_Handler(void);
 #define SPI_A_CS_GPIO_Port GPIOA
 #define mag_int_c_Pin GPIO_PIN_4
 #define mag_int_c_GPIO_Port GPIOA
-#define tx2_tp_Pin GPIO_PIN_2
-#define tx2_tp_GPIO_Port GPIOA
 #define BUS2_Pin GPIO_PIN_2
 #define BUS2_GPIO_Port GPIOB
 #define SPI_B_CS_Pin GPIO_PIN_7
