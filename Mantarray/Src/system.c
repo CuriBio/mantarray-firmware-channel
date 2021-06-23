@@ -99,6 +99,7 @@ void state_machine(System *thisSystem)
 						//Declare that new data is no longer needed
 						thisSystem->sensors[sensor_num]->b_new_data_needed = 0;
 						//Begin a new data conversion immediately
+						//TODO we should not directly touch anything in low layer lib evrythingh must go through magnetometer.c  otherwise there we can not have a sensor agnostic architect
 						MMC5983_register_write((MMC5983_t*)thisSystem->sensors[sensor_num]->magnetometer, MMC5983_INTERNALCONTROL0, MMC5983_CTRL0_TM_M);
 						//Timestamp the new data conversion you ordered
 						thisSystem->sensors[sensor_num]->time_stamp = get_global_timer(thisSystem->ph_global_timer);
@@ -216,11 +217,30 @@ void state_machine(System *thisSystem)
 					}
 					//after this point we can not use HAL Delay function we disable that because systick interrupt make unpredictable timing for time sensitive procedures
 					HAL_SuspendTick();
+					break;
 				}
-				break;
+				//-------------------------------------------
 				case I2C_PACKET_BEGIN_MAG_CONVERSION:
 				{
 					b_read_permit =1;
+					break;
+				}
+				//-------------------------------
+				case I2C_SET_SENSOR1_REGISTER:
+				{
+					magnetometer_direct_register_write(thisSystem->sensors[0]->magnetometer,(uint8_t)my_sys.i2c_line->receiveBuffer[1],(uint8_t)my_sys.i2c_line->receiveBuffer[2]);
+					break;
+				}
+				//-------------------------------
+				case I2C_SET_SENSOR2_REGISTER:
+				{
+					magnetometer_direct_register_write(thisSystem->sensors[1]->magnetometer,(uint8_t)my_sys.i2c_line->receiveBuffer[1],(uint8_t)my_sys.i2c_line->receiveBuffer[2]);
+					break;
+				}
+				//-------------------------------
+				case I2C_SET_SENSOR3_REGISTER:
+				{
+					magnetometer_direct_register_write(thisSystem->sensors[2]->magnetometer,(uint8_t)my_sys.i2c_line->receiveBuffer[1],(uint8_t)my_sys.i2c_line->receiveBuffer[2]);
 					break;
 				}
 			}
@@ -236,7 +256,7 @@ void state_machine(System *thisSystem)
 		my_sys.i2c_line->buffer_index =0;
 		}
 	}
-
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 		switch(thisSystem->state)
 		{
 			case MODULE_SYSTEM_STATUS_START:

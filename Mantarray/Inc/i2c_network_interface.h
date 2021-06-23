@@ -13,17 +13,21 @@
 #define I2C_PACKET_SET_BOOT0_HIGH         12
 #define I2C_PACKET_SET_RESET_LOW          13
 #define I2C_PACKET_SET_RESET_HIGH         14
-//---------------------------------------
+//------------------------------------------
 #define I2C_PACKET_SET_RED_ON             15
 #define I2C_PACKET_SET_RED_OFF            16
 #define I2C_PACKET_SET_GREEN_ON           17
 #define I2C_PACKET_SET_GREEN_OFF          18
 #define I2C_PACKET_SET_BLUE_ON            19
 #define I2C_PACKET_SET_BLUE_OFF           20
-
+//------------------------------------------
 #define I2C_PACKET_RESET_GLOBAL_TIMER     29
 #define I2C_PACKET_BEGIN_MAG_CONVERSION   30
 #define I2C_PACKET_SENSOR_TEST_ROUTINE    31
+//------------------------------------------
+#define I2C_SET_SENSOR1_REGISTER          40
+#define I2C_SET_SENSOR2_REGISTER          41
+#define I2C_SET_SENSOR3_REGISTER          42
 
 typedef struct
 {
