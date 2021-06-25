@@ -7,28 +7,42 @@ extern System my_sys;
 //------------------------i2c int------------------
 void I2C2_IRQHandler(void)
 {
-	if ((I2C_CHECK_FLAG(my_sys.i2c_line->I2C_line->Instance->ISR, I2C_FLAG_STOPF) != RESET) && (I2C_CHECK_IT_SOURCE(my_sys.i2c_line->I2C_line->Instance->CR1, I2C_IT_STOPI) != RESET))
-	{
-		// Clear STOP Flag
-		__HAL_I2C_CLEAR_FLAG(my_sys.i2c_line->I2C_line, I2C_FLAG_STOPF);
-	}
 	if ((I2C_CHECK_FLAG(my_sys.i2c_line->I2C_line->Instance->ISR, I2C_FLAG_RXNE) != RESET) && (I2C_CHECK_IT_SOURCE(my_sys.i2c_line->I2C_line->Instance->CR1, I2C_IT_RXI) != RESET))
 	{
-		if( (uint8_t)my_sys.i2c_line->I2C_line->Instance->RXDR == I2C_PACKET_SEND_DATA_FRAME)
-		{
-				internal_bus_write_data_frame(my_sys.data_bus , my_sys.bus_output_buffer , MODULE_SYSTEM_PACKET_LENGHT);
-		}
-		__HAL_I2C_CLEAR_FLAG(my_sys.i2c_line->I2C_line, I2C_FLAG_RXNE);
-		if(my_sys.i2c_line->buffer_index < I2C_RECEIVE_LENGTH)
+		if(my_sys.i2c_line->buffer_index < I2C_MAX_RECEIVE_LENGTH)
 		{
 			my_sys.i2c_line->receiveBuffer[my_sys.i2c_line->buffer_index] = (uint8_t)my_sys.i2c_line->I2C_line->Instance->RXDR;
 			my_sys.i2c_line->buffer_index++;
+			//is it a single byte command?  command higher than I2C_SET_MULTIPLE_BYTE_COMMAND may have more than 1 byte
+			if(my_sys.i2c_line->receiveBuffer[0] < I2C_SET_MULTIPLE_BYTE_COMMAND)
+			{
+				my_sys.i2c_line->new_command_is_ready_flag = 1;
+				//TODO  there is a better solution for this CODE with SIS for the next version data send request will come from an external int service
+				if(!my_sys.i2c_line->buffer_index && my_sys.i2c_line->receiveBuffer[0] == I2C_PACKET_SEND_DATA_FRAME)
+				{
+						internal_bus_write_data_frame(my_sys.data_bus , my_sys.bus_output_buffer , MODULE_SYSTEM_PACKET_LENGHT);
+						my_sys.i2c_line->buffer_index = 0;
+						my_sys.i2c_line->new_command_is_ready_flag = 0;
+				}
+			}
+			else
+			{
+				//ok now we have 3 byts for our long command and it is ready for process
+				if(my_sys.i2c_line->buffer_index == 3)
+					my_sys.i2c_line->new_command_is_ready_flag = 1;
+			}
 		}
+		__HAL_I2C_CLEAR_FLAG(my_sys.i2c_line->I2C_line, I2C_FLAG_RXNE);
 	}
 	if ((I2C_CHECK_FLAG(my_sys.i2c_line->I2C_line->Instance->ISR, I2C_FLAG_ADDR) != RESET) && (I2C_CHECK_IT_SOURCE(my_sys.i2c_line->I2C_line->Instance->CR1, I2C_IT_ADDRI) != RESET))
 	{
 		// Clear ADDR Flag and turn off line hold
 		__HAL_I2C_CLEAR_FLAG(my_sys.i2c_line->I2C_line, I2C_FLAG_ADDR);
+	}
+	if ((I2C_CHECK_FLAG(my_sys.i2c_line->I2C_line->Instance->ISR, I2C_FLAG_STOPF) != RESET) && (I2C_CHECK_IT_SOURCE(my_sys.i2c_line->I2C_line->Instance->CR1, I2C_IT_STOPI) != RESET))
+	{
+		// Clear STOP Flag
+		__HAL_I2C_CLEAR_FLAG(my_sys.i2c_line->I2C_line, I2C_FLAG_STOPF);
 	}
 	return;
 }
@@ -111,7 +125,7 @@ void state_machine(System *thisSystem)
 			b_read_permit =0;
 		}
 		//------------------------------------------
-		if(my_sys.i2c_line->buffer_index)
+		if(my_sys.i2c_line->new_command_is_ready_flag)
 		{
 			switch(my_sys.i2c_line->receiveBuffer[0])
 			{
@@ -243,8 +257,16 @@ void state_machine(System *thisSystem)
 					magnetometer_direct_register_write(thisSystem->sensors[2]->magnetometer,(uint8_t)my_sys.i2c_line->receiveBuffer[1],(uint8_t)my_sys.i2c_line->receiveBuffer[2]);
 					break;
 				}
+				//-------------------------------
+				case I2C_SET_SENSORS_REGISTER:
+				{
+					magnetometer_direct_register_write(thisSystem->sensors[0]->magnetometer,(uint8_t)my_sys.i2c_line->receiveBuffer[1],(uint8_t)my_sys.i2c_line->receiveBuffer[2]);
+					magnetometer_direct_register_write(thisSystem->sensors[1]->magnetometer,(uint8_t)my_sys.i2c_line->receiveBuffer[1],(uint8_t)my_sys.i2c_line->receiveBuffer[2]);
+					magnetometer_direct_register_write(thisSystem->sensors[2]->magnetometer,(uint8_t)my_sys.i2c_line->receiveBuffer[1],(uint8_t)my_sys.i2c_line->receiveBuffer[2]);
+					break;
+				}
 			}
-			//-------- if we get any data higher than 0x80  it mean it is a new address
+			//-------- if we get any data higher than 0x80 in the first byte it mean it is a new address
 			if ( thisSystem->i2c_line->receiveBuffer[0] > I2C_PACKET_SET_NEW_ADDRESS )
 			{
 				__HAL_I2C_DISABLE_IT(thisSystem->i2c_line->I2C_line, I2C_IT_RXI | I2C_IT_STOPI | I2C_IT_ADDRI);
@@ -254,6 +276,7 @@ void state_machine(System *thisSystem)
 				__HAL_I2C_ENABLE_IT(thisSystem->i2c_line->I2C_line, I2C_IT_RXI | I2C_IT_STOPI | I2C_IT_ADDRI);
 			}
 		my_sys.i2c_line->buffer_index =0;
+		my_sys.i2c_line->new_command_is_ready_flag = 0;
 		}
 	}
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------

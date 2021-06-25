@@ -8,6 +8,7 @@ I2C_t * I2C_interface_create(I2C_HandleTypeDef *I2C_handle,uint8_t channel_addre
 	{
 		thisI2C->I2C_line = I2C_handle;
 		thisI2C->buffer_index=0;
+		thisI2C->new_command_is_ready_flag = 0;
 
 		// Disable Own Address1 before setting the new address configuration
 		//TODO it is much safer to use HAL compatible address change instead of manual mode
