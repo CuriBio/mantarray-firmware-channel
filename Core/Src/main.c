@@ -100,7 +100,7 @@ int main(void)
   MX_TIM21_Init();
   /* USER CODE BEGIN 2 */
 
-  module_system_init(&my_sys);
+  module_system_init(&my_sys, &hspi1, &hi2c2, &htim21);
   /* USER CODE END 2 */
 
   /* Infinite loop */

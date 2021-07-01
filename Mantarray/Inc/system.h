@@ -49,6 +49,6 @@ typedef struct
 } System;
 
 void state_machine(System *thisSystem);
-void module_system_init(System *thisSystem);
+void module_system_init(System *thisSystem, SPI_HandleTypeDef * h_SPI, I2C_HandleTypeDef * h_I2C, TIM_HandleTypeDef * h_global_timer);
 
 #endif /* SYSTEM_H_ */

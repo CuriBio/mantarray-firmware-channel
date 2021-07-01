@@ -1,3 +1,3 @@
-GlobalTimer.c:7:17:global_timer_create	16	static
-GlobalTimer.c:18:10:get_global_timer	0	static
-GlobalTimer.c:32:6:set_global_timer	8	static
+GlobalTimer.c:7:17:global_timer_create	24	static
+GlobalTimer.c:18:10:get_global_timer	32	static
+GlobalTimer.c:32:6:set_global_timer	40	static
