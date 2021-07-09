@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#define I2C_MAX_RECEIVE_LENGTH				5
+#define I2C_MAX_RECEIVE_LENGTH				31
 
 #define I2C_PACKET_SET_NEW_ADDRESS        128
 #define I2C_PACKET_SEND_DATA_FRAME        10
@@ -25,11 +25,13 @@
 #define I2C_PACKET_BEGIN_MAG_CONVERSION   30
 #define I2C_PACKET_SENSOR_TEST_ROUTINE    31
 //-----------------command higher than 100 may need extra bytes -------------------------
-#define I2C_SET_MULTIPLE_BYTE_COMMAND     100
+#define I2C_SET_3_BYTE_COMMAND            100
 #define I2C_SET_SENSORS_REGISTER          101
 #define I2C_SET_SENSOR1_REGISTER          102
 #define I2C_SET_SENSOR2_REGISTER          103
 #define I2C_SET_SENSOR3_REGISTER          104
+
+#define I2C_SET_31_BYTE_COMMAND           110
 
 typedef struct
 {
