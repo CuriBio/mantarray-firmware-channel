@@ -1,4 +1,4 @@
-Magnetometer.c:10:18:magnetometer_create	48	static
-Magnetometer.c:51:6:magnetometer_destroy	16	static
-Magnetometer.c:68:9:magnetometer_read	32	static
-Magnetometer.c:84:9:magnetometer_direct_register_write	24	static
+Magnetometer.c:10:18:magnetometer_create	40	static
+Magnetometer.c:51:6:magnetometer_destroy	8	static
+Magnetometer.c:68:9:magnetometer_read	8	static
+Magnetometer.c:84:9:magnetometer_direct_register_write	8	static

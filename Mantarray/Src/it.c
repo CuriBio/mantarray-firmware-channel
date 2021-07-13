@@ -7,6 +7,7 @@ extern System my_sys;
 //------------------------i2c int------------------
 void I2C2_IRQHandler(void)
 {
+
 	if ((I2C_CHECK_FLAG(my_sys.i2c_line->I2C_line->Instance->ISR, I2C_FLAG_RXNE) != RESET) && (I2C_CHECK_IT_SOURCE(my_sys.i2c_line->I2C_line->Instance->CR1, I2C_IT_RXI) != RESET))
 	{
 		if(my_sys.i2c_line->buffer_index < I2C_MAX_RECEIVE_LENGTH)
@@ -18,8 +19,7 @@ void I2C2_IRQHandler(void)
 			if (my_sys.i2c_line->receiveBuffer[0] == I2C_PACKET_SEND_DATA_FRAME)
 			{
 				internal_bus_write_data_frame(my_sys.data_bus , my_sys.bus_output_buffer , MODULE_SYSTEM_PACKET_LENGHT);
-				my_sys.i2c_line->buffer_index = 0;
-				my_sys.i2c_line->new_command_is_ready_flag = 0;
+				my_sys.i2c_line->new_command_is_ready_flag = 1;
 			}
 
 			//Single byte range
@@ -33,7 +33,6 @@ void I2C2_IRQHandler(void)
 			{
 				if(my_sys.i2c_line->buffer_index == 3)
 				{
-					HAL_GPIO_TogglePin(SPI_A_CS_GPIO_Port, SPI_A_CS_Pin);
 					my_sys.i2c_line->new_command_is_ready_flag = 1;
 				}
 			}
@@ -65,6 +64,7 @@ void I2C2_IRQHandler(void)
 		// Clear STOP Flag
 		__HAL_I2C_CLEAR_FLAG(my_sys.i2c_line->I2C_line, I2C_FLAG_STOPF);
 	}
+
 	return;
 }
 /*

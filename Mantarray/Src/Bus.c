@@ -150,7 +150,6 @@ inline void internal_bus_write_data_frame(InternalBus_t *thisInternalBus, uint32
 	thisInternalBus->bus_clk->BSRR = thisInternalBus->bus_clk_mask;thisInternalBus->bus->BSRR = buffer[buf_cnt++];thisInternalBus->bus_clk->BRR = thisInternalBus->bus_clk_mask;
 	thisInternalBus->bus_clk->BSRR = thisInternalBus->bus_clk_mask;thisInternalBus->bus->BSRR = buffer[buf_cnt++];thisInternalBus->bus_clk->BRR = thisInternalBus->bus_clk_mask;
 	thisInternalBus->bus_clk->BSRR = thisInternalBus->bus_clk_mask;thisInternalBus->bus->BSRR = buffer[buf_cnt++];thisInternalBus->bus_clk->BRR = thisInternalBus->bus_clk_mask;
-
     internal_bus_release(thisInternalBus);
 }
 

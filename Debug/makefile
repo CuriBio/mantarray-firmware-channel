@@ -62,8 +62,8 @@ all: main-build
 main-build: mantarray-firmware-channel.elf secondary-outputs
 
 # Tool invocations
-mantarray-firmware-channel.elf: $(OBJS) $(USER_OBJS) C:\Users\aster\STM32CubeIDE\workspace_1.4.0\mantarray-firmware-channel\STM32L052T8YX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "mantarray-firmware-channel.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m0plus -T"C:\Users\aster\STM32CubeIDE\workspace_1.4.0\mantarray-firmware-channel\STM32L052T8YX_FLASH.ld" --specs=nosys.specs -Wl,-Map="mantarray-firmware-channel.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+mantarray-firmware-channel.elf: $(OBJS) $(USER_OBJS) C:\Users\where\STM32CubeIDE\workspace_1.5.1\mantarray-firmware-channel\STM32L052T8YX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "mantarray-firmware-channel.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m0plus -T"C:\Users\where\STM32CubeIDE\workspace_1.5.1\mantarray-firmware-channel\STM32L052T8YX_FLASH.ld" --specs=nosys.specs -Wl,-Map="mantarray-firmware-channel.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

@@ -25,6 +25,7 @@ void module_system_init(System *thisSystem, SPI_HandleTypeDef * h_SPI, I2C_Handl
 
 void state_machine(System *thisSystem)
 {
+	uint8_t zeros[33] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 	uint8_t b_read_permit =0;
 	uint8_t byte_shifter = 0;
 	uint8_t this_byte = 0;
@@ -36,6 +37,7 @@ void state_machine(System *thisSystem)
 			{
 				if( (thisSystem->sensors[sensor_num]->sensor_status == MAGNETOMETER_OK) & thisSystem->sensors[sensor_num]->b_new_data_needed)
 				{
+					//HAL_GPIO_WritePin(BUS_C2_GPIO_Port, BUS_C2_Pin, GPIO_PIN_SET);
 					if(magnetometer_read(thisSystem->sensors[sensor_num]))
 					{
 						byte_shifter = 0;
@@ -65,6 +67,10 @@ void state_machine(System *thisSystem)
 						//thisSystem->sensors[sensor_num]->time_stamp++;
 
 					} //Check if the magnetometer has new data ready
+					else
+					{
+						memcpy(thisSystem->bus_output_buffer + sensor_num * 11, zeros, 11);
+					}
 				} //Check if magnetometer is functional and if new data is needed
 			} //Sensor loop
 			b_read_permit =0;
@@ -223,6 +229,6 @@ void state_machine(System *thisSystem)
 			thisSystem->i2c_line->buffer_index =0;
 			thisSystem->i2c_line->new_command_is_ready_flag = 0;
 		}
+
 	}
-//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 }
