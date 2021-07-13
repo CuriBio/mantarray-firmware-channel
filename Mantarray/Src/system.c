@@ -25,7 +25,7 @@ void module_system_init(System *thisSystem, SPI_HandleTypeDef * h_SPI, I2C_Handl
 
 void state_machine(System *thisSystem)
 {
-	uint8_t zeros[33] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+	uint32_t zeros[33] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 	uint8_t b_read_permit =0;
 	uint8_t byte_shifter = 0;
 	uint8_t this_byte = 0;
@@ -69,7 +69,7 @@ void state_machine(System *thisSystem)
 					} //Check if the magnetometer has new data ready
 					else
 					{
-						memcpy(thisSystem->bus_output_buffer + sensor_num * 11, zeros, 11);
+						memcpy(&thisSystem->bus_output_buffer[sensor_num * 11], zeros, 44);
 					}
 				} //Check if magnetometer is functional and if new data is needed
 			} //Sensor loop
