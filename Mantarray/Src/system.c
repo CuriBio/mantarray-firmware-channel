@@ -37,7 +37,6 @@ void state_machine(System *thisSystem)
 			{
 				if( (thisSystem->sensors[sensor_num]->sensor_status == MAGNETOMETER_OK) & thisSystem->sensors[sensor_num]->b_new_data_needed)
 				{
-					//HAL_GPIO_WritePin(BUS_C2_GPIO_Port, BUS_C2_Pin, GPIO_PIN_SET);
 					if(magnetometer_read(thisSystem->sensors[sensor_num]))
 					{
 						byte_shifter = 0;
