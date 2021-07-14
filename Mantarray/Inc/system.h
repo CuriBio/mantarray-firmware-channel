@@ -5,18 +5,16 @@
 #include "Magnetometer.h"
 #include "GlobalTimer.h"
 
-
-#include "UART_Comm.h"
 #include "Bus.h"
 #include "main.h"
 #include "GlobalTimer.h"
-#include "UART_Comm.h"
 #include "EEPROM.h"
 #include "I2C.h"
 //-------------------------------------------------
 
 //-------------------------------------------------
-#define NUM_SENSORS                             3
+#define MODULE_SYSTEM_NUM_SENSORS               3
+#define MODULE_SYSTEM_PACKET_LENGHT             33
 //--------------------------------------------------
 #define MODULE_SYSTEM_STATUS_START				0
 
@@ -38,9 +36,11 @@ typedef struct
 	uint8_t status;   	// what is our status now active disabled ....
 	uint8_t state;    	// this is the current state of this module which is used and update in state machine
 	uint8_t BUS_FLAG;
+	uint32_t bus_output_buffer[MODULE_SYSTEM_PACKET_LENGHT];
+
 	GlobalTimer_t * ph_global_timer;
 
-	Magnetometer_t *sensors[NUM_SENSORS];
+	Magnetometer_t *sensors[MODULE_SYSTEM_NUM_SENSORS];
 
 	I2C_t *i2c_line;
 
@@ -49,6 +49,6 @@ typedef struct
 } System;
 
 void state_machine(System *thisSystem);
-void module_system_init(System *thisSystem);
+void module_system_init(System *thisSystem, SPI_HandleTypeDef * h_SPI, I2C_HandleTypeDef * h_I2C, TIM_HandleTypeDef * h_global_timer);
 
 #endif /* SYSTEM_H_ */

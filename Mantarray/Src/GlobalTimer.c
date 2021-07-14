@@ -1,11 +1,6 @@
 #include "GlobalTimer.h"
-#include "main.h"
-#include "system.h"
 #include <stdio.h>
-extern TIM_HandleTypeDef htim21;
-
-extern System my_sys;
-
+#include <stdlib.h>
 
 GlobalTimer_t * global_timer_create(TIM_HandleTypeDef *timer_id)
 {
@@ -17,13 +12,6 @@ GlobalTimer_t * global_timer_create(TIM_HandleTypeDef *timer_id)
 	return thisGlobalTimer;
 }
 
-void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
-{
-	if (htim == &htim21)
-	{
-		my_sys.ph_global_timer->overflow_counter++;
-	}
-}
 
 uint64_t get_global_timer(GlobalTimer_t *thisGlobalTimer)
 {

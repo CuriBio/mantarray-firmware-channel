@@ -7,8 +7,8 @@ I2C_t * I2C_interface_create(I2C_HandleTypeDef *I2C_handle,uint8_t channel_addre
 	if(thisI2C != NULL)
 	{
 		thisI2C->I2C_line = I2C_handle;
-		i2c2_interrupt_interface_pointer = thisI2C;
 		thisI2C->buffer_index=0;
+		thisI2C->new_command_is_ready_flag = 0;
 
 		// Disable Own Address1 before setting the new address configuration
 		//TODO it is much safer to use HAL compatible address change instead of manual mode
@@ -24,29 +24,3 @@ I2C_t * I2C_interface_create(I2C_HandleTypeDef *I2C_handle,uint8_t channel_addre
 	}
 	return thisI2C;
 }
-//------------------------------------------
-void I2C2_IRQHandler(void)
-{
-	if ((I2C_CHECK_FLAG(i2c2_interrupt_interface_pointer->I2C_line->Instance->ISR, I2C_FLAG_STOPF) != RESET) && (I2C_CHECK_IT_SOURCE(i2c2_interrupt_interface_pointer->I2C_line->Instance->CR1, I2C_IT_STOPI) != RESET))
-	{
-		// Clear STOP Flag
-		__HAL_I2C_CLEAR_FLAG(i2c2_interrupt_interface_pointer->I2C_line, I2C_FLAG_STOPF);
-	}
-	if ((I2C_CHECK_FLAG(i2c2_interrupt_interface_pointer->I2C_line->Instance->ISR, I2C_FLAG_RXNE) != RESET) && (I2C_CHECK_IT_SOURCE(i2c2_interrupt_interface_pointer->I2C_line->Instance->CR1, I2C_IT_RXI) != RESET))
-	{
-		__HAL_I2C_CLEAR_FLAG(i2c2_interrupt_interface_pointer->I2C_line, I2C_FLAG_RXNE);
-		if(i2c2_interrupt_interface_pointer->buffer_index < I2C_RECEIVE_LENGTH)
-		{
-			i2c2_interrupt_interface_pointer->receiveBuffer[i2c2_interrupt_interface_pointer->buffer_index] = (uint8_t)i2c2_interrupt_interface_pointer->I2C_line->Instance->RXDR;
-			i2c2_interrupt_interface_pointer->buffer_index++;
-		}
-	}
-	if ((I2C_CHECK_FLAG(i2c2_interrupt_interface_pointer->I2C_line->Instance->ISR, I2C_FLAG_ADDR) != RESET) && (I2C_CHECK_IT_SOURCE(i2c2_interrupt_interface_pointer->I2C_line->Instance->CR1, I2C_IT_ADDRI) != RESET))
-	{
-		// Clear ADDR Flag and turn off line hold
-		__HAL_I2C_CLEAR_FLAG(i2c2_interrupt_interface_pointer->I2C_line, I2C_FLAG_ADDR);
-	}
-	return;
-}
-
-

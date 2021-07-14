@@ -41,5 +41,7 @@ Magnetometer_t * magnetometer_create(uint8_t,SPI_HandleTypeDef *,GPIO_TypeDef *,
 void magnetometer_destroy(Magnetometer_t *);
 //----------------------- by passing a magnetometer object to this method it will update X Y Z --otherwise will return fail----------------
 uint8_t magnetometer_read(Magnetometer_t *thisMagnetometer);
+//--------------------------------------------------------------------------------------------------------------------------------
+uint8_t magnetometer_direct_register_write(Magnetometer_t * , uint8_t , uint8_t );
 
 #endif /* MAGNETOMETER_H_ */

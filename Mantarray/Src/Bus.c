@@ -106,18 +106,55 @@ inline void internal_bus_write_data_frame(InternalBus_t *thisInternalBus, uint32
 	//TODO Link data output to magnetometer memory instead
 
 	internal_bus_utilize(thisInternalBus);
-
 	//Send dataframe
 	//TODO may need a data offset term if the bus pins do not begin at 0
 	//ie. thisInternalBus->bus->BSRR = (uint32_t) ((thisInternalBus->bus_mask & (testData[0] << BUSOFFSET))  | ((thisInternalBus->bus_mask & ~(testData[0] << BUSOFFSET))  << 16));
-	for(uint8_t buf_cnt=0 ; buf_cnt < buffer_len ; buf_cnt++)
+	/*for(uint8_t buf_cnt=0 ; buf_cnt < buffer_len ; buf_cnt++)
 	{
+<<<<<<< HEAD
+		thisInternalBus->bus_clk->BSRR = thisInternalBus->bus_clk_mask;
+=======
 		thisInternalBus->bus_clk->BSRR = (uint32_t) thisInternalBus->bus_clk_mask;
+>>>>>>> dev
 		thisInternalBus->bus->BSRR = buffer[buf_cnt];
 		thisInternalBus->bus_clk->BRR = thisInternalBus->bus_clk_mask;
-	}
-
-	internal_bus_release(thisInternalBus);
+	}*/
+	//this code is 3 time faster than loop
+	uint8_t buf_cnt=0;
+	thisInternalBus->bus_clk->BSRR = thisInternalBus->bus_clk_mask;thisInternalBus->bus->BSRR = buffer[buf_cnt++];thisInternalBus->bus_clk->BRR = thisInternalBus->bus_clk_mask;
+	thisInternalBus->bus_clk->BSRR = thisInternalBus->bus_clk_mask;thisInternalBus->bus->BSRR = buffer[buf_cnt++];thisInternalBus->bus_clk->BRR = thisInternalBus->bus_clk_mask;
+	thisInternalBus->bus_clk->BSRR = thisInternalBus->bus_clk_mask;thisInternalBus->bus->BSRR = buffer[buf_cnt++];thisInternalBus->bus_clk->BRR = thisInternalBus->bus_clk_mask;
+	thisInternalBus->bus_clk->BSRR = thisInternalBus->bus_clk_mask;thisInternalBus->bus->BSRR = buffer[buf_cnt++];thisInternalBus->bus_clk->BRR = thisInternalBus->bus_clk_mask;
+	thisInternalBus->bus_clk->BSRR = thisInternalBus->bus_clk_mask;thisInternalBus->bus->BSRR = buffer[buf_cnt++];thisInternalBus->bus_clk->BRR = thisInternalBus->bus_clk_mask;
+	thisInternalBus->bus_clk->BSRR = thisInternalBus->bus_clk_mask;thisInternalBus->bus->BSRR = buffer[buf_cnt++];thisInternalBus->bus_clk->BRR = thisInternalBus->bus_clk_mask;
+	thisInternalBus->bus_clk->BSRR = thisInternalBus->bus_clk_mask;thisInternalBus->bus->BSRR = buffer[buf_cnt++];thisInternalBus->bus_clk->BRR = thisInternalBus->bus_clk_mask;
+	thisInternalBus->bus_clk->BSRR = thisInternalBus->bus_clk_mask;thisInternalBus->bus->BSRR = buffer[buf_cnt++];thisInternalBus->bus_clk->BRR = thisInternalBus->bus_clk_mask;
+	thisInternalBus->bus_clk->BSRR = thisInternalBus->bus_clk_mask;thisInternalBus->bus->BSRR = buffer[buf_cnt++];thisInternalBus->bus_clk->BRR = thisInternalBus->bus_clk_mask;
+	thisInternalBus->bus_clk->BSRR = thisInternalBus->bus_clk_mask;thisInternalBus->bus->BSRR = buffer[buf_cnt++];thisInternalBus->bus_clk->BRR = thisInternalBus->bus_clk_mask;
+	thisInternalBus->bus_clk->BSRR = thisInternalBus->bus_clk_mask;thisInternalBus->bus->BSRR = buffer[buf_cnt++];thisInternalBus->bus_clk->BRR = thisInternalBus->bus_clk_mask;
+	thisInternalBus->bus_clk->BSRR = thisInternalBus->bus_clk_mask;thisInternalBus->bus->BSRR = buffer[buf_cnt++];thisInternalBus->bus_clk->BRR = thisInternalBus->bus_clk_mask;
+	thisInternalBus->bus_clk->BSRR = thisInternalBus->bus_clk_mask;thisInternalBus->bus->BSRR = buffer[buf_cnt++];thisInternalBus->bus_clk->BRR = thisInternalBus->bus_clk_mask;
+	thisInternalBus->bus_clk->BSRR = thisInternalBus->bus_clk_mask;thisInternalBus->bus->BSRR = buffer[buf_cnt++];thisInternalBus->bus_clk->BRR = thisInternalBus->bus_clk_mask;
+	thisInternalBus->bus_clk->BSRR = thisInternalBus->bus_clk_mask;thisInternalBus->bus->BSRR = buffer[buf_cnt++];thisInternalBus->bus_clk->BRR = thisInternalBus->bus_clk_mask;
+	thisInternalBus->bus_clk->BSRR = thisInternalBus->bus_clk_mask;thisInternalBus->bus->BSRR = buffer[buf_cnt++];thisInternalBus->bus_clk->BRR = thisInternalBus->bus_clk_mask;
+	thisInternalBus->bus_clk->BSRR = thisInternalBus->bus_clk_mask;thisInternalBus->bus->BSRR = buffer[buf_cnt++];thisInternalBus->bus_clk->BRR = thisInternalBus->bus_clk_mask;
+	thisInternalBus->bus_clk->BSRR = thisInternalBus->bus_clk_mask;thisInternalBus->bus->BSRR = buffer[buf_cnt++];thisInternalBus->bus_clk->BRR = thisInternalBus->bus_clk_mask;
+	thisInternalBus->bus_clk->BSRR = thisInternalBus->bus_clk_mask;thisInternalBus->bus->BSRR = buffer[buf_cnt++];thisInternalBus->bus_clk->BRR = thisInternalBus->bus_clk_mask;
+	thisInternalBus->bus_clk->BSRR = thisInternalBus->bus_clk_mask;thisInternalBus->bus->BSRR = buffer[buf_cnt++];thisInternalBus->bus_clk->BRR = thisInternalBus->bus_clk_mask;
+	thisInternalBus->bus_clk->BSRR = thisInternalBus->bus_clk_mask;thisInternalBus->bus->BSRR = buffer[buf_cnt++];thisInternalBus->bus_clk->BRR = thisInternalBus->bus_clk_mask;
+	thisInternalBus->bus_clk->BSRR = thisInternalBus->bus_clk_mask;thisInternalBus->bus->BSRR = buffer[buf_cnt++];thisInternalBus->bus_clk->BRR = thisInternalBus->bus_clk_mask;
+	thisInternalBus->bus_clk->BSRR = thisInternalBus->bus_clk_mask;thisInternalBus->bus->BSRR = buffer[buf_cnt++];thisInternalBus->bus_clk->BRR = thisInternalBus->bus_clk_mask;
+	thisInternalBus->bus_clk->BSRR = thisInternalBus->bus_clk_mask;thisInternalBus->bus->BSRR = buffer[buf_cnt++];thisInternalBus->bus_clk->BRR = thisInternalBus->bus_clk_mask;
+	thisInternalBus->bus_clk->BSRR = thisInternalBus->bus_clk_mask;thisInternalBus->bus->BSRR = buffer[buf_cnt++];thisInternalBus->bus_clk->BRR = thisInternalBus->bus_clk_mask;
+	thisInternalBus->bus_clk->BSRR = thisInternalBus->bus_clk_mask;thisInternalBus->bus->BSRR = buffer[buf_cnt++];thisInternalBus->bus_clk->BRR = thisInternalBus->bus_clk_mask;
+	thisInternalBus->bus_clk->BSRR = thisInternalBus->bus_clk_mask;thisInternalBus->bus->BSRR = buffer[buf_cnt++];thisInternalBus->bus_clk->BRR = thisInternalBus->bus_clk_mask;
+	thisInternalBus->bus_clk->BSRR = thisInternalBus->bus_clk_mask;thisInternalBus->bus->BSRR = buffer[buf_cnt++];thisInternalBus->bus_clk->BRR = thisInternalBus->bus_clk_mask;
+	thisInternalBus->bus_clk->BSRR = thisInternalBus->bus_clk_mask;thisInternalBus->bus->BSRR = buffer[buf_cnt++];thisInternalBus->bus_clk->BRR = thisInternalBus->bus_clk_mask;
+	thisInternalBus->bus_clk->BSRR = thisInternalBus->bus_clk_mask;thisInternalBus->bus->BSRR = buffer[buf_cnt++];thisInternalBus->bus_clk->BRR = thisInternalBus->bus_clk_mask;
+	thisInternalBus->bus_clk->BSRR = thisInternalBus->bus_clk_mask;thisInternalBus->bus->BSRR = buffer[buf_cnt++];thisInternalBus->bus_clk->BRR = thisInternalBus->bus_clk_mask;
+	thisInternalBus->bus_clk->BSRR = thisInternalBus->bus_clk_mask;thisInternalBus->bus->BSRR = buffer[buf_cnt++];thisInternalBus->bus_clk->BRR = thisInternalBus->bus_clk_mask;
+	thisInternalBus->bus_clk->BSRR = thisInternalBus->bus_clk_mask;thisInternalBus->bus->BSRR = buffer[buf_cnt++];thisInternalBus->bus_clk->BRR = thisInternalBus->bus_clk_mask;
+    internal_bus_release(thisInternalBus);
 }
 
 inline void internal_bus_utilize(InternalBus_t *thisInternalBus)

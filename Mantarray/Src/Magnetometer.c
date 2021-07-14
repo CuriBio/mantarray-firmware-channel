@@ -80,6 +80,22 @@ uint8_t magnetometer_read(Magnetometer_t *thisMagnetometer)
 	}
 	return res;
 }
+//---------------------------------------------------------------------------
+uint8_t magnetometer_direct_register_write(Magnetometer_t *thisMagnetometer, uint8_t sensor_reg_add, uint8_t sensor_reg_val)
+{
+	uint8_t res=0;
+	switch (thisMagnetometer->whichMagnetometer)
+	{
+	case MAGNETOMETER_TYPE_LIS3MDL:
+		LIS3MDL_register_write((LIS3MDL_t*)thisMagnetometer->magnetometer, sensor_reg_add, sensor_reg_val);
+		break;
+	//------------------------------
+	case MAGNETOMETER_TYPE_MMC5983:
+		MMC5983_register_write((MMC5983_t*)thisMagnetometer->magnetometer, sensor_reg_add, sensor_reg_val);
+		break;
+	}
+	return res;
+}
 //--------------------test sensor---------------------------
 /*uint8_t get_status(Magnetometer_t *thisMagnetometer)
 {
