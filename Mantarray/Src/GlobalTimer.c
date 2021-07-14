@@ -1,7 +1,6 @@
 #include "GlobalTimer.h"
 #include <stdio.h>
 #include <stdlib.h>
-extern TIM_HandleTypeDef htim21;
 
 
 GlobalTimer_t * global_timer_create(TIM_HandleTypeDef *timer_id)

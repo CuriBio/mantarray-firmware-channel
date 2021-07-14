@@ -1,7 +1,5 @@
 #include "system.h"
 
-extern I2C_HandleTypeDef hi2c2;
-extern TIM_HandleTypeDef htim21;
 extern System my_sys;
 
 //------------------------i2c int------------------
@@ -70,7 +68,7 @@ void I2C2_IRQHandler(void)
 //---------------------------  tim21 int----------------
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
-	if (htim == &htim21)
+	if (htim == my_sys->ph_global_timer->h_timer)
 	{
 		my_sys.ph_global_timer->overflow_counter++;
 	}
