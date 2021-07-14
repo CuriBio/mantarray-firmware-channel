@@ -2,7 +2,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-
 GlobalTimer_t * global_timer_create(TIM_HandleTypeDef *timer_id)
 {
 	//Start global timer and initialize struct

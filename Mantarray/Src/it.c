@@ -68,7 +68,7 @@ void I2C2_IRQHandler(void)
 //---------------------------  tim21 int----------------
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
-	if (htim == my_sys->ph_global_timer->h_timer)
+	if (htim == my_sys.ph_global_timer->h_timer)
 	{
 		my_sys.ph_global_timer->overflow_counter++;
 	}
